@@ -12,13 +12,14 @@ public class PlayerController
 {
     static Player player;
     
+    
     public PlayerController(Player player)
     {
         this.player = player;
     }
     
     
-    public void handleKeyPresses(Set<KeyCode> pressedKeys)
+    public static void handleKeyPresses(Set<KeyCode> pressedKeys)
     {
         boolean diagonal = false;
         if (pressedKeys.size() > 1) diagonal = true;
@@ -39,5 +40,13 @@ public class PlayerController
         {
             player.moveRIGHT(diagonal);
         }
+        
+        changePosition(player);
+    }
+    
+    
+    public static void changePosition(Player player)
+    {
+        ImageController.changeImageViewPosition(player.getPlayerImage(), player.getPositionX(), player.getPositionY());
     }
 }

@@ -17,13 +17,11 @@ public class KeyboardController implements Runnable
 {
     private final Set<KeyCode> pressedKeys = new HashSet<>();
     Scene scene;
-    Player player;
     
     
-    public KeyboardController(Scene scene, Player player)
+    public KeyboardController(Scene scene)
     {
         this.scene = scene;
-        this.player = player;
     }
     
     
@@ -76,7 +74,6 @@ public class KeyboardController implements Runnable
         {
             if (pressedKeys.contains(currentCode)) playerRelatedKeys.add(currentCode);
         }
-        PlayerController playerController = new PlayerController(this.player);
-        if (!playerRelatedKeys.isEmpty()) playerController.handleKeyPresses(playerRelatedKeys);
+        if (!playerRelatedKeys.isEmpty()) PlayerController.handleKeyPresses(playerRelatedKeys);
     }
 }

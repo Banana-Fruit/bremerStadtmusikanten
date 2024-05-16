@@ -48,7 +48,8 @@ public class Main extends Application
             pane.getChildren().add(imageView);
         }
         
-        KeyboardController keyboardController = new KeyboardController(scene, player);
+        PlayerController playerController = new PlayerController(player);
+        KeyboardController keyboardController = new KeyboardController(scene);
         ImageController imageController = new ImageController(imageViewsWithSizePercentage, pane);
         new Thread(keyboardController).start();
         new Thread(imageController).start();
