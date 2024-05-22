@@ -5,9 +5,9 @@ import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable
 {
+    // attributes
     final int originalTileSize = 16;
     final int scale = 3;
-
     final int tileSize = originalTileSize * scale;
     final int maxScreenCol = 30;
     final int maxScreenRow = 20;
@@ -21,6 +21,7 @@ public class GamePanel extends JPanel implements Runnable
     int playerY = 100;
     int playerSpeed = 4;
 
+    // constructor
     public GamePanel()
     {
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
@@ -39,12 +40,10 @@ public class GamePanel extends JPanel implements Runnable
     @Override
     public void run ()
     {
-
         while (gameThread != null)
         {
             update();
             repaint();
-
 
             try
             {
