@@ -5,8 +5,8 @@ public interface Constants_BattleJule
 {
     // Integers
     public static final int LIMIT_HEALTH = 0;
-
-
+    
+    
     // Strings
     public static final String INTRODUCTION_PERSON = "This is %s with a health of %d. \n%n";
     public static final String ATTACK = "%s attacks %s with %d. ";

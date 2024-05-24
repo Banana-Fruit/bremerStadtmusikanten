@@ -11,8 +11,8 @@ import java.util.HashMap;
 
 
 /**
- * Creates a game, that contains all scenery in its mapOfShowables attribute. Each Showable has an integer key that can be accessed from the Constants.
- * Upon instantiation, a MainMenu will be created and stored inside the list.
+ * Creates a game, that contains all scenery in its mapOfShowables attribute. Each Showable has an integer key that can
+ * be accessed from the Constants. Upon instantiation, a MainMenu will be created and stored inside the list.
  */
 public class Game
 {

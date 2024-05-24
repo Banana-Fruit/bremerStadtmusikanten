@@ -23,7 +23,7 @@ public interface Constants_MenuSetting
     public static final String TITLE_MENU_STAGE = "Game menu";
     public static final String BACK_BUTTON_NAME = "Back";
     public static final String PATH_BACKGROUND_IMAGE = "C:\\Users\\Jule Degener\\OneDrive\\Informatik_Omexom\\Hochschule\\2.Semester\\GUIPROG\\JavaProgramme\\Test_bremerStadtmusikanten\\src\\main\\java\\com\\example\\test_bremerstadtmusikanten\\res\\testBackground.jpg";
-
+    
     //________________________________ Constants _________________________________
     public static final int DIALOG_VBOX = 20;
     public static final int MENU_HBOX = 30;

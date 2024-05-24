@@ -1,7 +1,6 @@
-package src.utility;
+package utility;
 
 
-import com.example.test_bremerstadtmusikanten.res.Constants_MenuSetting;
 import javafx.beans.binding.Bindings;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -18,10 +17,10 @@ public class TransparentButton extends StackPane
     // attributes
     private static final LinearGradient gradient = createGradient(Constants_MenuSetting.LINEAR_GRADIENT_OPACITY);
     private static final LinearGradient wGradient = createGradient(Constants_MenuSetting.LINEAR_GRADIENT_OPACITY_W);
-
-
+    
+    
     // constructor
-    public TransparentButton (String name, Runnable action, int rcwidth, int rcheight)
+    public TransparentButton(String name, Runnable action, int rcwidth, int rcheight)
     {
         Rectangle bg = new Rectangle(rcwidth, rcheight, gradient);
         Text text = new Text(name);
@@ -32,13 +31,14 @@ public class TransparentButton extends StackPane
         setOnMouseReleased(e -> bg.setFill(gradient));
         getChildren().addAll(bg, text);
     }
-
-
+    
+    
     /**
      * Method for creating a linear gradient with a specific opacity
-     * @author          Jonas Helfer
-     * @param opacity   Opacity
-     * @return          A new LinearGradient with the specific opacity
+     *
+     * @param opacity Opacity
+     * @return A new LinearGradient with the specific opacity
+     * @author Jonas Helfer
      */
     private static LinearGradient createGradient(double opacity)
     {

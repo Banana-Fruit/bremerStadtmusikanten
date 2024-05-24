@@ -16,7 +16,8 @@ public class Obstacle
     private int hitboxLengthX = 0;
     private int hitboxLengthY = 0;
     private Image obstacleImage;
-
+    
+    
     public Obstacle(Image obstacleImage, int positionX, int positionY, int hitboxLengthX, int hitboxLengthY)
     {
         this.obstacleImage = obstacleImage;
@@ -26,10 +27,10 @@ public class Obstacle
         this.hitboxLengthY = hitboxLengthY;
         determineImageOffset(obstacleImage);
     }
-
-
+    
+    
     private void determineImageOffset(Image image)
     {
-
+    
     }
 }

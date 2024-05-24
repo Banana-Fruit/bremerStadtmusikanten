@@ -9,7 +9,6 @@ import java.util.Set;
 
 public interface Constants_Keymapping
 {
-    
     // Movement
     KeyCode moveUP = KeyCode.W;
     KeyCode moveDOWN = KeyCode.S;
