@@ -3,6 +3,8 @@ package model.user;
 
 import javafx.scene.image.Image;
 
+import java.util.List;
+
 
 /**
  * An image with a hitbox that moves on the map
@@ -10,7 +12,7 @@ import javafx.scene.image.Image;
 public class Player
 {
     private Image playerImage;
-    private List<> inventory; // Holds artefacts
+    private List inventory; // TODO: Holds artefacts
     
     
     public Player(Image image)

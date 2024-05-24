@@ -3,11 +3,10 @@ package control;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import model.showables.Game;
 import resources.Constants_ExceptionMessages;
 import resources.Constants_Game;
-import view.ImageDemonstrator;
+import view.OutputImageView;
 
 import java.util.*;
 
@@ -52,7 +51,7 @@ public class ImageController implements Runnable
     {
         while (true)
         {
-            for (Map.Entry<javafx.scene.image.ImageView, Integer> entry : this.game.getCurrentShowable().getImageViewsWithSizePercentage().entrySet())
+            for (Map.Entry<ImageView, Integer> entry : this.game.getCurrentShowable().getImageViewsWithSizePercentage().entrySet())
             {
                 try
                 {
@@ -61,7 +60,7 @@ public class ImageController implements Runnable
                 {
                     throw new RuntimeException(e);
                 }
-                view.ImageView.scaleImageViewToBackgroundByPercentage(entry.getKey(), this.game.getCurrentShowable().getBackground(), entry.getValue());
+                OutputImageView.scaleImageViewToSceneSize(entry.getKey(), entry.getValue(), this.game.getCurrentShowable().getScene());
             }
         }
     }
@@ -69,6 +68,6 @@ public class ImageController implements Runnable
     
     public void changeImagePosition(Image image, int x, int y)
     {
-    
+        //TODO: OutputImageView.setImagePosition( , x, y);
     }
 }

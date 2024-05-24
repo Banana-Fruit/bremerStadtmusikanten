@@ -9,4 +9,5 @@ public interface Constants_DefaultValues
     int SPEED_MULTIPLIER = 10;
     double ADJUST_DIAGONAL_MOVEMENT = Math.sqrt(2) / 2;
     int DEFAULT_SPEED = 1;
+    int PERCENTAGE_NUMBER = 100;
 }

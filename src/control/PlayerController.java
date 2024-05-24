@@ -8,7 +8,7 @@ import resources.Constants_DefaultValues;
 import resources.Constants_ExceptionMessages;
 import resources.Constants_Keymapping;
 import resources.Constants_Scenes;
-import view.PlayerView;
+import view.OutputImageView;
 
 import java.util.Set;
 
@@ -21,7 +21,6 @@ public class PlayerController
     private static volatile PlayerController instance;
     private Game game;
     private Player player;
-    private PlayerView playerView;
     private int positionX;
     private int positionY;
     
@@ -107,6 +106,6 @@ public class PlayerController
     
     public void changePosition()
     {
-        playerView.setPlayerImagePosition(this.player.getPlayerImage(), this.positionX, this.positionY);
+        // TODO: OutputImageView.setImagePosition(this.player.getPlayerImage(), this.positionX, this.positionY);
     }
 }

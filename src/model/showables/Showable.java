@@ -35,7 +35,7 @@ public class Showable
     }
     
     
-    public void addImageView(ImageView imageviewKey, Integer percentageValue)
+    public void addImageView(ImageView imageviewKey, int percentageValue)
     {
         this.imageViewsWithSizePercentage.put(imageviewKey, percentageValue);
         this.pane.getChildren().add(imageviewKey);
