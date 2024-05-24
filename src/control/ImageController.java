@@ -4,6 +4,8 @@ package control;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import model.showables.Game;
+import resources.Constants_Game;
 import view.ImageDemonstrator;
 
 import java.util.*;
@@ -11,14 +13,13 @@ import java.util.*;
 
 public class ImageController implements Runnable
 {
-    private Pane pane; // Assuming pane is a Pane or similar object
-    private static HashMap<ImageView, Integer> images;
+    private Game game;
+    private view.ImageView imageView = new view.ImageView();
     
     
-    public ImageController(HashMap<ImageView, Integer> images, Pane pane)
+    public ImageController(Game game)
     {
-        this.pane = pane;
-        this.images = images;
+        this.game = game;
     }
     
     
@@ -27,15 +28,22 @@ public class ImageController implements Runnable
     {
         while (true)
         {
-            for (Map.Entry<ImageView, Integer> entry : images.entrySet())
+            for (Map.Entry<javafx.scene.image.ImageView, Integer> entry : this.game.getCurrentShowable().getImageViewsWithSizePercentage().entrySet())
             {
-                ImageDemonstrator.getImageViewScaledPaneSize(entry.getKey(), entry.getValue(), pane);
+                try
+                {
+                    Thread.sleep(Constants_Game.THREAD_SLEEP_DEFAULT_TIME);
+                } catch (InterruptedException e)
+                {
+                    throw new RuntimeException(e);
+                }
+                view.ImageView.scaleImageViewToBackgroundByPercentage(entry.getKey(), this.game.getCurrentShowable().getBackground(), entry.getValue());
             }
         }
     }
     
     
-    public static void changeImageViewPosition(Image image, int x, int y)
+    public static void changeImagePosition(Image image, int x, int y)
     {
         for (ImageView imageView : images.keySet())
         {
@@ -46,16 +54,5 @@ public class ImageController implements Runnable
                 break;
             }
         }
-    }
-    
-    
-    public static HashMap<ImageView, Integer> getMapOfScaledImageViewsToPaneSize(HashMap<ImageView, Integer> images, Pane pane)
-    {
-        HashMap scaledImages = new HashMap();
-        for (Map.Entry<ImageView, Integer> entry : images.entrySet())
-        {
-            scaledImages.put(ImageDemonstrator.getImageViewScaledPaneSize(entry.getKey(), entry.getValue(), pane), entry.getValue());
-        }
-        return scaledImages;
     }
 }

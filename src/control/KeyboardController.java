@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.Player;
+import model.showables.Game;
+import resources.Constants_Game;
 import resources.Constants_Keymapping;
 
 import java.util.HashSet;
@@ -16,12 +18,12 @@ import java.util.Set;
 public class KeyboardController implements Runnable
 {
     private final Set<KeyCode> pressedKeys = new HashSet<>();
-    Scene scene;
+    private Game game;
     
     
-    public KeyboardController(Scene scene)
+    public KeyboardController(Game game)
     {
-        this.scene = scene;
+        this.game = game;
     }
     
     
@@ -30,8 +32,16 @@ public class KeyboardController implements Runnable
     {
         while (true)
         {
+            try
+            {
+                Thread.sleep(Constants_Game.THREAD_SLEEP_DEFAULT_TIME);
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+            
             // Add event listeners for key presses and releases
-            this.scene.setOnKeyPressed(new EventHandler<KeyEvent>()
+            this.game.getCurrentShowable().getScene().setOnKeyPressed(new EventHandler<KeyEvent>()
             {
                 @Override
                 public void handle(KeyEvent keyEvent)
@@ -39,7 +49,7 @@ public class KeyboardController implements Runnable
                     pressedKeys.add(keyEvent.getCode());
                 }
             });
-            this.scene.setOnKeyReleased(new EventHandler<KeyEvent>()
+            this.game.getCurrentShowable().getScene().setOnKeyReleased(new EventHandler<KeyEvent>()
             {
                 @Override
                 public void handle(KeyEvent keyEvent)
@@ -48,13 +58,6 @@ public class KeyboardController implements Runnable
                 }
             });
             
-            try
-            {
-                Thread.sleep(15);
-            } catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
             Platform.runLater(new Runnable()
             {
                 @Override
@@ -74,6 +77,6 @@ public class KeyboardController implements Runnable
         {
             if (pressedKeys.contains(currentCode)) playerRelatedKeys.add(currentCode);
         }
-        if (!playerRelatedKeys.isEmpty()) PlayerController.handleKeyPresses(playerRelatedKeys);
+        if (!playerRelatedKeys.isEmpty()) new PlayerController(game).handleKeyPresses(playerRelatedKeys);
     }
 }

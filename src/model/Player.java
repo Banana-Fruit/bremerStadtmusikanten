@@ -25,38 +25,6 @@ public class Player
     }
 
 
-    public void moveUP (boolean isDiagonal)
-    {
-        int deltaY = 1 * Constants_DefaultValues.SPEED_MULTIPLIER;
-        if (isDiagonal) deltaY = (int) (deltaY * Constants_DefaultValues.ADJUST_DIAGONAL_MOVEMENT);
-        this.positionY = this.positionY - deltaY;
-    }
-
-
-    public void moveDOWN (boolean isDiagonal)
-    {
-        int deltaY = 1 * Constants_DefaultValues.SPEED_MULTIPLIER;
-        if (isDiagonal) deltaY = (int) (deltaY * Constants_DefaultValues.ADJUST_DIAGONAL_MOVEMENT);
-        this.positionY = this.positionY + deltaY;
-    }
-
-
-    public void moveRIGHT (boolean isDiagonal)
-    {
-        int deltaX = 1 * Constants_DefaultValues.SPEED_MULTIPLIER;
-        if (isDiagonal) deltaX = (int) (deltaX * Constants_DefaultValues.ADJUST_DIAGONAL_MOVEMENT);
-        this.positionX = this.positionX + deltaX;
-    }
-
-
-    public void moveLEFT (boolean isDiagonal)
-    {
-        int deltaX = 1 * Constants_DefaultValues.SPEED_MULTIPLIER;
-        if (isDiagonal) deltaX = (int) (deltaX * Constants_DefaultValues.ADJUST_DIAGONAL_MOVEMENT);
-        this.positionX = this.positionX - deltaX;
-    }
-
-
     public Image getPlayerImage ()
     {
         return playerImage;
