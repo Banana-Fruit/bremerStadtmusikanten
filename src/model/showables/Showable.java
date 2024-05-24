@@ -15,30 +15,13 @@ public class Showable
     private Pane pane;
     private Scene scene;
     private HashMap<ImageView, Integer> imageViewsWithSizePercentage;
-    private Background background;
     
     
-    public Showable(Scene scene, String backgroundPath)
+    public Showable()
     {
-        this.scene = scene;
+        this.scene = new Scene(new Pane());
         this.pane = new Pane(scene.getRoot());
         this.imageViewsWithSizePercentage = new HashMap<>();
-        this.background = new Background(
-                new BackgroundImage(
-                        new Image(backgroundPath),
-                        BackgroundRepeat.NO_REPEAT, // Do not repeat the image
-                        BackgroundRepeat.NO_REPEAT, // Do not repeat the image
-                        BackgroundPosition.CENTER, // Center the image
-                        new BackgroundSize(
-                                100, // Width percentage (100% of the pane's width)
-                                100, // Height percentage (100% of the pane's height)
-                                true, // Width is a percentage
-                                true, // Height is a percentage
-                                true, // Preserve aspect ratio
-                                false // Do not cover the whole area (preserve aspect ratio)
-                        )
-                )
-        );
         init();
     }
     
@@ -79,11 +62,5 @@ public class Showable
     public Scene getScene()
     {
         return scene;
-    }
-    
-    
-    public Background getBackground()
-    {
-        return background;
     }
 }

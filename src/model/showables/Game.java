@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import model.Player;
 import resources.Constants_Game;
+import resources.Constants_ResourceLocations;
 import resources.Constants_Scenes;
 
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public class Game
     private void init()
     {
         // Add showable
-        addShowable(new Map(new Scene(new Pane()), "/resources/map.jpg"), Constants_Scenes.MAIN_MENU_IDENTIFIER);
+        addShowable(new MainMenu()), Constants_Scenes.MAIN_MENU_IDENTIFIER);
         
         // Set initial showable
         switchShowable(Constants_Scenes.MAIN_MENU_IDENTIFIER);
