@@ -17,9 +17,9 @@ public class Showable
     private HashMap<ImageView, Integer> imageViewsWithSizePercentage;
     
     
-    public Showable()
+    public Showable(Scene scene)
     {
-        this.scene = new Scene(new Pane());
+        this.scene = scene;
         this.pane = new Pane(scene.getRoot());
         this.imageViewsWithSizePercentage = new HashMap<>();
         init();

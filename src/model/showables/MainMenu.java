@@ -6,9 +6,9 @@ import javafx.scene.Scene;
 
 public class MainMenu extends Showable
 {
-    public MainMenu(Scene scene, String backgroundPath)
+    public MainMenu(Scene scene)
     {
-        super(scene, backgroundPath);
+        super(scene);
         init();
     }
     

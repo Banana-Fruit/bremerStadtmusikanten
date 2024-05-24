@@ -12,16 +12,30 @@ import java.util.Set;
 
 public class PlayerController
 {
-    private Game game;
+    private static PlayerController INSTANCE;
     private Player player;
     private int positionX;
     private int positionY;
     
     
-    
-    public PlayerController(Game game)
+    private PlayerController()
     {
-        this.game = game;
+    }
+    
+    
+    public static PlayerController getInstance()
+    {
+        if (INSTANCE == null)
+        {
+            INSTANCE = new PlayerController();
+        }
+        return INSTANCE;
+    }
+    
+    
+    public void setPlayer(Player player)
+    {
+        this.player = player;
     }
     
     
@@ -39,35 +53,35 @@ public class PlayerController
     }
     
     
-    public void moveUP (boolean isDiagonal)
+    public void moveUP(boolean isDiagonal)
     {
         int deltaY = 1 * Constants_DefaultValues.SPEED_MULTIPLIER;
         if (isDiagonal) deltaY = (int) (deltaY * Constants_DefaultValues.ADJUST_DIAGONAL_MOVEMENT);
-        this.positionY = this.positionY - deltaY;
+        this.positionY -= deltaY;
     }
     
     
-    public void moveDOWN (boolean isDiagonal)
+    public void moveDOWN(boolean isDiagonal)
     {
         int deltaY = 1 * Constants_DefaultValues.SPEED_MULTIPLIER;
         if (isDiagonal) deltaY = (int) (deltaY * Constants_DefaultValues.ADJUST_DIAGONAL_MOVEMENT);
-        this.positionY = this.positionY + deltaY;
+        this.positionY += deltaY;
     }
     
     
-    public void moveRIGHT (boolean isDiagonal)
+    public void moveRIGHT(boolean isDiagonal)
     {
         int deltaX = 1 * Constants_DefaultValues.SPEED_MULTIPLIER;
         if (isDiagonal) deltaX = (int) (deltaX * Constants_DefaultValues.ADJUST_DIAGONAL_MOVEMENT);
-        this.positionX = this.positionX + deltaX;
+        this.positionX += deltaX;
     }
     
     
-    public void moveLEFT (boolean isDiagonal)
+    public void moveLEFT(boolean isDiagonal)
     {
         int deltaX = 1 * Constants_DefaultValues.SPEED_MULTIPLIER;
         if (isDiagonal) deltaX = (int) (deltaX * Constants_DefaultValues.ADJUST_DIAGONAL_MOVEMENT);
-        this.positionX = this.positionX - deltaX;
+        this.positionX -= deltaX;
     }
     
     

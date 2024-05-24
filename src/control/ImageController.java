@@ -45,14 +45,6 @@ public class ImageController implements Runnable
     
     public static void changeImagePosition(Image image, int x, int y)
     {
-        for (ImageView imageView : images.keySet())
-        {
-            if (imageView.getImage().equals(image))
-            {
-                imageView.setLayoutX(x);
-                imageView.setLayoutY(y);
-                break;
-            }
-        }
+    
     }
 }

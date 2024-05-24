@@ -28,11 +28,8 @@ public class Game
     
     private void init()
     {
-        // Add showable
-        addShowable(new MainMenu()), Constants_Scenes.MAIN_MENU_IDENTIFIER);
-        
-        // Set initial showable
-        switchShowable(Constants_Scenes.MAIN_MENU_IDENTIFIER);
+        addShowable(new MainMenu(new Scene(new Pane())), Constants_Scenes.MAIN_MENU_IDENTIFIER); // Add showable
+        switchShowable(Constants_Scenes.MAIN_MENU_IDENTIFIER); // Set initial showable
     }
     
     

@@ -2,31 +2,23 @@ package model.showables;
 
 
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import model.Collectable;
-import model.Obstacle;
-import model.Player;
-import resources.Constants_DefaultValues;
+import resources.Constants_Scenes;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
 
 
 public class Map extends Showable
 {
-    private char[][] tileChars;
-    private int maxScreenCol;
-    private int maxScreenRow;
+    private int maxScreenColumns = Constants_Scenes.MAX_SCREEN_COLUMNS;
+    private int maxScreenRows = Constants_Scenes.MAX_SCREEN_ROWS;
+    private char[][] tileChars = new char[maxScreenColumns][maxScreenRows];
     
-    public Map(int maxScreenCol, int maxScreenRow)
+    public Map(Scene scene)
     {
-        this.maxScreenCol = maxScreenCol;
-        this.maxScreenRow = maxScreenRow;
-        tileChars = new char[maxScreenCol][maxScreenRow];
+        super(scene);
     }
     
     public void loadMap(String path)
@@ -38,10 +30,10 @@ public class Map extends Showable
         try
         {
             String line;
-            while ((line = br.readLine()) != null && row < maxScreenRow)
+            while ((line = br.readLine()) != null && row < maxScreenRows)
             {
                 char[] characters = line.toCharArray();
-                for (int col = 0; col < maxScreenCol && col < characters.length; col++)
+                for (int col = 0; col < maxScreenColumns && col < characters.length; col++)
                 {
                     tileChars[col][row] = characters[col];
                 }
@@ -64,7 +56,7 @@ public class Map extends Showable
     
     public char[][] getTileChars()
     {
-        return tileChars;
+        return this.tileChars;
     }
     
     public char getTileCharAt(int x, int y)
