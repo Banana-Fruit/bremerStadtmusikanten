@@ -15,12 +15,14 @@ public class Showable
     private Pane pane;
     private Scene scene;
     private HashMap<ImageView, Integer> imageViewsWithSizePercentage;
+    private int id;
     
     
-    public Showable(Scene scene)
+    public Showable(Scene scene, Integer id)
     {
         this.scene = scene;
         this.pane = new Pane(scene.getRoot());
+        this.id = id;
         this.imageViewsWithSizePercentage = new HashMap<>();
         init();
     }
@@ -62,5 +64,11 @@ public class Showable
     public Scene getScene()
     {
         return scene;
+    }
+    
+    
+    public int getId()
+    {
+        return id;
     }
 }

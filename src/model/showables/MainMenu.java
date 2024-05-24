@@ -13,7 +13,7 @@ public class MainMenu extends Showable
     }
     
     
-    public void init()
+    private void init()
     {
     
     }

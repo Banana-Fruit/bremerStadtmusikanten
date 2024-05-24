@@ -3,10 +3,8 @@ package control;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import model.Player;
 import model.showables.Game;
 import resources.Constants_Game;
 import resources.Constants_Keymapping;
@@ -17,13 +15,24 @@ import java.util.Set;
 
 public class KeyboardController implements Runnable
 {
+    private static volatile KeyboardController instance;
     private final Set<KeyCode> pressedKeys = new HashSet<>();
     private Game game;
     
     
-    public KeyboardController(Game game)
-    {
-        this.game = game;
+    
+    private KeyboardController() {}
+    
+    
+    public static KeyboardController getInstance() {
+        if (instance == null) {
+            synchronized (KeyboardController.class) {
+                if (instance == null) {
+                    instance = new KeyboardController();
+                }
+            }
+        }
+        return instance;
     }
     
     
@@ -32,6 +41,7 @@ public class KeyboardController implements Runnable
     {
         while (true)
         {
+            // Puts Thread to sleep from time to time
             try
             {
                 Thread.sleep(Constants_Game.THREAD_SLEEP_DEFAULT_TIME);
@@ -77,6 +87,12 @@ public class KeyboardController implements Runnable
         {
             if (pressedKeys.contains(currentCode)) playerRelatedKeys.add(currentCode);
         }
-        if (!playerRelatedKeys.isEmpty()) new PlayerController(game).handleKeyPresses(playerRelatedKeys);
+        if (!playerRelatedKeys.isEmpty()) PlayerController.getInstance().handleKeyPresses(playerRelatedKeys);
+    }
+    
+    
+    public void setGame(Game game)
+    {
+        this.game = game;
     }
 }

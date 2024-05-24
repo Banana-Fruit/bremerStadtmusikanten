@@ -8,14 +8,29 @@ import resources.Constants_Game;
 
 public class SceneController implements Runnable
 {
+    private static volatile SceneController instance;
     private Game game;
     private Stage stage;
     
     
-    public SceneController(Game game, Stage stage)
+    private SceneController()
     {
-        this.game = game;
-        this.stage = stage;
+    }
+    
+    
+    public static SceneController getInstance()
+    {
+        if (instance == null)
+        {
+            synchronized (SceneController.class)
+            {
+                if (instance == null)
+                {
+                    instance = new SceneController();
+                }
+            }
+        }
+        return instance;
     }
     
     
@@ -34,5 +49,17 @@ public class SceneController implements Runnable
             
             this.stage.setScene(game.getCurrentShowable().getScene());
         }
+    }
+    
+    
+    public void setGame(Game game)
+    {
+        this.game = game;
+    }
+    
+    
+    public void setStage(Stage stage)
+    {
+        this.stage = stage;
     }
 }

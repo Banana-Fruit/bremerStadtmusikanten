@@ -1,4 +1,4 @@
-package src.control;
+package control;
 
 
 import java.awt.*;

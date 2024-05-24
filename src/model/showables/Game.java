@@ -3,20 +3,23 @@ package model.showables;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import model.Player;
+import model.user.Player;
 import resources.Constants_Game;
-import resources.Constants_ResourceLocations;
 import resources.Constants_Scenes;
 
 import java.util.HashMap;
 
 
+/**
+ * Creates a game, that contains all scenery in its mapOfShowables attribute. Each Showable has an integer key that can be accessed from the Constants.
+ * Upon instantiation, a MainMenu will be created and stored inside the list.
+ */
 public class Game
 {
-    Showable currentShowable;
-    HashMap<Integer, Showable> mapOfShowables;
-    Player player;
-    String gameTitle = Constants_Game.GAME_TITLE;
+    private Showable currentShowable;
+    private HashMap<Integer, Showable> mapOfShowables;
+    private Player player;
+    private String gameTitle = Constants_Game.GAME_TITLE;
     
     
     public Game()
@@ -28,8 +31,8 @@ public class Game
     
     private void init()
     {
-        addShowable(new MainMenu(new Scene(new Pane())), Constants_Scenes.MAIN_MENU_IDENTIFIER); // Add showable
-        switchShowable(Constants_Scenes.MAIN_MENU_IDENTIFIER); // Set initial showable
+        addShowable(new MainMenu(new Scene(new Pane())), Constants_Scenes.IDENTIFIER_MAINMENU); // Add showable
+        switchShowable(Constants_Scenes.IDENTIFIER_MAINMENU); // Set initial showable
     }
     
     

@@ -9,33 +9,28 @@ public class GameController
 {
     private Game game;
     private Stage stage;
-    private KeyboardController keyboardController;
-    private MouseController mouseController;
-    private PlayerController playerController;
-    private ImageController imageController;
-    private SceneController sceneController;
     
     public GameController(Game game, Stage stage)
     {
         this.game = game;
         this.stage = stage;
-        
-        keyboardController = new KeyboardController(this.game);
-        mouseController = new MouseController(this.game);
-        imageController = new ImageController(this.game);
-        sceneController = new SceneController(this.game, stage);
-        playerController = new PlayerController(this.game);
-        
         init();
     }
     
     
     public void init()
     {
-        new Thread(keyboardController).start();
-        new Thread(mouseController).start();
-        new Thread(imageController).start();
-        new Thread(sceneController).start();
+        KeyboardController.getInstance().setGame(this.game);
+        MouseController.getInstance().setGame(this.game);
+        ImageController.getInstance().setGame(this.game);
+        SceneController.getInstance().setGame(this.game);
+        SceneController.getInstance().setStage(this.stage);
+        PlayerController.getInstance().setGame(this.game);
+        
+        new Thread(KeyboardController.getInstance()).start();
+        new Thread(MouseController.getInstance()).start();
+        new Thread(ImageController.getInstance()).start();
+        new Thread(SceneController.getInstance()).start();
         
         this.stage.setTitle(game.getGameTitle());
         this.stage.show();

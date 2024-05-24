@@ -18,7 +18,7 @@ public class Map extends Showable
     
     public Map(Scene scene)
     {
-        super(scene);
+        super(scene, Constants_Scenes.IDENTIFIER_MAP);
     }
     
     public void loadMap(String path)

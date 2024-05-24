@@ -4,7 +4,8 @@ package resources;
 public interface Constants_Scenes
 {
     // Showable identifiers
-    int MAIN_MENU_IDENTIFIER = 0;
+    int IDENTIFIER_MAINMENU = 0;
+    int IDENTIFIER_MAP = 1;
     
     
     // Map values

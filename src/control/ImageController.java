@@ -13,11 +13,32 @@ import java.util.*;
 
 public class ImageController implements Runnable
 {
+    private static volatile ImageController instance;
     private Game game;
-    private view.ImageView imageView = new view.ImageView();
     
     
-    public ImageController(Game game)
+    private ImageController()
+    {
+    }
+    
+    
+    public static ImageController getInstance()
+    {
+        if (instance == null)
+        {
+            synchronized (ImageController.class)
+            {
+                if (instance == null)
+                {
+                    instance = new ImageController();
+                }
+            }
+        }
+        return instance;
+    }
+    
+    
+    public void setGame(Game game)
     {
         this.game = game;
     }
