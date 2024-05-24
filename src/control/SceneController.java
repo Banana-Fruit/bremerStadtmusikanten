@@ -3,6 +3,8 @@ package control;
 
 import javafx.stage.Stage;
 import model.showables.Game;
+import model.user.Player;
+import resources.Constants_ExceptionMessages;
 import resources.Constants_Game;
 
 
@@ -13,22 +15,31 @@ public class SceneController implements Runnable
     private Stage stage;
     
     
-    private SceneController()
+    private SceneController(Game game, Stage stage)
     {
+        this.game = game;
+        this.stage = stage;
     }
     
     
+    public static synchronized void initialize(Game game, Stage stage)
+    {
+        if (instance == null)
+        {
+            instance = new SceneController(game, stage);
+        } else
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_ALREADY_INITIALIZED);
+        }
+    }
+    
+    
+    // Method to retrieve the Singleton instance without parameters
     public static SceneController getInstance()
     {
         if (instance == null)
         {
-            synchronized (SceneController.class)
-            {
-                if (instance == null)
-                {
-                    instance = new SceneController();
-                }
-            }
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
         }
         return instance;
     }
@@ -37,7 +48,7 @@ public class SceneController implements Runnable
     @Override
     public void run()
     {
-        while(true)
+        while (true)
         {
             try
             {
@@ -49,17 +60,5 @@ public class SceneController implements Runnable
             
             this.stage.setScene(game.getCurrentShowable().getScene());
         }
-    }
-    
-    
-    public void setGame(Game game)
-    {
-        this.game = game;
-    }
-    
-    
-    public void setStage(Stage stage)
-    {
-        this.stage = stage;
     }
 }

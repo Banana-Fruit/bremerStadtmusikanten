@@ -10,6 +10,7 @@ public class GameController
     private Game game;
     private Stage stage;
     
+    
     public GameController(Game game, Stage stage)
     {
         this.game = game;
@@ -20,12 +21,11 @@ public class GameController
     
     public void init()
     {
-        KeyboardController.getInstance().setGame(this.game);
-        MouseController.getInstance().setGame(this.game);
-        ImageController.getInstance().setGame(this.game);
-        SceneController.getInstance().setGame(this.game);
-        SceneController.getInstance().setStage(this.stage);
-        PlayerController.getInstance().setGame(this.game);
+        KeyboardController.initialize(this.game);
+        MouseController.initialize(this.game);
+        ImageController.initialize(this.game);
+        SceneController.initialize(this.game, this.stage);
+        SceneController.initialize(this.game, this.stage);
         
         new Thread(KeyboardController.getInstance()).start();
         new Thread(MouseController.getInstance()).start();

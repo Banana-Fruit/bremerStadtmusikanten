@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.showables.Game;
+import resources.Constants_ExceptionMessages;
 import resources.Constants_Game;
 import resources.Constants_Keymapping;
 
@@ -13,6 +14,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+/**
+ * The KeyboardController listens to key presses, and routes them to other controllers.
+ */
 public class KeyboardController implements Runnable
 {
     private static volatile KeyboardController instance;
@@ -20,17 +24,30 @@ public class KeyboardController implements Runnable
     private Game game;
     
     
+    private KeyboardController(Game game)
+    {
+        this.game = game;
+    }
     
-    private KeyboardController() {}
+    
+    public static synchronized void initialize(Game game)
+    {
+        if (instance == null)
+        {
+            instance = new KeyboardController(game);
+        } else
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_ALREADY_INITIALIZED);
+        }
+    }
     
     
-    public static KeyboardController getInstance() {
-        if (instance == null) {
-            synchronized (KeyboardController.class) {
-                if (instance == null) {
-                    instance = new KeyboardController();
-                }
-            }
+    // Method to retrieve the Singleton instance without parameters
+    public static KeyboardController getInstance()
+    {
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
         }
         return instance;
     }
@@ -88,11 +105,5 @@ public class KeyboardController implements Runnable
             if (pressedKeys.contains(currentCode)) playerRelatedKeys.add(currentCode);
         }
         if (!playerRelatedKeys.isEmpty()) PlayerController.getInstance().handleKeyPresses(playerRelatedKeys);
-    }
-    
-    
-    public void setGame(Game game)
-    {
-        this.game = game;
     }
 }

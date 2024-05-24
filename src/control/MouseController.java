@@ -1,11 +1,8 @@
 package control;
 
 
-import javafx.scene.input.KeyCode;
 import model.showables.Game;
-
-import java.util.HashSet;
-import java.util.Set;
+import resources.Constants_ExceptionMessages;
 
 
 public class MouseController implements Runnable
@@ -14,30 +11,32 @@ public class MouseController implements Runnable
     private Game game;
     
     
-    private MouseController()
+    private MouseController(Game game)
     {
+        this.game = game;
     }
     
     
+    public static synchronized void initialize(Game game)
+    {
+        if (instance == null)
+        {
+            instance = new MouseController(game);
+        } else
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_ALREADY_INITIALIZED);
+        }
+    }
+    
+    
+    // Method to retrieve the Singleton instance without parameters
     public static MouseController getInstance()
     {
         if (instance == null)
         {
-            synchronized (MouseController.class)
-            {
-                if (instance == null)
-                {
-                    instance = new MouseController();
-                }
-            }
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
         }
         return instance;
-    }
-    
-    
-    public void setGame(Game game)
-    {
-        this.game = game;
     }
     
     

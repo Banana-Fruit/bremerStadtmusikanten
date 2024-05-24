@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import model.showables.Game;
+import resources.Constants_ExceptionMessages;
 import resources.Constants_Game;
 import view.ImageDemonstrator;
 
@@ -17,30 +18,32 @@ public class ImageController implements Runnable
     private Game game;
     
     
-    private ImageController()
+    private ImageController(Game game)
     {
+        this.game = game;
     }
     
     
+    public static synchronized void initialize(Game game)
+    {
+        if (instance == null)
+        {
+            instance = new ImageController(game);
+        } else
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_ALREADY_INITIALIZED);
+        }
+    }
+    
+    
+    // Method to retrieve the Singleton instance without parameters
     public static ImageController getInstance()
     {
         if (instance == null)
         {
-            synchronized (ImageController.class)
-            {
-                if (instance == null)
-                {
-                    instance = new ImageController();
-                }
-            }
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
         }
         return instance;
-    }
-    
-    
-    public void setGame(Game game)
-    {
-        this.game = game;
     }
     
     
@@ -64,7 +67,7 @@ public class ImageController implements Runnable
     }
     
     
-    public static void changeImagePosition(Image image, int x, int y)
+    public void changeImagePosition(Image image, int x, int y)
     {
     
     }

@@ -5,38 +5,52 @@ import javafx.scene.input.KeyCode;
 import model.showables.Game;
 import model.user.Player;
 import resources.Constants_DefaultValues;
-import resources.Constants_Game;
+import resources.Constants_ExceptionMessages;
 import resources.Constants_Keymapping;
 import resources.Constants_Scenes;
+import view.PlayerView;
 
 import java.util.Set;
 
 
+/**
+ * The PlayerController handles player movement.
+ */
 public class PlayerController
 {
     private static volatile PlayerController instance;
     private Game game;
     private Player player;
+    private PlayerView playerView;
     private int positionX;
     private int positionY;
     
     
-    private PlayerController()
+    private PlayerController(Game game, Player player)
     {
+        this.game = game;
+        this.player = player;
     }
     
     
+    public static synchronized void initialize(Game game, Player player)
+    {
+        if (instance == null)
+        {
+            instance = new PlayerController(game, player);
+        } else
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_ALREADY_INITIALIZED);
+        }
+    }
+    
+    
+    // Method to retrieve the Singleton instance without parameters
     public static PlayerController getInstance()
     {
         if (instance == null)
         {
-            synchronized (PlayerController.class)
-            {
-                if (instance == null)
-                {
-                    instance = new PlayerController();
-                }
-            }
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
         }
         return instance;
     }
@@ -44,7 +58,7 @@ public class PlayerController
     
     public void handleKeyPresses(Set<KeyCode> pressedKeys)
     {
-        if(game.getCurrentShowable().getId() == Constants_Scenes.IDENTIFIER_MAP && this.player != null)
+        if (game.getCurrentShowable().getId() == Constants_Scenes.IDENTIFIER_MAP && this.player != null)
         {
             boolean diagonal = false;
             if (pressedKeys.size() > 1) diagonal = true;
@@ -93,18 +107,6 @@ public class PlayerController
     
     public void changePosition()
     {
-        ImageController.changeImagePosition(this.player.getPlayerImage(), this.positionX, this.positionY);
-    }
-    
-    
-    public void setGame(Game game)
-    {
-        this.game = game;
-    }
-    
-    
-    public void setPlayer(Player player)
-    {
-        this.player = player;
+        playerView.setPlayerImagePosition(this.player.getPlayerImage(), this.positionX, this.positionY);
     }
 }
