@@ -1,4 +1,4 @@
-package Jonas;
+package src.utility;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

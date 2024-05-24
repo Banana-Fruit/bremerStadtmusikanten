@@ -1,7 +1,7 @@
-package Battle;
+package src.resources;
 
 
-public interface Constants
+public interface Constants_BattleJule
 {
     // Integers
     public static final int LIMIT_HEALTH = 0;
