@@ -5,10 +5,10 @@ public interface Constants_Map
 {
     //___________________________Strings_____________________________________
     public static final String ONLY_PNG = ".png";
-    public static final String PATH_TILE_BUILDING = "/Assets/building/gre/";
-    public static final String PATH_TILE = "/Assets/path/";
-    public static final String PATH_MAP = "/Map.txt";
-    public static final String PATH_BUILDING_TILE = "/Building.txt";
+    public static final String PATH_TILE_BUILDING = "/src/resources/Tile_Assets/Obstacle/Building/Red/";
+    public static final String PATH_TILE = "/src/resources/Tile_Assets/Path";
+    public static final String PATH_MAP = "/src/resources/Tile_Map/Path_Map.txt";
+    public static final String PATH_BUILDING_TILE = "/src/resources/Tile_Map/Obstacle_Map.txt";
 
 
     //__________________________Constants___________________________________
