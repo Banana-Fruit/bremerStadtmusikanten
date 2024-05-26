@@ -2,6 +2,7 @@ package model.showables;
 
 
 import javafx.scene.Scene;
+import resources.Constants_Map;
 import resources.Constants_Scenes;
 
 import java.io.BufferedReader;
@@ -25,19 +26,19 @@ public class Map extends Showable
     
     public void loadMap(String path)
     {
-        InputStream is = getClass().getResourceAsStream(path);
-        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        InputStream inputStream = getClass().getResourceAsStream(path);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         
-        int row = 0;
+        int row = Constants_Map.ZERO;
         try
         {
             String line;
-            while ((line = br.readLine()) != null && row < maxScreenRows)
+            while ((line = bufferedReader.readLine()) != null && row < maxScreenRows)
             {
                 char[] characters = line.toCharArray();
-                for (int col = 0; col < maxScreenColumns && col < characters.length; col++)
+                for (int column = Constants_Map.ZERO; column < maxScreenColumns && column < characters.length; column++)
                 {
-                    tileChars[col][row] = characters[col];
+                    tileChars[column][row] = characters[column];
                 }
                 row++;
             }
@@ -48,7 +49,7 @@ public class Map extends Showable
         {
             try
             {
-                br.close();
+                bufferedReader.close();
             } catch (IOException e)
             {
                 e.printStackTrace();
@@ -65,9 +66,10 @@ public class Map extends Showable
     
     public char getTileCharAt(int x, int y)
     {
-        if (x < 0 || x >= tileChars.length || y < 0 || y >= tileChars[0].length)
+        if (x < Constants_Map.ZERO || x >= tileChars.length || y < Constants_Map.ZERO || y >=
+                tileChars[Constants_Map.ZERO].length)
         {
-            return ' '; // Return an empty space if coordinates are out of bounds
+            return Constants_Map.EMPTY_CHAR_SPACE; // Return an empty space if coordinates are out of bounds
         }
         return tileChars[x][y];
     }

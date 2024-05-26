@@ -1,7 +1,6 @@
 package control;
 
 import model.GamePanel;
-import model.showables.Map_Jonas;
 import resources.Constants_Map;
 import utility.TileLoader;
 import utility.TileRenderer;

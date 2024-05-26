@@ -19,4 +19,5 @@ public interface Constants_Map
     public static final int MAX_SCREEN_COLUMN = 30;
     public static final int GAMEPANEL_FPS = 60;
     public static final int MILLISECONDS_OF_SLEEP = 1000;
+    char EMPTY_CHAR_SPACE = ' ';
 }
