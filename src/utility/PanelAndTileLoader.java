@@ -1,18 +1,19 @@
 package utility;
 
 
+import model.panel.Tile;
 import model.showables.Map;
 import resources.Constants_Map;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 
 
-public class MapLoader
+public class PanelAndTileLoader
 {
     public static char[][] loadCharFileOfMapFromPath (String path)
     {
@@ -78,24 +79,25 @@ public class MapLoader
     }
     
     
-    public static HashMap<Character, Image> setMapWithCharsAndImages (String path)
+    public static HashMap<Character, Image> getMapWithCharsAndImagesFromPath (String imageFolderPath)
     {
         try
         {
-            // retrieve list of all image files in the path
-            String[] imageFiles = new File(getClass().getResource(path).toURI()).list();
+            // retrieve list of all image files in the imageFolderPath
+            String[] arrayOfFileNames = new File(new URI(imageFolderPath)).list();
             HashMap<Character, Image> currentMapOfCharsWithImages = new HashMap<>();
             
-            if (imageFiles != null)
+            if (arrayOfFileNames != null)
             {
-                for (String fileName : imageFiles)
+                for (String currentFileName : arrayOfFileNames)
                 {
                     // only png images
-                    if (fileName.endsWith(Constants_Map.ONLY_PNG))
+                    if (currentFileName.endsWith(Constants_Map.ONLY_PNG))
                     {
                         // Use the first letter of the file name as the character value
-                        char c = fileName.charAt(Constants_Map.MINIMUM_ARRAY_VALUE);
-                        Image image = new Image(new BufferedImage(new ImageIO.read(new File(path + fileName))));
+                        char c = currentFileName.charAt(Constants_Map.IMAGE_CHAR_POSITION);
+                        String fullPath = (String)(imageFolderPath + currentFileName);
+                        Image image = ImageIO.read(new File(fullPath));
                         currentMapOfCharsWithImages.put(c, image);
                     }
                 }

@@ -1,10 +1,8 @@
 package control.scenes;
 
-import model.map.GamePanel;
 import model.showables.Map;
 import resources.Constants_Map;
 import utility.MyIO;
-import view.TileRenderer;
 
 import java.awt.*;
 
@@ -18,7 +16,12 @@ public class MapController implements Runnable
     private char[][] tileCharArray = new char[Constants_Map.MAX_SCREEN_COLUMN][Constants_Map.MAX_SCREEN_ROW];
 
 
-    // constructor
+    public MapController ()
+    {
+    
+    }
+    
+    
     public MapController(GamePanel gamePanel)
     {
         this.gamePanel = gamePanel;
@@ -28,20 +31,6 @@ public class MapController implements Runnable
         tilePathLoader.setMapWithCharsAndImages(Constants_Map.PATH_TILE);
         MyIO.loadMapFromPath(Constants_Map.PATH_MAP);
         MyIO.loadMapFromPath(Constants_Map.PATH_BUILDING_TILE);
-    }
-
-
-    public void drawMap(Graphics2D graphics2D)
-    {
-        TileRenderer renderer = new TileRenderer(gamePanel, tilePathLoader.getMapWithCharsAndImages());
-        renderer.draw(graphics2D, mapTile.getTileCharArray());
-    }
-
-
-    public void drawBuilding(Graphics2D graphics2D)
-    {
-        TileRenderer renderer = new TileRenderer(gamePanel, tileBuildingLoader.getMapWithCharsAndImages());
-        renderer.draw(graphics2D, buildingTile.getTileCharArray());
     }
     
     
@@ -72,27 +61,17 @@ public class MapController implements Runnable
         g2.dispose();
     }
     
-
-    /*public boolean isObstacle(int x, int y)
+    
+    public void drawMap(Graphics2D graphics2D)
     {
-        char tileChar = buildingTile.getTileCharAt(x / gamePanel.tileSize, y / gamePanel.tileSize);
-        return Character.isLowerCase(tileChar);
-    }*/
-
-
-    /*public boolean isTileOccupied (int x, int y)
+        TileRenderer renderer = new TileRenderer(gamePanel, tilePathLoader.getMapWithCharsAndImages());
+        renderer.draw(graphics2D, mapTile.getTileCharArray());
+    }
+    
+    
+    public void drawBuilding(Graphics2D graphics2D)
     {
-        // Überprüfen, ob der Spieler innerhalb des Spielfelds bleibt
-        if (x < 0 || y < 0 || x + gamePanel.tileSize > gamePanel.screenWidth || y + gamePanel.tileSize > gamePanel.screenHeight)
-            return false;
-
-        // Überprüfen, ob der Spieler über ein Hindernis läuft
-        if (isObstacle(x, y) ||                   // Obere linke Ecke
-                isObstacle(x + gamePanel.tileSize - 1, y) || // Obere rechte Ecke
-                isObstacle(x, y + gamePanel.tileSize - 1) || // Untere linke Ecke
-                isObstacle(x + gamePanel.tileSize - 1, y + gamePanel.tileSize - 1)) { // Untere rechte Ecke
-            return false;
-        }
-        return true;
-    }*/
+        TileRenderer renderer = new TileRenderer(gamePanel, tileBuildingLoader.getMapWithCharsAndImages());
+        renderer.draw(graphics2D, buildingTile.getTileCharArray());
+    }
 }

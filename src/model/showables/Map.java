@@ -40,7 +40,7 @@ public class Map extends Showable
         return instance;
     }
     
-    
+    // TODO: This doesnt belong here.
     public void setTileCharArray (char[][] tileCharArray)
     {
         this.tileCharArray = tileCharArray;

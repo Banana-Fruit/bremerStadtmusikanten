@@ -13,6 +13,7 @@ public interface Constants_Map
 
     //__________________________Constants___________________________________
     public static final int MINIMUM_ARRAY_VALUE = 0;
+    public static final int IMAGE_CHAR_POSITION = 0;
     public static final int TILE_SIZE = 16;
     public static final int GAMEPANEL_SCALE = 3;
     public static final int MAX_SCREEN_ROW = 20;

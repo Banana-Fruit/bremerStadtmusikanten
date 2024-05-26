@@ -10,4 +10,5 @@ public interface Constants_DefaultValues
     double ADJUST_DIAGONAL_MOVEMENT = Math.sqrt(2) / 2;
     int DEFAULT_SPEED = 1;
     int PERCENTAGE_NUMBER = 100;
+    int LENGTH_TO_SIZE_SUBTRACTOR = 1;
 }

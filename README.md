@@ -1,5 +1,5 @@
 TODOs:
-- alles zu einem Programm (ein Master-Branch, keine nackte Zahlen/Strings)
+- (MM) alles zu einem Programm (ein Master-Branch, keine nackte Zahlen/Strings)
 - Objektorientierung überarbeiten (Klassen sind dumm, Controller sind die hellsten; UML Diagramm schön machen - ein Diagramm pro package)
 - Speicherung eines Spielstandes (JSON)
 - Map zuende machen (Map erweitern für alle Missionen, Ressourcen einsammeln, Switch zur City, Ausschnitt von Map zeigen oder statisch?)
