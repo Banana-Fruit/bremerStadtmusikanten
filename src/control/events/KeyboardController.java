@@ -1,12 +1,12 @@
 package control.events;
 
 
-import control.gamemechanics.PlayerController;
+import control.game.PlayerController;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import model.showables.Game;
+import model.userInterface.Game;
 import resources.Constants_ExceptionMessages;
 import resources.Constants_Game;
 import resources.Constants_Keymapping;

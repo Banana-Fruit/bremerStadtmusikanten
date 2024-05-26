@@ -7,11 +7,11 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import model.showables.Game;
+import model.userInterface.Game;
 import resources.Constants_ExceptionMessages;
 import src.resources.Constants_MenuSetting;
 import src.resources.GameMenuBar;
-import utility.TransparentButton;
+import model.userInterface.TransparentButton;
 
 
 public class MainMenuController extends Application implements GameMenuBar

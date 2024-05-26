@@ -3,7 +3,7 @@ package control;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import model.showables.Game;
+import model.userInterface.Game;
 import resources.Constants_ExceptionMessages;
 import resources.Constants_Game;
 import view.OutputImageView;

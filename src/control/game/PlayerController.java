@@ -1,9 +1,9 @@
-package control.gamemechanics;
+package control.game;
 
 
 import javafx.scene.input.KeyCode;
-import model.showables.Game;
-import model.user.Player;
+import model.userInterface.Game;
+import model.Player;
 import resources.Constants_DefaultValues;
 import resources.Constants_ExceptionMessages;
 import resources.Constants_Keymapping;

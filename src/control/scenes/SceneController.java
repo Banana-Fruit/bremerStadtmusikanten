@@ -2,7 +2,7 @@ package control.scenes;
 
 
 import javafx.stage.Stage;
-import model.showables.Game;
+import model.userInterface.Game;
 import resources.Constants_ExceptionMessages;
 import resources.Constants_Game;
 

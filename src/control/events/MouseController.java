@@ -1,7 +1,7 @@
 package control.events;
 
 
-import model.showables.Game;
+import model.userInterface.Game;
 import resources.Constants_ExceptionMessages;
 
 

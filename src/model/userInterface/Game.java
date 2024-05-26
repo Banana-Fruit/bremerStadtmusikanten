@@ -1,9 +1,11 @@
-package model.showables;
+package model.userInterface;
 
 
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import model.user.Player;
+import model.Player;
+import model.showables.MainMenu;
+import model.showables.Showable;
 import resources.Constants_Game;
 import resources.Constants_Scenes;
 

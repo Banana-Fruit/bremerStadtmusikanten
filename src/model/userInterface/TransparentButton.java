@@ -1,4 +1,4 @@
-package utility;
+package model.userInterface;
 
 
 import javafx.beans.binding.Bindings;
@@ -10,6 +10,7 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import resources.Constants_MenuSetting;
 
 
 public class TransparentButton extends StackPane
@@ -20,7 +21,7 @@ public class TransparentButton extends StackPane
     
     
     // constructor
-    public TransparentButton(String name, Runnable action, int rcwidth, int rcheight)
+    public TransparentButton (String name, Runnable action, int rcwidth, int rcheight)
     {
         Rectangle bg = new Rectangle(rcwidth, rcheight, gradient);
         Text text = new Text(name);
@@ -40,7 +41,7 @@ public class TransparentButton extends StackPane
      * @return A new LinearGradient with the specific opacity
      * @author Jonas Helfer
      */
-    private static LinearGradient createGradient(double opacity)
+    private static LinearGradient createGradient (double opacity)
     {
         return new LinearGradient(Constants_MenuSetting.LINEAR_GRADIENT_V, Constants_MenuSetting.LINEAR_GRADIENT_V1,
                 Constants_MenuSetting.LINEAR_GRADIENT_V2, Constants_MenuSetting.LINEAR_GRADIENT_V3, true,

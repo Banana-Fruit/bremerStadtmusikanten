@@ -41,6 +41,12 @@ public class Map extends Showable
     }
     
     
+    public void setTileCharArray (char[][] tileCharArray)
+    {
+        this.tileCharArray = tileCharArray;
+    }
+    
+    
     public char[][] getTileCharArray ()
     {
         return this.tileCharArray;
@@ -54,7 +60,7 @@ public class Map extends Showable
             return tileCharArray[x][y];
         } catch (Exception e)
         {
-            e.printStackTrace();
+            e.printStackTrace(); // TODO: Custom Exception
         } finally
         {
             return Constants_Map.EMPTY_CHAR_SPACE;

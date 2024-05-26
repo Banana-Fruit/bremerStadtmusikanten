@@ -1,13 +1,11 @@
 package utility;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import model.showables.Map;
 import resources.Constants_Map;
 
 
@@ -20,7 +18,7 @@ public class MyIO
     private static boolean verboseMode = true;
     
     
-    public static void print(String text)
+    public static void print (String text)
     {
         if (verboseMode)
         {
@@ -35,7 +33,7 @@ public class MyIO
     }
     
     
-    public static void print(String text, ConsoleColor color)
+    public static void print (String text, ConsoleColor color)
     {
         System.out.print(color);
         print(text);
@@ -43,7 +41,7 @@ public class MyIO
     }
     
     
-    public static void print(String text, ConsoleColor color, ConsoleColor backgroundColor)
+    public static void print (String text, ConsoleColor color, ConsoleColor backgroundColor)
     {
         System.out.print(color);
         System.out.print(backgroundColor);
@@ -52,42 +50,8 @@ public class MyIO
     }
     
     
-    public static void setTimeStamp(boolean timeStamp)
+    public static void setTimeStamp (boolean timeStamp)
     {
         MyIO.timeStamp = timeStamp;
-    }
-    
-    
-    public void loadMap(String path)
-    {
-        InputStream inputStream = getClass().getResourceAsStream(path);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        
-        int row = Constants_Map.MINIMUM_ARRAY_VALUE;
-        try
-        {
-            String line;
-            while ((line = bufferedReader.readLine()) != null && row < Constants_Map.MAX_SCREEN_ROW)
-            {
-                char[] characters = line.toCharArray();
-                for (int column = Constants_Map.MINIMUM_ARRAY_VALUE; column < Constants_Map.MAX_SCREEN_COLUMN && column < characters.length; column++)
-                {
-                    tileChars[column][row] = characters[column];
-                }
-                row++;
-            }
-        } catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        } finally
-        {
-            try
-            {
-                bufferedReader.close();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
     }
 }

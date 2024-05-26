@@ -1,4 +1,4 @@
-package src.resources;
+package resources;
 
 
 public interface Constants_MenuSetting

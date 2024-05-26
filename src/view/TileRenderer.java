@@ -1,4 +1,4 @@
-package utility;
+package view;
 
 
 import model.map.GamePanel;
@@ -8,6 +8,9 @@ import java.awt.*;
 import java.util.HashMap;
 
 
+/**
+ * Shows images in tiles.
+ */
 public class TileRenderer
 {
     // attributes
@@ -27,18 +30,16 @@ public class TileRenderer
     {
         for (int row = Constants_Map.MINIMUM_ARRAY_VALUE; row < gamePanel.getMaxScreenRow(); row++)
         {
-            for (int col = Constants_Map.MINIMUM_ARRAY_VALUE; col < gamePanel.getMaxScreenColumn(); col++)
+            for (int column = Constants_Map.MINIMUM_ARRAY_VALUE; column < gamePanel.getMaxScreenColumn(); column++)
             {
-                char tileChar = tileChars[col][row];
+                char tileChar = tileChars[column][row];
                 Image tileImage = tileImages.get(tileChar);
                 if (tileImage != null)
                 {
-                    graphics2D.drawImage(tileImage, col * gamePanel.getTileSize(),
+                    graphics2D.drawImage(tileImage, column * gamePanel.getTileSize(),
                             row * gamePanel.getTileSize(), gamePanel.getTileSize(), gamePanel.getTileSize(), null);
                 }
             }
         }
     }
-
-
 }

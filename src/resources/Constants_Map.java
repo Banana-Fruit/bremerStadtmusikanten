@@ -17,7 +17,7 @@ public interface Constants_Map
     public static final int GAMEPANEL_SCALE = 3;
     public static final int MAX_SCREEN_ROW = 20;
     public static final int MAX_SCREEN_COLUMN = 30;
-    public static final int GAMEPANEL_FRAMES_P_SECOND = 60;
+    public static final int GAMEPANEL_FRAMES_PER_SECOND = 60;
     public static final int MILLISECONDS_OF_SLEEP = 1000;
     char EMPTY_CHAR_SPACE = ' ';
 }

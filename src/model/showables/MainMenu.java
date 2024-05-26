@@ -3,7 +3,6 @@ package model.showables;
 
 import javafx.scene.Scene;
 import resources.Constants_ExceptionMessages;
-import resources.Constants_Map;
 import resources.Constants_Scenes;
 
 
