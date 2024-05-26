@@ -1,104 +1,81 @@
 package control;
 
-
 import model.GamePanel;
+import model.showables.Map_Jonas;
+import resources.Constants_Map;
 import utility.TileLoader;
+import utility.TileRenderer;
 
 import java.awt.*;
-import java.util.HashMap;
 
 
 public class MapController
 {
-    private GamePanel gp;
+    // attributes
+    private GamePanel gamePanel;
     private final TileLoader tilePathLoader;
-    
     private final TileLoader tileBuildingLoader;
-    private final TileMap mapTile;
-    public TileMap buildingTile;
-    
-    
-    public TileManager(GamePanel gp)
+    private final Map_Jonas mapTile;
+    public Map_Jonas buildingTile;
+
+
+    // constructor
+    public MapController(GamePanel gamePanel)
     {
-        this.gp = gp;
+        this.gamePanel = gamePanel;
         tileBuildingLoader = new TileLoader();
-        tileBuildingLoader.loadTileImages("/Assets/building/gre/");
+        tileBuildingLoader.loadTileImages(Constants_Map.PATH_TILE_BUILDING);
         tilePathLoader = new TileLoader();
-        tilePathLoader.loadTileImages("/Assets/path/");
-        mapTile = new TileMap(gp.maxScreenCol, gp.maxScreenRow);
-        mapTile.loadMap("/Map.txt");
-        buildingTile = new TileMap(gp.maxScreenCol, gp.maxScreenRow);
-        buildingTile.loadMap("/Building.txt");
+        tilePathLoader.loadTileImages(Constants_Map.PATH_TILE);
+        mapTile = new Map_Jonas(gamePanel.getMaxScreenColumn(), gamePanel.getMaxScreenRow());
+        mapTile.loadMap(Constants_Map.PATH_MAP);
+        buildingTile = new Map_Jonas(gamePanel.getMaxScreenColumn(), gamePanel.getMaxScreenRow());
+        buildingTile.loadMap(Constants_Map.PATH_BUILDING_TILE);
     }
-    
-    
-    public void drawMap(Graphics2D g2)
+
+
+    public void drawMap(Graphics2D graphics2D)
     {
-        TileRenderer renderer = new TileRenderer(gp, tilePathLoader.getTileImages());
-        renderer.draw(g2, mapTile.getTileChars());
+        TileRenderer renderer = new TileRenderer(gamePanel, tilePathLoader.getTileImages());
+        renderer.draw(graphics2D, mapTile.getTileChars());
     }
-    
-    
-    public void drawBuilding(Graphics2D g2)
+
+
+    public void drawBuilding(Graphics2D graphics2D)
     {
-        TileRenderer renderer = new TileRenderer(gp, tileBuildingLoader.getTileImages());
-        renderer.draw(g2, buildingTile.getTileChars());
+        TileRenderer renderer = new TileRenderer(gamePanel, tileBuildingLoader.getTileImages());
+        renderer.draw(graphics2D, buildingTile.getTileChars());
     }
-    
-    
+
+
+    /*
     public boolean isObstacle(int x, int y)
     {
-        char tileChar = buildingTile.getTileCharAt(x / gp.tileSize, y / gp.tileSize);
+        char tileChar = buildingTile.getTileCharAt(x / gamePanel.tileSize, y / gamePanel.tileSize);
         return Character.isLowerCase(tileChar);
     }
-    
-    
+
+     */
+
+
+    /*
     public boolean canMoveTo(int x, int y)
     {
         // Überprüfen, ob der Spieler innerhalb des Spielfelds bleibt
-        if (x < 0 || y < 0 || x + gp.tileSize > gp.screenWidth || y + gp.tileSize > gp.screenHeight) return false;
-        
+        if (x < 0 || y < 0 || x + gamePanel.tileSize > gamePanel.screenWidth || y + gamePanel.tileSize > gamePanel.screenHeight)
+            return false;
+
         // Überprüfen, ob der Spieler über ein Hindernis läuft
         if (isObstacle(x, y) ||                   // Obere linke Ecke
-                isObstacle(x + gp.tileSize - 1, y) || // Obere rechte Ecke
-                isObstacle(x, y + gp.tileSize - 1) || // Untere linke Ecke
-                isObstacle(x + gp.tileSize - 1, y + gp.tileSize - 1))
-        { // Untere rechte Ecke
+                isObstacle(x + gamePanel.tileSize - 1, y) || // Obere rechte Ecke
+                isObstacle(x, y + gamePanel.tileSize - 1) || // Untere linke Ecke
+                isObstacle(x + gamePanel.tileSize - 1, y + gamePanel.tileSize - 1)) { // Untere rechte Ecke
             return false;
         }
         return true;
     }
-}
 
-//________________________Tile Renderer ------------------------------------------------
+     */
 
 
-public class TileRenderer
-{
-    private GamePanel gp;
-    private HashMap<Character, Image> tileImages;
-    
-    
-    public TileRenderer(GamePanel gp, HashMap<Character, Image> tileImages)
-    {
-        this.gp = gp;
-        this.tileImages = tileImages;
-    }
-    
-    
-    public void draw(Graphics2D g2, char[][] tileChars)
-    {
-        for (int row = 0; row < gp.maxScreenRow; row++)
-        {
-            for (int col = 0; col < gp.maxScreenCol; col++)
-            {
-                char tileChar = tileChars[col][row];
-                Image tileImage = tileImages.get(tileChar);
-                if (tileImage != null)
-                {
-                    g2.drawImage(tileImage, col * gp.tileSize, row * gp.tileSize, gp.tileSize, gp.tileSize, null);
-                }
-            }
-        }
-    }
 }

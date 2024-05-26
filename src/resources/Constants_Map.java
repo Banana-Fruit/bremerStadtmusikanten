@@ -1,0 +1,22 @@
+package resources;
+
+
+public interface Constants_Map
+{
+    //___________________________Strings_____________________________________
+    public static final String ONLY_PNG = ".png";
+    public static final String PATH_TILE_BUILDING = "/src/resources/Tile_Assets/Obstacle/Building/Red/";
+    public static final String PATH_TILE = "/src/resources/Tile_Assets/Path";
+    public static final String PATH_MAP = "/src/resources/Tile_Map/Path_Map.txt";
+    public static final String PATH_BUILDING_TILE = "/src/resources/Tile_Map/Obstacle_Map.txt";
+
+
+    //__________________________Constants___________________________________
+    public static final int ZERO = 0;
+    public static final int TILE_SIZE = 16;
+    public static final int GAMEPANEL_SCALE = 3;
+    public static final int MAX_SCREEN_ROW = 20;
+    public static final int MAX_SCREEN_COLUMN = 30;
+    public static final int GAMEPANEL_FPS = 60;
+    public static final int MILLISECONDS_OF_SLEEP = 1000;
+}

@@ -12,7 +12,7 @@ import model.showables.Game;
 import resources.Constants_ExceptionMessages;
 import src.resources.Constants_MenuSetting;
 import src.resources.GameMenuBar;
-import src.utility.TransparentButton;
+import utility.TransparentButton;
 
 
 public class SettingController extends Application implements GameMenuBar

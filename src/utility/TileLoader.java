@@ -1,5 +1,6 @@
 package utility;
 
+import resources.Constants_Map;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -11,30 +12,33 @@ import java.util.HashMap;
 
 public class TileLoader
 {
+    // attributes
     private final HashMap<Character, Image> tileImages;
-    
-    
+
+
+    // constructor
     public TileLoader()
     {
         tileImages = new HashMap<>();
     }
-    
-    
+
+
     public void loadTileImages(String path)
     {
         try
         {
-            // Liste aller Bilddateien im angegebenen Pfad abrufen
+            // retrieve list of all image files in the path
             String[] imageFiles = new File(getClass().getResource(path).toURI()).list();
-            
+
             if (imageFiles != null)
             {
                 for (String fileName : imageFiles)
                 {
-                    // Nur PNG-Bilder berücksichtigen
-                    if (fileName.endsWith(".png"))
+                    // only png images
+                    if (fileName.endsWith(Constants_Map.ONLY_PNG))
                     {
-                        char c = fileName.charAt(0); // Verwenden Sie den ersten Buchstaben des Dateinamens als Zeichenwert
+                        // Use the first letter of the file name as the character value
+                        char c = fileName.charAt(Constants_Map.ZERO);
                         Image image = ImageIO.read(getClass().getResourceAsStream(path + fileName));
                         tileImages.put(c, image);
                     }
@@ -48,8 +52,9 @@ public class TileLoader
             throw new RuntimeException(e);
         }
     }
-    
-    
+
+
+    // getter-method for the Tile image
     public HashMap<Character, Image> getTileImages()
     {
         return tileImages;
