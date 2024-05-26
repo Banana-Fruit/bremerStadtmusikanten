@@ -3,11 +3,13 @@ package control;
 
 import javafx.stage.Stage;
 import model.showables.Game;
-import model.user.Player;
 import resources.Constants_ExceptionMessages;
 import resources.Constants_Game;
 
 
+/**
+ * This controller is responsible for scene switching
+ */
 public class SceneController implements Runnable
 {
     private static volatile SceneController instance;

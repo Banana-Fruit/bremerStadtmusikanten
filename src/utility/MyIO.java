@@ -1,10 +1,14 @@
 package utility;
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import javafx.scene.image.Image;
+import resources.Constants_Map;
 
 
 public class MyIO
@@ -54,9 +58,36 @@ public class MyIO
     }
     
     
-    public static Image getImageFromPath(String path)
+    public void loadMap(String path)
     {
-        Image image = new Image(path);
-        return image;
+        InputStream inputStream = getClass().getResourceAsStream(path);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        
+        int row = Constants_Map.MINIMUM_ARRAY_VALUE;
+        try
+        {
+            String line;
+            while ((line = bufferedReader.readLine()) != null && row < Constants_Map.MAX_SCREEN_ROW)
+            {
+                char[] characters = line.toCharArray();
+                for (int column = Constants_Map.MINIMUM_ARRAY_VALUE; column < Constants_Map.MAX_SCREEN_COLUMN && column < characters.length; column++)
+                {
+                    tileChars[column][row] = characters[column];
+                }
+                row++;
+            }
+        } catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        } finally
+        {
+            try
+            {
+                bufferedReader.close();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 }

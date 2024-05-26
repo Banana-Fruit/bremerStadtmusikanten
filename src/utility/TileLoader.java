@@ -38,7 +38,7 @@ public class TileLoader
                     if (fileName.endsWith(Constants_Map.ONLY_PNG))
                     {
                         // Use the first letter of the file name as the character value
-                        char c = fileName.charAt(Constants_Map.ZERO);
+                        char c = fileName.charAt(Constants_Map.MINIMUM_ARRAY_VALUE);
                         Image image = ImageIO.read(getClass().getResourceAsStream(path + fileName));
                         tileImages.put(c, image);
                     }

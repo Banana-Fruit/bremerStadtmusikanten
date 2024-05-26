@@ -1,6 +1,7 @@
 package control;
 
-import model.GamePanel;
+import model.map.GamePanel;
+import model.showables.Map;
 import resources.Constants_Map;
 import utility.TileLoader;
 import utility.TileRenderer;
@@ -10,12 +11,11 @@ import java.awt.*;
 
 public class MapController
 {
-    // attributes
     private GamePanel gamePanel;
     private final TileLoader tilePathLoader;
     private final TileLoader tileBuildingLoader;
-    private final Map_Jonas mapTile;
-    public Map_Jonas buildingTile;
+    private final Map mapTile;
+    public Map buildingTile;
 
 
     // constructor
@@ -26,9 +26,9 @@ public class MapController
         tileBuildingLoader.loadTileImages(Constants_Map.PATH_TILE_BUILDING);
         tilePathLoader = new TileLoader();
         tilePathLoader.loadTileImages(Constants_Map.PATH_TILE);
-        mapTile = new Map_Jonas(gamePanel.getMaxScreenColumn(), gamePanel.getMaxScreenRow());
+        mapTile = new Map();
         mapTile.loadMap(Constants_Map.PATH_MAP);
-        buildingTile = new Map_Jonas(gamePanel.getMaxScreenColumn(), gamePanel.getMaxScreenRow());
+        buildingTile = new Map();
         buildingTile.loadMap(Constants_Map.PATH_BUILDING_TILE);
     }
 
@@ -36,29 +36,25 @@ public class MapController
     public void drawMap(Graphics2D graphics2D)
     {
         TileRenderer renderer = new TileRenderer(gamePanel, tilePathLoader.getTileImages());
-        renderer.draw(graphics2D, mapTile.getTileChars());
+        renderer.draw(graphics2D, mapTile.getTileCharArray());
     }
 
 
     public void drawBuilding(Graphics2D graphics2D)
     {
         TileRenderer renderer = new TileRenderer(gamePanel, tileBuildingLoader.getTileImages());
-        renderer.draw(graphics2D, buildingTile.getTileChars());
+        renderer.draw(graphics2D, buildingTile.getTileCharArray());
     }
 
 
-    /*
-    public boolean isObstacle(int x, int y)
+    /*public boolean isObstacle(int x, int y)
     {
         char tileChar = buildingTile.getTileCharAt(x / gamePanel.tileSize, y / gamePanel.tileSize);
         return Character.isLowerCase(tileChar);
-    }
-
-     */
+    }*/
 
 
-    /*
-    public boolean canMoveTo(int x, int y)
+    /*public boolean canMoveTo(int x, int y)
     {
         // Überprüfen, ob der Spieler innerhalb des Spielfelds bleibt
         if (x < 0 || y < 0 || x + gamePanel.tileSize > gamePanel.screenWidth || y + gamePanel.tileSize > gamePanel.screenHeight)
@@ -72,9 +68,5 @@ public class MapController
             return false;
         }
         return true;
-    }
-
-     */
-
-
+    }*/
 }

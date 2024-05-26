@@ -1,4 +1,4 @@
-package model;
+package model.map;
 
 import control.MapController;
 import resources.Constants_Map;

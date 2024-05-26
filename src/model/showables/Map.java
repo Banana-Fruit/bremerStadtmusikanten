@@ -2,75 +2,62 @@ package model.showables;
 
 
 import javafx.scene.Scene;
+import resources.Constants_ExceptionMessages;
 import resources.Constants_Map;
 import resources.Constants_Scenes;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 
 public class Map extends Showable
 {
+    private static volatile Map instance;
+    private char[][] tileCharArray = new char[Constants_Map.MAX_SCREEN_COLUMN][Constants_Map.MAX_SCREEN_ROW];
     
-    private int maxScreenColumns = Constants_Scenes.MAX_SCREEN_COLUMNS_MAP;
-    private int maxScreenRows = Constants_Scenes.MAX_SCREEN_ROWS_MAP;
-    private char[][] tileChars = new char[maxScreenColumns][maxScreenRows];
     
-    public Map(Scene scene)
+    private Map(Scene scene)
     {
         super(scene, Constants_Scenes.IDENTIFIER_MAP);
     }
     
     
-    public void loadMap(String path)
+    public static synchronized void initialize(Scene scene)
     {
-        InputStream inputStream = getClass().getResourceAsStream(path);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        
-        int row = Constants_Map.ZERO;
-        try
+        if (instance == null)
         {
-            String line;
-            while ((line = bufferedReader.readLine()) != null && row < maxScreenRows)
-            {
-                char[] characters = line.toCharArray();
-                for (int column = Constants_Map.ZERO; column < maxScreenColumns && column < characters.length; column++)
-                {
-                    tileChars[column][row] = characters[column];
-                }
-                row++;
-            }
-        } catch (IOException e)
+            instance = new Map(scene);
+        } else
         {
-            throw new RuntimeException(e);
-        } finally
-        {
-            try
-            {
-                bufferedReader.close();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_ALREADY_INITIALIZED);
         }
     }
     
     
-    public char[][] getTileChars()
+    public static Map getInstance()
     {
-        return this.tileChars;
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+        }
+        return instance;
+    }
+    
+    
+    public char[][] getTileCharArray ()
+    {
+        return this.tileCharArray;
     }
     
     
     public char getTileCharAt(int x, int y)
     {
-        if (x < Constants_Map.ZERO || x >= tileChars.length || y < Constants_Map.ZERO || y >=
-                tileChars[Constants_Map.ZERO].length)
+        try
         {
-            return Constants_Map.EMPTY_CHAR_SPACE; // Return an empty space if coordinates are out of bounds
+            return tileCharArray[x][y];
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        } finally
+        {
+            return Constants_Map.EMPTY_CHAR_SPACE;
         }
-        return tileChars[x][y];
     }
 }

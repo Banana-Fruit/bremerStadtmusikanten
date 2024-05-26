@@ -1,7 +1,7 @@
 package utility;
 
 
-import model.GamePanel;
+import model.map.GamePanel;
 import resources.Constants_Map;
 
 import java.awt.*;
@@ -25,9 +25,9 @@ public class TileRenderer
 
     public void draw(Graphics2D graphics2D, char[][] tileChars)
     {
-        for (int row = Constants_Map.ZERO; row < gamePanel.getMaxScreenRow(); row++)
+        for (int row = Constants_Map.MINIMUM_ARRAY_VALUE; row < gamePanel.getMaxScreenRow(); row++)
         {
-            for (int col = Constants_Map.ZERO; col < gamePanel.getMaxScreenColumn(); col++)
+            for (int col = Constants_Map.MINIMUM_ARRAY_VALUE; col < gamePanel.getMaxScreenColumn(); col++)
             {
                 char tileChar = tileChars[col][row];
                 Image tileImage = tileImages.get(tileChar);
