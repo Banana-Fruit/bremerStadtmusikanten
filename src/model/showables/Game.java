@@ -31,7 +31,8 @@ public class Game
     
     private void init()
     {
-        addShowable(new MainMenu(new Scene(new Pane())), Constants_Scenes.IDENTIFIER_MAINMENU); // Add showable
+        MainMenu.initialize(new Scene(new Pane()));
+        addShowable(MainMenu.getInstance(), Constants_Scenes.IDENTIFIER_MAINMENU); // Add showable
         switchShowable(Constants_Scenes.IDENTIFIER_MAINMENU); // Set initial showable
     }
     

@@ -1,6 +1,6 @@
 package model.map;
 
-import control.MapController;
+import control.scenes.MapController;
 import resources.Constants_Map;
 
 import javax.swing.*;

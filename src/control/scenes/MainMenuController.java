@@ -1,4 +1,4 @@
-package control;
+package control.scenes;
 
 
 import javafx.application.Application;
@@ -14,14 +14,14 @@ import src.resources.GameMenuBar;
 import utility.TransparentButton;
 
 
-public class SettingController extends Application implements GameMenuBar
+public class MainMenuController extends Application implements GameMenuBar
 {
-    private static volatile SettingController instance;
+    private static volatile MainMenuController instance;
     private Game game;
     private Stage stage;
     
     
-    private SettingController()
+    private MainMenuController ()
     {
         this.game = game;
         this.stage = stage;
@@ -32,7 +32,7 @@ public class SettingController extends Application implements GameMenuBar
     {
         if (instance == null)
         {
-            instance = new SettingController();
+            instance = new MainMenuController();
         } else
         {
             throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_ALREADY_INITIALIZED);
@@ -41,7 +41,7 @@ public class SettingController extends Application implements GameMenuBar
     
     
     // Method to retrieve the Singleton instance without parameters
-    public static SettingController getInstance()
+    public static MainMenuController getInstance()
     {
         if (instance == null)
         {

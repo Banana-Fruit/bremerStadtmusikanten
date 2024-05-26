@@ -1,6 +1,9 @@
-package control;
+package control.scenes;
 
 
+import control.ImageController;
+import control.events.KeyboardController;
+import control.events.MouseController;
 import javafx.stage.Stage;
 import model.showables.Game;
 

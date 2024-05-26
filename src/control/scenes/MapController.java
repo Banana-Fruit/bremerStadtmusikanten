@@ -1,4 +1,4 @@
-package control;
+package control.scenes;
 
 import model.map.GamePanel;
 import model.showables.Map;
