@@ -18,8 +18,7 @@ public class GamePanel extends JPanel implements Runnable
     private final int screenWidth = tileSize * maxScreenColumn;
     private final int screenHeight = tileSize * maxScreenRow;
 
-    //TODO: wofür steht FPS?
-    private int FPS = Constants_Map.GAMEPANEL_FPS;
+    private int FPS = Constants_Map.GAMEPANEL_FRAMES_P_SECOND;
     private MapController tileM = new MapController(this);
     private Thread gameThread;
 
