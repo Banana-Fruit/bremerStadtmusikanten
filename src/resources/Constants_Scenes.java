@@ -9,6 +9,6 @@ public interface Constants_Scenes
     
     
     // Map values
-    int MAX_SCREEN_COLUMNS = 10;
-    int MAX_SCREEN_ROWS = 10;
+    int MAX_SCREEN_COLUMNS_MAP = 10;
+    int MAX_SCREEN_ROWS_MAP = 10;
 }

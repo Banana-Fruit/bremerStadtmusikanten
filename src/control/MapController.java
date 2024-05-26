@@ -2,7 +2,6 @@ package control;
 
 
 import model.GamePanel;
-import model.TileMap;
 import utility.TileLoader;
 
 import java.awt.*;
