@@ -8,7 +8,7 @@ import resources.Constants_ExceptionMessages;
 public class MouseController implements Runnable
 {
     private static volatile MouseController instance;
-    private Game game;
+    private static Game game;
     
     
     private MouseController(Game game)

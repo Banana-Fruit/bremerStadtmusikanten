@@ -1,12 +1,11 @@
 package utility;
 
 
-import model.panel.Tile;
+import javafx.scene.image.Image;
 import model.showables.Map;
 import resources.Constants_Map;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -97,16 +96,13 @@ public class PanelAndTileLoader
                         // Use the first letter of the file name as the character value
                         char c = currentFileName.charAt(Constants_Map.IMAGE_CHAR_POSITION);
                         String fullPath = (String)(imageFolderPath + currentFileName);
-                        Image image = ImageIO.read(new File(fullPath));
+                        Image image = new Image(fullPath);
                         currentMapOfCharsWithImages.put(c, image);
                     }
                 }
             }
             return currentMapOfCharsWithImages;
         } catch (URISyntaxException e)
-        {
-            throw new RuntimeException(e);
-        } catch (IOException e)
         {
             throw new RuntimeException(e);
         } finally

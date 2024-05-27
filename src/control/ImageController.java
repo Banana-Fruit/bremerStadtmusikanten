@@ -14,7 +14,7 @@ import java.util.*;
 public class ImageController implements Runnable
 {
     private static volatile ImageController instance;
-    private Game game;
+    private static Game game;
     
     
     private ImageController(Game game)

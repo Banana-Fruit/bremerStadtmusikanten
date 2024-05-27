@@ -22,7 +22,7 @@ public class KeyboardController implements Runnable
 {
     private static volatile KeyboardController instance;
     private final Set<KeyCode> pressedKeys = new HashSet<>();
-    private Game game;
+    private static Game game;
     
     
     private KeyboardController(Game game)

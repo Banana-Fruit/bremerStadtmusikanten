@@ -2,6 +2,7 @@ package model.panel;
 
 
 import javafx.scene.image.Image;
+import resources.Constants_TileMap;
 
 
 /**
@@ -10,35 +11,18 @@ import javafx.scene.image.Image;
 public class Tile
 {
     private Image image;
-    private int positionX;
-    private int positionY;
-    private boolean isOccupied;
+    private boolean isOccupied = Constants_TileMap.DEFAULT_isOccupied;
     
     
-    public Tile (String imagePath, int positionX, int positionY, boolean isOccupied)
+    public Tile (Image image)
     {
-        image = new Image(imagePath);
-        this.positionX = positionX;
-        this.positionY = positionY;
-        this.isOccupied = isOccupied;
+        this.image = image;
     }
     
     
     public Image getImage ()
     {
         return image;
-    }
-    
-    
-    public int getPositionX ()
-    {
-        return positionX;
-    }
-    
-    
-    public int getPositionY ()
-    {
-        return positionY;
     }
     
     

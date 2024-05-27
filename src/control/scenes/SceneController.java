@@ -13,7 +13,7 @@ import resources.Constants_Game;
 public class SceneController implements Runnable
 {
     private static volatile SceneController instance;
-    private Game game;
+    private static Game game;
     private Stage stage;
     
     

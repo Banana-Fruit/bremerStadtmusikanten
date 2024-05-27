@@ -10,7 +10,7 @@ import model.userInterface.Game;
 
 public class GameController
 {
-    private Game game;
+    private static Game game;
     private Stage stage;
     
     
