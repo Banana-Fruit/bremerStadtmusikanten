@@ -71,14 +71,14 @@ public enum ConsoleColor
     private final String code;
     
     
-    ConsoleColor(String code)
+    ConsoleColor (String code)
     {
         this.code = code;
     }
     
     
     @Override
-    public String toString()
+    public String toString ()
     {
         return code;
     }

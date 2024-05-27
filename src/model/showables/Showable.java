@@ -17,7 +17,7 @@ public class Showable
     private int id;
     
     
-    public Showable(Scene scene, Integer id)
+    public Showable (Scene scene, Integer id)
     {
         this.scene = scene;
         this.pane = new Pane(scene.getRoot());
@@ -27,46 +27,46 @@ public class Showable
     }
     
     
-    private void init()
+    private void init ()
     {
         scene.setRoot(pane);
         scene.fillProperty().set(Color.BLACK);
     }
     
     
-    public void addImageView(ImageView imageviewKey, int percentageValue)
+    public void addImageView (ImageView imageviewKey, int percentageValue)
     {
         this.imageViewsWithSizePercentage.put(imageviewKey, percentageValue);
         this.pane.getChildren().add(imageviewKey);
     }
     
     
-    public void removeImageView(ImageView imageviewKey)
+    public void removeImageView (ImageView imageviewKey)
     {
         this.imageViewsWithSizePercentage.remove(imageviewKey);
         this.pane.getChildren().remove(imageviewKey);
     }
     
     
-    public HashMap<ImageView, Integer> getImageViewsWithSizePercentage()
+    public HashMap<ImageView, Integer> getImageViewsWithSizePercentage ()
     {
         return imageViewsWithSizePercentage;
     }
     
     
-    public Pane getPane()
+    public Pane getPane ()
     {
         return pane;
     }
     
     
-    public Scene getScene()
+    public Scene getScene ()
     {
         return scene;
     }
     
     
-    public int getId()
+    public int getId ()
     {
         return id;
     }

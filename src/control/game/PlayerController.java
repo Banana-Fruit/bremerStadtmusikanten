@@ -24,27 +24,27 @@ public class PlayerController
     private int positionY;
     
     
-    private PlayerController(Game game, Player player)
+    private PlayerController (Game game, Player player)
     {
         this.game = game;
         this.player = player;
     }
     
     
-    public static synchronized void initialize(Game game, Player player)
+    public static synchronized void initialize (Game game, Player player)
     {
         if (instance == null)
         {
             instance = new PlayerController(game, player);
         } else
         {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_ALREADY_INITIALIZED);
+            throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
     
     
     // Method to retrieve the Singleton instance without parameters
-    public static PlayerController getInstance()
+    public static PlayerController getInstance ()
     {
         if (instance == null)
         {
@@ -54,7 +54,7 @@ public class PlayerController
     }
     
     
-    public void handleKeyPresses(Set<KeyCode> pressedKeys)
+    public void handleKeyPresses (Set<KeyCode> pressedKeys)
     {
         if (game.getCurrentShowable().getId() == Constants_Scenes.IDENTIFIER_MAP && this.player != null)
         {
@@ -71,7 +71,7 @@ public class PlayerController
     }
     
     
-    public void moveUP(boolean isDiagonal)
+    public void moveUP (boolean isDiagonal)
     {
         int deltaY = Constants_DefaultValues.DEFAULT_SPEED * Constants_DefaultValues.SPEED_MULTIPLIER;
         if (isDiagonal) deltaY = (int) (deltaY * Constants_DefaultValues.ADJUST_DIAGONAL_MOVEMENT);
@@ -79,7 +79,7 @@ public class PlayerController
     }
     
     
-    public void moveDOWN(boolean isDiagonal)
+    public void moveDOWN (boolean isDiagonal)
     {
         int deltaY = Constants_DefaultValues.DEFAULT_SPEED * Constants_DefaultValues.SPEED_MULTIPLIER;
         if (isDiagonal) deltaY = (int) (deltaY * Constants_DefaultValues.ADJUST_DIAGONAL_MOVEMENT);
@@ -87,7 +87,7 @@ public class PlayerController
     }
     
     
-    public void moveRIGHT(boolean isDiagonal)
+    public void moveRIGHT (boolean isDiagonal)
     {
         int deltaX = Constants_DefaultValues.DEFAULT_SPEED * Constants_DefaultValues.SPEED_MULTIPLIER;
         if (isDiagonal) deltaX = (int) (deltaX * Constants_DefaultValues.ADJUST_DIAGONAL_MOVEMENT);
@@ -95,7 +95,7 @@ public class PlayerController
     }
     
     
-    public void moveLEFT(boolean isDiagonal)
+    public void moveLEFT (boolean isDiagonal)
     {
         int deltaX = Constants_DefaultValues.DEFAULT_SPEED * Constants_DefaultValues.SPEED_MULTIPLIER;
         if (isDiagonal) deltaX = (int) (deltaX * Constants_DefaultValues.ADJUST_DIAGONAL_MOVEMENT);
@@ -103,7 +103,7 @@ public class PlayerController
     }
     
     
-    public void changePosition()
+    public void changePosition ()
     {
         // TODO: OutputImageView.setImagePosition(this.player.getPlayerImage(), this.positionX, this.positionY);
     }

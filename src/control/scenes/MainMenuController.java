@@ -9,7 +9,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.userInterface.Game;
 import resources.Constants_ExceptionMessages;
-import src.resources.Constants_MenuSetting;
+import resources.Constants_MenuSetting;
 import src.resources.GameMenuBar;
 import model.userInterface.TransparentButton;
 
@@ -28,20 +28,20 @@ public class MainMenuController extends Application implements GameMenuBar
     }
     
     
-    public static synchronized void initialize()
+    public static synchronized void initialize ()
     {
         if (instance == null)
         {
             instance = new MainMenuController();
         } else
         {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_ALREADY_INITIALIZED);
+            throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
     
     
     // Method to retrieve the Singleton instance without parameters
-    public static MainMenuController getInstance()
+    public static MainMenuController getInstance ()
     {
         if (instance == null)
         {
@@ -52,7 +52,7 @@ public class MainMenuController extends Application implements GameMenuBar
     
     
     @Override
-    public void start(Stage stage) throws Exception
+    public void start (Stage stage) throws Exception
     {
         Pane root = new Pane();
         Scene scene = new Scene(root, Constants_MenuSetting.SCENE_WIDTH, Constants_MenuSetting.SCENE_HEIGHT);
@@ -84,7 +84,7 @@ public class MainMenuController extends Application implements GameMenuBar
     
     
     //todo. IS NOT WORKING (Idea1)
-    private static Background createABackground(String path, int imageWidth, int imageHeight, ClassLoader classLoader)
+    private static Background createABackground (String path, int imageWidth, int imageHeight, ClassLoader classLoader)
     {
         Image imgBackground = new Image(classLoader.getResourceAsStream(path), imageWidth, imageHeight, false, true);
         BackgroundImage backgroundImage = new BackgroundImage(
@@ -98,7 +98,7 @@ public class MainMenuController extends Application implements GameMenuBar
     
     
     //TODO: is also not working (Idea2)
-    private static Background testBackground(String path) throws IllegalArgumentException
+    private static Background testBackground (String path) throws IllegalArgumentException
     {
         Image imgBackground = new Image(path);
         return new Background(new BackgroundImage(
@@ -117,7 +117,7 @@ public class MainMenuController extends Application implements GameMenuBar
      * @author Jonas Helfer
      */
     
-    private static void openSettings(Stage stage, Pane root)
+    private static void openSettings (Stage stage, Pane root)
     {
         Scene scene = new Scene(root, Constants_MenuSetting.SCENE_WIDTH, Constants_MenuSetting.SCENE_HEIGHT);
         
@@ -129,7 +129,7 @@ public class MainMenuController extends Application implements GameMenuBar
     }
     
     
-    public static VBox createMenuInVBox(Stage stage, Pane root, int itemWidth, int itemHeight, int xPositionVBox, int yPositionVBox)
+    public static VBox createMenuInVBox (Stage stage, Pane root, int itemWidth, int itemHeight, int xPositionVBox, int yPositionVBox)
     {
         VBox box = new VBox(Constants_MenuSetting.VBOX_V,
                 new TransparentButton(Constants_MenuSetting.MENU_CONTINUE_GAME, () ->

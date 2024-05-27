@@ -25,26 +25,26 @@ public class KeyboardController implements Runnable
     private static Game game;
     
     
-    private KeyboardController(Game game)
+    private KeyboardController (Game game)
     {
         this.game = game;
     }
     
     
-    public static synchronized void initialize(Game game)
+    public static synchronized void initialize (Game game)
     {
         if (instance == null)
         {
             instance = new KeyboardController(game);
         } else
         {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_ALREADY_INITIALIZED);
+            throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
     
     
     // Method to retrieve the Singleton instance without parameters
-    public static KeyboardController getInstance()
+    public static KeyboardController getInstance ()
     {
         if (instance == null)
         {
@@ -55,7 +55,7 @@ public class KeyboardController implements Runnable
     
     
     @Override
-    public void run()
+    public void run ()
     {
         while (true)
         {
@@ -72,7 +72,7 @@ public class KeyboardController implements Runnable
             this.game.getCurrentShowable().getScene().setOnKeyPressed(new EventHandler<KeyEvent>()
             {
                 @Override
-                public void handle(KeyEvent keyEvent)
+                public void handle (KeyEvent keyEvent)
                 {
                     pressedKeys.add(keyEvent.getCode());
                 }
@@ -80,7 +80,7 @@ public class KeyboardController implements Runnable
             this.game.getCurrentShowable().getScene().setOnKeyReleased(new EventHandler<KeyEvent>()
             {
                 @Override
-                public void handle(KeyEvent keyEvent)
+                public void handle (KeyEvent keyEvent)
                 {
                     pressedKeys.remove(keyEvent.getCode());
                 }
@@ -89,7 +89,7 @@ public class KeyboardController implements Runnable
             Platform.runLater(new Runnable()
             {
                 @Override
-                public void run()
+                public void run ()
                 {
                     routeToPlayerController(pressedKeys);
                 }
@@ -98,7 +98,7 @@ public class KeyboardController implements Runnable
     }
     
     
-    public void routeToPlayerController(Set<KeyCode> pressedKeys)
+    public void routeToPlayerController (Set<KeyCode> pressedKeys)
     {
         Set<KeyCode> playerRelatedKeys = new HashSet<>();
         for (KeyCode currentCode : Constants_Keymapping.PLAYER_KEYS)

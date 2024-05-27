@@ -16,32 +16,32 @@ public class MapScene implements Runnable
     Image mapImage;
     
     
-    public MapScene(Image mapImage)
+    public MapScene (Image mapImage)
     {
         this.mapImage = mapImage;
     }
     
     
-    public Image getMapImage()
+    public Image getMapImage ()
     {
         return mapImage;
     }
     
     
-    public void centerMap()
+    public void centerMap ()
     {
     
     }
     
     
-    public void adjustMapToSceneSize()
+    public void adjustMapToSceneSize ()
     {
     
     }
     
     
     @Override
-    public void run()
+    public void run ()
     {
     
     }

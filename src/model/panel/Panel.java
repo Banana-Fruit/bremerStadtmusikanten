@@ -2,6 +2,7 @@ package model.panel;
 
 
 import resources.Constants_DefaultValues;
+import resources.Constants_Map;
 import resources.Constants_Panel;
 
 
@@ -11,6 +12,7 @@ import resources.Constants_Panel;
 public class Panel
 {
     private Tile[][] tileArray;
+    
     
     public Panel (Tile[][] tileArray)
     {

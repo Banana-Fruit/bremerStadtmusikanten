@@ -6,6 +6,7 @@ import model.panel.Panel;
 import model.panel.Tile;
 import model.userInterface.Game;
 import resources.Constants_DefaultValues;
+import resources.Constants_ExceptionMessages;
 import resources.Constants_Map;
 import resources.Constants_Panel;
 import utility.PanelAndTileLoader;
@@ -28,9 +29,26 @@ public class PanelController
     private final int screenHeight = tileSize * maxScreenRow;
     
     
-    public PanelController (Game game, String resourceFolderPath) // TODO: Remove Game game and make a static initializer
+    private PanelController (Game game)
     {
         this.game = game;
+    }
+    
+    
+    public static synchronized void initialize (Game game)
+    {
+        if (PanelController.game == null)
+        {
+            PanelController.game = game;
+        } else
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
+        }
+    }
+    
+    
+    public PanelController (String resourceFolderPath)
+    {
         this.resourceFolderPath = resourceFolderPath;
         init();
     }
@@ -75,7 +93,7 @@ public class PanelController
     }
     
     
-    public boolean isCoordinateOccupied (int x, int y)
+    /*public boolean isCoordinateOccupied (int x, int y) // TODO: Fix later (Scalable?)
     {
         // Überprüfen, ob der Spieler innerhalb des Spielfelds bleibt
         if (x < 0 || y < 0 || x + gamePanel.tileSize > gamePanel.screenWidth || y + gamePanel.tileSize > gamePanel.screenHeight)
@@ -90,5 +108,5 @@ public class PanelController
             return false;
         }
         return true;
-    }
+    }*/
 }

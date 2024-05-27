@@ -15,13 +15,13 @@ public class Player
     private List inventory; // TODO: Holds artefacts
     
     
-    public Player(Image image)
+    public Player (Image image)
     {
         this.playerImage = image;
     }
     
     
-    public Image getPlayerImage()
+    public Image getPlayerImage ()
     {
         return playerImage;
     }

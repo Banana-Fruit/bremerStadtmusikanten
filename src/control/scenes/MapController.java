@@ -1,5 +1,6 @@
 package control.scenes;
 
+
 import model.showables.Map;
 import resources.Constants_Map;
 import utility.MyIO;
@@ -14,15 +15,15 @@ public class MapController implements Runnable
     private final TileLoader tileBuildingLoader;
     public Map buildingTile;
     private char[][] tileCharArray = new char[Constants_Map.MAX_SCREEN_COLUMN][Constants_Map.MAX_SCREEN_ROW];
-
-
+    
+    
     public MapController ()
     {
     
     }
     
     
-    public MapController(GamePanel gamePanel)
+    public MapController (GamePanel gamePanel)
     {
         this.gamePanel = gamePanel;
         tileBuildingLoader = new TileLoader();
@@ -62,14 +63,14 @@ public class MapController implements Runnable
     }
     
     
-    public void drawMap(Graphics2D graphics2D)
+    public void drawMap (Graphics2D graphics2D)
     {
         TileRenderer renderer = new TileRenderer(gamePanel, tilePathLoader.getMapWithCharsAndImages());
         renderer.draw(graphics2D, mapTile.getTileCharArray());
     }
     
     
-    public void drawBuilding(Graphics2D graphics2D)
+    public void drawBuilding (Graphics2D graphics2D)
     {
         TileRenderer renderer = new TileRenderer(gamePanel, tileBuildingLoader.getMapWithCharsAndImages());
         renderer.draw(graphics2D, buildingTile.getTileCharArray());

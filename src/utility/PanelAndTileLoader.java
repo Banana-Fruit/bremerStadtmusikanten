@@ -21,8 +21,8 @@ public class PanelAndTileLoader
             char[][] tileChars = Map.getInstance().getTileCharArray();
             
             String line;
-            for(int row = Constants_Map.MINIMUM_ARRAY_VALUE;
-                row < Constants_Map.MAX_SCREEN_ROW && (line = bufferedReader.readLine()) != null; row++)
+            for (int row = Constants_Map.MINIMUM_ARRAY_VALUE;
+                 row < Constants_Map.MAX_SCREEN_ROW && (line = bufferedReader.readLine()) != null; row++)
             {
                 char[] characters = line.toCharArray();
                 for (int column = Constants_Map.MINIMUM_ARRAY_VALUE;
@@ -38,8 +38,7 @@ public class PanelAndTileLoader
         } catch (IOException e)
         {
             e.printStackTrace();
-        }
-        finally
+        } finally
         {
             return null;
         }
@@ -95,7 +94,7 @@ public class PanelAndTileLoader
                     {
                         // Use the first letter of the file name as the character value
                         char c = currentFileName.charAt(Constants_Map.IMAGE_CHAR_POSITION);
-                        String fullPath = (String)(imageFolderPath + currentFileName);
+                        String fullPath = (String) (imageFolderPath + currentFileName);
                         Image image = new Image(fullPath);
                         currentMapOfCharsWithImages.put(c, image);
                     }

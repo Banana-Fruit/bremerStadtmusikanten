@@ -14,7 +14,7 @@ public class GameController
     private Stage stage;
     
     
-    public GameController(Game game, Stage stage)
+    public GameController (Game game, Stage stage)
     {
         this.game = game;
         this.stage = stage;
@@ -22,7 +22,7 @@ public class GameController
     }
     
     
-    public void init()
+    public void init ()
     {
         KeyboardController.initialize(this.game);
         MouseController.initialize(this.game);

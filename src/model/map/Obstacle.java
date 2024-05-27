@@ -18,7 +18,7 @@ public class Obstacle
     private Image obstacleImage;
     
     
-    public Obstacle(Image obstacleImage, int positionX, int positionY, int hitboxLengthX, int hitboxLengthY)
+    public Obstacle (Image obstacleImage, int positionX, int positionY, int hitboxLengthX, int hitboxLengthY)
     {
         this.obstacleImage = obstacleImage;
         this.positionX = positionX;
@@ -29,7 +29,7 @@ public class Obstacle
     }
     
     
-    private void determineImageOffset(Image image)
+    private void determineImageOffset (Image image)
     {
     
     }

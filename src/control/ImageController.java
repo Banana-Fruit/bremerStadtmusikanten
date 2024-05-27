@@ -17,26 +17,26 @@ public class ImageController implements Runnable
     private static Game game;
     
     
-    private ImageController(Game game)
+    private ImageController (Game game)
     {
         this.game = game;
     }
     
     
-    public static synchronized void initialize(Game game)
+    public static synchronized void initialize (Game game)
     {
         if (instance == null)
         {
             instance = new ImageController(game);
         } else
         {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_ALREADY_INITIALIZED);
+            throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
     
     
     // Method to retrieve the Singleton instance without parameters
-    public static ImageController getInstance()
+    public static ImageController getInstance ()
     {
         if (instance == null)
         {
@@ -47,7 +47,7 @@ public class ImageController implements Runnable
     
     
     @Override
-    public void run()
+    public void run ()
     {
         while (true)
         {
@@ -66,7 +66,7 @@ public class ImageController implements Runnable
     }
     
     
-    public void changeImagePosition(Image image, int x, int y)
+    public void changeImagePosition (Image image, int x, int y)
     {
         //TODO: OutputImageView.setImagePosition( , x, y);
     }

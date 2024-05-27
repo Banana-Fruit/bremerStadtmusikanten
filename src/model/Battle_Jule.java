@@ -14,7 +14,7 @@ public class Battle_Jule
     
     
     //constructor
-    public Battle_Jule(String name, int health, int attack, boolean isAlive)
+    public Battle_Jule (String name, int health, int attack, boolean isAlive)
     {
         this.NAME = name;
         this.health = health;
@@ -23,13 +23,13 @@ public class Battle_Jule
     }
     
     
-    public void tellMeAboutYou(Battle_Jule person)
+    public void tellMeAboutYou (Battle_Jule person)
     {
         System.out.printf(Constants_BattleJule.INTRODUCTION_PERSON, person.getNAME(), person.getHealth());
     }
     
     
-    public static void attackPerson(Battle_Jule bully, Battle_Jule victim)
+    public static void attackPerson (Battle_Jule bully, Battle_Jule victim)
     {
         // for the EA: more attributes than only health
         System.out.printf(Constants_BattleJule.ATTACK, bully.getNAME(), victim.getNAME(), bully.getAttack());
@@ -38,7 +38,7 @@ public class Battle_Jule
     }
     
     
-    public static void checkIfPersonIsDead(Battle_Jule person)
+    public static void checkIfPersonIsDead (Battle_Jule person)
     {
         // for the EA: implements as a thread that checks every second if an object is dead
         if (person.getHealth() <= Constants_BattleJule.LIMIT_HEALTH)
@@ -53,7 +53,7 @@ public class Battle_Jule
     }
     
     
-    private void lockDeadPerson(Battle_Jule person)
+    private void lockDeadPerson (Battle_Jule person)
     {
         if (!person.isAlive)
         {
@@ -63,31 +63,31 @@ public class Battle_Jule
     }
     
     
-    public String getNAME()
+    public String getNAME ()
     {
         return NAME;
     }
     
     
-    public int getHealth()
+    public int getHealth ()
     {
         return health;
     }
     
     
-    public int getAttack()
+    public int getAttack ()
     {
         return attack;
     }
     
     
-    public void setHealth(int health)
+    public void setHealth (int health)
     {
         this.health = health;
     }
     
     
-    public static void main(String[] args)
+    public static void main (String[] args)
     {
         // creates two objects of person
         Battle_Jule hans = new Battle_Jule("Hans", 80, 20, true);

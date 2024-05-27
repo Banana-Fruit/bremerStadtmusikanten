@@ -17,27 +17,27 @@ public class SceneController implements Runnable
     private Stage stage;
     
     
-    private SceneController(Game game, Stage stage)
+    private SceneController (Game game, Stage stage)
     {
         this.game = game;
         this.stage = stage;
     }
     
     
-    public static synchronized void initialize(Game game, Stage stage)
+    public static synchronized void initialize (Game game, Stage stage)
     {
         if (instance == null)
         {
             instance = new SceneController(game, stage);
         } else
         {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_ALREADY_INITIALIZED);
+            throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
     
     
     // Method to retrieve the Singleton instance without parameters
-    public static SceneController getInstance()
+    public static SceneController getInstance ()
     {
         if (instance == null)
         {
@@ -48,7 +48,7 @@ public class SceneController implements Runnable
     
     
     @Override
-    public void run()
+    public void run ()
     {
         while (true)
         {

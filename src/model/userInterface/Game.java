@@ -24,14 +24,14 @@ public class Game
     private String gameTitle = Constants_Game.GAME_TITLE;
     
     
-    public Game()
+    public Game ()
     {
         this.mapOfShowables = new HashMap<>();
         init();
     }
     
     
-    private void init()
+    private void init ()
     {
         MainMenu.initialize(new Scene(new Pane()));
         addShowable(MainMenu.getInstance(), Constants_Scenes.IDENTIFIER_MAINMENU); // Add showable
@@ -39,43 +39,43 @@ public class Game
     }
     
     
-    public void setPlayer(Player player)
+    public void setPlayer (Player player)
     {
         this.player = player;
     }
     
     
-    public void switchShowable(int identifier)
+    public void switchShowable (int identifier)
     {
         this.currentShowable = this.mapOfShowables.get(identifier);
     }
     
     
-    public void addShowable(Showable showable, int identifier)
+    public void addShowable (Showable showable, int identifier)
     {
         this.mapOfShowables.put(identifier, showable);
     }
     
     
-    public Showable getCurrentShowable()
+    public Showable getCurrentShowable ()
     {
         return currentShowable;
     }
     
     
-    public Player getPlayer()
+    public Player getPlayer ()
     {
         return player;
     }
     
     
-    public String getGameTitle()
+    public String getGameTitle ()
     {
         return gameTitle;
     }
     
     
-    public void removeShowable(int identifier)
+    public void removeShowable (int identifier)
     {
         this.mapOfShowables.remove(identifier);
     }

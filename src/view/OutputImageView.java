@@ -15,6 +15,7 @@ public class OutputImageView
     }
     
     
+    // TODO: Is it actually needed?
     public static void scaleImageViewToSceneSize (ImageView imageView, int percentageValue, Scene scene)
     {
         double referenceHeight = scene.heightProperty().get();
@@ -26,15 +27,18 @@ public class OutputImageView
         double newImageWidth;
         
         
-        if (referenceAspectRatio > imageAspectRatio) {
+        if (referenceAspectRatio > imageAspectRatio)
+        {
             // Pane is wider than the image
             newImageHeight = referenceHeight;
             newImageWidth = referenceHeight * imageAspectRatio;
-        } else if (referenceAspectRatio < imageAspectRatio) {
+        } else if (referenceAspectRatio < imageAspectRatio)
+        {
             // Pane is narrower than the image
             newImageWidth = referenceWidth;
             newImageHeight = referenceWidth / imageAspectRatio;
-        } else {
+        } else
+        {
             // Pane and image have the same aspect ratio
             newImageHeight = referenceHeight;
             newImageWidth = referenceWidth;

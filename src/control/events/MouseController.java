@@ -11,26 +11,26 @@ public class MouseController implements Runnable
     private static Game game;
     
     
-    private MouseController(Game game)
+    private MouseController (Game game)
     {
         this.game = game;
     }
     
     
-    public static synchronized void initialize(Game game)
+    public static synchronized void initialize (Game game)
     {
         if (instance == null)
         {
             instance = new MouseController(game);
         } else
         {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_ALREADY_INITIALIZED);
+            throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
     
     
     // Method to retrieve the Singleton instance without parameters
-    public static MouseController getInstance()
+    public static MouseController getInstance ()
     {
         if (instance == null)
         {
@@ -41,7 +41,7 @@ public class MouseController implements Runnable
     
     
     @Override
-    public void run()
+    public void run ()
     {
     
     }
