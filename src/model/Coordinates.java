@@ -14,6 +14,18 @@ public class Coordinates
     }
     
     
+    public void setPositionX (double positionX)
+    {
+        this.positionX = positionX;
+    }
+    
+    
+    public void setPositionY (double positionY)
+    {
+        this.positionY = positionY;
+    }
+    
+    
     public double getPositionX ()
     {
         return positionX;

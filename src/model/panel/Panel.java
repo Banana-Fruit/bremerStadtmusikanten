@@ -35,4 +35,10 @@ public class Panel
     {
         return tileArray[Constants_Panel.INDEX_WITH_MAX_VALUE].length - Constants_DefaultValues.LENGTH_TO_SIZE_SUBTRACTOR;
     }
+    
+    
+    public Tile[][] getTileArray ()
+    {
+        return tileArray;
+    }
 }

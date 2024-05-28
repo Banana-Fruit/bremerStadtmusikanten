@@ -3,7 +3,6 @@ package control;
 
 import control.events.KeyboardController;
 import control.events.MouseController;
-import control.scenes.ImageController;
 import control.scenes.SceneController;
 import javafx.stage.Stage;
 import model.userInterface.Game;
@@ -31,7 +30,7 @@ public class GameController implements Runnable
         
         new Thread(KeyboardController.getInstance()).start();
         new Thread(MouseController.getInstance()).start();
-        new Thread(SceneController.getInstance()).start();
+        //new Thread(SceneController.getInstance()).start();
         
         this.stage.setTitle(game.getGameTitle());
         this.stage.show();

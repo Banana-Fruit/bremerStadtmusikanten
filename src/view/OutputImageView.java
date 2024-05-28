@@ -1,94 +1,21 @@
 package view;
 
 
-import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import resources.constants.Constants_DefaultValues;
 
 
-public class OutputImageView
+public class OutputImageView extends ImageView
 {
-    public static void setImagePosition (ImageView imageView, double x, double y)
+    public OutputImageView (Image image)
     {
-        imageView.setX(x);
-        imageView.setY(y);
+        super(image);
     }
     
     
-    // TODO: Is it actually needed?
-    public static void scaleImageViewToSceneSize (ImageView imageView, int percentageValue, Scene scene)
+    public void updatePosition (double x, double y)
     {
-        double referenceHeight = scene.heightProperty().get();
-        double referenceWidth = scene.widthProperty().get();
-        double referenceAspectRatio = referenceWidth / referenceHeight;
-        
-        double imageAspectRatio = imageView.fitWidthProperty().get() / imageView.fitHeightProperty().get();
-        double newImageHeight;
-        double newImageWidth;
-        
-        
-        if (referenceAspectRatio > imageAspectRatio)
-        {
-            // Pane is wider than the image
-            newImageHeight = referenceHeight;
-            newImageWidth = referenceHeight * imageAspectRatio;
-        } else if (referenceAspectRatio < imageAspectRatio)
-        {
-            // Pane is narrower than the image
-            newImageWidth = referenceWidth;
-            newImageHeight = referenceWidth / imageAspectRatio;
-        } else
-        {
-            // Pane and image have the same aspect ratio
-            newImageHeight = referenceHeight;
-            newImageWidth = referenceWidth;
-        }
-        
-        
-        // Apply the scaling percentage
-        double scalingFactor = percentageValue / Constants_DefaultValues.PERCENTAGE_NUMBER;
-        newImageHeight *= scalingFactor;
-        newImageWidth *= scalingFactor;
-        
-        // Set the new dimensions to the ImageView
-        imageView.fitHeightProperty().set(newImageHeight);
-        imageView.fitWidthProperty().set(newImageWidth);
+        this.setX(x);
+        this.setY(y);
     }
-    
-    
-    /*public static void scaleImageViewToBackgroundByPercentage(javafx.scene.image.ImageView imageViewToScale, Background imageViewAsReference, int scalingPercentage)
-    {
-        double referenceHeight = imageViewAsReference.fitHeightProperty().get();
-        double referenceWidth = imageViewAsReference.fitWidthProperty().get();
-        double referenceAspectRatio = referenceWidth / referenceHeight;
-        
-        double imageAspectRatio = imageViewToScale.getImage().getWidth() / imageViewToScale.getImage().getHeight();
-        double newImageHeight;
-        double newImageWidth;
-        
-        
-        if (referenceAspectRatio > imageAspectRatio) {
-            // Pane is wider than the image
-            newImageHeight = referenceHeight;
-            newImageWidth = referenceHeight * imageAspectRatio;
-        } else if (referenceAspectRatio < imageAspectRatio) {
-            // Pane is narrower than the image
-            newImageWidth = referenceWidth;
-            newImageHeight = referenceWidth / imageAspectRatio;
-        } else {
-            // Pane and image have the same aspect ratio
-            newImageHeight = referenceHeight;
-            newImageWidth = referenceWidth;
-        }
-        
-        
-        // Apply the scaling percentage
-        double scalingFactor = scalingPercentage / 100.0;
-        newImageHeight *= scalingFactor;
-        newImageWidth *= scalingFactor;
-        
-        // Set the new dimensions to the ImageView
-        imageViewToScale.fitHeightProperty().set(newImageHeight);
-        imageViewToScale.fitWidthProperty().set(newImageWidth);
-    }*/
 }

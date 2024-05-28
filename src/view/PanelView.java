@@ -1,36 +1,29 @@
 package view;
 
 
-import model.showables.Map;
-import resources.constants.scenes.Constants_Map;
+import control.scenes.PanelController;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import model.panel.Panel;
+import resources.constants.Constants_Panel;
 
 import java.awt.*;
 
 
 public class PanelView
 {
-    public void showTiles (Graphics graphics)
+    public static Pane addTilesToPane (PanelController panelController, Panel panel, Pane pane)
     {
-        super.paint(graphics);
-        Graphics2D g2 = (Graphics2D) graphics;
-        drawMap(g2);
-        drawBuilding(g2);
-        g2.setColor(Color.white);
-        //g2.fillRect(playerX, playerY, tileSize, tileSize);
-        g2.dispose();
-    }
-    
-    
-    public void drawMap (Graphics2D graphics2D)
-    {
-        TileRenderer renderer = new TileRenderer(gamePanel, tilePathLoader.getMapWithCharsAndImages());
-        renderer.draw(graphics2D, mapTile.getTileCharArray());
-    }
-    
-    
-    public void drawBuilding (Graphics2D graphics2D)
-    {
-        TileRenderer renderer = new TileRenderer(gamePanel, tileBuildingLoader.getMapWithCharsAndImages());
-        renderer.draw(graphics2D, buildingTile.getTileCharArray());
+        for (int i = Constants_Panel.MIN_TILE_INDEX; i < panel.getTileArray().length; i++)
+        {
+            for (int j = Constants_Panel.MIN_TILE_INDEX; j < panel.getTileArray()[Constants_Panel.MIN_TILE_INDEX].length; j++)
+            {
+                ImageView currentImageView = new ImageView(panel.getTileArray()[i][j].getImage());
+                currentImageView.setX(panelController.getPositionXFromTileIndex(i));
+                currentImageView.setY(panelController.getPositionYFromTileIndex(j));
+                pane.getChildren().add(currentImageView);
+            }
+        }
+        return pane;
     }
 }

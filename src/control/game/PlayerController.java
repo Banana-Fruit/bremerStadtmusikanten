@@ -1,13 +1,18 @@
 package control.game;
 
 
+import control.ImageController;
+import control.scenes.MapController;
 import javafx.scene.input.KeyCode;
+import model.Coordinates;
 import model.userInterface.Game;
 import model.Player;
 import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Keymapping;
+import resources.constants.scenes.Constants_Map;
 import resources.constants.scenes.Constants_Scenes;
+import view.OutputImageView;
 
 import java.util.Set;
 
@@ -20,8 +25,7 @@ public class PlayerController
     private static volatile PlayerController instance;
     private Game game;
     private Player player;
-    private int positionX;
-    private int positionY;
+    private Coordinates playerPosition;
     
     
     private PlayerController (Game game, Player player)
@@ -66,7 +70,7 @@ public class PlayerController
             if (pressedKeys.contains(Constants_Keymapping.moveDOWN)) moveDOWN(diagonal);
             if (pressedKeys.contains(Constants_Keymapping.moveRIGHT)) moveRIGHT(diagonal);
             
-            changePosition();
+            changeImagePosition();
         }
     }
     
@@ -75,7 +79,7 @@ public class PlayerController
     {
         int deltaY = Constants_DefaultValues.DEFAULT_SPEED * Constants_DefaultValues.SPEED_MULTIPLIER;
         if (isDiagonal) deltaY = (int) (deltaY * Constants_DefaultValues.ADJUST_DIAGONAL_MOVEMENT);
-        this.positionY -= deltaY;
+        this.playerPosition.setPositionY(this.playerPosition.getPositionY() - deltaY);
     }
     
     
@@ -83,7 +87,7 @@ public class PlayerController
     {
         int deltaY = Constants_DefaultValues.DEFAULT_SPEED * Constants_DefaultValues.SPEED_MULTIPLIER;
         if (isDiagonal) deltaY = (int) (deltaY * Constants_DefaultValues.ADJUST_DIAGONAL_MOVEMENT);
-        this.positionY += deltaY;
+        this.playerPosition.setPositionY(this.playerPosition.getPositionY() + deltaY);
     }
     
     
@@ -91,7 +95,7 @@ public class PlayerController
     {
         int deltaX = Constants_DefaultValues.DEFAULT_SPEED * Constants_DefaultValues.SPEED_MULTIPLIER;
         if (isDiagonal) deltaX = (int) (deltaX * Constants_DefaultValues.ADJUST_DIAGONAL_MOVEMENT);
-        this.positionX += deltaX;
+        this.playerPosition.setPositionX(this.playerPosition.getPositionX() + deltaX);
     }
     
     
@@ -99,12 +103,19 @@ public class PlayerController
     {
         int deltaX = Constants_DefaultValues.DEFAULT_SPEED * Constants_DefaultValues.SPEED_MULTIPLIER;
         if (isDiagonal) deltaX = (int) (deltaX * Constants_DefaultValues.ADJUST_DIAGONAL_MOVEMENT);
-        this.positionX -= deltaX;
+        this.playerPosition.setPositionX(this.playerPosition.getPositionX() - deltaX);
     }
     
     
-    public void changePosition ()
+    public void changeImagePosition ()
     {
-        // TODO: OutputImageView.setImagePosition(this.player.getPlayerImage(), this.positionX, this.positionY);
+        MapController.getInstance().getPlayerView().updatePosition(
+                this.playerPosition.getPositionX(), this.playerPosition.getPositionY());
+    }
+    
+    
+    public void setPlayerPosition (Coordinates playerPosition)
+    {
+        this.playerPosition = playerPosition;
     }
 }

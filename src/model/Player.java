@@ -11,18 +11,10 @@ import java.util.List;
  */
 public class Player
 {
-    private Image playerImage;
     private List inventory; // TODO: Holds artefacts
     
     
-    public Player (Image image)
+    public Player ()
     {
-        this.playerImage = image;
-    }
-    
-    
-    public Image getPlayerImage ()
-    {
-        return playerImage;
     }
 }

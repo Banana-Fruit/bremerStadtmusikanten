@@ -5,6 +5,7 @@ import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Game;
 import resources.constants.scenes.Constants_Map;
+import view.OutputImageView;
 
 
 /**
@@ -17,6 +18,7 @@ public class MapController implements Runnable
     private static volatile MapController instance;
     private static volatile Game game;
     private PanelController panelController;
+    private OutputImageView playerView;
     
     
     private MapController (Game game, PanelController panelController)
@@ -62,5 +64,11 @@ public class MapController implements Runnable
         
         //update(); to move a player on the Map
         //repaint();
+    }
+    
+    
+    public OutputImageView getPlayerView ()
+    {
+        return playerView;
     }
 }

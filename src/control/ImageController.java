@@ -1,4 +1,4 @@
-package control.scenes;
+package control;
 
 
 import javafx.scene.image.Image;
@@ -60,14 +60,8 @@ public class ImageController implements Runnable
                 {
                     throw new RuntimeException(e);
                 }
-                OutputImageView.scaleImageViewToSceneSize(entry.getKey(), entry.getValue(), this.game.getCurrentShowable().getScene());
+                //OutputImageView.scaleImageViewToSceneSize(entry.getKey(), entry.getValue(), this.game.getCurrentShowable().getScene());
             }
         }
-    }
-    
-    
-    public void changeImagePosition (Image image, int x, int y)
-    {
-        //TODO: OutputImageView.setImagePosition( , x, y);
     }
 }
