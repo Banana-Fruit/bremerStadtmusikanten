@@ -3,8 +3,8 @@ package control.scenes;
 
 import javafx.stage.Stage;
 import model.userInterface.Game;
-import resources.Constants_ExceptionMessages;
-import resources.Constants_Game;
+import resources.constants.Constants_ExceptionMessages;
+import resources.constants.Constants_Game;
 
 
 /**

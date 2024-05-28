@@ -3,7 +3,7 @@ package view;
 
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import resources.Constants_DefaultValues;
+import resources.constants.Constants_DefaultValues;
 
 
 public class OutputImageView

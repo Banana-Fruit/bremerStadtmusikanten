@@ -4,10 +4,10 @@ package control.game;
 import javafx.scene.input.KeyCode;
 import model.userInterface.Game;
 import model.Player;
-import resources.Constants_DefaultValues;
-import resources.Constants_ExceptionMessages;
-import resources.Constants_Keymapping;
-import resources.Constants_Scenes;
+import resources.constants.Constants_DefaultValues;
+import resources.constants.Constants_ExceptionMessages;
+import resources.constants.Constants_Keymapping;
+import resources.constants.scenes.Constants_Scenes;
 
 import java.util.Set;
 

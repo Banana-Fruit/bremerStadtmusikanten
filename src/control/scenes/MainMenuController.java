@@ -8,8 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.userInterface.Game;
-import resources.Constants_ExceptionMessages;
-import resources.Constants_MenuSetting;
+import resources.constants.Constants_ExceptionMessages;
+import resources.constants.Constants_MenuSetting;
 import src.resources.GameMenuBar;
 import model.userInterface.TransparentButton;
 

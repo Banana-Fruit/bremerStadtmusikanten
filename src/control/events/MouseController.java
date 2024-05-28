@@ -2,7 +2,7 @@ package control.events;
 
 
 import model.userInterface.Game;
-import resources.Constants_ExceptionMessages;
+import resources.constants.Constants_ExceptionMessages;
 
 
 public class MouseController implements Runnable

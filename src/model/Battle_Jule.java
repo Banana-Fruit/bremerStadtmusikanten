@@ -1,7 +1,7 @@
 package model;
 
 
-import src.resources.Constants_BattleJule;
+import resources.constants.Constants_BattleJule;
 
 
 public class Battle_Jule

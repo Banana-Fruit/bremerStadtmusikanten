@@ -1,9 +1,8 @@
 package model.panel;
 
 
-import resources.Constants_DefaultValues;
-import resources.Constants_Map;
-import resources.Constants_Panel;
+import resources.constants.Constants_DefaultValues;
+import resources.constants.Constants_Panel;
 
 
 /**

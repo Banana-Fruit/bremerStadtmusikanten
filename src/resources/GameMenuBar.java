@@ -15,7 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.userInterface.TransparentButton;
-import resources.Constants_MenuSetting;
+import resources.constants.Constants_MenuSetting;
 
 
 public interface GameMenuBar

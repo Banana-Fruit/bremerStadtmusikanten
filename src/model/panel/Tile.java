@@ -2,7 +2,6 @@ package model.panel;
 
 
 import javafx.scene.image.Image;
-import resources.Constants_TileMap;
 
 
 /**

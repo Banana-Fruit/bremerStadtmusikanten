@@ -3,9 +3,8 @@ package utility;
 
 import javafx.scene.image.Image;
 import model.showables.Map;
-import resources.Constants_Map;
+import resources.constants.scenes.Constants_Map;
 
-import javax.imageio.ImageIO;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;

@@ -6,8 +6,8 @@ import javafx.scene.layout.Pane;
 import model.Player;
 import model.showables.MainMenu;
 import model.showables.Showable;
-import resources.Constants_Game;
-import resources.Constants_Scenes;
+import resources.constants.Constants_Game;
+import resources.constants.scenes.Constants_Scenes;
 
 import java.util.HashMap;
 

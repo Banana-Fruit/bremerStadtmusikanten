@@ -10,7 +10,7 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import resources.Constants_MenuSetting;
+import resources.constants.Constants_MenuSetting;
 
 
 public class TransparentButton extends StackPane

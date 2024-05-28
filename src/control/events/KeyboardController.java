@@ -7,9 +7,9 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.userInterface.Game;
-import resources.Constants_ExceptionMessages;
-import resources.Constants_Game;
-import resources.Constants_Keymapping;
+import resources.constants.Constants_ExceptionMessages;
+import resources.constants.Constants_Game;
+import resources.constants.Constants_Keymapping;
 
 import java.util.HashSet;
 import java.util.Set;

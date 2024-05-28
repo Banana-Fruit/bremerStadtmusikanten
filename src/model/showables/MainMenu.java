@@ -2,8 +2,8 @@ package model.showables;
 
 
 import javafx.scene.Scene;
-import resources.Constants_ExceptionMessages;
-import resources.Constants_Scenes;
+import resources.constants.Constants_ExceptionMessages;
+import resources.constants.scenes.Constants_Scenes;
 
 
 public class MainMenu extends Showable
