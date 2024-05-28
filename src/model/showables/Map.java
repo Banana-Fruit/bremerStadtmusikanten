@@ -19,7 +19,7 @@ public class Map extends Showable
     }
     
     
-    public static synchronized void initialize (Scene scene)
+    public static synchronized void initialize (Scene scene, Panel panel)
     {
         if (instance == null)
         {

@@ -9,32 +9,6 @@ import java.awt.*;
 
 public class PanelView
 {
-    public Map buildingTile;
-    private char[][] tileCharArray = new char[Constants_Map.MAX_SCREEN_COLUMN][Constants_Map.MAX_SCREEN_ROW];
-    
-    
-    public MapController ()
-    {
-    
-    }
-    
-    
-    @Override
-    public void run ()
-    {
-        try
-        {
-            Thread.sleep(Constants_Map.MILLISECONDS_OF_SLEEP / Constants_Map.GAMEPANEL_FRAMES_PER_SECOND);
-        } catch (InterruptedException e)
-        {
-            throw new RuntimeException(e);
-        }
-        
-        //update(); to move a player on the Map
-        //repaint();
-    }
-    
-    
     public void showTiles (Graphics graphics)
     {
         super.paint(graphics);

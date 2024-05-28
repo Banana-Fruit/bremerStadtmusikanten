@@ -33,6 +33,6 @@ public class Panel
     
     public int getMaxColumns ()
     {
-        return tileArray[Constants_Panel.MAX_COLUMNS_ARRAY_INDEX].length - Constants_DefaultValues.LENGTH_TO_SIZE_SUBTRACTOR;
+        return tileArray[Constants_Panel.INDEX_WITH_MAX_VALUE].length - Constants_DefaultValues.LENGTH_TO_SIZE_SUBTRACTOR;
     }
 }

@@ -5,7 +5,7 @@ public interface Constants_Panel
 {
     // Default values
     final boolean DEFAULT_isOccupied = false;
-    final int MAX_COLUMNS_ARRAY_INDEX = 0;
+    final int INDEX_WITH_MAX_VALUE = 0;
     final int HALFING = 2;
     final int MIN_TILE_INDEX = 0;
     

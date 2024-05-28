@@ -3,34 +3,24 @@ package model;
 
 public class Coordinates
 {
-    int positionX;
-    int positionY;
-    
-    public Coordinates ()
-    {
-    
-    }
+    double positionX;
+    double positionY;
     
     
-    public void setPositionX (int positionX)
+    public Coordinates (double positionX, double positionY)
     {
         this.positionX = positionX;
-    }
-    
-    
-    public void setPositionY (int positionY)
-    {
         this.positionY = positionY;
     }
     
     
-    public int getPositionX ()
+    public double getPositionX ()
     {
         return positionX;
     }
     
     
-    public int getPositionY ()
+    public double getPositionY ()
     {
         return positionY;
     }
