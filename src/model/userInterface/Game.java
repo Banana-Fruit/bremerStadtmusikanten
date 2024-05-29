@@ -1,11 +1,14 @@
 package model.userInterface;
 
 
+import control.scenes.MapController;
+import control.scenes.PanelController;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import model.Player;
 import model.showables.MainMenu;
 import model.showables.Showable;
+import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Game;
 import resources.constants.scenes.Constants_Scenes;
 
@@ -18,14 +21,14 @@ import java.util.HashMap;
  */
 public class Game
 {
-    // TODO: Make SINGLETON
+    private static volatile Game instance;
     private Showable currentShowable;
     private HashMap<Integer, Showable> mapOfShowables;
     private Player player;
     private String gameTitle = Constants_Game.GAME_TITLE;
     
     
-    public Game ()
+    private Game ()
     {
         this.mapOfShowables = new HashMap<>();
         init();
@@ -37,6 +40,29 @@ public class Game
         MainMenu.initialize(new Scene(new Pane()));
         addShowable(MainMenu.getInstance(), Constants_Scenes.IDENTIFIER_MAINMENU); // Add showable
         switchShowable(Constants_Scenes.IDENTIFIER_MAINMENU); // Set initial showable
+    }
+    
+    
+    public static synchronized void initialize ()
+    {
+        if (instance == null)
+        {
+            instance = new Game();
+        } else
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
+        }
+    }
+    
+    
+    // Method to retrieve the Singleton instance without parameters
+    public static Game getInstance ()
+    {
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+        }
+        return instance;
     }
     
     
