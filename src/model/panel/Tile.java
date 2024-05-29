@@ -2,6 +2,7 @@ package model.panel;
 
 
 import javafx.scene.image.Image;
+import resources.constants.Constants_Panel;
 
 
 /**
@@ -10,7 +11,7 @@ import javafx.scene.image.Image;
 public class Tile
 {
     private Image image;
-    private boolean isOccupied = Constants_TileMap.DEFAULT_isOccupied;
+    private boolean isOccupied = Constants_Panel.DEFAULT_isOccupied;
     
     
     public Tile (Image image)

@@ -18,6 +18,7 @@ import java.util.HashMap;
  */
 public class Game
 {
+    // TODO: Make SINGLETON
     private Showable currentShowable;
     private HashMap<Integer, Showable> mapOfShowables;
     private Player player;

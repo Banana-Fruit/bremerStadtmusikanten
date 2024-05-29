@@ -7,8 +7,6 @@ import javafx.scene.layout.Pane;
 import model.panel.Panel;
 import resources.constants.Constants_Panel;
 
-import java.awt.*;
-
 
 public class PanelView
 {

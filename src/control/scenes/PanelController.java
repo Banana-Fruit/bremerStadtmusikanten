@@ -19,7 +19,6 @@ public class PanelController
 {
     private static volatile Game game;
     private Panel panel;
-    private String resourceFolderPath;
     HashMap<Character, Image> mapOfImagesWithCorrelatingChars;
     char[][] charArray;
     
@@ -46,38 +45,19 @@ public class PanelController
     }
     
     
-    public PanelController (String resourceFolderPath, int tileSize, int maxRows, int maxColumns)
+    public PanelController ()
     {
-        this.resourceFolderPath = resourceFolderPath;
-        this.tileSize = tileSize;
-        this.maxRows = maxRows;
-        this.maxColumns = maxColumns;
-        init();
     }
     
     
     /**
      * Initializer loads the images from the path.
      */
-    private void init ()
+    private Panel initialisePanel (String resourceFolderPath, int tileSize, int maxRows, int maxColumns)
     {
-        this.mapOfImagesWithCorrelatingChars = PanelAndTileLoader.getMapWithCharsAndImagesFromPath(resourceFolderPath);
-        this.charArray = PanelAndTileLoader.loadCharFileOfMapFromPath(resourceFolderPath);
-        this.panel = new Panel(getPanelArrayFromMapAndCharArray(this.mapOfImagesWithCorrelatingChars, this.charArray));
-    }
-    
-    
-    /**
-     * Can be used to change the resource path, resulting with different images being loaded.
-     *
-     * @param resourceFolderPath
-     */
-    public void changePanel (String resourceFolderPath)
-    {
-        this.resourceFolderPath = resourceFolderPath;
-        this.mapOfImagesWithCorrelatingChars = PanelAndTileLoader.getMapWithCharsAndImagesFromPath(resourceFolderPath);
-        this.charArray = PanelAndTileLoader.loadCharFileOfMapFromPath(resourceFolderPath);
-        this.panel = new Panel(getPanelArrayFromMapAndCharArray(this.mapOfImagesWithCorrelatingChars, this.charArray));
+        HashMap<Character, Image> mapOfImagesWithCorrelatingChars = PanelAndTileLoader.getMapWithCharsAndImagesFromPath(resourceFolderPath);
+        char charArray[][] = PanelAndTileLoader.loadCharFileOfMapFromPath(resourceFolderPath);
+        return new Panel(getPanelArrayFromMapAndCharArray(mapOfImagesWithCorrelatingChars, charArray), tileSize, maxRows, maxColumns);
     }
     
     

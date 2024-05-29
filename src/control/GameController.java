@@ -30,7 +30,7 @@ public class GameController implements Runnable
         
         new Thread(KeyboardController.getInstance()).start();
         new Thread(MouseController.getInstance()).start();
-        //new Thread(SceneController.getInstance()).start();
+        new Thread(SceneController.getInstance()).start();
         
         this.stage.setTitle(game.getGameTitle());
         this.stage.show();

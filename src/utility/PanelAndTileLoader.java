@@ -15,7 +15,7 @@ public class PanelAndTileLoader
 {
     public static char[][] loadCharFileOfMapFromPath (String path)
     {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path)))
+        /*try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path)))
         {
             char[][] tileChars = Map.getInstance().getTileCharArray();
             
@@ -40,7 +40,7 @@ public class PanelAndTileLoader
         } finally
         {
             return null;
-        }
+        }*/
         
         /* TODO: Leave code here in case ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ doesnt work.
         InputStream inputStream = getClass().getResourceAsStream(path);
@@ -73,12 +73,13 @@ public class PanelAndTileLoader
                 e.printStackTrace();
             }
         }*/
+        return null;
     }
     
     
     public static HashMap<Character, Image> getMapWithCharsAndImagesFromPath (String imageFolderPath)
     {
-        try
+        /*try
         {
             // retrieve list of all image files in the imageFolderPath
             String[] arrayOfFileNames = new File(new URI(imageFolderPath)).list();
@@ -106,6 +107,7 @@ public class PanelAndTileLoader
         } finally
         {
             return null;
-        }
+        }*/
+        return null;
     }
 }

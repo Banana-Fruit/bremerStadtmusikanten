@@ -13,7 +13,7 @@ public class Panel
     private Tile[][] tileArray;
     
     
-    public Panel (Tile[][] tileArray)
+    public Panel (Tile[][] tileArray, int tileSize, int maxRows, int maxColumns)
     {
         this.tileArray = tileArray;
     }
