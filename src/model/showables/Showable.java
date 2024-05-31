@@ -1,6 +1,7 @@
 package model.showables;
 
 
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -24,6 +25,12 @@ public class Showable
         this.id = id;
         this.imageViewsWithSizePercentage = new HashMap<>();
         init();
+    }
+    
+    
+    public void addChildToPane (Node child)
+    {
+        getPane().getChildren().add(child);
     }
     
     

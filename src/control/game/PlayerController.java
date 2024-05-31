@@ -1,8 +1,6 @@
 package control.game;
 
 
-import control.ImageController;
-import control.scenes.MapController;
 import javafx.scene.input.KeyCode;
 import model.Coordinates;
 import model.userInterface.Game;
@@ -10,9 +8,7 @@ import model.Player;
 import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Keymapping;
-import resources.constants.scenes.Constants_Map;
 import resources.constants.scenes.Constants_Scenes;
-import view.OutputImageView;
 
 import java.util.Set;
 
@@ -23,23 +19,20 @@ import java.util.Set;
 public class PlayerController
 {
     private static volatile PlayerController instance;
-    private Game game;
-    private Player player;
     private Coordinates playerPosition;
     
     
-    private PlayerController (Game game, Player player)
+    private PlayerController (Coordinates playerPosition)
     {
-        this.game = game;
-        this.player = player;
+        this.playerPosition = playerPosition;
     }
     
     
-    public static synchronized void initialize (Game game, Player player)
+    public static synchronized void initialize (Coordinates playerPosition)
     {
         if (instance == null)
         {
-            instance = new PlayerController(game, player);
+            instance = new PlayerController(playerPosition);
         } else
         {
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
@@ -60,7 +53,8 @@ public class PlayerController
     
     public void handleKeyPresses (Set<KeyCode> pressedKeys)
     {
-        if (game.getCurrentShowable().getId() == Constants_Scenes.IDENTIFIER_MAP && this.player != null)
+        if (Game.getInstance().getCurrentShowable().getId() == Constants_Scenes.IDENTIFIER_MAP &&
+                Player.getInstance() != null)
         {
             boolean diagonal = false;
             if (pressedKeys.size() > 1) diagonal = true;
@@ -69,8 +63,6 @@ public class PlayerController
             if (pressedKeys.contains(Constants_Keymapping.moveLEFT)) moveLEFT(diagonal);
             if (pressedKeys.contains(Constants_Keymapping.moveDOWN)) moveDOWN(diagonal);
             if (pressedKeys.contains(Constants_Keymapping.moveRIGHT)) moveRIGHT(diagonal);
-            
-            changeImagePosition();
         }
     }
     
@@ -107,15 +99,14 @@ public class PlayerController
     }
     
     
-    public void changeImagePosition ()
-    {
-        MapController.getInstance().getPlayerView().updatePosition(
-                this.playerPosition.getPositionX(), this.playerPosition.getPositionY());
-    }
-    
-    
     public void setPlayerPosition (Coordinates playerPosition)
     {
         this.playerPosition = playerPosition;
+    }
+    
+    
+    public Coordinates getPlayerPosition ()
+    {
+        return playerPosition;
     }
 }

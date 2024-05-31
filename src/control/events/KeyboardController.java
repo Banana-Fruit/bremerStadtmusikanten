@@ -22,20 +22,16 @@ public class KeyboardController implements Runnable
 {
     private static volatile KeyboardController instance;
     private final Set<KeyCode> pressedKeys = new HashSet<>();
-    private static Game game;
     
     
-    private KeyboardController (Game game)
-    {
-        this.game = game;
-    }
+    private KeyboardController () {}
     
     
-    public static synchronized void initialize (Game game)
+    public static synchronized void initialize ()
     {
         if (instance == null)
         {
-            instance = new KeyboardController(game);
+            instance = new KeyboardController();
         } else
         {
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
@@ -43,7 +39,6 @@ public class KeyboardController implements Runnable
     }
     
     
-    // Method to retrieve the Singleton instance without parameters
     public static KeyboardController getInstance ()
     {
         if (instance == null)
@@ -69,7 +64,7 @@ public class KeyboardController implements Runnable
             }
             
             // Add event listeners for key presses and releases
-            this.game.getCurrentShowable().getScene().setOnKeyPressed(new EventHandler<KeyEvent>()
+            Game.getInstance().getCurrentShowable().getScene().setOnKeyPressed(new EventHandler<KeyEvent>()
             {
                 @Override
                 public void handle (KeyEvent keyEvent)
@@ -77,7 +72,7 @@ public class KeyboardController implements Runnable
                     pressedKeys.add(keyEvent.getCode());
                 }
             });
-            this.game.getCurrentShowable().getScene().setOnKeyReleased(new EventHandler<KeyEvent>()
+            Game.getInstance().getCurrentShowable().getScene().setOnKeyReleased(new EventHandler<KeyEvent>()
             {
                 @Override
                 public void handle (KeyEvent keyEvent)

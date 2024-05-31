@@ -1,6 +1,10 @@
 package control.scenes;
 
 
+import control.game.PlayerController;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import model.Player;
 import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Game;
@@ -16,23 +20,27 @@ import view.OutputImageView;
 public class MapController implements Runnable
 {
     private static volatile MapController instance;
-    private static volatile Game game;
-    private PanelController panelController;
     private OutputImageView playerView;
     
     
-    private MapController (Game game, PanelController panelController)
+    private MapController ()
     {
-        this.game = game;
-        this.panelController = panelController;
+        init();
     }
     
     
-    public static synchronized void initialize (Game game, PanelController panelController)
+    private void init()
+    {
+        playerView = new OutputImageView(new Image(Constants_Map.PLAYER_VIEW_STANDARD));
+        Game.getInstance().getCurrentShowable().addChildToPane(playerView);
+    }
+    
+    
+    public static synchronized void initialize ()
     {
         if (instance == null)
         {
-            instance = new MapController(game, panelController);
+            instance = new MapController();
         } else
         {
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
@@ -62,8 +70,20 @@ public class MapController implements Runnable
             throw new RuntimeException(e);
         }
         
-        //update(); to move a player on the Map
-        //repaint();
+        update();
+    }
+    
+    
+    private void update ()
+    {
+        changePlayerPosition();
+    }
+    
+    
+    private void changePlayerPosition ()
+    {
+        playerView.updatePosition(PlayerController.getInstance().getPlayerPosition().getPositionX(),
+                PlayerController.getInstance().getPlayerPosition().getPositionY());
     }
     
     

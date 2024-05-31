@@ -1,6 +1,7 @@
 package control.scenes;
 
 
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
@@ -12,23 +13,22 @@ import resources.constants.Constants_Game;
  */
 public class SceneController implements Runnable
 {
-    private static volatile SceneController instance;
-    private static Game game;
+    private static SceneController instance;
     private Stage stage;
+    private volatile boolean running = true;
     
     
-    private SceneController (Game game, Stage stage)
+    private SceneController (Stage stage)
     {
-        this.game = game;
         this.stage = stage;
     }
     
     
-    public static synchronized void initialize (Game game, Stage stage)
+    public static synchronized void initialize (Stage stage)
     {
         if (instance == null)
         {
-            instance = new SceneController(game, stage);
+            instance = new SceneController(stage);
         } else
         {
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
@@ -47,20 +47,30 @@ public class SceneController implements Runnable
     }
     
     
+    // Method to stop the running thread gracefully
+    public void stop ()
+    {
+        running = false;
+    }
+    
+    
     @Override
     public void run ()
     {
-        while (true)
+        while (running)
         {
             try
             {
                 Thread.sleep(Constants_Game.THREAD_SLEEP_DEFAULT_TIME);
             } catch (InterruptedException e)
             {
+                Thread.currentThread().interrupt(); // Restore the interrupted status
                 throw new RuntimeException(e);
             }
-            
-            this.stage.setScene(game.getCurrentShowable().getScene());
+            Platform.runLater(() ->
+            {
+                stage.setScene(Game.getInstance().getCurrentShowable().getScene());
+            });
         }
     }
 }

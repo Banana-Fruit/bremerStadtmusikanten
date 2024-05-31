@@ -8,20 +8,16 @@ import resources.constants.Constants_ExceptionMessages;
 public class MouseController implements Runnable
 {
     private static volatile MouseController instance;
-    private static Game game;
     
     
-    private MouseController (Game game)
-    {
-        this.game = game;
-    }
+    private MouseController () {}
     
     
-    public static synchronized void initialize (Game game)
+    public static synchronized void initialize ()
     {
         if (instance == null)
         {
-            instance = new MouseController(game);
+            instance = new MouseController();
         } else
         {
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
