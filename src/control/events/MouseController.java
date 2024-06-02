@@ -7,7 +7,7 @@ import resources.constants.Constants_ExceptionMessages;
 
 public class MouseController implements Runnable
 {
-    private static volatile MouseController instance;
+    private static volatile MouseController instance = null;
     
     
     private MouseController () {}

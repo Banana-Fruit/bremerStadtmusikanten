@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class SavegameController
 {
-    private static SavegameController instance;
+    private static SavegameController instance = null;
     private final String savegameDirectory = Constants_Savegame.SAVEGAME_DIRECTORY;
 
     private SavegameController() {}

@@ -4,7 +4,6 @@ package model.showables;
 import javafx.scene.Scene;
 import model.panel.Panel;
 import resources.constants.Constants_ExceptionMessages;
-import resources.constants.scenes.Constants_Scenes;
 
 
 public class Map extends Showable
@@ -15,11 +14,11 @@ public class Map extends Showable
     
     private Map (Scene scene)
     {
-        super(scene, Constants_Scenes.IDENTIFIER_MAP);
+        super(scene);
     }
     
     
-    public static synchronized void initialize (Scene scene, Panel panel)
+    public static synchronized void initialize (Scene scene)
     {
         if (instance == null)
         {
@@ -38,5 +37,11 @@ public class Map extends Showable
             throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
         }
         return instance;
+    }
+    
+    
+    public void setPanel (Panel panel)
+    {
+        this.panel = panel;
     }
 }

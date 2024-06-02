@@ -20,7 +20,7 @@ import java.util.Set;
  */
 public class KeyboardController implements Runnable
 {
-    private static volatile KeyboardController instance;
+    private static volatile KeyboardController instance = null;
     private final Set<KeyCode> pressedKeys = new HashSet<>();
     
     
@@ -86,7 +86,10 @@ public class KeyboardController implements Runnable
                 @Override
                 public void run ()
                 {
-                    routeToPlayerController(pressedKeys);
+                    if(!pressedKeys.isEmpty())
+                    {
+                        routeToPlayerController(pressedKeys);
+                    }
                 }
             });
         }

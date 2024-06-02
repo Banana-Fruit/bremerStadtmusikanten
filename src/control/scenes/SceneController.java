@@ -13,7 +13,7 @@ import resources.constants.Constants_Game;
  */
 public class SceneController implements Runnable
 {
-    private static SceneController instance;
+    private static SceneController instance = null;
     private Stage stage;
     private volatile boolean running = true;
     

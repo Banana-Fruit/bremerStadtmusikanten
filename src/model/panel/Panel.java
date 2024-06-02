@@ -10,12 +10,45 @@ import resources.constants.Constants_Panel;
  */
 public class Panel
 {
+    private Tile[][] originArray;
     private Tile[][] tileArray;
+    private int tileSize;
+    private int maxRows;
+    private int maxColumns;
     
     
     public Panel (Tile[][] tileArray, int tileSize, int maxRows, int maxColumns)
     {
-        this.tileArray = tileArray;
+        this.originArray = tileArray;
+        this.tileSize = tileSize;
+        this.maxRows = maxRows;
+        this.tileArray = new Tile[maxRows][maxColumns];
+        this.maxColumns = maxColumns;
+        init();
+    }
+    
+    
+    private void init ()
+    {
+        setTileArrayToRestrictedOriginArray();
+    }
+    
+    
+    private void setTileArrayToRestrictedOriginArray ()
+    {
+        for (int row = Constants_Panel.ITERATION_STARTING_VALUE; row < maxRows; row++)
+        {
+            for (int column = Constants_Panel.ITERATION_STARTING_VALUE; column < maxColumns; column++)
+            {
+                if (row < originArray.length && column < originArray[row].length)
+                {
+                    tileArray[row][column] = originArray[row][column];
+                } else
+                {
+                    tileArray[row][column] = null; // Handle out-of-bounds by setting to null or another default value
+                }
+            }
+        }
     }
     
     
@@ -40,5 +73,11 @@ public class Panel
     public Tile[][] getTileArray ()
     {
         return tileArray;
+    }
+    
+    
+    public int getTileSize ()
+    {
+        return tileSize;
     }
 }

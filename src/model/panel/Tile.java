@@ -11,7 +11,8 @@ import resources.constants.Constants_Panel;
 public class Tile
 {
     private Image image;
-    private boolean isOccupied = Constants_Panel.DEFAULT_isOccupied;
+    private boolean isOccupied = Constants_Panel.DEFAULT_ISOCCUPIED;
+    private boolean isInteractable = Constants_Panel.DEFAULT_ISINTERACTABLE;
     
     
     public Tile (Image image)

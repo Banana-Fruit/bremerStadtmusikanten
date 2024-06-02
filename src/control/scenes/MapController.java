@@ -1,15 +1,9 @@
 package control.scenes;
 
 
-import control.game.PlayerController;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import model.Player;
-import model.userInterface.Game;
+import model.showables.Map;
 import resources.constants.Constants_ExceptionMessages;
-import resources.constants.Constants_Game;
 import resources.constants.scenes.Constants_Map;
-import view.OutputImageView;
 
 
 /**
@@ -17,10 +11,12 @@ import view.OutputImageView;
  * A map controller contains one map instance and is a Singleton.
  * It is responsible to do pane switches, if the player leaves a specific part of the map.
  */
-public class MapController implements Runnable
+public class MapController
 {
-    private static volatile MapController instance;
-    private OutputImageView playerView;
+    private static volatile MapController instance = null;
+    private final int tileSize = Constants_Map.TILE_SIZE;
+    private final int maxRows = Constants_Map.MAX_ROWS;
+    private final int maxColumns = Constants_Map.MAX_COLUMNS;
     
     
     private MapController ()
@@ -29,10 +25,9 @@ public class MapController implements Runnable
     }
     
     
-    private void init()
+    private void init ()
     {
-        playerView = new OutputImageView(new Image(Constants_Map.PLAYER_VIEW_STANDARD));
-        Game.getInstance().getCurrentShowable().addChildToPane(playerView);
+        setNewMap(Constants_Map.PLAYER_VIEW_STANDARD);
     }
     
     
@@ -59,36 +54,8 @@ public class MapController implements Runnable
     }
     
     
-    @Override
-    public void run ()
+    public void setNewMap (String path)
     {
-        try
-        {
-            Thread.sleep(Constants_Game.THREAD_SLEEP_DEFAULT_TIME);
-        } catch (InterruptedException e)
-        {
-            throw new RuntimeException(e);
-        }
-        
-        update();
-    }
-    
-    
-    private void update ()
-    {
-        changePlayerPosition();
-    }
-    
-    
-    private void changePlayerPosition ()
-    {
-        playerView.updatePosition(PlayerController.getInstance().getPlayerPosition().getPositionX(),
-                PlayerController.getInstance().getPlayerPosition().getPositionY());
-    }
-    
-    
-    public OutputImageView getPlayerView ()
-    {
-        return playerView;
+        Map.getInstance().setPanel(PanelController.getInstance().initializePanel(path, tileSize, maxRows, maxColumns));
     }
 }

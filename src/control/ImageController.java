@@ -13,7 +13,7 @@ import java.util.*;
 
 public class ImageController implements Runnable
 {
-    private static volatile ImageController instance;
+    private static volatile ImageController instance = null;
     private static Game game;
     
     
@@ -51,7 +51,7 @@ public class ImageController implements Runnable
     {
         while (true)
         {
-            for (Map.Entry<ImageView, Integer> entry : this.game.getCurrentShowable().getImageViewsWithSizePercentage().entrySet())
+            /*for (Map.Entry<ImageView, Integer> entry : this.game.getCurrentShowable().getImageViewsWithSizePercentage().entrySet())
             {
                 try
                 {
@@ -61,7 +61,7 @@ public class ImageController implements Runnable
                     throw new RuntimeException(e);
                 }
                 //OutputImageView.scaleImageViewToSceneSize(entry.getKey(), entry.getValue(), this.game.getCurrentShowable().getScene());
-            }
+            }*/
         }
     }
 }

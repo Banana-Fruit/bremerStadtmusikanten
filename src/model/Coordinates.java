@@ -36,4 +36,11 @@ public class Coordinates
     {
         return positionY;
     }
+    
+    
+    public boolean isEqual (Coordinates coordinates)
+    {
+        if (this.positionX == coordinates.positionX && this.positionY == coordinates.positionY) return true;
+        return false;
+    }
 }

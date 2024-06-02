@@ -4,31 +4,37 @@ package resources.constants;
 public interface Constants_Panel
 {
     // Default values
-    final boolean DEFAULT_isOccupied = false;
-    final int INDEX_WITH_MAX_VALUE = 0;
-    final int HALFING = 2;
-    final int MIN_TILE_INDEX = 0;
+    boolean DEFAULT_ISOCCUPIED = false;
+    boolean DEFAULT_ISINTERACTABLE = false;
+    int INDEX_WITH_MAX_VALUE = 0;
+    int HALFING = 2;
+    int MIN_TILE_INDEX = 0;
     
     
     // Paths
-    final String PNG_SUFFIX = ".png";
-    final String PATH_TILE_BUILDING = "/src/resources/assets/tileMap";
-    final String LOADER_FILE_NAME = "tileInfo.dat";
+    String PNG_SUFFIX = ".png";
+    String LOADER_FILE_NAME = "position.dat";
+    // Suffices
+    String BACKGROUND_SUFFIX = "_b";
+    String OBSTACLE_SUFFIX = "_o";
+    String ENEMY_SUFFIX = "_e";
+    String COLLECTABLE_SUFFIX = "_c";
     
     
     // Restriction values
-    final int MINIMUM_ARRAY_VALUE = 0;
-    final int IMAGE_CHAR_POSITION = 0;
+    int MINIMUM_ARRAY_VALUE = 0;
+    int IMAGE_CHAR_POSITION = 0;
     // Map related
-    final int TILE_SIZE_MAP = 16;
-    final int TILE_ROWS_MAP = 20;
-    final int TILE_COLUMNS_MAP = 30;
+    int TILE_SIZE_MAP = 16;
+    int TILE_ROWS_MAP = 20;
+    int TILE_COLUMNS_MAP = 30;
     // Fight related
-    final int TILE_SIZE_FIGHT = 16;
-    final int TILE_ROWS_FIGHT = 20;
-    final int TILE_COLUMNS_FIGHT = 30;
+    int TILE_SIZE_FIGHT = 16;
+    int TILE_ROWS_FIGHT = 20;
+    int TILE_COLUMNS_FIGHT = 30;
     
     
-    final int GAMEPANEL_FRAMES_PER_SECOND = 60;
-    final int MILLISECONDS_OF_SLEEP = 1000;
+    int GAMEPANEL_FRAMES_PER_SECOND = 60;
+    int MILLISECONDS_OF_SLEEP = 1000;
+    int ITERATION_STARTING_VALUE = 0;
 }

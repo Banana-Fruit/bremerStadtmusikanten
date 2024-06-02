@@ -16,7 +16,7 @@ import model.userInterface.TransparentButton;
 
 public class MainMenuController extends Application implements GameMenuBar
 {
-    private static volatile MainMenuController instance;
+    private static volatile MainMenuController instance = null;
     private Game game;
     private Stage stage;
     
@@ -40,7 +40,6 @@ public class MainMenuController extends Application implements GameMenuBar
     }
     
     
-    // Method to retrieve the Singleton instance without parameters
     public static MainMenuController getInstance ()
     {
         if (instance == null)

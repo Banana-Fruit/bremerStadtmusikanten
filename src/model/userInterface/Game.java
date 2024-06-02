@@ -1,18 +1,9 @@
 package model.userInterface;
 
 
-import control.scenes.MapController;
-import control.scenes.PanelController;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import model.Player;
-import model.showables.MainMenu;
 import model.showables.Showable;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Game;
-import resources.constants.scenes.Constants_Scenes;
-
-import java.util.HashMap;
 
 
 /**
@@ -22,25 +13,11 @@ import java.util.HashMap;
 public class Game
 {
     private static volatile Game instance;
-    private Showable currentShowable;
-    private HashMap<Integer, Showable> mapOfShowables;
-    private Player player;
+    private Showable currentShowable = new Showable();
     private String gameTitle = Constants_Game.GAME_TITLE;
     
     
-    private Game ()
-    {
-        this.mapOfShowables = new HashMap<>();
-        init();
-    }
-    
-    
-    private void init ()
-    {
-        MainMenu.initialize(new Scene(new Pane()));
-        addShowable(MainMenu.getInstance(), Constants_Scenes.IDENTIFIER_MAINMENU); // Add showable
-        switchShowable(Constants_Scenes.IDENTIFIER_MAINMENU); // Set initial showable
-    }
+    private Game () {}
     
     
     public static synchronized void initialize ()
@@ -66,21 +43,9 @@ public class Game
     }
     
     
-    public void setPlayer (Player player)
+    public void setCurrentShowable (Showable showable)
     {
-        this.player = player;
-    }
-    
-    
-    public void switchShowable (int identifier)
-    {
-        this.currentShowable = this.mapOfShowables.get(identifier);
-    }
-    
-    
-    public void addShowable (Showable showable, int identifier)
-    {
-        this.mapOfShowables.put(identifier, showable);
+        this.currentShowable = showable;
     }
     
     
@@ -90,20 +55,8 @@ public class Game
     }
     
     
-    public Player getPlayer ()
-    {
-        return player;
-    }
-    
-    
     public String getGameTitle ()
     {
         return gameTitle;
-    }
-    
-    
-    public void removeShowable (int identifier)
-    {
-        this.mapOfShowables.remove(identifier);
     }
 }

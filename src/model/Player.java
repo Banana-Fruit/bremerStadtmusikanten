@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Player
 {
-    private static Player instance;
+    private static Player instance = null;
     private List inventory; // TODO: Holds artefacts
     
     

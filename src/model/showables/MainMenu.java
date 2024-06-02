@@ -13,7 +13,7 @@ public class MainMenu extends Showable
     
     private MainMenu (Scene scene)
     {
-        super(scene, Constants_Scenes.IDENTIFIER_MAINMENU);
+        super(scene);
     }
     
     

@@ -17,27 +17,17 @@ import java.util.HashMap;
 
 public class PanelController
 {
-    private static volatile Game game;
-    private Panel panel;
-    HashMap<Character, Image> mapOfImagesWithCorrelatingChars;
-    char[][] charArray;
-    
-    private int tileSize;
-    private int maxColumns;
-    private int maxRows;
+    private static volatile PanelController instance = null;
     
     
-    private PanelController (Game game)
+    private PanelController () {}
+    
+    
+    public static synchronized void initialize ()
     {
-        this.game = game;
-    }
-    
-    
-    public static synchronized void initialize (Game game)
-    {
-        if (PanelController.game == null)
+        if (PanelController.instance == null)
         {
-            PanelController.game = game;
+            PanelController.instance = new PanelController();
         } else
         {
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
@@ -45,19 +35,24 @@ public class PanelController
     }
     
     
-    public PanelController ()
+    public static PanelController getInstance ()
     {
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+        }
+        return instance;
     }
     
     
     /**
      * Initializer loads the images from the path.
      */
-    private Panel initialisePanel (String resourceFolderPath, int tileSize, int maxRows, int maxColumns)
+    public Panel initializePanel (String resourceFolderPath, int tileSize, int maxRows, int maxColumns)
     {
         HashMap<Character, Image> mapOfImagesWithCorrelatingChars = PanelAndTileLoader.getMapWithCharsAndImagesFromPath(resourceFolderPath);
         char charArray[][] = PanelAndTileLoader.loadCharFileOfMapFromPath(resourceFolderPath);
-        return new Panel(getPanelArrayFromMapAndCharArray(mapOfImagesWithCorrelatingChars, charArray), tileSize, maxRows, maxColumns);
+        return new Panel(getTileArrayFromMapAndCharArray(mapOfImagesWithCorrelatingChars, charArray), tileSize, maxRows, maxColumns);
     }
     
     
@@ -69,8 +64,8 @@ public class PanelController
      * @param charArray
      * @return
      */
-    private Tile[][] getPanelArrayFromMapAndCharArray (HashMap<Character, Image> mapOfImagesWithCorrelatingChars,
-                                                       char[][] charArray)
+    private Tile[][] getTileArrayFromMapAndCharArray (HashMap<Character, Image> mapOfImagesWithCorrelatingChars,
+                                                      char[][] charArray)
     {
         Tile[][] tileArray = new Tile[charArray.length - Constants_DefaultValues.LENGTH_TO_SIZE_SUBTRACTOR]
                 [charArray[Constants_Panel.INDEX_WITH_MAX_VALUE].length - Constants_DefaultValues.LENGTH_TO_SIZE_SUBTRACTOR];
@@ -101,9 +96,9 @@ public class PanelController
      * @param tileColumn
      * @return
      */
-    public boolean isTileOccupied (int tileRow, int tileColumn)
+    public boolean isTileOccupied (Panel panel, int tileRow, int tileColumn)
     {
-        return this.panel.getTileAt(tileRow, tileColumn).getOccupied();
+        return panel.getTileAt(tileRow, tileColumn).getOccupied();
     }
     
     
@@ -115,17 +110,17 @@ public class PanelController
      * @return
      * @throws Exception
      */
-    public boolean isCoordinateOccupied (double x, double y) throws Exception
+    public boolean isCoordinateOccupied (Panel panel, double x, double y) throws Exception
     {
-        int rowIndex = getTileIndexFromPositionX(x);
-        int columnIndex = getTileIndexFromPositionY(y);
+        int rowIndex = getTileIndexFromPositionX(panel, x);
+        int columnIndex = getTileIndexFromPositionY(panel, y);
         
         // Checks whether indices out of bounds
         if (rowIndex < Constants_Panel.MIN_TILE_INDEX || columnIndex < Constants_Panel.MIN_TILE_INDEX ||
-                rowIndex > maxRows || columnIndex > maxColumns)
+                rowIndex > panel.getMaxRows() || columnIndex > panel.getMaxColumns())
             throw new Exception("Out of bounds."); // TODO: Custom exception
         
-        if (isTileOccupied(rowIndex, columnIndex))
+        if (isTileOccupied(panel, rowIndex, columnIndex))
             return true; // Check whether tile with correlating coordinates is occupied
         return false;
     }
@@ -137,11 +132,11 @@ public class PanelController
      * @param position
      * @return
      */
-    private int getTileIndexFromPositionX (double position)
+    private int getTileIndexFromPositionX (Panel panel, double position)
     {
         double index = (position -
-                (game.getCurrentShowable().getScene().getWidth() / (double) Constants_Panel.HALFING) -
-                ((double) maxRows * (double) tileSize / (double) Constants_Panel.HALFING));
+                (Game.getInstance().getCurrentShowable().getScene().getWidth() / (double) Constants_Panel.HALFING) -
+                ((double) panel.getMaxRows() * (double) panel.getTileSize() / (double) Constants_Panel.HALFING));
         return (int) index; // Conversion cuts of decimal places, leaving the exact index
     }
     
@@ -152,11 +147,11 @@ public class PanelController
      * @param position
      * @return
      */
-    private int getTileIndexFromPositionY (double position)
+    private int getTileIndexFromPositionY (Panel panel, double position)
     {
         double index = (position -
-                ((game.getCurrentShowable().getScene().getHeight() / (double) Constants_Panel.HALFING) -
-                        ((double) maxColumns * (double) tileSize / (double) Constants_Panel.HALFING)));
+                ((Game.getInstance().getCurrentShowable().getScene().getHeight() / (double) Constants_Panel.HALFING) -
+                        ((double) panel.getMaxColumns() * (double) panel.getTileSize() / (double) Constants_Panel.HALFING)));
         return (int) index; // Conversion cuts of decimal places, leaving the exact index
     }
     
@@ -168,9 +163,9 @@ public class PanelController
      * @param columnIndex
      * @return
      */
-    private Coordinates getCoordinatesFromPanelTile (int rowIndex, int columnIndex)
+    private Coordinates getCoordinatesFromPanelTile (Panel panel, int rowIndex, int columnIndex)
     {
-        return new Coordinates(getPositionXFromTileIndex(rowIndex), getPositionYFromTileIndex(columnIndex));
+        return new Coordinates(getPositionXFromTileIndex(panel, rowIndex), getPositionYFromTileIndex(panel, columnIndex));
     }
     
     
@@ -180,10 +175,10 @@ public class PanelController
      * @param index
      * @return
      */
-    public double getPositionXFromTileIndex (int index)
+    public double getPositionXFromTileIndex (Panel panel, int index)
     {
-        double position = ((game.getCurrentShowable().getScene().getWidth() / Constants_Panel.HALFING) -
-                (((double) maxRows * (double) tileSize) / ((double) Constants_Panel.HALFING)) + (index * tileSize));
+        double position = ((Game.getInstance().getCurrentShowable().getScene().getWidth() / Constants_Panel.HALFING) -
+                (((double) panel.getMaxRows() * (double) panel.getTileSize()) / ((double) Constants_Panel.HALFING)) + (index * panel.getTileSize()));
         return position;
     }
     
@@ -194,10 +189,10 @@ public class PanelController
      * @param index
      * @return
      */
-    public double getPositionYFromTileIndex (int index)
+    public double getPositionYFromTileIndex (Panel panel, int index)
     {
-        double position = ((game.getCurrentShowable().getScene().getHeight() / Constants_Panel.HALFING) -
-                (((double) maxColumns * (double) tileSize) / ((double) Constants_Panel.HALFING)) + (index * tileSize));
+        double position = ((Game.getInstance().getCurrentShowable().getScene().getHeight() / Constants_Panel.HALFING) -
+                (((double) panel.getMaxColumns() * (double) panel.getTileSize()) / ((double) Constants_Panel.HALFING)) + (index * panel.getTileSize()));
         return position;
     }
     
@@ -205,8 +200,8 @@ public class PanelController
     /**
      * Makes the panel visible on the window.
      */
-    public void showPanel ()
+    public void showPanel (Panel panel)
     {
-        PanelView.addTilesToPane(this, panel, game.getCurrentShowable().getPane());
+        PanelView.addTilesToPane(panel, Game.getInstance().getCurrentShowable().getPane());
     }
 }
