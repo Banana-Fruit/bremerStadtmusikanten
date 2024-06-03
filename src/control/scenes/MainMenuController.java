@@ -7,27 +7,21 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import model.userInterface.Game;
+import model.userInterface.TransparentButton;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_MenuSetting;
 import src.resources.GameMenuBar;
-import model.userInterface.TransparentButton;
+
 
 
 public class MainMenuController extends Application implements GameMenuBar
 {
     private static volatile MainMenuController instance = null;
-    private Game game;
-    private Stage stage;
-    
-    
-    private MainMenuController ()
-    {
-        this.game = game;
-        this.stage = stage;
-    }
-    
-    
+
+
+    private MainMenuController () {}
+
+
     public static synchronized void initialize ()
     {
         if (instance == null)
@@ -38,8 +32,8 @@ public class MainMenuController extends Application implements GameMenuBar
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
-    
-    
+
+
     public static MainMenuController getInstance ()
     {
         if (instance == null)
@@ -48,86 +42,69 @@ public class MainMenuController extends Application implements GameMenuBar
         }
         return instance;
     }
-    
-    
+
+
     @Override
     public void start (Stage stage) throws Exception
     {
         Pane root = new Pane();
         Scene scene = new Scene(root, Constants_MenuSetting.SCENE_WIDTH, Constants_MenuSetting.SCENE_HEIGHT);
-        
-        // create a background
-        // TODO: Idea 1 (is not working)
-        //Background background = createABackground(ConstantMenuSetting.PATH_BACKGROUND_IMAGE,
-        //ConstantMenuSetting.BACKGROUND_WIDTH, ConstantMenuSetting.BACKGROUND_HEIGHT, MenuController.class.getClassLoader());
-        //TODO: Idea 2 (is not working)
-        //Background background = testBackground(ConstantMenuSetting.PATH_BACKGROUND_IMAGE);
-        
+
+        Background background = testBackground(Constants_MenuSetting.PATH_BACKGROUND_IMAGE, scene.getWidth(), scene.getHeight());
+
         // set background to the pane
-        // root.setBackground(background);
-        
+        root.setBackground(background);
+
         // creates a Menu bar with two points (game and settings) and add two menuItems to the point game
         MenuBar menuBar = GameMenuBar.createMenuBarWithTwoPoints(stage, root, Constants_MenuSetting.MENUBAR_GAME,
                 Constants_MenuSetting.MENUBAR_SETTING, Constants_MenuSetting.MENUBAR_CLOSE, Constants_MenuSetting.MENUBAR_LOAD);
-        
+
         // creates a Menu with six menuItems
         VBox box = createMenuInVBox(stage, root, Constants_MenuSetting.VBOX_ITEM_WIDTH, Constants_MenuSetting.VBOX_ITEM_HEIGHT,
                 Constants_MenuSetting.VBOX_XPOSITION, Constants_MenuSetting.VBOX_YPOSITION);
-        
+
         // add menu bar and vertical menu to the pane
         root.getChildren().addAll(menuBar, box);
         stage.setScene(scene);
         stage.setTitle(Constants_MenuSetting.TITLE_MENU_STAGE);
         stage.show();
     }
-    
-    
-    //todo. IS NOT WORKING (Idea1)
-    private static Background createABackground (String path, int imageWidth, int imageHeight, ClassLoader classLoader)
-    {
-        Image imgBackground = new Image(classLoader.getResourceAsStream(path), imageWidth, imageHeight, false, true);
-        BackgroundImage backgroundImage = new BackgroundImage(
-                imgBackground,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-        return new Background(backgroundImage);
-    }
-    
-    
-    //TODO: is also not working (Idea2)
-    private static Background testBackground (String path) throws IllegalArgumentException
+
+
+    private static Background testBackground(String path, double sceneWidth, double sceneHeight) throws IllegalArgumentException
     {
         Image imgBackground = new Image(path);
+        BackgroundSize backgroundSize = new BackgroundSize(sceneWidth, sceneHeight, false, false, true, false);
         return new Background(new BackgroundImage(
                 imgBackground,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT));
+                backgroundSize));
     }
-    
-    
+
+
+
+
     /**
      * Methode zum Öffnen der Einstellungen des Spiels
      *
      * @param stage Die Bühne, auf der die Szene angezeigt werden soll
      * @author Jonas Helfer
      */
-    
+
     private static void openSettings (Stage stage, Pane root)
     {
         Scene scene = new Scene(root, Constants_MenuSetting.SCENE_WIDTH, Constants_MenuSetting.SCENE_HEIGHT);
-        
+
         //TODO: set background
         //root.setBackground(background);
-        
+
         stage.setScene(scene);
         stage.show();
     }
-    
-    
+
+
     public static VBox createMenuInVBox (Stage stage, Pane root, int itemWidth, int itemHeight, int xPositionVBox, int yPositionVBox)
     {
         VBox box = new VBox(Constants_MenuSetting.VBOX_V,
@@ -153,7 +130,7 @@ public class MainMenuController extends Application implements GameMenuBar
         box.setTranslateY(yPositionVBox);
         return box;
     }
-    
+
     //TODO: Program only likes GamePanel in the start() method (needs runnable)
     /*private void continueGame ()
     {
