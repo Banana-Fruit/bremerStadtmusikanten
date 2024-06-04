@@ -76,7 +76,7 @@ public interface GameMenuBar
         }
         Stage dialogStage = new Stage();
         VBox dialogVbox = new VBox();
-        dialogVbox.setSpacing(35);
+        dialogVbox.setSpacing(Constants_MenuSetting.VBOX_SPACE_BETWEEN_CHOICE_AND_TEXT);
         HBox buttonBox = new HBox();
         Scene dialogScene = new Scene(dialogVbox, Constants_MenuSetting.DIALOG_SCENE_WIDTH,
                 Constants_MenuSetting.DIALOG_SCENE_HEIGHT);
@@ -102,7 +102,7 @@ public interface GameMenuBar
                 Constants_MenuSetting.RC_WIDTH, Constants_MenuSetting.RC_HEIGHT);
 
         // HBox with yes and no button
-        arrangeTwoButtonsHorizontal(buttonBox, yesButton, noButton, 35);
+        arrangeTwoButtonsHorizontal(buttonBox, yesButton, noButton, Constants_MenuSetting.SPACE_BETWEEN_YES_NO_BOXES);
 
         // Add message and buttons to the VBox
         dialogVbox.getChildren().addAll(message, buttonBox);
@@ -110,7 +110,7 @@ public interface GameMenuBar
 
 
         // Set the dialog Background black
-        Background background = new Background(new BackgroundFill(Color.rgb(0, 0, 0, 0.7), CornerRadii.EMPTY, Insets.EMPTY));
+        Background background = new Background(new BackgroundFill(Color.rgb(Constants_MenuSetting.RGB_SCHWARZ, Constants_MenuSetting.RGB_SCHWARZ, Constants_MenuSetting.RGB_SCHWARZ, Constants_MenuSetting.LINEAR_GRADIENT_OPACITY), CornerRadii.EMPTY, Insets.EMPTY));
         // Set the dialog background with an image
         //Background background = createBackground(Constants_MenuSetting.PATH_BACKGROUND_IMAGE, dialogStage.getWidth(), dialogStage.getHeight());
         dialogVbox.setBackground(background);

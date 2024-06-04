@@ -109,12 +109,15 @@ public class MainMenuController extends Application implements GameMenuBar
         stage.show();
     }
 
-    private static void loadGame(Stage stage, Pane root) {
+    private static void loadGame(Stage stage, Pane root)
+    {
         Scene scene = new Scene(root, Constants_MenuSetting.SCENE_WIDTH, Constants_MenuSetting.SCENE_HEIGHT);
         Background background = new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY));
         root.setBackground(background);
+
         GridPane gridPane = GameMenuBar.createGridPaneForLoadGame(Constants_MenuSetting.GRIDPANE_WIDTH, Constants_MenuSetting.GRIDPANE_HEIGHT,
                 Constants_MenuSetting.GRIDPANE_TRANSLATE_Y, Constants_MenuSetting.GRIDPANE_GAP);
+        
         GameMenuBar.createMenuItemsForGameLoads(gridPane);
         GameMenuBar.createTilePaneToGoBack(stage, root, gridPane);
         stage.setScene(scene);

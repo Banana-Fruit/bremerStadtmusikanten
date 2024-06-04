@@ -27,6 +27,9 @@ public interface Constants_MenuSetting
     //________________________________ Constants _________________________________
     int DIALOG_VBOX = 20;
     int MENU_HBOX = 30;
+    int SPACE_BETWEEN_YES_NO_BOXES = 35;
+    int VBOX_SPACE_BETWEEN_CHOICE_AND_TEXT = 35;
+    int RGB_SCHWARZ = 0;
     int DIALOG_SCENE_WIDTH = 300;
     int DIALOG_SCENE_HEIGHT = 150;
     int VBOX_V = 10;
