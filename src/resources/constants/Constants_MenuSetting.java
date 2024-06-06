@@ -22,7 +22,7 @@ public interface Constants_MenuSetting
     String LINEAR_GRADIENT_COLOR = "black";
     String TITLE_MENU_STAGE = "Game menu";
     String BACK_BUTTON_NAME = "Back";
-    String PATH_BACKGROUND_IMAGE = "resources/Bremen.jpg";
+    String PATH_BACKGROUND_IMAGE = "resources/assets/mainmenu/Bremen.jpg";
     
     //________________________________ Constants _________________________________
     int DIALOG_VBOX = 20;
