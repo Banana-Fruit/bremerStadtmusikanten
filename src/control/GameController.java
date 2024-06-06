@@ -4,16 +4,15 @@ package control;
 import control.events.KeyboardController;
 import control.events.MouseController;
 import control.game.PlayerController;
+import control.scenes.MainMenuController;
 import control.scenes.MapController;
-import control.scenes.PanelController;
 import control.scenes.SceneController;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.Coordinate;
+import model.Coordinates;
 import model.Player;
 import model.showables.MainMenu;
-import model.showables.Map;
 import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.scenes.Constants_Map;
@@ -54,21 +53,15 @@ public class GameController implements Runnable
     }
     
     
-    public void init ()
+    private void init ()
     {
-        SceneController.initialize(stage);
+        SceneController.initialize(this.stage);
         KeyboardController.initialize();
-        MouseController.initialize();
-        Player.initialize();
-        PlayerController.initialize(new Coordinate(Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
-        Map.initialize(new Scene(new Pane()));
-        PanelController.initialize();
-        MapController.initialize();
+        MainMenuController.initialize();
+        MainMenu.initialize(new Scene(new Pane()));
+        MainMenuController.getInstance().startMainMenu(this.stage);
         
-        new Thread(KeyboardController.getInstance()).start();
-        new Thread(MouseController.getInstance()).start();
         new Thread(SceneController.getInstance()).start();
-        new Thread(PlayerController.getInstance()).start();
         
         Game.getInstance().setCurrentShowable(MainMenu.getInstance());
         this.stage.setTitle(Game.getInstance().getGameTitle());

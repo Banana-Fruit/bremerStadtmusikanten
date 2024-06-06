@@ -2,6 +2,7 @@ package control.scenes;
 
 
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
@@ -72,5 +73,11 @@ public class SceneController implements Runnable
                 stage.setScene(Game.getInstance().getCurrentShowable().getScene());
             });
         }
+    }
+    
+    
+    public void setScene (Scene scene)
+    {
+        this.stage.setScene(scene);
     }
 }
