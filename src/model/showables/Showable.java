@@ -3,6 +3,7 @@ package model.showables;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -38,6 +39,17 @@ public class Showable
     {
         scene.setRoot(pane);
         scene.fillProperty().set(Color.BLACK);
+    }
+    
+    
+    public Background setBackground (String path) throws IllegalArgumentException
+    {
+        return new Background(new BackgroundImage(
+                new Image(path),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                new BackgroundSize(this.scene.getWidth(), this.scene.getHeight(), false, false, true, false)));
     }
     
     

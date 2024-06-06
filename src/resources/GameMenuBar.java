@@ -261,8 +261,7 @@ public interface GameMenuBar
             // Define the action for the goBack button
             try {
                 // Assuming MainMenuController has a method to start the main menu scene
-                MainMenuController mainMenuController = MainMenuController.getInstance();
-                mainMenuController.start(stage);
+                MainMenuController.getInstance().startMainMenu(stage);
             } catch (Exception e)
             {
                 e.printStackTrace();

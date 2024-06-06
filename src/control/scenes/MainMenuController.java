@@ -1,14 +1,9 @@
 package control.scenes;
 
 
-import control.GameController;
-import javafx.application.Application;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -19,24 +14,13 @@ import resources.constants.Constants_MenuSetting;
 import resources.GameMenuBar;
 
 
-public class MainMenuController extends Application implements GameMenuBar
+public class MainMenuController implements GameMenuBar
 {
     private static volatile MainMenuController instance = null;
-    ObjectProperty<Stage> stageProperty = new SimpleObjectProperty<Stage>();
 
 
 
-    private MainMenuController ()
-    {
-        stageProperty.bindBidirectional(GameController.getInstance().getStageProperty());
-    }
-    
-    
-    @Override
-    public void start (Stage stage) throws Exception
-    {
-    
-    }
+    private MainMenuController () {}
     
     
     public static synchronized void initialize ()
@@ -61,40 +45,22 @@ public class MainMenuController extends Application implements GameMenuBar
     }
 
 
-    @Override
-    public void start () throws Exception
+    public void startMainMenu (Stage stage)
     {
-        Background background =
-                createBackground(Constants_MenuSetting.PATH_BACKGROUND_IMAGE,
-                        MainMenu.getInstance().getScene().getWidth(),
-                        MainMenu.getInstance().getScene().getHeight());
-
-        // set background to the pane
-        MainMenu.getInstance().getPane().setBackground(background);
-
+        MainMenu.getInstance().setBackground(Constants_MenuSetting.PATH_BACKGROUND_IMAGE);
+        
         // creates a Menu bar with two points (game and settings) and add two menuItems to the point game
-        MenuBar menuBar = GameMenuBar.createMenuBarWithTwoPoints(stageProperty.get(), Constants_MenuSetting.MENUBAR_GAME,
-                Constants_MenuSetting.MENUBAR_SETTING, Constants_MenuSetting.MENUBAR_CLOSE, Constants_MenuSetting.MENUBAR_LOAD);
+        MenuBar menuBar = GameMenuBar.createMenuBarWithTwoPoints(stage, Constants_MenuSetting.MENUBAR_GAME,
+                Constants_MenuSetting.MENUBAR_SETTING, Constants_MenuSetting.MENUBAR_CLOSE,
+                Constants_MenuSetting.MENUBAR_LOAD);
 
         // creates a Menu with six menuItems
-        VBox box = createMenuInVBox(stageProperty.get(), MainMenu.getInstance().getPane(), Constants_MenuSetting.VBOX_ITEM_WIDTH, Constants_MenuSetting.VBOX_ITEM_HEIGHT,
-                Constants_MenuSetting.VBOX_XPOSITION, Constants_MenuSetting.VBOX_YPOSITION);
+        VBox box = createMenuInVBox(stage, MainMenu.getInstance().getPane(), Constants_MenuSetting.VBOX_ITEM_WIDTH,
+                Constants_MenuSetting.VBOX_ITEM_HEIGHT, Constants_MenuSetting.VBOX_XPOSITION,
+                Constants_MenuSetting.VBOX_YPOSITION);
 
         // add menu bar and vertical menu to the pane
         MainMenu.getInstance().getPane().getChildren().addAll(menuBar, box);
-    }
-
-
-    private static Background createBackground (String path, double sceneWidth, double sceneHeight) throws IllegalArgumentException
-    {
-        Image imgBackground = new Image(path);
-        BackgroundSize backgroundSize = new BackgroundSize(sceneWidth, sceneHeight, false, false, true, false);
-        return new Background(new BackgroundImage(
-                imgBackground,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT,
-                backgroundSize));
     }
 
 

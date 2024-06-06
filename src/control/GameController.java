@@ -3,28 +3,30 @@ package control;
 
 import control.events.KeyboardController;
 import control.events.MouseController;
+import control.game.PlayerController;
 import control.scenes.MainMenuController;
+import control.scenes.MapController;
 import control.scenes.SceneController;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.Coordinates;
+import model.Player;
 import model.showables.MainMenu;
 import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
+import resources.constants.scenes.Constants_Map;
 
 
 public class GameController implements Runnable
 {
     private static volatile GameController instance = null;
-    ObjectProperty<Stage> stageProperty;
+    private Stage stage;
     
     
     private GameController (Stage stage)
     {
-        this.stageProperty = new SimpleObjectProperty<Stage>(stage);
+        this.stage = stage;
         init();
     }
     
@@ -51,20 +53,20 @@ public class GameController implements Runnable
     }
     
     
-    public void init ()
+    private void init ()
     {
-        SceneController.initialize(stageProperty.get());
+        SceneController.initialize(this.stage);
         KeyboardController.initialize();
-        MouseController.initialize();
-        MainMenu.initialize(new Scene(new Pane()));
         MainMenuController.initialize();
-        
+        MainMenu.initialize(new Scene(new Pane()));
+        MainMenuController.getInstance().startMainMenu(this.stage);
         
         new Thread(SceneController.getInstance()).start();
         
         Game.getInstance().setCurrentShowable(MainMenu.getInstance());
-        this.stageProperty.get().setTitle(Game.getInstance().getGameTitle());
-        this.stageProperty.get().show();
+        this.stage.setTitle(Game.getInstance().getGameTitle());
+        this.stage.setFullScreen(true);
+        this.stage.show();
     }
     
     
@@ -72,11 +74,5 @@ public class GameController implements Runnable
     public void run ()
     {
         // Should put Threads to sleep and notify them of changes, to wake them
-    }
-    
-    
-    public Property<Stage> getStageProperty ()
-    {
-        return this.stageProperty;
     }
 }
