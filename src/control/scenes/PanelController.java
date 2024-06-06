@@ -2,7 +2,7 @@ package control.scenes;
 
 
 import javafx.scene.image.Image;
-import model.Coordinates;
+import model.Coordinate;
 import model.panel.Panel;
 import model.panel.Tile;
 import model.userInterface.Game;
@@ -105,15 +105,15 @@ public class PanelController
     /**
      * Accepts coordinates, and checks whether the tile at that coordinate is occupied.
      *
-     * @param x
-     * @param y
+     * @param panel
+     * @param coordinate
      * @return
      * @throws Exception
      */
-    public boolean isCoordinateOccupied (Panel panel, double x, double y) throws Exception
+    public boolean isCoordinateOccupied (Panel panel, Coordinate coordinate) throws Exception
     {
-        int rowIndex = getTileIndexFromPositionX(panel, x);
-        int columnIndex = getTileIndexFromPositionY(panel, y);
+        int rowIndex = getTileIndexFromPositionX(panel, coordinate.getPositionX());
+        int columnIndex = getTileIndexFromPositionY(panel, coordinate.getPositionY());
         
         // Checks whether indices out of bounds
         if (rowIndex < Constants_Panel.MIN_TILE_INDEX || columnIndex < Constants_Panel.MIN_TILE_INDEX ||
@@ -163,9 +163,9 @@ public class PanelController
      * @param columnIndex
      * @return
      */
-    private Coordinates getCoordinatesFromPanelTile (Panel panel, int rowIndex, int columnIndex)
+    private Coordinate getCoordinateFromPanelTile (Panel panel, int rowIndex, int columnIndex)
     {
-        return new Coordinates(getPositionXFromTileIndex(panel, rowIndex), getPositionYFromTileIndex(panel, columnIndex));
+        return new Coordinate(getPositionXFromTileIndex(panel, rowIndex), getPositionYFromTileIndex(panel, columnIndex));
     }
     
     

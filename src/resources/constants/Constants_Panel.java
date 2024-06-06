@@ -13,12 +13,13 @@ public interface Constants_Panel
     
     // Paths
     String PNG_SUFFIX = ".png";
-    String LOADER_FILE_NAME = "position.dat";
-    // Suffices
-    String BACKGROUND_SUFFIX = "_b";
+    String LOADER_FILE_NAME_BACKGROUND = "background.dat";
+    String LOADER_FILE_NAME_INTERACTABLE = "background.dat";
     String OBSTACLE_SUFFIX = "_o";
+    String BUILDING_SUFFIX = "_b";
     String ENEMY_SUFFIX = "_e";
     String COLLECTABLE_SUFFIX = "_c";
+    String RESOURCE_SUFFIX = "_r";
     
     
     // Restriction values

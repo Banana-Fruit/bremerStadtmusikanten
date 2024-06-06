@@ -1,9 +1,10 @@
 package control.game;
 
 
+import control.scenes.PanelController;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import model.Coordinates;
+import model.Coordinate;
 import model.showables.Map;
 import model.userInterface.Game;
 import model.Player;
@@ -12,7 +13,6 @@ import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Game;
 import resources.constants.Constants_Keymapping;
 import resources.constants.scenes.Constants_Map;
-import resources.constants.scenes.Constants_Scenes;
 import view.OutputImageView;
 
 import java.util.Set;
@@ -24,12 +24,12 @@ import java.util.Set;
 public class PlayerController implements Runnable
 {
     private static volatile PlayerController instance = null;
-    private Coordinates currentPlayerPosition;
-    private Coordinates newPlayerPosition;
+    private Coordinate currentPlayerPosition;
+    private Coordinate newPlayerPosition;
     private OutputImageView playerView;
     
     
-    private PlayerController (Coordinates currentPlayerPosition)
+    private PlayerController (Coordinate currentPlayerPosition)
     {
         this.currentPlayerPosition = currentPlayerPosition;
         this.newPlayerPosition = currentPlayerPosition;
@@ -38,7 +38,7 @@ public class PlayerController implements Runnable
     }
     
     
-    public static synchronized void initialize (Coordinates playerPosition)
+    public static synchronized void initialize (Coordinate playerPosition)
     {
         if (instance == null)
         {
@@ -66,17 +66,21 @@ public class PlayerController implements Runnable
     {
         while (true)
         {
-            if (!this.currentPlayerPosition.isEqual(this.newPlayerPosition))
-            {
-                setCurrentPlayerPosition(newPlayerPosition);
-            }
             try
             {
-                Thread.sleep(Constants_Game.THREAD_SLEEP_DEFAULT_TIME); // Sleep for ~16ms to target ~60 updates per second
+                Thread.sleep(Constants_Game.THREAD_SLEEP_DEFAULT_TIME);
+                if (!this.currentPlayerPosition.isEqual(this.newPlayerPosition) &&
+                        PanelController.getInstance().isCoordinateOccupied(Map.getInstance().getPanel(), newPlayerPosition))
+                {
+                    setPlayerPosition(newPlayerPosition);
+                } else setPlayerPosition(currentPlayerPosition);
             } catch (InterruptedException e)
             {
                 Thread.currentThread().interrupt(); // Preserve interrupt status
                 break; // Exit the loop if interrupted
+            } catch (Exception e)
+            {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -130,9 +134,10 @@ public class PlayerController implements Runnable
     }
     
     
-    private void setCurrentPlayerPosition (Coordinates playerPosition)
+    private void setPlayerPosition (Coordinate playerPosition)
     {
         this.currentPlayerPosition = playerPosition;
-        playerView.setCoordinates(new Coordinates(this.currentPlayerPosition.getPositionX(), this.currentPlayerPosition.getPositionY()));
+        this.newPlayerPosition = playerPosition;
+        playerView.setCoordinates(playerPosition);
     }
 }

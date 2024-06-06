@@ -1,13 +1,13 @@
 package model;
 
 
-public class Coordinates
+public class Coordinate
 {
     double positionX;
     double positionY;
     
     
-    public Coordinates (double positionX, double positionY)
+    public Coordinate (double positionX, double positionY)
     {
         this.positionX = positionX;
         this.positionY = positionY;
@@ -38,9 +38,9 @@ public class Coordinates
     }
     
     
-    public boolean isEqual (Coordinates coordinates)
+    public boolean isEqual (Coordinate coordinate)
     {
-        if (this.positionX == coordinates.positionX && this.positionY == coordinates.positionY) return true;
+        if (this.positionX == coordinate.positionX && this.positionY == coordinate.positionY) return true;
         return false;
     }
 }

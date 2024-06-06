@@ -3,7 +3,8 @@ package view;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import model.Coordinates;
+import model.Coordinate;
+import resources.constants.Constants_DefaultValues;
 
 
 public class OutputImageView extends ImageView
@@ -21,10 +22,11 @@ public class OutputImageView extends ImageView
     }
     
     
-    private void init() {
+    private void init ()
+    {
         // Compute the current diagonal size of the image
-        double currentDiagonalSize = Math.sqrt(Math.pow(this.image.getHeight(), 2) +
-                Math.pow(this.image.getWidth(), 2));
+        double currentDiagonalSize = Math.sqrt(Math.pow(this.image.getHeight(), Constants_DefaultValues.SQUARE_EXPONENT) +
+                Math.pow(this.image.getWidth(), Constants_DefaultValues.SQUARE_EXPONENT));
         
         // Compute the scaling factor to adjust the image to the desired diagonal size
         double scalingFactor = this.diagonalSize / currentDiagonalSize;
@@ -39,16 +41,15 @@ public class OutputImageView extends ImageView
     }
     
     
-    
-    public void setCoordinates (Coordinates coordinates)
+    public void setCoordinates (Coordinate coordinate)
     {
-        this.setX(coordinates.getPositionX());
-        this.setY(coordinates.getPositionY());
+        this.setX(coordinate.getPositionX());
+        this.setY(coordinate.getPositionY());
     }
     
     
-    public Coordinates getCoordinates ()
+    public Coordinate getCoordinates ()
     {
-        return new Coordinates(this.getX(), this.getY());
+        return new Coordinate(this.getX(), this.getY());
     }
 }

@@ -34,6 +34,12 @@ public class TransparentButton extends StackPane
     }
     
     
+    private void init ()
+    {
+    
+    }
+    
+    
     /**
      * Method for creating a linear gradient with a specific opacity
      *
