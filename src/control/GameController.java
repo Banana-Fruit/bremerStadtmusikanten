@@ -3,32 +3,28 @@ package control;
 
 import control.events.KeyboardController;
 import control.events.MouseController;
-import control.game.PlayerController;
-import control.scenes.MapController;
-import control.scenes.PanelController;
+import control.scenes.MainMenuController;
 import control.scenes.SceneController;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.Coordinates;
-import model.Player;
-import model.panel.Panel;
 import model.showables.MainMenu;
-import model.showables.Map;
 import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
-import resources.constants.scenes.Constants_Map;
 
 
 public class GameController implements Runnable
 {
     private static volatile GameController instance = null;
-    private Stage stage;
+    ObjectProperty<Stage> stageProperty;
     
     
     private GameController (Stage stage)
     {
-        this.stage = stage;
+        this.stageProperty = new SimpleObjectProperty<Stage>(stage);
         init();
     }
     
@@ -57,23 +53,18 @@ public class GameController implements Runnable
     
     public void init ()
     {
-        SceneController.initialize(stage);
+        SceneController.initialize(stageProperty.get());
         KeyboardController.initialize();
         MouseController.initialize();
-        Player.initialize();
-        PlayerController.initialize(new Coordinates(Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
-        Map.initialize(new Scene(new Pane()));
-        PanelController.initialize();
-        MapController.initialize();
+        MainMenu.initialize(new Scene(new Pane()));
+        MainMenuController.initialize();
         
-        new Thread(KeyboardController.getInstance()).start();
-        new Thread(MouseController.getInstance()).start();
+        
         new Thread(SceneController.getInstance()).start();
-        new Thread(PlayerController.getInstance()).start();
         
         Game.getInstance().setCurrentShowable(MainMenu.getInstance());
-        this.stage.setTitle(Game.getInstance().getGameTitle());
-        this.stage.show();
+        this.stageProperty.get().setTitle(Game.getInstance().getGameTitle());
+        this.stageProperty.get().show();
     }
     
     
@@ -81,5 +72,11 @@ public class GameController implements Runnable
     public void run ()
     {
         // Should put Threads to sleep and notify them of changes, to wake them
+    }
+    
+    
+    public Property<Stage> getStageProperty ()
+    {
+        return this.stageProperty;
     }
 }
