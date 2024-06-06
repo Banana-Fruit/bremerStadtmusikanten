@@ -10,10 +10,6 @@ public interface Constants_Panel
     int HALFING = 2;
     int MIN_TILE_INDEX = 0;
     
-    
-    // Paths
-    String PNG_SUFFIX = ".png";
-    String LOADER_FILE_NAME = "position.dat";
     // Suffices
     String BACKGROUND_SUFFIX = "_b";
     String OBSTACLE_SUFFIX = "_o";

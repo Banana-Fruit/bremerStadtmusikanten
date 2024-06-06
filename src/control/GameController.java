@@ -65,7 +65,6 @@ public class GameController implements Runnable
         
         Game.getInstance().setCurrentShowable(MainMenu.getInstance());
         this.stage.setTitle(Game.getInstance().getGameTitle());
-        this.stage.setFullScreen(true);
         this.stage.show();
     }
     

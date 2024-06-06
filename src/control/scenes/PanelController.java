@@ -48,7 +48,8 @@ public class PanelController
     /**
      * Initializer loads the images from the path.
      */
-    public Panel initializePanel (String resourceFolderPath, int tileSize, int maxRows, int maxColumns)
+    public Panel initializePanel (String backgroundLoaderFile, String interactibleLoaderFile,
+                                  int tileSize, int maxRows, int maxColumns)
     {
         HashMap<Character, Image> mapOfImagesWithCorrelatingChars = PanelAndTileLoader.getMapWithCharsAndImagesFromPath(resourceFolderPath);
         char charArray[][] = PanelAndTileLoader.loadCharFileOfMapFromPath(resourceFolderPath);
