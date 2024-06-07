@@ -15,7 +15,7 @@ import resources.constants.Constants_ExceptionMessages;
 public class GameController
 {
     private static volatile GameController instance = null;
-    private Stage stage;
+    private final Stage stage;
     
     
     private GameController (Stage stage)

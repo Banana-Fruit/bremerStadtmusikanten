@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import model.showables.MainMenu;
 import model.userInterface.TransparentButton;
 import resources.constants.Constants_ExceptionMessages;
-import resources.constants.Constants_MenuSetting;
+import resources.constants.Constants_MainMenu;
 import resources.GameMenuBar;
 
 
@@ -47,17 +47,17 @@ public class MainMenuController implements GameMenuBar
 
     public void startMainMenu (Stage stage)
     {
-        MainMenu.getInstance().setBackground(Constants_MenuSetting.PATH_BACKGROUND_IMAGE);
+        MainMenu.getInstance().setBackground(Constants_MainMenu.PATH_BACKGROUND_IMAGE);
         
         // creates a Menu bar with two points (game and settings) and add two menuItems to the point game
-        MenuBar menuBar = GameMenuBar.createMenuBarWithTwoPoints(stage, Constants_MenuSetting.MENUBAR_GAME,
-                Constants_MenuSetting.MENUBAR_SETTING, Constants_MenuSetting.MENUBAR_CLOSE,
-                Constants_MenuSetting.MENUBAR_LOAD);
+        MenuBar menuBar = GameMenuBar.createMenuBarWithTwoPoints(stage, Constants_MainMenu.MENUBAR_GAME,
+                Constants_MainMenu.MENUBAR_SETTING, Constants_MainMenu.MENUBAR_CLOSE,
+                Constants_MainMenu.MENUBAR_LOAD);
 
         // creates a Menu with six menuItems
-        VBox box = createMenuInVBox(stage, MainMenu.getInstance().getPane(), Constants_MenuSetting.VBOX_ITEM_WIDTH,
-                Constants_MenuSetting.VBOX_ITEM_HEIGHT, Constants_MenuSetting.VBOX_XPOSITION,
-                Constants_MenuSetting.VBOX_YPOSITION);
+        VBox box = createMenuInVBox(stage, MainMenu.getInstance().getPane(), Constants_MainMenu.VBOX_ITEM_WIDTH,
+                Constants_MainMenu.VBOX_ITEM_HEIGHT, Constants_MainMenu.VBOX_XPOSITION,
+                Constants_MainMenu.VBOX_YPOSITION);
 
         // add menu bar and vertical menu to the pane
         MainMenu.getInstance().getPane().getChildren().addAll(menuBar, box);
@@ -73,10 +73,10 @@ public class MainMenuController implements GameMenuBar
      * @author Jonas Helfer
      */
 
-    private static void openSettings(Stage stage, Pane root)
+    private static void openSettings(Stage stage)
     {
         Pane newRoot = new Pane();
-        Scene scene = new Scene(newRoot, Constants_MenuSetting.SCENE_WIDTH, Constants_MenuSetting.SCENE_HEIGHT);
+        Scene scene = new Scene(newRoot, Constants_MainMenu.SCENE_WIDTH, Constants_MainMenu.SCENE_HEIGHT);
 
         // Set background
         Background background = new Background(new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY));
@@ -88,12 +88,12 @@ public class MainMenuController implements GameMenuBar
 
     private static void loadGame(Stage stage, Pane root)
     {
-        Scene scene = new Scene(root, Constants_MenuSetting.SCENE_WIDTH, Constants_MenuSetting.SCENE_HEIGHT);
+        Scene scene = new Scene(root, Constants_MainMenu.SCENE_WIDTH, Constants_MainMenu.SCENE_HEIGHT);
         Background background = new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY));
         root.setBackground(background);
 
-        GridPane gridPane = GameMenuBar.createGridPaneForLoadGame(Constants_MenuSetting.GRIDPANE_WIDTH, Constants_MenuSetting.GRIDPANE_HEIGHT,
-                Constants_MenuSetting.GRIDPANE_TRANSLATE_Y, Constants_MenuSetting.GRIDPANE_GAP);
+        GridPane gridPane = GameMenuBar.createGridPaneForLoadGame(Constants_MainMenu.GRIDPANE_WIDTH, Constants_MainMenu.GRIDPANE_HEIGHT,
+                Constants_MainMenu.GRIDPANE_TRANSLATE_Y, Constants_MainMenu.GRIDPANE_GAP);
         
         GameMenuBar.createMenuItemsForGameLoads(gridPane);
         GameMenuBar.createTilePaneToGoBack(stage, root, gridPane);
@@ -105,28 +105,28 @@ public class MainMenuController implements GameMenuBar
 
     public static VBox createMenuInVBox(Stage stage, Pane root, int itemWidth, int itemHeight, int xPositionVBox, int yPositionVBox)
     {
-        VBox box = new VBox(Constants_MenuSetting.VBOX_V,
-                new TransparentButton(Constants_MenuSetting.MENU_CONTINUE_GAME, () ->
+        VBox box = new VBox(Constants_MainMenu.VBOX_V,
+                new TransparentButton(Constants_MainMenu.MENU_CONTINUE_GAME, () ->
                 {
                     getInstance().continueGame();
                 }, itemWidth, itemHeight),
-                new TransparentButton(Constants_MenuSetting.MENU_NEW_GAME, () ->
+                new TransparentButton(Constants_MainMenu.MENU_NEW_GAME, () ->
                 {
 
                 }, itemWidth, itemHeight),
-                new TransparentButton(Constants_MenuSetting.MENU_LOAD_GAME, () ->
+                new TransparentButton(Constants_MainMenu.MENU_LOAD_GAME, () ->
                 {
                     GameMenuBar.loadGame(stage);
                 }, itemWidth, itemHeight),
-                new TransparentButton(Constants_MenuSetting.MENU_MULTIPLAYER, () ->
+                new TransparentButton(Constants_MainMenu.MENU_MULTIPLAYER, () ->
                 {
 
                 }, itemWidth, itemHeight),
-                new TransparentButton(Constants_MenuSetting.MENU_SETTINGS, () ->
+                new TransparentButton(Constants_MainMenu.MENU_SETTINGS, () ->
                 {
                     openSettings(stage, root);
                 }, itemWidth, itemHeight),
-                new TransparentButton(Constants_MenuSetting.MENU_CLOSE_GAME, () ->
+                new TransparentButton(Constants_MainMenu.MENU_CLOSE_GAME, () ->
                 {
                     GameMenuBar.closeGame();
                 }, itemWidth, itemHeight));

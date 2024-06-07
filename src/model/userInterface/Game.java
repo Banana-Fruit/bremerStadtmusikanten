@@ -14,10 +14,13 @@ public class Game
 {
     private static volatile Game instance;
     private Showable currentShowable = new Showable();
-    private String gameTitle = Constants_Game.GAME_TITLE;
+    private final String gameTitle;
     
     
-    private Game () {}
+    private Game ()
+    {
+        this.gameTitle = Constants_Game.GAME_TITLE;
+    }
     
     
     public static synchronized void initialize ()

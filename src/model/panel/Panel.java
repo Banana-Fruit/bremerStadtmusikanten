@@ -10,11 +10,11 @@ import resources.constants.Constants_Panel;
  */
 public class Panel
 {
-    private Tile[][] originArray;
-    private Tile[][] tileArray;
-    private int tileSize;
-    private int maxRows;
-    private int maxColumns;
+    private final Tile[][] originArray;
+    private final Tile[][] tileArray;
+    private final int tileSize;
+    private final int maxRows;
+    private final int maxColumns;
     
     
     public Panel (Tile[][] tileArray, int tileSize, int maxRows, int maxColumns)
@@ -36,9 +36,9 @@ public class Panel
     
     private void setTileArrayToRestrictedOriginArray ()
     {
-        for (int row = Constants_Panel.ITERATION_STARTING_VALUE; row < maxRows; row++)
+        for (int row = Constants_Panel.MIN_TILE_INDEX; row < maxRows; row++)
         {
-            for (int column = Constants_Panel.ITERATION_STARTING_VALUE; column < maxColumns; column++)
+            for (int column = Constants_Panel.MIN_TILE_INDEX; column < maxColumns; column++)
             {
                 if (row < originArray.length && column < originArray[row].length)
                 {

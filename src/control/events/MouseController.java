@@ -1,7 +1,6 @@
 package control.events;
 
 
-import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
 
 

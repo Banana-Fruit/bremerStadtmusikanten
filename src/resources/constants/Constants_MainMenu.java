@@ -1,7 +1,7 @@
 package resources.constants;
 
 
-public interface Constants_MenuSetting
+public interface Constants_MainMenu
 {
     //________________________________ Strings ________________________________
     String MENUBAR_SETTING = "Settings";

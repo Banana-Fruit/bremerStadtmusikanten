@@ -40,7 +40,6 @@ public class Coordinate
     
     public boolean isEqual (Coordinate coordinate)
     {
-        if (this.positionX == coordinate.positionX && this.positionY == coordinate.positionY) return true;
-        return false;
+        return this.positionX == coordinate.positionX && this.positionY == coordinate.positionY;
     }
 }

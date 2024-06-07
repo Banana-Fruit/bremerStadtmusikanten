@@ -6,12 +6,13 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import resources.constants.scenes.Constants_Showable;
 
 
 public class Showable
 {
-    private Pane pane;
-    private Scene scene;
+    private final Pane pane;
+    private final Scene scene;
     
     
     public Showable ()
@@ -42,14 +43,17 @@ public class Showable
     }
     
     
-    public Background setBackground (String path) throws IllegalArgumentException
+    public void setBackground (String path)
     {
-        return new Background(new BackgroundImage(
+        pane.setBackground(new Background(new BackgroundImage(
                 new Image(path),
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.DEFAULT,
-                new BackgroundSize(this.scene.getWidth(), this.scene.getHeight(), false, false, true, false)));
+                new BackgroundSize(this.scene.getWidth(), this.scene.getHeight(),
+                        Constants_Showable.BACKGROUND_AS_PERCENTAGE, Constants_Showable.BACKGROUND_AS_PERCENTAGE,
+                        Constants_Showable.BACKGROUND_CONTAIN, Constants_Showable.BACKGROUND_COVER)
+        )));
     }
     
     

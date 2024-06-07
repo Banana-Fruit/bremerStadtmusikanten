@@ -3,6 +3,7 @@ package control.scenes;
 
 import model.showables.Map;
 import resources.constants.Constants_ExceptionMessages;
+import resources.constants.Constants_Resources;
 import resources.constants.scenes.Constants_Map;
 
 
@@ -14,9 +15,6 @@ import resources.constants.scenes.Constants_Map;
 public class MapController
 {
     private static volatile MapController instance = null;
-    private final int tileSize = Constants_Map.TILE_SIZE;
-    private final int maxRows = Constants_Map.MAX_ROWS;
-    private final int maxColumns = Constants_Map.MAX_COLUMNS;
     
     
     private MapController ()
@@ -54,8 +52,9 @@ public class MapController
     }
     
     
-    public void setNewMap (String path)
+    public void setNewMap (String loaderFileName)
     {
-        Map.getInstance().setPanel(PanelController.getInstance().initializePanel(path, tileSize, maxRows, maxColumns));
+        Map.getInstance().setPanel(PanelController.getInstance().initializePanel(Constants_Resources.MAP_FOLDER,
+                loaderFileName, Constants_Map.TILE_SIZE, Constants_Map.MAX_ROWS, Constants_Map.MAX_COLUMNS));
     }
 }

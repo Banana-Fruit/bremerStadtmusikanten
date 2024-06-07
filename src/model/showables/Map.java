@@ -2,11 +2,8 @@ package model.showables;
 
 
 import javafx.scene.Scene;
-import model.map.Collectable;
 import model.panel.Panel;
 import resources.constants.Constants_ExceptionMessages;
-
-import java.util.List;
 
 
 public class Map extends Showable

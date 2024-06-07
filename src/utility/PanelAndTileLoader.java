@@ -2,9 +2,9 @@ package utility;
 
 
 import javafx.scene.image.Image;
-import model.panel.Panel;
-import model.showables.Map;
-import resources.constants.scenes.Constants_Map;
+import model.panel.Tile;
+import resources.constants.Constants_Panel;
+import resources.constants.Constants_Resources;
 
 import java.io.*;
 import java.net.URI;
@@ -15,89 +15,48 @@ import java.util.HashMap;
 public class PanelAndTileLoader
 {
     /**
-     * Returns panel from path to assets. If mainFolderPath points to map folder, then the loaderFileName will be
-     * located, and loaded according to the letters conatined.
-     * The Panel will be loaded, by stacking an interactable picture on top of a background picture.
+     * Returns a character array based on the path of a character map file. Limits the amount of readings to
+     * maxRows/maxColumns, or when a reading is null.
      *
-     * @param mainFolderPath
-     * @param loaderFileName
+     * @param loaderFilePath
+     * @param maxRows
+     * @param maxColumns
      * @return
      */
-    public static Panel getPanelFromPaths (String mainFolderPath, String loaderFileName)
+    public static char[][] getCharacterArray (String loaderFilePath, int maxRows, int maxColumns)
     {
-    
-    }
-    
-    
-    public static char[][] loadCharFileOfMapFromPath (String path)
-    {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path)))
+        char[][] characterArray = new char[maxRows][maxColumns];
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(loaderFilePath)))
         {
-            char[][] tileChars = Map.getInstance().getTileCharArray();
-            
             String line;
-            for (int row = Constants_Map.MINIMUM_ARRAY_VALUE;
-                 row < Constants_Map.MAX_SCREEN_ROW && (line = bufferedReader.readLine()) != null; row++)
+            
+            // Loop continues reading lines until either the limit of rows is reached, or the read line is null
+            for (int row = Constants_Panel.MIN_TILE_INDEX; row < maxRows && (line = bufferedReader.readLine()) != null; row++)
             {
-                char[] characters = line.toCharArray();
-                for (int column = Constants_Map.MINIMUM_ARRAY_VALUE;
-                     column < Constants_Map.MAX_SCREEN_COLUMN && column < characters.length; column++)
+                char[] characters = line.toCharArray(); // Converts currently read line into an array of characters
+                
+                // Loop through columns until either the limit of columns is reached, or the read line is null
+                for (int column = Constants_Panel.MIN_TILE_INDEX; column < maxColumns && column < characters.length; column++)
                 {
-                    tileChars[column][row] = characters[column];
+                    characterArray[column][row] = characters[column];
                 }
             }
-            return tileChars;
+            return characterArray;
         } catch (FileNotFoundException e)
         {
-            e.printStackTrace();
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        } finally
-        {
             return null;
-        }
-        
-        // TODO: Leave code here in case ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ doesnt work.
-        /*InputStream inputStream = getClass().getResourceAsStream(path);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        
-        char[][] tileChars = Map.getInstance().getTileCharArray();
-        int row = Constants_Map.MINIMUM_ARRAY_VALUE;
-        try
-        {
-            String line;
-            while ((line = bufferedReader.readLine()) != null && row < Constants_Map.MAX_SCREEN_ROW)
-            {
-                char[] characters = line.toCharArray();
-                for (int column = Constants_Map.MINIMUM_ARRAY_VALUE; column < Constants_Map.MAX_SCREEN_COLUMN && column < characters.length; column++)
-                {
-                    tileChars[column][row] = characters[column];
-                }
-                row++;
-            }
         } catch (IOException e)
         {
             throw new RuntimeException(e);
-        } finally
-        {
-            try
-            {
-                bufferedReader.close();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }*/
-        return null;
+        }
     }
     
     
-    public static HashMap<Character, Image> getMapWithCharsAndImagesFromPath (String imageFolderPath)
+    public static HashMap<Character, Image> getMapWithCharsAndImages (String imageFolderPath)
     {
         try
         {
-            // retrieve list of all image files in the imageFolderPath
+            // Retrieve list of all image files in the imageFolderPath
             String[] arrayOfFileNames = new File(new URI(imageFolderPath)).list();
             HashMap<Character, Image> currentMapOfCharsWithImages = new HashMap<>();
             
@@ -105,14 +64,12 @@ public class PanelAndTileLoader
             {
                 for (String currentFileName : arrayOfFileNames)
                 {
-                    // only png images
-                    if (currentFileName.endsWith(Constants_Map.ONLY_PNG))
+                    if (currentFileName.endsWith(Constants_Resources.PNG_SUFFIX)) // Only .png files are tracked
                     {
+                        System.out.println(currentFileName);
                         // Use the first letter of the file name as the character value
-                        char c = currentFileName.charAt(Constants_Map.IMAGE_CHAR_POSITION);
-                        String fullPath = (String) (imageFolderPath + currentFileName);
-                        Image image = new Image(fullPath);
-                        currentMapOfCharsWithImages.put(c, image);
+                        currentMapOfCharsWithImages.put(currentFileName.charAt(Constants_Panel.IMAGE_CHAR_POSITION),
+                                new Image((String) (imageFolderPath + currentFileName)));
                     }
                 }
             }
@@ -124,6 +81,26 @@ public class PanelAndTileLoader
         {
             return null;
         }
-        return null;
+    }
+    
+    
+    public static Tile[][] getTileArray (HashMap<Character, Image> backgroundMap, char[][] backgroundArray,
+                                         HashMap<Character, Image> interactableMap, char[][] interactableArray,
+                                         int maxRows, int maxColumns)
+    {
+        Tile[][] tileArray = new Tile[maxRows][maxColumns];
+        
+        for (int row = Constants_Panel.MIN_TILE_INDEX; row < maxRows; row++)
+        {
+            for (int column = Constants_Panel.MIN_TILE_INDEX; column < maxColumns; column++)
+            {
+                if (backgroundArray[row][column] == Constants_Panel.ignoreLoaderFileValue) continue;
+                if (interactableArray[row][column] == Constants_Panel.ignoreLoaderFileValue) continue;
+                tileArray[row][column] = new Tile(backgroundMap.get(backgroundArray[row][column]),
+                        interactableMap.get(interactableArray[row][column]));
+            }
+        }
+        
+        return tileArray;
     }
 }

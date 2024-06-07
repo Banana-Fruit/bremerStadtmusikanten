@@ -4,11 +4,10 @@ package control.scenes;
 import javafx.scene.image.Image;
 import model.Coordinate;
 import model.panel.Panel;
-import model.panel.Tile;
 import model.userInterface.Game;
-import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Panel;
+import resources.constants.Constants_Resources;
 import utility.PanelAndTileLoader;
 import view.PanelView;
 
@@ -46,60 +45,40 @@ public class PanelController
     
     
     /**
-     * Initializer loads the images from the path.
+     * Initializer returns a panel with a background and foreground image, if both files are found.
      */
-    public Panel initializePanel (String backgroundLoaderFile, String interactibleLoaderFile,
+    public Panel initializePanel (String mainFolderPath, String loaderFileName,
                                   int tileSize, int maxRows, int maxColumns)
     {
-        HashMap<Character, Image> mapOfImagesWithCorrelatingChars = PanelAndTileLoader.getMapWithCharsAndImagesFromPath(resourceFolderPath);
-        char charArray[][] = PanelAndTileLoader.loadCharFileOfMapFromPath(resourceFolderPath);
-        return new Panel(getTileArrayFromMapAndCharArray(mapOfImagesWithCorrelatingChars, charArray), tileSize, maxRows, maxColumns);
-    }
-    
-    
-    /**
-     * Creates a panel array by using a Map with images and their correlating chars, and the structure of the char array
-     * to create an array based on the char arrays structure, but with Tiles.
-     *
-     * @param mapOfImagesWithCorrelatingChars
-     * @param charArray
-     * @return
-     */
-    private Tile[][] getTileArrayFromMapAndCharArray (HashMap<Character, Image> mapOfImagesWithCorrelatingChars,
-                                                      char[][] charArray)
-    {
-        Tile[][] tileArray = new Tile[charArray.length - Constants_DefaultValues.LENGTH_TO_SIZE_SUBTRACTOR]
-                [charArray[Constants_Panel.INDEX_WITH_MAX_VALUE].length - Constants_DefaultValues.LENGTH_TO_SIZE_SUBTRACTOR];
+        // Create Array of characters
+        char backgroundCharArray[][] = PanelAndTileLoader.getCharacterArray(
+                (mainFolderPath + Constants_Resources.BACKGROUND_FOLDER + loaderFileName), maxRows, maxColumns);
+        char interactableCharArray[][] = PanelAndTileLoader.getCharacterArray(
+                (mainFolderPath + Constants_Resources.INTERACTABLE_FOLDER + loaderFileName), maxRows, maxColumns);
         
-        for (int row = Constants_Panel.MINIMUM_ARRAY_VALUE; row < charArray.length; row++)
-        {
-            for (int column = Constants_Panel.MINIMUM_ARRAY_VALUE;
-                 column < charArray[Constants_Panel.INDEX_WITH_MAX_VALUE].length;
-                 column++)
-            {
-                char tileChar = charArray[column][row];
-                javafx.scene.image.Image tileImage = mapOfImagesWithCorrelatingChars.get(tileChar);
-                if (tileImage != null)
-                {
-                    tileArray[column][row] = new Tile(tileImage); // TODO: Determine method for isOccupied
-                }
-            }
-        }
+        // Put characters in correlation to images
+        HashMap<Character, Image> mapOfBackgroundCharactersWithCorrelatingImages =
+                PanelAndTileLoader.getMapWithCharsAndImages(mainFolderPath + Constants_Resources.BACKGROUND_FOLDER);
+        HashMap<Character, Image> mapOfInteractableCharactersWithCorrelatingImages =
+                PanelAndTileLoader.getMapWithCharsAndImages(mainFolderPath + Constants_Resources.INTERACTABLE_FOLDER);
         
-        return tileArray;
+        return new Panel(PanelAndTileLoader.getTileArray(mapOfBackgroundCharactersWithCorrelatingImages, backgroundCharArray,
+                mapOfInteractableCharactersWithCorrelatingImages, interactableCharArray, maxRows, maxColumns),
+                tileSize, maxRows, maxColumns);
     }
     
     
     /**
      * Checks whether a specific tile in the panel is occupied.
      *
+     * @param panel
      * @param tileRow
      * @param tileColumn
      * @return
      */
     public boolean isTileOccupied (Panel panel, int tileRow, int tileColumn)
     {
-        return panel.getTileAt(tileRow, tileColumn).getOccupied();
+        return panel.getTileAt(tileRow, tileColumn).getInteractable();
     }
     
     
@@ -136,8 +115,8 @@ public class PanelController
     private int getTileIndexFromPositionX (Panel panel, double position)
     {
         double index = (position -
-                (Game.getInstance().getCurrentShowable().getScene().getWidth() / (double) Constants_Panel.HALFING) -
-                ((double) panel.getMaxRows() * (double) panel.getTileSize() / (double) Constants_Panel.HALFING));
+                (Game.getInstance().getCurrentShowable().getScene().getWidth() / (double) Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -
+                ((double) panel.getMaxRows() * (double) panel.getTileSize() / (double) Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF));
         return (int) index; // Conversion cuts of decimal places, leaving the exact index
     }
     
@@ -151,8 +130,8 @@ public class PanelController
     private int getTileIndexFromPositionY (Panel panel, double position)
     {
         double index = (position -
-                ((Game.getInstance().getCurrentShowable().getScene().getHeight() / (double) Constants_Panel.HALFING) -
-                        ((double) panel.getMaxColumns() * (double) panel.getTileSize() / (double) Constants_Panel.HALFING)));
+                ((Game.getInstance().getCurrentShowable().getScene().getHeight() / (double) Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -
+                        ((double) panel.getMaxColumns() * (double) panel.getTileSize() / (double) Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF)));
         return (int) index; // Conversion cuts of decimal places, leaving the exact index
     }
     
@@ -178,8 +157,8 @@ public class PanelController
      */
     public double getPositionXFromTileIndex (Panel panel, int index)
     {
-        double position = ((Game.getInstance().getCurrentShowable().getScene().getWidth() / Constants_Panel.HALFING) -
-                (((double) panel.getMaxRows() * (double) panel.getTileSize()) / ((double) Constants_Panel.HALFING)) + (index * panel.getTileSize()));
+        double position = ((Game.getInstance().getCurrentShowable().getScene().getWidth() / Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -
+                (((double) panel.getMaxRows() * (double) panel.getTileSize()) / ((double) Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF)) + (index * panel.getTileSize()));
         return position;
     }
     
@@ -192,8 +171,8 @@ public class PanelController
      */
     public double getPositionYFromTileIndex (Panel panel, int index)
     {
-        double position = ((Game.getInstance().getCurrentShowable().getScene().getHeight() / Constants_Panel.HALFING) -
-                (((double) panel.getMaxColumns() * (double) panel.getTileSize()) / ((double) Constants_Panel.HALFING)) + (index * panel.getTileSize()));
+        double position = ((Game.getInstance().getCurrentShowable().getScene().getHeight() / Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -
+                (((double) panel.getMaxColumns() * (double) panel.getTileSize()) / ((double) Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF)) + (index * panel.getTileSize()));
         return position;
     }
     

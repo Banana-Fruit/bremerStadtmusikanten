@@ -26,7 +26,7 @@ public class PlayerController implements Runnable
     private static volatile PlayerController instance = null;
     private Coordinate currentPlayerPosition;
     private Coordinate newPlayerPosition;
-    private OutputImageView playerView;
+    private final OutputImageView playerView;
     
     
     private PlayerController (Coordinate currentPlayerPosition)
@@ -91,8 +91,7 @@ public class PlayerController implements Runnable
         if (Game.getInstance().getCurrentShowable() == Map.getInstance().getShowable() &&
                 Player.getInstance() != null)
         {
-            boolean diagonal = false;
-            if (pressedKeys.size() > 1) diagonal = true;
+            boolean diagonal = pressedKeys.size() > 1;
             
             if (pressedKeys.contains(Constants_Keymapping.moveUP)) moveUP(diagonal);
             if (pressedKeys.contains(Constants_Keymapping.moveLEFT)) moveLEFT(diagonal);

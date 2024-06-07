@@ -10,14 +10,14 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import resources.constants.Constants_MenuSetting;
+import resources.constants.Constants_MainMenu;
 
 
 public class TransparentButton extends StackPane
 {
     // attributes
-    private static final LinearGradient gradient = createGradient(Constants_MenuSetting.LINEAR_GRADIENT_OPACITY);
-    private static final LinearGradient wGradient = createGradient(Constants_MenuSetting.LINEAR_GRADIENT_OPACITY_W);
+    private static final LinearGradient gradient = createGradient(Constants_MainMenu.LINEAR_GRADIENT_OPACITY);
+    private static final LinearGradient wGradient = createGradient(Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W);
     
     
     // constructor
@@ -25,18 +25,12 @@ public class TransparentButton extends StackPane
     {
         Rectangle bg = new Rectangle(rcwidth, rcheight, gradient);
         Text text = new Text(name);
-        text.setFont(Font.font(Constants_MenuSetting.TEXT_FONT));
+        text.setFont(Font.font(Constants_MainMenu.TEXT_FONT));
         text.fillProperty().bind(Bindings.when(hoverProperty()).then(Color.WHITE).otherwise(Color.GRAY));
         setOnMouseClicked(e -> action.run());
         setOnMousePressed(e -> bg.setFill(wGradient));
         setOnMouseReleased(e -> bg.setFill(gradient));
         getChildren().addAll(bg, text);
-    }
-    
-    
-    private void init ()
-    {
-    
     }
     
     
@@ -49,9 +43,9 @@ public class TransparentButton extends StackPane
      */
     private static LinearGradient createGradient (double opacity)
     {
-        return new LinearGradient(Constants_MenuSetting.LINEAR_GRADIENT_V, Constants_MenuSetting.LINEAR_GRADIENT_V1,
-                Constants_MenuSetting.LINEAR_GRADIENT_V2, Constants_MenuSetting.LINEAR_GRADIENT_V3, true,
-                CycleMethod.NO_CYCLE, new Stop(Constants_MenuSetting.LINEAR_GRADIENT_STOP_V,
-                Color.web(Constants_MenuSetting.LINEAR_GRADIENT_COLOR, opacity)));
+        return new LinearGradient(Constants_MainMenu.LINEAR_GRADIENT_V, Constants_MainMenu.LINEAR_GRADIENT_V1,
+                Constants_MainMenu.LINEAR_GRADIENT_V2, Constants_MainMenu.LINEAR_GRADIENT_V3, true,
+                CycleMethod.NO_CYCLE, new Stop(Constants_MainMenu.LINEAR_GRADIENT_STOP_V,
+                Color.web(Constants_MainMenu.LINEAR_GRADIENT_COLOR, opacity)));
     }
 }

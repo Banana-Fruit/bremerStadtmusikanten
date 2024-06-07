@@ -1,8 +1,6 @@
 package model;
 
 
-import control.game.PlayerController;
-import javafx.scene.image.Image;
 import resources.constants.Constants_ExceptionMessages;
 
 import java.util.List;

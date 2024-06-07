@@ -9,7 +9,7 @@ public class Battle_Jule
     // attributes of a person
     private final String NAME;
     private int health;
-    private int attack;
+    private final int attack;
     private boolean isAlive;
     
     

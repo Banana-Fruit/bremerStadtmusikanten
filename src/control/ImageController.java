@@ -1,14 +1,8 @@
 package control;
 
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
-import resources.constants.Constants_Game;
-import view.OutputImageView;
-
-import java.util.*;
 
 
 public class ImageController implements Runnable

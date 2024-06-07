@@ -15,7 +15,7 @@ import resources.constants.Constants_Game;
 public class SceneController implements Runnable
 {
     private static SceneController instance = null;
-    private Stage stage;
+    private final Stage stage;
     private volatile boolean running = true;
     
     
@@ -68,10 +68,7 @@ public class SceneController implements Runnable
                 Thread.currentThread().interrupt(); // Restore the interrupted status
                 throw new RuntimeException(e);
             }
-            Platform.runLater(() ->
-            {
-                stage.setScene(Game.getInstance().getCurrentShowable().getScene());
-            });
+            Platform.runLater(() -> stage.setScene(Game.getInstance().getCurrentShowable().getScene()));
         }
     }
     
