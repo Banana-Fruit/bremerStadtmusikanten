@@ -16,7 +16,7 @@ public class PanelView
         {
             for (int j = Constants_Panel.MIN_TILE_INDEX; j < panel.getTileArray()[Constants_Panel.MIN_TILE_INDEX].length; j++)
             {
-                ImageView currentImageView = new ImageView(panel.getTileArray()[i][j].getImage());
+                ImageView currentImageView = new ImageView(panel.getTileArray()[i][j].getBackgroundImage());
                 currentImageView.setX(PanelController.getInstance().getPositionXFromTileIndex(panel, i));
                 currentImageView.setY(PanelController.getInstance().getPositionYFromTileIndex(panel, j));
                 pane.getChildren().add(currentImageView);

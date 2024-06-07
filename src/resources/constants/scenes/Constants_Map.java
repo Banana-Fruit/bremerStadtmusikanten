@@ -5,7 +5,6 @@ public interface Constants_Map
 {
     // File Management
     String PLAYER_VIEW_STANDARD = "resources/assets/map/player/esel.png";
-    String MAP_VIEW_STANDARD = "resources/assets/map/map.png";
     
     int PLAYER_SIZE = 200;
     double STARTPOSITION_X = 50;

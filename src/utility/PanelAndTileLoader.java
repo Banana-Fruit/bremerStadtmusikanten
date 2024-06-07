@@ -2,6 +2,7 @@ package utility;
 
 
 import javafx.scene.image.Image;
+import model.panel.Panel;
 import model.showables.Map;
 import resources.constants.scenes.Constants_Map;
 
@@ -13,9 +14,24 @@ import java.util.HashMap;
 
 public class PanelAndTileLoader
 {
+    /**
+     * Returns panel from path to assets. If mainFolderPath points to map folder, then the loaderFileName will be
+     * located, and loaded according to the letters conatined.
+     * The Panel will be loaded, by stacking an interactable picture on top of a background picture.
+     *
+     * @param mainFolderPath
+     * @param loaderFileName
+     * @return
+     */
+    public static Panel getPanelFromPaths (String mainFolderPath, String loaderFileName)
+    {
+    
+    }
+    
+    
     public static char[][] loadCharFileOfMapFromPath (String path)
     {
-        /*try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path)))
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path)))
         {
             char[][] tileChars = Map.getInstance().getTileCharArray();
             
@@ -40,10 +56,10 @@ public class PanelAndTileLoader
         } finally
         {
             return null;
-        }*/
+        }
         
-        /* TODO: Leave code here in case ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ doesnt work.
-        InputStream inputStream = getClass().getResourceAsStream(path);
+        // TODO: Leave code here in case ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ doesnt work.
+        /*InputStream inputStream = getClass().getResourceAsStream(path);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         
         char[][] tileChars = Map.getInstance().getTileCharArray();
@@ -79,7 +95,7 @@ public class PanelAndTileLoader
     
     public static HashMap<Character, Image> getMapWithCharsAndImagesFromPath (String imageFolderPath)
     {
-        /*try
+        try
         {
             // retrieve list of all image files in the imageFolderPath
             String[] arrayOfFileNames = new File(new URI(imageFolderPath)).list();
@@ -107,7 +123,7 @@ public class PanelAndTileLoader
         } finally
         {
             return null;
-        }*/
+        }
         return null;
     }
 }
