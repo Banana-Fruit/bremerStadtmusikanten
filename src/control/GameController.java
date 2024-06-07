@@ -2,23 +2,17 @@ package control;
 
 
 import control.events.KeyboardController;
-import control.events.MouseController;
-import control.game.PlayerController;
 import control.scenes.MainMenuController;
-import control.scenes.MapController;
 import control.scenes.SceneController;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.Coordinates;
-import model.Player;
 import model.showables.MainMenu;
 import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
-import resources.constants.scenes.Constants_Map;
 
 
-public class GameController implements Runnable
+public class GameController
 {
     private static volatile GameController instance = null;
     private Stage stage;
@@ -66,12 +60,5 @@ public class GameController implements Runnable
         Game.getInstance().setCurrentShowable(MainMenu.getInstance());
         this.stage.setTitle(Game.getInstance().getGameTitle());
         this.stage.show();
-    }
-    
-    
-    @Override
-    public void run ()
-    {
-        // Should put Threads to sleep and notify them of changes, to wake them
     }
 }

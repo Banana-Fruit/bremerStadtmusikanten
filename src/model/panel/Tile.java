@@ -10,26 +10,50 @@ import resources.constants.Constants_Panel;
  */
 public class Tile
 {
-    private Image image;
+    private Image backgroundImage;
+    private Image interactableImage;
+    private Image singleImage;
     private boolean isOccupied = Constants_Panel.DEFAULT_ISOCCUPIED;
     private boolean isInteractable = Constants_Panel.DEFAULT_ISINTERACTABLE;
     
     
-    public Tile (Image image)
+    public Tile (Image image, boolean isOccupied)
     {
-        this.image = image;
+        this.isOccupied = isOccupied;
+        this.singleImage = image;
+        init();
     }
     
     
-    public Image getImage ()
+    public Tile (Image backgroundImage, Image interactableImage)
     {
-        return image;
+        this.backgroundImage = backgroundImage;
+        this.interactableImage = interactableImage;
+        this.isOccupied = !Constants_Panel.DEFAULT_ISOCCUPIED; // If an interactable is available, the panel is marked as occupied
     }
     
     
-    public void setOccupied (boolean occupied)
+    private void init ()
     {
-        isOccupied = occupied;
+        if(isOccupied)
+        {
+            this.interactableImage = singleImage;
+        } else
+        {
+            this.backgroundImage = singleImage;
+        }
+    }
+    
+    
+    public Image getBackgroundImage ()
+    {
+        return backgroundImage;
+    }
+    
+    
+    public Image getInteractableImage ()
+    {
+        return interactableImage;
     }
     
     
