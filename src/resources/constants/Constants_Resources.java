@@ -4,11 +4,9 @@ package resources.constants;
 public interface Constants_Resources
 {
     // Locations
-    String MAP_FOLDER = "assets/resources/assets/map/";
+    String MAP_LOADER_FILES_FOLDER = "src/resources/assets/map/background/loaderFiles/";
     
     // Folder names
-    String BACKGROUND_FOLDER = "background/";
-    String INTERACTABLE_FOLDER = "interactable/";
     String LOADER_FILES_FOLDER = "loaderFiles/";
     
     // Suffices

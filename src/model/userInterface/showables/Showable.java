@@ -1,4 +1,4 @@
-package model.showables;
+package model.userInterface.showables;
 
 
 import javafx.scene.Node;

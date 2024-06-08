@@ -2,14 +2,19 @@ package control;
 
 
 import control.events.KeyboardController;
-import control.scenes.MainMenuController;
+import control.game.PlayerController;
+import control.scenes.MapController;
+import control.scenes.PanelController;
 import control.scenes.SceneController;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.showables.MainMenu;
+import model.Coordinate;
+import model.Player;
+import model.userInterface.showables.Map;
 import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
+import resources.constants.scenes.Constants_Map;
 
 
 public class GameController
@@ -51,13 +56,19 @@ public class GameController
     {
         SceneController.initialize(this.stage);
         KeyboardController.initialize();
-        MainMenuController.initialize();
-        MainMenu.initialize(new Scene(new Pane()));
-        MainMenuController.getInstance().startMainMenu(this.stage);
+        //MainMenuController.initialize();
+        //MainMenu.initialize(new Scene(new Pane()));
+        //MainMenuController.getInstance().startMainMenu(this.stage);
+        Map.initialize(new Scene(new Pane()));
+        PanelController.initialize();
+        MapController.initialize();
+        MapController.getInstance().setNewMap("main.dat");
+        Player.initialize();
+        PlayerController.initialize(new Coordinate(Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
         
         new Thread(SceneController.getInstance()).start();
         
-        Game.getInstance().setCurrentShowable(MainMenu.getInstance());
+        Game.getInstance().setCurrentShowable(Map.getInstance());
         this.stage.setTitle(Game.getInstance().getGameTitle());
         this.stage.show();
     }

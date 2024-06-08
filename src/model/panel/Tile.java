@@ -11,21 +11,18 @@ import resources.constants.Constants_Panel;
 public class Tile
 {
     private final Image backgroundImage;
-    private final Image interactableImage;
-    private boolean isInteractable = Constants_Panel.DEFAULT_isINTERACTABLE;
+    private boolean isOccupied = Constants_Panel.DEFAULT_isOCCUPIED;
     
     
-    public Tile (Image backgroundImage, Image interactableImage)
+    public Tile (Image backgroundImage)
     {
         this.backgroundImage = backgroundImage;
-        this.interactableImage = interactableImage;
-        init();
     }
     
     
-    private void init ()
+    public void setOccupied (boolean occupied)
     {
-        if(interactableImage != null) isInteractable = !Constants_Panel.DEFAULT_isINTERACTABLE;
+        isOccupied = occupied;
     }
     
     
@@ -35,14 +32,8 @@ public class Tile
     }
     
     
-    public Image getInteractableImage ()
+    public boolean getOccupied ()
     {
-        return interactableImage;
-    }
-    
-    
-    public boolean getInteractable ()
-    {
-        return isInteractable;
+        return isOccupied;
     }
 }

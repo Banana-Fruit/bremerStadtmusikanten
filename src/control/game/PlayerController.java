@@ -5,7 +5,7 @@ import control.scenes.PanelController;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import model.Coordinate;
-import model.showables.Map;
+import model.userInterface.showables.Map;
 import model.userInterface.Game;
 import model.Player;
 import resources.constants.Constants_DefaultValues;

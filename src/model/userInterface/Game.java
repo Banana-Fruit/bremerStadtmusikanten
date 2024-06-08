@@ -1,7 +1,7 @@
 package model.userInterface;
 
 
-import model.showables.Showable;
+import model.userInterface.showables.Showable;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Game;
 

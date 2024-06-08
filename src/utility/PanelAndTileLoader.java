@@ -23,7 +23,7 @@ public class PanelAndTileLoader
      * @param maxColumns
      * @return
      */
-    public static char[][] getCharacterArray (String loaderFilePath, int maxRows, int maxColumns)
+    public static char[][] getCharacterArrayUsingTileFile (String loaderFilePath, int maxRows, int maxColumns)
     {
         char[][] characterArray = new char[maxRows][maxColumns];
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(loaderFilePath)))
@@ -31,61 +31,58 @@ public class PanelAndTileLoader
             String line;
             
             // Loop continues reading lines until either the limit of rows is reached, or the read line is null
-            for (int row = Constants_Panel.MIN_TILE_INDEX; row < maxRows && (line = bufferedReader.readLine()) != null; row++)
+            for (int row = 0; row < maxRows && (line = bufferedReader.readLine()) != null; row++)
             {
                 char[] characters = line.toCharArray(); // Converts currently read line into an array of characters
                 
                 // Loop through columns until either the limit of columns is reached, or the read line is null
-                for (int column = Constants_Panel.MIN_TILE_INDEX; column < maxColumns && column < characters.length; column++)
+                for (int column = 0; column < maxColumns && column < characters.length; column++)
                 {
-                    characterArray[column][row] = characters[column];
+                    characterArray[row][column] = characters[column];
                 }
             }
-            return characterArray;
-        } catch (FileNotFoundException e)
-        {
-            return null;
         } catch (IOException e)
         {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+        
+        return characterArray;
     }
     
     
     public static HashMap<Character, Image> getMapWithCharsAndImages (String imageFolderPath)
     {
-        try
+        HashMap<Character, Image> currentMapOfCharsWithImages = new HashMap<>();
+        
+        // Create a File object from the image folder path
+        File folder = new File(imageFolderPath);
+        String[] arrayOfFileNames = folder.list();
+        
+        // Check if the folder is valid and contains files
+        if (arrayOfFileNames == null)
+            System.out.println("The folder path is invalid or contains no files: " + imageFolderPath); // TODO: Custom exception
+        
+        for (String currentFileName : arrayOfFileNames)
         {
-            // Retrieve list of all image files in the imageFolderPath
-            String[] arrayOfFileNames = new File(new URI(imageFolderPath)).list();
-            HashMap<Character, Image> currentMapOfCharsWithImages = new HashMap<>();
+            if (!currentFileName.endsWith(Constants_Resources.PNG_SUFFIX)) continue; // Only .png files are tracked
             
-            if (arrayOfFileNames != null)
-            {
-                for (String currentFileName : arrayOfFileNames)
-                {
-                    if (currentFileName.endsWith(Constants_Resources.PNG_SUFFIX)) // Only .png files are tracked
-                    {
-                        System.out.println(currentFileName);
-                        // Use the first letter of the file name as the character value
-                        currentMapOfCharsWithImages.put(currentFileName.charAt(Constants_Panel.IMAGE_CHAR_POSITION),
-                                new Image((String) (imageFolderPath + currentFileName)));
-                    }
-                }
-            }
-            return currentMapOfCharsWithImages;
-        } catch (URISyntaxException e)
-        {
-            throw new RuntimeException(e);
-        } finally
-        {
-            return null;
+            // Use the first letter of the file name as the character value
+            char keyChar = currentFileName.charAt(Constants_Panel.IMAGE_CHAR_POSITION);
+            
+            // Construct the full path of the image file
+            File imageFile = new File(folder, currentFileName);
+            String imagePath = imageFile.toURI().toString();
+            
+            // Load the image
+            Image image = new Image(imagePath);
+            currentMapOfCharsWithImages.put(keyChar, image);
         }
+        
+        return currentMapOfCharsWithImages;
     }
     
     
-    public static Tile[][] getTileArray (HashMap<Character, Image> backgroundMap, char[][] backgroundArray,
-                                         HashMap<Character, Image> interactableMap, char[][] interactableArray,
+    public static Tile[][] getTileArray (HashMap<Character, Image> characterImageHashMap, char[][] charArray,
                                          int maxRows, int maxColumns)
     {
         Tile[][] tileArray = new Tile[maxRows][maxColumns];
@@ -94,10 +91,8 @@ public class PanelAndTileLoader
         {
             for (int column = Constants_Panel.MIN_TILE_INDEX; column < maxColumns; column++)
             {
-                if (backgroundArray[row][column] == Constants_Panel.ignoreLoaderFileValue) continue;
-                if (interactableArray[row][column] == Constants_Panel.ignoreLoaderFileValue) continue;
-                tileArray[row][column] = new Tile(backgroundMap.get(backgroundArray[row][column]),
-                        interactableMap.get(interactableArray[row][column]));
+                if (charArray[row][column] == Constants_Panel.ignoreLoaderFileValue) continue;
+                tileArray[row][column] = new Tile(characterImageHashMap.get(charArray[row][column]));
             }
         }
         

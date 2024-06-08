@@ -11,6 +11,9 @@ import resources.constants.Constants_Resources;
 import utility.PanelAndTileLoader;
 import view.PanelView;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 
 
@@ -19,7 +22,9 @@ public class PanelController
     private static volatile PanelController instance = null;
     
     
-    private PanelController () {}
+    private PanelController ()
+    {
+    }
     
     
     public static synchronized void initialize ()
@@ -45,25 +50,41 @@ public class PanelController
     
     
     /**
-     * Initializer returns a panel with a background and foreground image, if both files are found.
+     * Initializer returns a panel with background images, if available.
      */
-    public Panel initializePanel (String mainFolderPath, String loaderFileName,
-                                  int tileSize, int maxRows, int maxColumns)
+    public Panel initializePanel (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
         // Create Array of characters
-        char backgroundCharArray[][] = PanelAndTileLoader.getCharacterArray(
-                (mainFolderPath + Constants_Resources.BACKGROUND_FOLDER + loaderFileName), maxRows, maxColumns);
-        char interactableCharArray[][] = PanelAndTileLoader.getCharacterArray(
-                (mainFolderPath + Constants_Resources.INTERACTABLE_FOLDER + loaderFileName), maxRows, maxColumns);
+        char charArray[][] = PanelAndTileLoader.getCharacterArrayUsingTileFile(
+                pathToLoaderFileFolder + loaderFileName, maxRows, maxColumns);
+        
+        // Get biome name
+        String biomeName = new String();
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(
+                pathToLoaderFileFolder + loaderFileName)))
+        {
+            String line;
+            for (int i = 0; (line = bufferedReader.readLine()) != null; i++)
+            {
+                if (i != Constants_Panel.BIOME_IDENTIFIER_LINE) continue;
+                biomeName = line;
+                break;
+            }
+        } catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+        // Create path to resource folder with biome
+        String pathToResourceFolder =
+                pathToLoaderFileFolder.replace(Constants_Resources.LOADER_FILES_FOLDER, Constants_Panel.EMPTY_STRING)
+                + biomeName;
         
         // Put characters in correlation to images
-        HashMap<Character, Image> mapOfBackgroundCharactersWithCorrelatingImages =
-                PanelAndTileLoader.getMapWithCharsAndImages(mainFolderPath + Constants_Resources.BACKGROUND_FOLDER);
-        HashMap<Character, Image> mapOfInteractableCharactersWithCorrelatingImages =
-                PanelAndTileLoader.getMapWithCharsAndImages(mainFolderPath + Constants_Resources.INTERACTABLE_FOLDER);
+        HashMap<Character, Image> mapOfCharactersWithCorrelatingImages =
+                PanelAndTileLoader.getMapWithCharsAndImages(pathToResourceFolder);
         
-        return new Panel(PanelAndTileLoader.getTileArray(mapOfBackgroundCharactersWithCorrelatingImages, backgroundCharArray,
-                mapOfInteractableCharactersWithCorrelatingImages, interactableCharArray, maxRows, maxColumns),
+        return new Panel(PanelAndTileLoader.getTileArray(
+                mapOfCharactersWithCorrelatingImages, charArray, maxRows, maxColumns),
                 tileSize, maxRows, maxColumns);
     }
     
@@ -78,7 +99,7 @@ public class PanelController
      */
     public boolean isTileOccupied (Panel panel, int tileRow, int tileColumn)
     {
-        return panel.getTileAt(tileRow, tileColumn).getInteractable();
+        return panel.getTileAt(tileRow, tileColumn).getOccupied();
     }
     
     

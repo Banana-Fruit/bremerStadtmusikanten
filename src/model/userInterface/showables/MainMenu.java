@@ -1,18 +1,16 @@
-package model.showables;
+package model.userInterface.showables;
 
 
 import javafx.scene.Scene;
-import model.panel.Panel;
 import resources.constants.Constants_ExceptionMessages;
 
 
-public class Map extends Showable
+public class MainMenu extends Showable
 {
-    private static volatile Map instance;
-    Panel panel;
+    private static volatile MainMenu instance;
     
     
-    private Map (Scene scene)
+    private MainMenu (Scene scene)
     {
         super(scene);
     }
@@ -22,7 +20,7 @@ public class Map extends Showable
     {
         if (instance == null)
         {
-            instance = new Map(scene);
+            instance = new MainMenu(scene);
         } else
         {
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
@@ -30,24 +28,12 @@ public class Map extends Showable
     }
     
     
-    public static Map getInstance ()
+    public static MainMenu getInstance ()
     {
         if (instance == null)
         {
             throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
         }
         return instance;
-    }
-    
-    
-    public void setPanel (Panel panel)
-    {
-        this.panel = panel;
-    }
-    
-    
-    public Panel getPanel ()
-    {
-        return panel;
     }
 }

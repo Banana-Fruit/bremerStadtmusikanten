@@ -7,7 +7,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import model.showables.MainMenu;
+import model.userInterface.showables.MainMenu;
 import model.userInterface.TransparentButton;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_MainMenu;
@@ -124,7 +124,7 @@ public class MainMenuController implements GameMenuBar
                 }, itemWidth, itemHeight),
                 new TransparentButton(Constants_MainMenu.MENU_SETTINGS, () ->
                 {
-                    openSettings(stage, root);
+                    //openSettings(stage, root);
                 }, itemWidth, itemHeight),
                 new TransparentButton(Constants_MainMenu.MENU_CLOSE_GAME, () ->
                 {

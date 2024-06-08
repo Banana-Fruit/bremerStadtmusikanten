@@ -1,7 +1,7 @@
 package control.scenes;
 
 
-import model.showables.Map;
+import model.userInterface.showables.Map;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Resources;
 import resources.constants.scenes.Constants_Map;
@@ -17,16 +17,7 @@ public class MapController
     private static volatile MapController instance = null;
     
     
-    private MapController ()
-    {
-        init();
-    }
-    
-    
-    private void init ()
-    {
-        setNewMap(Constants_Map.PLAYER_VIEW_STANDARD);
-    }
+    private MapController () {}
     
     
     public static synchronized void initialize ()
@@ -54,7 +45,10 @@ public class MapController
     
     public void setNewMap (String loaderFileName)
     {
-        Map.getInstance().setPanel(PanelController.getInstance().initializePanel(Constants_Resources.MAP_FOLDER,
-                loaderFileName, Constants_Map.TILE_SIZE, Constants_Map.MAX_ROWS, Constants_Map.MAX_COLUMNS));
+        Map.getInstance().setPanel(
+                PanelController.getInstance().initializePanel(Constants_Resources.MAP_LOADER_FILES_FOLDER,
+                        loaderFileName, Constants_Map.TILE_SIZE, Constants_Map.MAX_ROWS, Constants_Map.MAX_COLUMNS
+                )
+        );
     }
 }
