@@ -9,7 +9,7 @@ public interface Constants_Map
     int PLAYER_SIZE = 200;
     double STARTPOSITION_X = 50;
     double STARTPOSITION_Y = 50;
-    int TILE_SIZE = 200;
-    int MAX_ROWS = 10;
-    int MAX_COLUMNS = 10;
+    int TILE_SIZE = 100;
+    int MAX_ROWS = 5;
+    int MAX_COLUMNS = 5;
 }

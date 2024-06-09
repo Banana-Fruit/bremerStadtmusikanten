@@ -2,13 +2,18 @@ package control.scenes;
 
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import model.Coordinate;
 import model.panel.Panel;
+import model.panel.Tile;
 import model.userInterface.Game;
+import model.userInterface.showables.Map;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Panel;
 import resources.constants.Constants_Resources;
 import utility.PanelAndTileLoader;
+import view.OutputImageView;
 import view.PanelView;
 
 import java.io.BufferedReader;
@@ -50,9 +55,37 @@ public class PanelController
     
     
     /**
-     * Initializer returns a panel with background images, if available.
+     * Adds a panel to the pane, based on the given parameters, and returns it.
+     *
+     * @param pane
+     * @param pathToLoaderFileFolder
+     * @param loaderFileName
+     * @param tileSize
+     * @param maxRows
+     * @param maxColumns
+     * @return
      */
-    public Panel initializePanel (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
+    public Panel getAndShowPanel (Pane pane, String pathToLoaderFileFolder, String loaderFileName,
+                                  int tileSize, int maxRows, int maxColumns)
+    {
+        Panel panel = initializePanel(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
+        PanelView.addTilesToPane(panel, pane);
+        return panel;
+    }
+    
+    
+    /**
+     * Returns a panel based on the given parameters.
+     *
+     * @param pathToLoaderFileFolder
+     * @param loaderFileName
+     * @param tileSize
+     * @param maxRows
+     * @param maxColumns
+     * @return
+     * @author Michael Markov
+     */
+    private Panel initializePanel (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
         // Create Array of characters
         char charArray[][] = PanelAndTileLoader.getCharacterArrayUsingTileFile(
@@ -77,7 +110,7 @@ public class PanelController
         // Create path to resource folder with biome
         String pathToResourceFolder =
                 pathToLoaderFileFolder.replace(Constants_Resources.LOADER_FILES_FOLDER, Constants_Panel.EMPTY_STRING)
-                + biomeName;
+                        + biomeName;
         
         // Put characters in correlation to images
         HashMap<Character, Image> mapOfCharactersWithCorrelatingImages =
@@ -96,6 +129,7 @@ public class PanelController
      * @param tileRow
      * @param tileColumn
      * @return
+     * @author Michael Markov
      */
     public boolean isTileOccupied (Panel panel, int tileRow, int tileColumn)
     {
@@ -110,6 +144,7 @@ public class PanelController
      * @param coordinate
      * @return
      * @throws Exception
+     * @author Michael Markov
      */
     public boolean isCoordinateOccupied (Panel panel, Coordinate coordinate) throws Exception
     {
@@ -132,6 +167,7 @@ public class PanelController
      *
      * @param position
      * @return
+     * @author Michael Markov
      */
     private int getTileIndexFromPositionX (Panel panel, double position)
     {
@@ -147,6 +183,7 @@ public class PanelController
      *
      * @param position
      * @return
+     * @author Michael Markov
      */
     private int getTileIndexFromPositionY (Panel panel, double position)
     {
@@ -163,6 +200,7 @@ public class PanelController
      * @param rowIndex
      * @param columnIndex
      * @return
+     * @author Michael Markov
      */
     private Coordinate getCoordinateFromPanelTile (Panel panel, int rowIndex, int columnIndex)
     {
@@ -175,6 +213,7 @@ public class PanelController
      *
      * @param index
      * @return
+     * @author Michael Markov
      */
     public double getPositionXFromTileIndex (Panel panel, int index)
     {
@@ -189,20 +228,12 @@ public class PanelController
      *
      * @param index
      * @return
+     * @author Michael Markov
      */
     public double getPositionYFromTileIndex (Panel panel, int index)
     {
         double position = ((Game.getInstance().getCurrentShowable().getScene().getHeight() / Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -
                 (((double) panel.getMaxColumns() * (double) panel.getTileSize()) / ((double) Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF)) + (index * panel.getTileSize()));
         return position;
-    }
-    
-    
-    /**
-     * Makes the panel visible on the window.
-     */
-    public void showPanel (Panel panel)
-    {
-        PanelView.addTilesToPane(panel, Game.getInstance().getCurrentShowable().getPane());
     }
 }

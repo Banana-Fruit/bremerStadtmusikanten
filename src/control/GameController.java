@@ -2,19 +2,25 @@ package control;
 
 
 import control.events.KeyboardController;
+import control.events.MouseController;
 import control.game.PlayerController;
+import control.scenes.MainMenuController;
 import control.scenes.MapController;
 import control.scenes.PanelController;
 import control.scenes.SceneController;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Coordinate;
 import model.Player;
+import model.userInterface.showables.MainMenu;
 import model.userInterface.showables.Map;
 import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.scenes.Constants_Map;
+import view.OutputImageView;
 
 
 public class GameController
@@ -42,7 +48,7 @@ public class GameController
     }
     
     
-    public static GameController getInstance()
+    public static GameController getInstance ()
     {
         if (instance == null)
         {
@@ -56,20 +62,23 @@ public class GameController
     {
         SceneController.initialize(this.stage);
         KeyboardController.initialize();
-        //MainMenuController.initialize();
-        //MainMenu.initialize(new Scene(new Pane()));
-        //MainMenuController.getInstance().startMainMenu(this.stage);
-        Map.initialize(new Scene(new Pane()));
+        MouseController.initialize();
+        MainMenuController.initialize();
         PanelController.initialize();
         MapController.initialize();
-        MapController.getInstance().setNewMap("main.dat");
-        Player.initialize();
         PlayerController.initialize(new Coordinate(Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
         
-        new Thread(SceneController.getInstance()).start();
+        MainMenu.initialize(new Scene(new Pane()));
+        Map.initialize(new Scene(new Pane()));
+        Player.initialize();
         
-        Game.getInstance().setCurrentShowable(Map.getInstance());
+        MapController.getInstance().setNewMap("main.dat");
+        Game.getInstance().setCurrentShowable(Map.getInstance().getShowable());
+        SceneController.getInstance().setScene(Game.getInstance().getCurrentShowable().getScene());
+        
         this.stage.setTitle(Game.getInstance().getGameTitle());
+        this.stage.setScene(Game.getInstance().getCurrentShowable().getScene());
+        this.stage.setFullScreen(true);
         this.stage.show();
     }
 }

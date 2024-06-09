@@ -1,6 +1,7 @@
 package control.scenes;
 
 
+import model.userInterface.Game;
 import model.userInterface.showables.Map;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Resources;
@@ -46,8 +47,9 @@ public class MapController
     public void setNewMap (String loaderFileName)
     {
         Map.getInstance().setPanel(
-                PanelController.getInstance().initializePanel(Constants_Resources.MAP_LOADER_FILES_FOLDER,
-                        loaderFileName, Constants_Map.TILE_SIZE, Constants_Map.MAX_ROWS, Constants_Map.MAX_COLUMNS
+                PanelController.getInstance().getAndShowPanel(Map.getInstance().getPane(),
+                        Constants_Resources.MAP_LOADER_FILES_FOLDER, loaderFileName, Constants_Map.TILE_SIZE,
+                        Constants_Map.MAX_ROWS, Constants_Map.MAX_COLUMNS
                 )
         );
     }

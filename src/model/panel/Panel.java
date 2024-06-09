@@ -1,8 +1,10 @@
 package model.panel;
 
 
+import model.userInterface.showables.Map;
 import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_Panel;
+import view.OutputImageView;
 
 
 /**
