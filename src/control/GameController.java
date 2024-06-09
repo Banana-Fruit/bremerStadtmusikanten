@@ -60,25 +60,32 @@ public class GameController
     
     private void init ()
     {
+        this.stage.setTitle(Game.getInstance().getGameTitle());
+        this.stage.setFullScreen(true);
+        
         SceneController.initialize(this.stage);
         KeyboardController.initialize();
         MouseController.initialize();
         MainMenuController.initialize();
         PanelController.initialize();
         MapController.initialize();
-        PlayerController.initialize(new Coordinate(Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
+        PlayerController.initialize();
         
         MainMenu.initialize(new Scene(new Pane()));
         Map.initialize(new Scene(new Pane()));
         Player.initialize();
         
         MapController.getInstance().setNewMap("main.dat");
+        PlayerController.getInstance().addPlayer(PanelController.getInstance().getCoordinateFromPanelTile(
+                Map.getInstance().getPanel(), Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
+        System.out.println("HI");
         Game.getInstance().setCurrentShowable(Map.getInstance().getShowable());
         SceneController.getInstance().setScene(Game.getInstance().getCurrentShowable().getScene());
         
-        this.stage.setTitle(Game.getInstance().getGameTitle());
+        new Thread(KeyboardController.getInstance()).start();
+        new Thread(PlayerController.getInstance()).start();
+        
         this.stage.setScene(Game.getInstance().getCurrentShowable().getScene());
-        this.stage.setFullScreen(true);
         this.stage.show();
     }
 }

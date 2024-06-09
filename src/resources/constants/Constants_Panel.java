@@ -12,6 +12,7 @@ public interface Constants_Panel
     int BIOME_IDENTIFIER_LINE = 0;
     
     // Ignore values
-    char ignoreLoaderFileValue = ' ';
+    char IGNORE_LOADER_FILE_VALUE = ' ';
     String EMPTY_STRING = "";
+    int FILE_READER_STARTING_LINE = 0;
 }

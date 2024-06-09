@@ -5,27 +5,32 @@ import control.scenes.PanelController;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import model.Coordinate;
 import model.panel.Panel;
 import resources.constants.Constants_Panel;
+import utility.ValueConversion;
 
 
 public class PanelView
 {
-    public static Pane addTilesToPane (Panel panel, Pane pane)
+    public static void addTilesToPane (Panel panel, Pane pane)
     {
-        int k = 0;
-        for (int i = Constants_Panel.MIN_TILE_INDEX; i < panel.getTileArray().length; i++)
+        for (int row = Constants_Panel.MIN_TILE_INDEX; row < panel.getTileArray().length; row++)
         {
-            for (int j = Constants_Panel.MIN_TILE_INDEX; j < panel.getTileArray()[Constants_Panel.MIN_TILE_INDEX].length; j++)
+            for (int column = Constants_Panel.MIN_TILE_INDEX; column < panel.getTileArray()[Constants_Panel.MIN_TILE_INDEX].length; column++)
             {
-                if(panel.getTileArray()[i][j].getBackgroundImage() == null) continue;
+                if(panel.getTileArray()[row][column].getBackgroundImage() == null) continue;
                 OutputImageView currentOutputImageView = new OutputImageView(
-                        panel.getTileArray()[i][j].getBackgroundImage(), panel.getTileSize());
-                currentOutputImageView.setX(PanelController.getInstance().getPositionXFromTileIndex(panel, i));
-                currentOutputImageView.setY(PanelController.getInstance().getPositionYFromTileIndex(panel, j));
+                        panel.getTileArray()[row][column].getBackgroundImage(),
+                        ValueConversion.getDiagonalSizeFromSquareLength(panel.getTileSize()));
+                
+                Coordinate imageCoordinate = PanelController.getInstance().getCoordinateFromPanelTile(panel, row, column);
+                currentOutputImageView.setX(imageCoordinate.getPositionX());
+                currentOutputImageView.setY(imageCoordinate.getPositionY());
+                
                 pane.getChildren().add(currentOutputImageView);
             }
         }
-        return pane;
     }
 }

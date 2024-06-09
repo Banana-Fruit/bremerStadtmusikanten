@@ -1,7 +1,6 @@
 package control.scenes;
 
 
-import model.userInterface.Game;
 import model.userInterface.showables.Map;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Resources;

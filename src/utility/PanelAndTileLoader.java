@@ -7,8 +7,6 @@ import resources.constants.Constants_Panel;
 import resources.constants.Constants_Resources;
 
 import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 
 
@@ -29,23 +27,22 @@ public class PanelAndTileLoader
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(loaderFilePath)))
         {
             String line;
-            
-            // Loop continues reading lines until either the limit of rows is reached, or the read line is null
-            for (int row = 0; row < maxRows && (line = bufferedReader.readLine()) != null; row++)
+            int row = Constants_Panel.MIN_TILE_INDEX;
+            for (int lineIndex = Constants_Panel.FILE_READER_STARTING_LINE;
+                 row < maxRows && (line = bufferedReader.readLine()) != null; lineIndex++)
             {
-                char[] characters = line.toCharArray(); // Converts currently read line into an array of characters
-                
-                // Loop through columns until either the limit of columns is reached, or the read line is null
-                for (int column = 0; column < maxColumns && column < characters.length; column++)
+                if (lineIndex == Constants_Panel.BIOME_IDENTIFIER_LINE) continue;
+                char[] characters = line.toCharArray();
+                for (int column = Constants_Panel.MIN_TILE_INDEX; column < maxColumns && column < characters.length; column++)
                 {
                     characterArray[row][column] = characters[column];
                 }
+                row++;
             }
         } catch (IOException e)
         {
             e.printStackTrace();
         }
-        
         return characterArray;
     }
     
@@ -82,20 +79,17 @@ public class PanelAndTileLoader
     }
     
     
-    public static Tile[][] getTileArray (HashMap<Character, Image> characterImageHashMap, char[][] charArray,
-                                         int maxRows, int maxColumns)
+    public static Tile[][] getTileArray (HashMap<Character, Image> characterImageHashMap, char[][] charArray, int maxRows, int maxColumns)
     {
         Tile[][] tileArray = new Tile[maxRows][maxColumns];
-        
         for (int row = Constants_Panel.MIN_TILE_INDEX; row < maxRows; row++)
         {
             for (int column = Constants_Panel.MIN_TILE_INDEX; column < maxColumns; column++)
             {
-                if (charArray[row][column] == Constants_Panel.ignoreLoaderFileValue) continue;
+                if (charArray[row][column] == Constants_Panel.IGNORE_LOADER_FILE_VALUE) continue;
                 tileArray[row][column] = new Tile(characterImageHashMap.get(charArray[row][column]));
             }
         }
-        
         return tileArray;
     }
 }

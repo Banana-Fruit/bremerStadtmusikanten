@@ -2,18 +2,15 @@ package control.scenes;
 
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 import model.Coordinate;
 import model.panel.Panel;
-import model.panel.Tile;
 import model.userInterface.Game;
-import model.userInterface.showables.Map;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Panel;
 import resources.constants.Constants_Resources;
 import utility.PanelAndTileLoader;
-import view.OutputImageView;
 import view.PanelView;
 
 import java.io.BufferedReader;
@@ -65,12 +62,24 @@ public class PanelController
      * @param maxColumns
      * @return
      */
-    public Panel getAndShowPanel (Pane pane, String pathToLoaderFileFolder, String loaderFileName,
-                                  int tileSize, int maxRows, int maxColumns)
+    public Panel getAndShowPanel (Pane pane, String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
-        Panel panel = initializePanel(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
-        PanelView.addTilesToPane(panel, pane);
-        return panel;
+        if (pane == null || pathToLoaderFileFolder == null || loaderFileName == null || tileSize <= 0 || maxRows <= 0 || maxColumns <= 0)
+        {
+            throw new IllegalArgumentException("Invalid input parameters.");
+        }
+        
+        try
+        {
+            Panel panel = initializePanel(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
+            PanelView.addTilesToPane(panel, pane);
+            return panel;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            // Consider throwing a custom exception or handling it appropriately
+            return null;
+        }
     }
     
     
@@ -87,14 +96,26 @@ public class PanelController
      */
     private Panel initializePanel (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
-        // Create Array of characters
-        char charArray[][] = PanelAndTileLoader.getCharacterArrayUsingTileFile(
-                pathToLoaderFileFolder + loaderFileName, maxRows, maxColumns);
+        // Create array of characters
+        char[][] charArray = PanelAndTileLoader.getCharacterArrayUsingTileFile(pathToLoaderFileFolder + loaderFileName, maxRows, maxColumns);
         
-        // Get biome name
+        // Create path to resource folder with biome
+        String pathToResourceFolder = pathToLoaderFileFolder.replace(Constants_Resources.LOADER_FILES_FOLDER, Constants_Panel.EMPTY_STRING) + getBiomeName(pathToLoaderFileFolder + loaderFileName);
+        
+        // Put characters in correlation to images
+        HashMap<Character, Image> mapOfCharactersWithCorrelatingImages = PanelAndTileLoader.getMapWithCharsAndImages(pathToResourceFolder);
+        
+        return new Panel(
+                PanelAndTileLoader.getTileArray(mapOfCharactersWithCorrelatingImages, charArray, maxRows, maxColumns),
+                tileSize, maxRows, maxColumns
+        );
+    }
+    
+    
+    private String getBiomeName (String pathToLoaderFile)
+    {
         String biomeName = new String();
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(
-                pathToLoaderFileFolder + loaderFileName)))
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(pathToLoaderFile)))
         {
             String line;
             for (int i = 0; (line = bufferedReader.readLine()) != null; i++)
@@ -107,18 +128,7 @@ public class PanelController
         {
             throw new RuntimeException(e);
         }
-        // Create path to resource folder with biome
-        String pathToResourceFolder =
-                pathToLoaderFileFolder.replace(Constants_Resources.LOADER_FILES_FOLDER, Constants_Panel.EMPTY_STRING)
-                        + biomeName;
-        
-        // Put characters in correlation to images
-        HashMap<Character, Image> mapOfCharactersWithCorrelatingImages =
-                PanelAndTileLoader.getMapWithCharsAndImages(pathToResourceFolder);
-        
-        return new Panel(PanelAndTileLoader.getTileArray(
-                mapOfCharactersWithCorrelatingImages, charArray, maxRows, maxColumns),
-                tileSize, maxRows, maxColumns);
+        return biomeName;
     }
     
     
@@ -146,51 +156,36 @@ public class PanelController
      * @throws Exception
      * @author Michael Markov
      */
-    public boolean isCoordinateOccupied (Panel panel, Coordinate coordinate) throws Exception
+    public boolean isCoordinateOccupied (Panel panel, Coordinate coordinate)
     {
-        int rowIndex = getTileIndexFromPositionX(panel, coordinate.getPositionX());
-        int columnIndex = getTileIndexFromPositionY(panel, coordinate.getPositionY());
+        Coordinate tileIndices = getTileIndicesFromCoordinates(panel, coordinate);
+        //System.out.println(coordinate.getPositionX() + " " + coordinate.getPositionY());
         
         // Checks whether indices out of bounds
-        if (rowIndex < Constants_Panel.MIN_TILE_INDEX || columnIndex < Constants_Panel.MIN_TILE_INDEX ||
-                rowIndex > panel.getMaxRows() || columnIndex > panel.getMaxColumns())
-            throw new Exception("Out of bounds."); // TODO: Custom exception
+        if (tileIndices.getPositionX() < Constants_Panel.MIN_TILE_INDEX ||
+                tileIndices.getPositionY() < Constants_Panel.MIN_TILE_INDEX ||
+                tileIndices.getPositionX() > panel.getMaxColumns() ||
+                tileIndices.getPositionY() > panel.getMaxRows())
+        {
+            return true;
+        }
         
-        if (isTileOccupied(panel, rowIndex, columnIndex))
-            return true; // Check whether tile with correlating coordinates is occupied
-        return false;
+        // Check whether tile with correlating coordinates is occupied
+        if (isTileOccupied(panel, (int)tileIndices.getPositionY(), (int)tileIndices.getPositionX())) return true;
+        
+        return false; // Not occupied if method reached end
     }
     
     
-    /**
-     * Converts a position value on the x-axis, to a tile index on the x-axis.
-     *
-     * @param position
-     * @return
-     * @author Michael Markov
-     */
-    private int getTileIndexFromPositionX (Panel panel, double position)
+    private Coordinate getTileIndicesFromCoordinates (Panel panel, Coordinate coordinate)
     {
-        double index = (position -
-                (Game.getInstance().getCurrentShowable().getScene().getWidth() / (double) Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -
-                ((double) panel.getMaxRows() * (double) panel.getTileSize() / (double) Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF));
-        return (int) index; // Conversion cuts of decimal places, leaving the exact index
-    }
-    
-    
-    /**
-     * Converts a position value on the y-axis, to a tile index on the y-axis.
-     *
-     * @param position
-     * @return
-     * @author Michael Markov
-     */
-    private int getTileIndexFromPositionY (Panel panel, double position)
-    {
-        double index = (position -
-                ((Game.getInstance().getCurrentShowable().getScene().getHeight() / (double) Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -
-                        ((double) panel.getMaxColumns() * (double) panel.getTileSize() / (double) Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF)));
-        return (int) index; // Conversion cuts of decimal places, leaving the exact index
+        Coordinate nullPosition = getNullPositionOfPanelInRelationToScreenSize(panel);
+        Coordinate currentCoordinate = new Coordinate(coordinate.getPositionX() - nullPosition.getPositionX(),
+                coordinate.getPositionY() - nullPosition.getPositionY());
+        currentCoordinate.setPositionX((int)(currentCoordinate.getPositionX() / panel.getTileSize()));
+        currentCoordinate.setPositionY((int)(currentCoordinate.getPositionY() / panel.getTileSize()));
+        System.out.println(currentCoordinate.getPositionX() + " " + currentCoordinate.getPositionY());
+        return currentCoordinate;
     }
     
     
@@ -202,38 +197,24 @@ public class PanelController
      * @return
      * @author Michael Markov
      */
-    private Coordinate getCoordinateFromPanelTile (Panel panel, int rowIndex, int columnIndex)
+    public Coordinate getCoordinateFromPanelTile (Panel panel, int rowIndex, int columnIndex)
     {
-        return new Coordinate(getPositionXFromTileIndex(panel, rowIndex), getPositionYFromTileIndex(panel, columnIndex));
+        Coordinate nullPosition = getNullPositionOfPanelInRelationToScreenSize(panel);
+        double tileX = nullPosition.getPositionX() + (columnIndex * panel.getTileSize());
+        double tileY = nullPosition.getPositionY() + (rowIndex * panel.getTileSize());
+        return new Coordinate(tileX, tileY);
     }
     
     
-    /**
-     * Converts a tile index value on the x-axis, to position on the x-axis.
-     *
-     * @param index
-     * @return
-     * @author Michael Markov
-     */
-    public double getPositionXFromTileIndex (Panel panel, int index)
+    private Coordinate getNullPositionOfPanelInRelationToScreenSize (Panel panel)
     {
-        double position = ((Game.getInstance().getCurrentShowable().getScene().getWidth() / Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -
-                (((double) panel.getMaxRows() * (double) panel.getTileSize()) / ((double) Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF)) + (index * panel.getTileSize()));
-        return position;
-    }
-    
-    
-    /**
-     * Converts a tile index value on the y-axis, to position on the y-axis.
-     *
-     * @param index
-     * @return
-     * @author Michael Markov
-     */
-    public double getPositionYFromTileIndex (Panel panel, int index)
-    {
-        double position = ((Game.getInstance().getCurrentShowable().getScene().getHeight() / Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -
-                (((double) panel.getMaxColumns() * (double) panel.getTileSize()) / ((double) Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF)) + (index * panel.getTileSize()));
-        return position;
+        double x = ((Screen.getPrimary().getBounds().getWidth() / Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -
+                ((double) panel.getMaxColumns() * panel.getTileSize() /
+                        Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF));
+        double y = ((Screen.getPrimary().getBounds().getHeight() / Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -
+                ((double) panel.getMaxRows() * panel.getTileSize() /
+                        Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF));
+        //System.out.println(x + " " + y);
+        return new Coordinate(x, y);
     }
 }

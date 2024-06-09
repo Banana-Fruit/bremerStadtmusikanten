@@ -23,8 +23,8 @@ public class Panel
     {
         this.originArray = tileArray;
         this.tileSize = tileSize;
-        this.maxRows = maxRows;
         this.tileArray = new Tile[maxRows][maxColumns];
+        this.maxRows = maxRows;
         this.maxColumns = maxColumns;
         init();
     }

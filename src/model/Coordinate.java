@@ -14,6 +14,12 @@ public class Coordinate
     }
     
     
+    public Coordinate (Coordinate coordinate)
+    {
+        this(coordinate.getPositionX(), coordinate.getPositionY());
+    }
+    
+    
     public void setPositionX (double positionX)
     {
         this.positionX = positionX;

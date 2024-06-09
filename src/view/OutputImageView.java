@@ -9,11 +9,11 @@ import resources.constants.Constants_DefaultValues;
 
 public class OutputImageView extends ImageView
 {
-    private int diagonalSize;
+    private double diagonalSize;
     private Image image;
     
     
-    public OutputImageView (Image image, int diagonalSize)
+    public OutputImageView (Image image, double diagonalSize)
     {
         super(image);
         this.image = image;
