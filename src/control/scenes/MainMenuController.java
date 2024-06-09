@@ -61,6 +61,8 @@ public class MainMenuController implements GameMenuBar
 
         // add menu bar and vertical menu to the pane
         MainMenu.getInstance().getPane().getChildren().addAll(menuBar, box);
+
+        stage.setScene(MainMenu.getInstance().getScene());
     }
 
 

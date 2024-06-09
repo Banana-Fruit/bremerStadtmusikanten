@@ -19,6 +19,7 @@ import model.userInterface.showables.MainMenu;
 import model.userInterface.showables.Map;
 import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
+import resources.constants.Constants_MainMenu;
 import resources.constants.scenes.Constants_Map;
 import view.OutputImageView;
 
@@ -66,12 +67,13 @@ public class GameController
         SceneController.initialize(this.stage);
         KeyboardController.initialize();
         MouseController.initialize();
+        MainMenu.initialize(new Scene(new Pane(), Constants_MainMenu.SCENE_WIDTH, Constants_MainMenu.SCENE_HEIGHT));
         MainMenuController.initialize();
+        MainMenuController.getInstance().startMainMenu(this.stage);
         PanelController.initialize();
         MapController.initialize();
         PlayerController.initialize();
-        
-        MainMenu.initialize(new Scene(new Pane()));
+
         Map.initialize(new Scene(new Pane()));
         Player.initialize();
         
@@ -79,12 +81,13 @@ public class GameController
         PlayerController.getInstance().addPlayer(PanelController.getInstance().getCoordinateFromPanelTile(
                 Map.getInstance().getPanel(), Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
         System.out.println("HI");
-        Game.getInstance().setCurrentShowable(Map.getInstance().getShowable());
+        //Map durch MainMenu ersetzt
+        Game.getInstance().setCurrentShowable(MainMenu.getInstance().getShowable());
         SceneController.getInstance().setScene(Game.getInstance().getCurrentShowable().getScene());
         
         new Thread(KeyboardController.getInstance()).start();
         new Thread(PlayerController.getInstance()).start();
-        
+
         this.stage.setScene(Game.getInstance().getCurrentShowable().getScene());
         this.stage.show();
     }
