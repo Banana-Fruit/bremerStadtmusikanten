@@ -6,7 +6,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import model.Coordinate;
 import model.panel.Panel;
-import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Panel;
 import resources.constants.Constants_Resources;

@@ -43,6 +43,12 @@ public class Showable
     }
     
     
+    public void setBackground (Background background)
+    {
+        getPane().setBackground(background);
+    }
+    
+    
     public void setBackground (String path)
     {
         pane.setBackground(new Background(new BackgroundImage(

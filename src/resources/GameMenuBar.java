@@ -179,7 +179,6 @@ public interface GameMenuBar
         Pane root = new Pane();
         Scene scene = new Scene(root, Constants_MainMenu.SCENE_WIDTH, Constants_MainMenu.SCENE_HEIGHT);
 
-
         Background background = createBackground(Constants_MainMenu.PATH_BACKGROUND_IMAGE, stage.getWidth(), stage.getHeight());
         root.setBackground(background);
 
@@ -191,7 +190,7 @@ public interface GameMenuBar
         createMenuItemsForGameLoads(gridPane);
 
         // creates a TilePane with the option to go back
-        createTilePaneToGoBack(stage, root, gridPane);
+        createTilePaneToGoBack(root, gridPane);
 
 
         stage.setScene(scene);
@@ -199,7 +198,7 @@ public interface GameMenuBar
     }
 
 
-    public static GridPane createGridPaneForLoadGame (int width, int height, int translateY, int gap)
+    static GridPane createGridPaneForLoadGame (int width, int height, int translateY, int gap)
     {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -213,18 +212,18 @@ public interface GameMenuBar
 
     static void createMenuItemsForGameLoads (GridPane gridPane)
     {
-        TransparentButton[] saveGameItems = new TransparentButton[Constants_MainMenu.NUMBER_OF_GAMES];
+        TransparentButton[] saveGameItems = createGameLoadsItems(Constants_MainMenu.NUMBER_OF_GAMES);
 
-        createGameLoadsItems(saveGameItems);
-
-        addItemsToGridPane(saveGameItems, gridPane);
+        addItemsToGridpane(saveGameItems, gridPane);
     }
 
 
-    private static void createGameLoadsItems(TransparentButton[] saveGameItems)
+    private static TransparentButton[] createGameLoadsItems(int numberOfGames)
     {
+        TransparentButton[] saveGameItems = new TransparentButton[numberOfGames];
+        
         //Todo: Namensanpassung der Spielstände, sodass statt Spielstand 1 dort ein Eigenname steht
-        for (int i = Constants_MainMenu.START_LOOP; i < Constants_MainMenu.NUMBER_OF_GAMES; i++)
+        for (int i = Constants_MainMenu.START_LOOP; i < numberOfGames; i++)
         {
             String saveGameName = Constants_MainMenu.SAVE_GAMES + (i + Constants_MainMenu.ONE); // name of the game load
             TransparentButton saveGameItem = new TransparentButton(saveGameName, () ->
@@ -234,10 +233,12 @@ public interface GameMenuBar
 
             saveGameItems[i] = saveGameItem;
         }
+        
+        return saveGameItems;
     }
 
 
-    private static void addItemsToGridPane(TransparentButton[] saveGameItems, GridPane gridPane)
+    private static void addItemsToGridpane (TransparentButton[] saveGameItems, GridPane gridPane)
     {
         for (int i = Constants_MainMenu.START_LOOP; i < Constants_MainMenu.NUMBER_OF_GAMES; i++)
         {
@@ -247,7 +248,7 @@ public interface GameMenuBar
     }
 
 
-    static void createTilePaneToGoBack (Stage stage, Pane root, GridPane gridPane)
+    static void createTilePaneToGoBack (Pane root, GridPane gridPane)
     {
         // org.example.bremen.Tile-Pane for the GoBack-Button
         TilePane goBackPane = new TilePane();
@@ -261,7 +262,7 @@ public interface GameMenuBar
             // Define the action for the goBack button
             try {
                 // Assuming MainMenuController has a method to start the main menu scene
-                MainMenuController.getInstance().startMainMenu(stage);
+                MainMenuController.getInstance().addButtons();
             } catch (Exception e)
             {
                 e.printStackTrace();

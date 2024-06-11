@@ -8,18 +8,16 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import resources.constants.Constants_ExceptionMessages;
-import resources.constants.Constants_MainMenu;
 
 
-public class MainMenu extends Showable
+public class Settings extends Showable
 {
-    private static volatile MainMenu instance;
+    private static volatile Settings instance;
     
-    
-    private MainMenu (Scene scene)
+    private Settings (Scene scene)
     {
         super(scene);
-        init();
+        setBackground(new Background(new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY)));
     }
     
     
@@ -27,7 +25,7 @@ public class MainMenu extends Showable
     {
         if (instance == null)
         {
-            instance = new MainMenu(scene);
+            instance = new Settings(scene);
         } else
         {
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
@@ -35,18 +33,12 @@ public class MainMenu extends Showable
     }
     
     
-    public static MainMenu getInstance ()
+    public static Settings getInstance ()
     {
         if (instance == null)
         {
             throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
         }
         return instance;
-    }
-    
-    
-    private void init ()
-    {
-        this.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 }

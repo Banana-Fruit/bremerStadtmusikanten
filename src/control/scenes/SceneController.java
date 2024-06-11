@@ -2,9 +2,12 @@ package control.scenes;
 
 
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.userInterface.showables.Showable;
+import resources.GameMenuBar;
 import resources.constants.Constants_ExceptionMessages;
+import resources.constants.Constants_MainMenu;
 
 
 /**
@@ -45,8 +48,13 @@ public class SceneController
     }
     
     
-    public void setScene (Scene scene)
+    public Pane getBasePane ()
     {
-        this.stage.setScene(scene);
+        Pane pane = new Pane();
+        // creates a Menu bar with two points (game and settings) and add two menuItems to the point game
+        pane.getChildren().add(GameMenuBar.createMenuBarWithTwoPoints(stage, Constants_MainMenu.MENUBAR_GAME,
+                Constants_MainMenu.MENUBAR_SETTING, Constants_MainMenu.MENUBAR_CLOSE,
+                Constants_MainMenu.MENUBAR_LOAD));
+        return pane;
     }
 }
