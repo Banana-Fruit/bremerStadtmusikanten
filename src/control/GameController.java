@@ -66,14 +66,14 @@ public class GameController
         PanelController.initialize();
         MapController.initialize();
         PlayerController.initialize();
-        
+
         // Initialise models
         Settings.initialize(new Scene(SceneController.getInstance().getBasePane()));
         LoadGame.initialize(new Scene(SceneController.getInstance().getBasePane(),
                 Constants_MainMenu.SCENE_WIDTH, Constants_MainMenu.SCENE_HEIGHT));
         MainMenu.initialize(new Scene(SceneController.getInstance().getBasePane()));
         MainMenuController.getInstance().addButtons();
-        
+
         this.stage.setScene(Game.getInstance().getCurrentShowable().getScene());
         this.stage.show();
     }
