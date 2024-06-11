@@ -14,7 +14,7 @@ public class Main extends Application
     @Override
     public void start (Stage stage)
     {
-        Game.initialize();
+        Game.initialize(stage);
         GameController.initialize(stage);
     }
     

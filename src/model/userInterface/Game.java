@@ -1,6 +1,7 @@
 package model.userInterface;
 
 
+import javafx.stage.Stage;
 import model.userInterface.showables.Showable;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Game;
@@ -15,19 +16,21 @@ public class Game
     private static volatile Game instance;
     private Showable currentShowable = new Showable();
     private final String gameTitle;
+    private final Stage stage;
     
     
-    private Game ()
+    private Game (Stage stage)
     {
+        this.stage = stage;
         this.gameTitle = Constants_Game.GAME_TITLE;
     }
     
     
-    public static synchronized void initialize ()
+    public static synchronized void initialize (Stage stage)
     {
         if (instance == null)
         {
-            instance = new Game();
+            instance = new Game(stage);
         } else
         {
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
@@ -49,6 +52,7 @@ public class Game
     public void setCurrentShowable (Showable showable)
     {
         this.currentShowable = showable;
+        stage.setScene(showable.getScene());
     }
     
     

@@ -74,7 +74,7 @@ public class GameController
         MainMenu.initialize(new Scene(SceneController.getInstance().getBasePane()));
         MainMenuController.getInstance().addButtons();
 
-        this.stage.setScene(Game.getInstance().getCurrentShowable().getScene());
+        Game.getInstance().setCurrentShowable(MainMenu.getInstance());
         this.stage.show();
     }
 }
