@@ -63,11 +63,6 @@ public class PanelController
      */
     public Panel getAndShowPanel (Pane pane, String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
-        if (pane == null || pathToLoaderFileFolder == null || loaderFileName == null || tileSize <= 0 || maxRows <= 0 || maxColumns <= 0)
-        {
-            throw new IllegalArgumentException("Invalid input parameters.");
-        }
-        
         try
         {
             Panel panel = initializePanel(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);

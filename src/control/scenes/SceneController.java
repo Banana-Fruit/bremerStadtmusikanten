@@ -64,6 +64,7 @@ public class SceneController
     {
         Game.getInstance().setCurrentShowable(showable);
         this.stage.setFullScreen(true);
+        this.stage.setFullScreenExitHint("");
         this.stage.setScene(showable.getScene());
     }
 }
