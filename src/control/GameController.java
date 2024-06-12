@@ -56,7 +56,6 @@ public class GameController
     private void init ()
     {
         this.stage.setTitle(Game.getInstance().getGameTitle());
-        this.stage.setFullScreen(true);
         
         // Initialise controllers
         SceneController.initialize(this.stage);
@@ -74,7 +73,7 @@ public class GameController
         MainMenu.initialize(new Scene(SceneController.getInstance().getBasePane()));
         MainMenuController.getInstance().addButtons();
 
-        Game.getInstance().setCurrentShowable(MainMenu.getInstance());
+        SceneController.getInstance().switchShowable(MainMenu.getInstance());
         this.stage.show();
     }
 }

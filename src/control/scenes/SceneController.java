@@ -63,7 +63,7 @@ public class SceneController
     public void switchShowable(Showable showable)
     {
         Game.getInstance().setCurrentShowable(showable);
-        this.stage.setScene(showable.getScene());
         this.stage.setFullScreen(true);
+        this.stage.setScene(showable.getScene());
     }
 }

@@ -99,10 +99,10 @@ public class MainMenuController implements GameMenuBar
     private static void newGame ()
     {
         Map.initialize(new Scene(SceneController.getInstance().getBasePane()));
-        Game.getInstance().setCurrentShowable(Map.getInstance());
-        Player.initialize();
+        SceneController.getInstance().switchShowable(Map.getInstance());
         MapController.getInstance().setNewMap("main.dat");
-        PlayerController.getInstance().addPlayer(new Coordinate(Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
+        Player.initialize();
+        PlayerController.getInstance().addPlayer(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
         
         new Thread(KeyboardController.getInstance()).start();
         new Thread(PlayerController.getInstance()).start();

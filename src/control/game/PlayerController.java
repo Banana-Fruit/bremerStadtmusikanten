@@ -23,8 +23,8 @@ import java.util.Set;
 public class PlayerController implements Runnable
 {
     private static volatile PlayerController instance = null;
-    private Coordinate currentPlayerPosition = new Coordinate(Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y);
-    private Coordinate newPlayerPosition = new Coordinate(Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y);
+    private Coordinate currentPlayerPosition;
+    private Coordinate newPlayerPosition;
     private final OutputImageView playerView;
     
     
