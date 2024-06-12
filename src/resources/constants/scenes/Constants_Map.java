@@ -10,9 +10,9 @@ public interface Constants_Map
     String PLAYER_VIEW_STANDARD = "resources/assets/map/player/esel.png";
     
     
-    int TILE_SIZE = 40;
+    int TILE_SIZE = 45;
     int MAX_ROWS = 20;
-    int MAX_COLUMNS = 30;
+    int MAX_COLUMNS = 60;
     
     // Player
     int STARTPOSITION_X = 2;

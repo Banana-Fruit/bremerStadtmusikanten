@@ -98,7 +98,8 @@ public class MainMenuController implements GameMenuBar
     {
         Map.initialize(new Scene(SceneController.getInstance().getBasePane()));
         Player.initialize();
-        MapController.getInstance().setNewMap("main.dat");
+        MapController.getInstance().setNewMap("2.dat");
+        Game.getInstance().setCurrentShowable(Map.getInstance().getShowable());
         
         new Thread(KeyboardController.getInstance()).start();
         new Thread(PlayerController.getInstance()).start();
