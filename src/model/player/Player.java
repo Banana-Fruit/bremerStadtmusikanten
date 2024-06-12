@@ -1,4 +1,4 @@
-package model;
+package model.player;
 
 
 import resources.constants.Constants_ExceptionMessages;

@@ -7,7 +7,6 @@ import javafx.scene.input.KeyCode;
 import model.Coordinate;
 import model.userInterface.showables.Map;
 import model.userInterface.Game;
-import model.Player;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Game;
 import resources.constants.Constants_Keymapping;
