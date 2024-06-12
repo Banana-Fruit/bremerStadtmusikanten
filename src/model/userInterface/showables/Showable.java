@@ -25,6 +25,7 @@ public class Showable
     public Showable (Scene scene)
     {
         this.scene = scene;
+        scene.fillProperty().set(Color.BLACK);
         this.pane = new Pane(scene.getRoot());
         init();
     }
@@ -38,8 +39,9 @@ public class Showable
     
     private void init ()
     {
-        scene.setRoot(pane);
-        scene.fillProperty().set(Color.BLACK);
+        this.scene.fillProperty().set(Color.BLACK);
+        this.scene.setRoot(pane);
+        setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
     }
     
     

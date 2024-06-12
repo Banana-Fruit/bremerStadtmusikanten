@@ -1,12 +1,7 @@
 package model.userInterface.showables;
 
 
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_MainMenu;
 

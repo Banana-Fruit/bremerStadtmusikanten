@@ -63,11 +63,6 @@ public class PanelController
      */
     public Panel getAndShowPanel (Pane pane, String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
-        if (pane == null || pathToLoaderFileFolder == null || loaderFileName == null || tileSize <= 0 || maxRows <= 0 || maxColumns <= 0)
-        {
-            throw new IllegalArgumentException("Invalid input parameters.");
-        }
-        
         try
         {
             Panel panel = initializePanel(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
@@ -157,20 +152,20 @@ public class PanelController
      */
     public boolean isCoordinateOccupied (Panel panel, Coordinate coordinate)
     {
-        Coordinate tileIndices = getTileIndicesFromCoordinates(panel, coordinate);
-        //System.out.println(coordinate.getPositionX() + " " + coordinate.getPositionY());
+        Coordinate minimumCoordinate = getCoordinateFromPanelTile(panel, Constants_Panel.MIN_TILE_INDEX, Constants_Panel.MIN_TILE_INDEX);
+        Coordinate maximumCoordinate = getCoordinateFromPanelTile(panel, panel.getMaxRows(), panel.getMaxColumns());
         
         // Checks whether indices out of bounds
-        if (tileIndices.getPositionX() < Constants_Panel.MIN_TILE_INDEX ||
-                tileIndices.getPositionY() < Constants_Panel.MIN_TILE_INDEX ||
-                tileIndices.getPositionX() > panel.getMaxColumns() ||
-                tileIndices.getPositionY() > panel.getMaxRows())
+        if (coordinate.getPositionX() < minimumCoordinate.getPositionX() ||
+                coordinate.getPositionY() < minimumCoordinate.getPositionY() ||
+                coordinate.getPositionX() > maximumCoordinate.getPositionX() ||
+                coordinate.getPositionY() > maximumCoordinate.getPositionY())
         {
             return true;
         }
         
         // Check whether tile with correlating coordinates is occupied
-        if (isTileOccupied(panel, (int)tileIndices.getPositionY(), (int)tileIndices.getPositionX())) return true;
+        //if (isTileOccupied(panel, (int)coordinate.getPositionY(), (int)coordinate.getPositionX())) return true;
         
         return false; // Not occupied if method reached end
     }

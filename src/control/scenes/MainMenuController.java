@@ -7,11 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import model.player.Player;
 import model.userInterface.Game;
-import model.userInterface.showables.LoadGame;
-import model.userInterface.showables.MainMenu;
+import model.userInterface.showables.*;
 import model.userInterface.TransparentButton;
-import model.userInterface.showables.Map;
-import model.userInterface.showables.Settings;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_MainMenu;
 import resources.GameMenuBar;
@@ -62,10 +59,6 @@ public class MainMenuController implements GameMenuBar
     public static VBox createMenuInVBox (int itemWidth, int itemHeight, int xPositionVBox, int yPositionVBox)
     {
         VBox box = new VBox(Constants_MainMenu.VBOX_V,
-                new TransparentButton(Constants_MainMenu.MENU_CONTINUE_GAME, () ->
-                {
-                    //this.continueGame();
-                }, itemWidth, itemHeight),
                 new TransparentButton(Constants_MainMenu.MENU_NEW_GAME, () ->
                 {
                     newGame();
@@ -101,7 +94,8 @@ public class MainMenuController implements GameMenuBar
         SceneController.getInstance().switchShowable(Map.getInstance());
         MapController.getInstance().setNewMap("main.dat");
         Player.initialize();
-        PlayerController.getInstance().addPlayer(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
+        PlayerController.getInstance().addPlayer(PanelController.getInstance().getCoordinateFromPanelTile(
+                Map.getInstance().getPanel(), Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
         
         new Thread(KeyboardController.getInstance()).start();
         new Thread(PlayerController.getInstance()).start();
@@ -110,7 +104,7 @@ public class MainMenuController implements GameMenuBar
     
     private static void openSettings ()
     {
-        SceneController.getInstance().switchShowable(Settings.getInstance().getShowable());
+        SceneController.getInstance().switchShowable(Settings.getInstance());
     }
     
     
@@ -124,13 +118,6 @@ public class MainMenuController implements GameMenuBar
         
         LoadGame.getInstance().getPane().getChildren().add(gridPane);
         
-        Game.getInstance().setCurrentShowable(LoadGame.getInstance());
-    }
-    
-    
-    //TODO: Program only likes GamePanel in the start() method (needs runnable)
-    private void continueGame ()
-    {
-        //Implementation Game
+        SceneController.getInstance().switchShowable(LoadGame.getInstance());
     }
 }

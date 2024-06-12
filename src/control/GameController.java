@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import model.userInterface.showables.LoadGame;
 import model.userInterface.showables.MainMenu;
 import model.userInterface.Game;
+import model.userInterface.showables.Map;
 import model.userInterface.showables.Settings;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_MainMenu;
