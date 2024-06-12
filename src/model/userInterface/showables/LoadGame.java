@@ -13,8 +13,7 @@ public class LoadGame extends Showable
     private LoadGame (Scene scene)
     {
         super(scene);
-        //setBackground(new Background(new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-        setBackground(Constants_MainMenu.PATH_BACKGROUND_IMAGE);
+        init();
     }
     
     
@@ -37,5 +36,11 @@ public class LoadGame extends Showable
             throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
         }
         return instance;
+    }
+    
+    
+    private void init ()
+    {
+        setBackground(Constants_MainMenu.PATH_BACKGROUND_IMAGE);
     }
 }

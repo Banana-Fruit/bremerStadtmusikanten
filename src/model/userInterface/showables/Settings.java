@@ -17,7 +17,7 @@ public class Settings extends Showable
     private Settings (Scene scene)
     {
         super(scene);
-        setBackground(new Background(new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+        init();
     }
     
     
@@ -40,5 +40,11 @@ public class Settings extends Showable
             throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
         }
         return instance;
+    }
+    
+    
+    private void init()
+    {
+        setBackground(new Background(new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 }
