@@ -1,6 +1,8 @@
 package model.player;
 
 
+import model.buildings.Building;
+
 
 public class Inventory
 {

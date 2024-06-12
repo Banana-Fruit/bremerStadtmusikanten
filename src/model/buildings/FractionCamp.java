@@ -1,6 +1,10 @@
 package model.buildings;
 
 
+import control.BuildingController;
+import resources.constants.scenes.Constants_Building;
+
+
 public class FractionCamp extends Building
 {
     private static final FractionCamp INSTANCE_OF_FRACTIONCAMP = new FractionCamp(Constants_Building.NAME_FRACTIONCAMP,

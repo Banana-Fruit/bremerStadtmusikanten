@@ -1,6 +1,10 @@
 package model.buildings;
 
 
+import control.BuildingController;
+import resources.constants.scenes.Constants_Building;
+
+
 public class BaseCamp extends Building
 {
     private static final BaseCamp INSTANCE_OF_BASECAMP = new BaseCamp(Constants_Building.NAME_BASECAMP_NAME,

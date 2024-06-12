@@ -1,6 +1,10 @@
 package model.buildings;
 
 
+import control.BuildingController;
+import resources.constants.scenes.Constants_Building;
+
+
 public class TrainingArea extends Building
 {
     private static final TrainingArea INSTANCE_OF_TRAININGAREA = new TrainingArea(Constants_Building.NAME_TRAININGSAREA,

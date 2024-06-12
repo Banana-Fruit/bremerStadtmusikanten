@@ -1,6 +1,10 @@
 package model.buildings;
 
 
+import control.BuildingController;
+import resources.constants.scenes.Constants_Building;
+
+
 public class Headquarter extends Building
 {
     private static final Headquarter INSTANCE_OF_HEADQUARTER = new Headquarter(Constants_Building.NAME_HEADQUARTER,

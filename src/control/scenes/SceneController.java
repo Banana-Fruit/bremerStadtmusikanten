@@ -4,6 +4,7 @@ package control.scenes;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.buildings.Building;
 import model.userInterface.Game;
 import model.userInterface.showables.Showable;
 import resources.GameMenuBar;
@@ -46,6 +47,12 @@ public class SceneController
             throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
         }
         return instance;
+    }
+    
+    
+    public static void buildSceneBuildingInside (Stage stage, Building building)
+    {
+    
     }
     
     

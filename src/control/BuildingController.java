@@ -1,6 +1,11 @@
 package control;
 
 
+import model.buildings.Building;
+import model.player.Inventory;
+import resources.constants.scenes.Constants_Building;
+
+
 public class BuildingController
 {
     private static final BuildingController INSTANCE_OF_BUILDING_CONTROLLER = new BuildingController();

@@ -1,6 +1,10 @@
 package model.buildings;
 
 
+import control.BuildingController;
+import model.player.Inventory;
+import resources.constants.scenes.Constants_Building;
+
 import java.util.Objects;
 
 

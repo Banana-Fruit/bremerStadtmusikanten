@@ -1,7 +1,10 @@
 package model.buildings;
 
 
+import control.BuildingController;
 import javafx.scene.control.Button;
+import model.player.Artifact;
+import resources.constants.scenes.Constants_Building;
 
 
 public class Forge extends Building

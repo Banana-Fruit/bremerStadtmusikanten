@@ -1,6 +1,10 @@
 package model.buildings;
 
 
+import control.BuildingController;
+import resources.constants.scenes.Constants_Building;
+
+
 public class Pub extends Building
 {
     private static final Pub INSTANCE_OF_PUB = new Pub(Constants_Building.NAME_PUB, Constants_Building.PUB_GOLD,

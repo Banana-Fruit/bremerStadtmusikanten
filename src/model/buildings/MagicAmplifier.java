@@ -1,6 +1,10 @@
 package model.buildings;
 
 
+import control.BuildingController;
+import resources.constants.scenes.Constants_Building;
+
+
 public class MagicAmplifier extends Building
 {
     private static final MagicAmplifier INSTANCE_OF_MAGICAMPLIFIER = new MagicAmplifier
