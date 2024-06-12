@@ -47,6 +47,6 @@ public class MainMenu extends Showable
     
     private void init ()
     {
-        this.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+        setBackground(Constants_MainMenu.PATH_BACKGROUND_IMAGE);
     }
 }

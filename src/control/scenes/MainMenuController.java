@@ -5,6 +5,7 @@ import control.events.KeyboardController;
 import control.game.PlayerController;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import model.Coordinate;
 import model.Player;
 import model.userInterface.Game;
 import model.userInterface.showables.LoadGame;
@@ -15,6 +16,7 @@ import model.userInterface.showables.Settings;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_MainMenu;
 import resources.GameMenuBar;
+import resources.constants.scenes.Constants_Map;
 
 
 public class MainMenuController implements GameMenuBar
@@ -97,9 +99,10 @@ public class MainMenuController implements GameMenuBar
     private static void newGame ()
     {
         Map.initialize(new Scene(SceneController.getInstance().getBasePane()));
+        Game.getInstance().setCurrentShowable(Map.getInstance());
         Player.initialize();
-        MapController.getInstance().setNewMap("2.dat");
-        Game.getInstance().setCurrentShowable(Map.getInstance().getShowable());
+        MapController.getInstance().setNewMap("main.dat");
+        PlayerController.getInstance().addPlayer(new Coordinate(Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
         
         new Thread(KeyboardController.getInstance()).start();
         new Thread(PlayerController.getInstance()).start();
@@ -108,7 +111,7 @@ public class MainMenuController implements GameMenuBar
     
     private static void openSettings ()
     {
-        Game.getInstance().setCurrentShowable(Settings.getInstance().getShowable());
+        SceneController.getInstance().switchShowable(Settings.getInstance().getShowable());
     }
     
     

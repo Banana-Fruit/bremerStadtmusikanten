@@ -4,6 +4,7 @@ package control.scenes;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.userInterface.Game;
 import model.userInterface.showables.Showable;
 import resources.GameMenuBar;
 import resources.constants.Constants_ExceptionMessages;
@@ -56,5 +57,13 @@ public class SceneController
                 Constants_MainMenu.MENUBAR_SETTING, Constants_MainMenu.MENUBAR_CLOSE,
                 Constants_MainMenu.MENUBAR_LOAD));
         return pane;
+    }
+    
+    
+    public void switchShowable(Showable showable)
+    {
+        Game.getInstance().setCurrentShowable(showable);
+        this.stage.setScene(showable.getScene());
+        this.stage.setFullScreen(true);
     }
 }
