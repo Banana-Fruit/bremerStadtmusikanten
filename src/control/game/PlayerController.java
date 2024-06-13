@@ -1,10 +1,12 @@
 package control.game;
 
 
+import control.BuildingController;
 import control.scenes.PanelController;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import model.Coordinate;
+import model.player.Inventory;
 import model.userInterface.showables.Map;
 import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
@@ -43,7 +45,16 @@ public class PlayerController implements Runnable
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
-    
+
+    //Todo: Nur zum testen die Methode eingefügt
+    public void setPlayerInventory()
+    {
+        Inventory.getInstanceOfInventory().setInventoryGold(10);
+        Inventory.getInstanceOfInventory().setInventoryBeer(10);
+        Inventory.getInstanceOfInventory().setInventoryBrick(10);
+        Inventory.getInstanceOfInventory().setInventoryEssence(10);
+        Inventory.getInstanceOfInventory().setInventoryWood(10);
+    }
     
     public void addPlayer (Coordinate playerPosition)
     {

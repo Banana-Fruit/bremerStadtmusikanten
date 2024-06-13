@@ -4,12 +4,11 @@ package control;
 import control.events.KeyboardController;
 import control.events.MouseController;
 import control.game.PlayerController;
-import control.scenes.MainMenuController;
-import control.scenes.MapController;
-import control.scenes.PanelController;
-import control.scenes.SceneController;
+import control.scenes.*;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import model.buildings.BaseCamp;
 import model.userInterface.showables.LoadGame;
 import model.userInterface.showables.MainMenu;
 import model.userInterface.Game;
@@ -66,6 +65,8 @@ public class GameController
         PanelController.initialize();
         MapController.initialize();
         PlayerController.initialize();
+        BuildingController.initialize();
+        GUIController.initialize();
 
         // Initialise models
         Settings.initialize(new Scene(SceneController.getInstance().getBasePane()));

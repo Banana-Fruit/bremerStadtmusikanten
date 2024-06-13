@@ -1,10 +1,12 @@
 package control.scenes;
 
 
+import control.BuildingController;
 import control.events.KeyboardController;
 import control.game.PlayerController;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import javafx.scene.paint.LinearGradient;
 import model.player.Player;
 import model.userInterface.Game;
 import model.userInterface.showables.*;
@@ -54,7 +56,7 @@ public class MainMenuController implements GameMenuBar
                 Constants_MainMenu.VBOX_ITEM_HEIGHT, Constants_MainMenu.VBOX_XPOSITION,
                 Constants_MainMenu.VBOX_YPOSITION));
     }
-    
+
     
     public static VBox createMenuInVBox (int itemWidth, int itemHeight, int xPositionVBox, int yPositionVBox)
     {
@@ -62,23 +64,23 @@ public class MainMenuController implements GameMenuBar
                 new TransparentButton(Constants_MainMenu.MENU_NEW_GAME, () ->
                 {
                     newGame();
-                }, itemWidth, itemHeight),
+                }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
                 new TransparentButton(Constants_MainMenu.MENU_LOAD_GAME, () ->
                 {
                     loadGame();
-                }, itemWidth, itemHeight),
+                }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
                 new TransparentButton(Constants_MainMenu.MENU_MULTIPLAYER, () ->
                 {
                     // TODO: Multiplayer
-                }, itemWidth, itemHeight),
+                }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
                 new TransparentButton(Constants_MainMenu.MENU_SETTINGS, () ->
                 {
                     openSettings();
-                }, itemWidth, itemHeight),
+                }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
                 new TransparentButton(Constants_MainMenu.MENU_CLOSE_GAME, () ->
                 {
                     GameMenuBar.closeGame();
-                }, itemWidth, itemHeight));
+                }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W));
         
         // X-Position of the vertical field
         box.setTranslateX(xPositionVBox);
@@ -92,11 +94,15 @@ public class MainMenuController implements GameMenuBar
     {
         Map.initialize(new Scene(SceneController.getInstance().getBasePane()));
         SceneController.getInstance().switchShowable(Map.getInstance());
-        MapController.getInstance().setNewMap("main.dat");
+        //MapController.getInstance().setNewMap("main.dat");
+        MapController.getInstance().setNewMap("Map1");
         Player.initialize();
+        BuildingController.getInstance().addButtons();
+
         PlayerController.getInstance().addPlayer(PanelController.getInstance().getCoordinateFromPanelTile(
                 Map.getInstance().getPanel(), Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
-        
+        PlayerController.getInstance().setPlayerInventory();
+        Map.getInstance().getPane().getChildren().add(GUIController.createInventory());
         new Thread(KeyboardController.getInstance()).start();
         new Thread(PlayerController.getInstance()).start();
     }

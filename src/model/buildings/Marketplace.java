@@ -2,6 +2,7 @@ package model.buildings;
 
 
 import control.BuildingController;
+import model.Coordinate;
 import model.player.Inventory;
 import resources.constants.scenes.Constants_Building;
 
@@ -12,14 +13,15 @@ public class Marketplace extends Building
 {
     private static final Marketplace INSTANCE_OF_MARKETPLACE = new Marketplace(Constants_Building.NAME_MARKETPLACE,
             Constants_Building.MARKET_GOLD, Constants_Building.MARKET_BRICK, Constants_Building.MARKET_WOOD,
-            Constants_Building.MARKET_BEER, Constants_Building.MARKET_ESSENCE, false);
+            Constants_Building.MARKET_BEER, Constants_Building.MARKET_ESSENCE, false, new Coordinate(1.0,1.0));
 
 
     // constructor
-    private Marketplace (String name, int numberOfGold, int numberOfBrick, int numberOfWood, int numberOfBeer,
-                         int numberOfEssence, boolean isUnlocked)
+    private Marketplace (String name, int numberOfGold, int numberOfBrick, int numberOfWood,
+                         int numberOfBeer, int numberOfEssence, boolean isUnlocked,
+                         Coordinate positionUpperLeft)
     {
-        super (name, numberOfGold, numberOfBrick, numberOfWood, numberOfBeer, numberOfEssence, isUnlocked);
+        super (name, numberOfGold, numberOfBrick, numberOfWood, numberOfBeer, numberOfEssence, isUnlocked, positionUpperLeft);
     }
 
 

@@ -1,6 +1,7 @@
 package control.scenes;
 
 
+import control.BuildingController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -10,12 +11,19 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.buildings.Building;
 import model.player.Inventory;
+import resources.constants.Constants_ExceptionMessages;
 import resources.constants.scenes.Constants_Building;
 
 
 public class GUIController
 {
-    private static final GUIController INSTANCE_OF_GUICONTROLLER = new GUIController();
+    private static volatile GUIController instance = null;
+
+    private static Label numberOfGold;
+    private static Label numberOfBrick;
+    private static Label numberOfWood;
+    private static Label numberOfBeer;
+    private static Label numberOfEssence;
 
 
     // default constructor
@@ -24,38 +32,66 @@ public class GUIController
         ;
     }
 
+    public static synchronized void initialize ()
+    {
+        if (instance == null)
+        {
+            instance = new GUIController();
+        } else
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
+        }
+    }
+
+
+    public static GUIController getInstance ()
+    {
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+        }
+        return instance;
+    }
+
 
     public static void showPriceOfBuilding (Building building)
     {
-        GridPane gridPane = new GridPane();
-        Label gold = new Label(Constants_Building.GOLD + building.getNumberOfGold());
-        Label brick = new Label(Constants_Building.BRICK + building.getNumberOfBrick());
-        Label wood = new Label(Constants_Building.WOOD + building.getNumberOfWood());
-        Label beer = new Label(Constants_Building.BEER + building.getNumberOfBeer());
-        Label essence = new Label(Constants_Building.ESSENCE + building.getNumberOfEssence());
-        Label questionUnlockBuilding = new Label(Constants_Building.QUESTION_UNLOCK_BUILDING);
+        if (!building.isUnlocked)
+        {
+            GridPane gridPane = new GridPane();
+            Label gold = new Label(Constants_Building.GOLD + building.getNumberOfGold());
+            Label brick = new Label(Constants_Building.BRICK + building.getNumberOfBrick());
+            Label wood = new Label(Constants_Building.WOOD + building.getNumberOfWood());
+            Label beer = new Label(Constants_Building.BEER + building.getNumberOfBeer());
+            Label essence = new Label(Constants_Building.ESSENCE + building.getNumberOfEssence());
+            Label questionUnlockBuilding = new Label(Constants_Building.QUESTION_UNLOCK_BUILDING);
 
-        Button yes = new Button(Constants_Building.ANSWER_YES);
-        Button no = new Button(Constants_Building.ANSWER_NO);
+            Button yes = new Button(Constants_Building.ANSWER_YES);
+            Button no = new Button(Constants_Building.ANSWER_NO);
 
-        gridPane.add(gold, Constants_Building.GRIDPANE_COLUMN_ONE,Constants_Building.GRIDPANE_ROW_ONE);
-        gridPane.add(brick, Constants_Building.GRIDPANE_COLUMN_ONE, Constants_Building.GRIDPANE_ROW_TWO);
-        gridPane.add(wood, Constants_Building.GRIDPANE_COLUMN_ONE,Constants_Building.GRIDPANE_ROW_THREE);
-        gridPane.add(beer, Constants_Building.GRIDPANE_COLUMN_ONE, Constants_Building.GRIDPANE_ROW_FOUR);
-        gridPane.add(essence, Constants_Building.GRIDPANE_COLUMN_ONE, Constants_Building.GRIDPANE_ROW_FIVE);
-        gridPane.add(questionUnlockBuilding, Constants_Building.GRIDPANE_COLUMN_ONE, Constants_Building.GRIDPANE_ROW_SIX);
-        gridPane.add(yes, Constants_Building.GRIDPANE_COLUMN_ONE, Constants_Building.GRIDPANE_ROW_SEVEN);
-        gridPane.add(no, Constants_Building.GRIDPANE_COLUMN_TWO, Constants_Building.GRIDPANE_ROW_SEVEN);
+            gridPane.add(gold, Constants_Building.GRIDPANE_COLUMN_ONE,Constants_Building.GRIDPANE_ROW_ONE);
+            gridPane.add(brick, Constants_Building.GRIDPANE_COLUMN_ONE, Constants_Building.GRIDPANE_ROW_TWO);
+            gridPane.add(wood, Constants_Building.GRIDPANE_COLUMN_ONE,Constants_Building.GRIDPANE_ROW_THREE);
+            gridPane.add(beer, Constants_Building.GRIDPANE_COLUMN_ONE, Constants_Building.GRIDPANE_ROW_FOUR);
+            gridPane.add(essence, Constants_Building.GRIDPANE_COLUMN_ONE, Constants_Building.GRIDPANE_ROW_FIVE);
+            gridPane.add(questionUnlockBuilding, Constants_Building.GRIDPANE_COLUMN_ONE, Constants_Building.GRIDPANE_ROW_SIX);
+            gridPane.add(yes, Constants_Building.GRIDPANE_COLUMN_ONE, Constants_Building.GRIDPANE_ROW_SEVEN);
+            gridPane.add(no, Constants_Building.GRIDPANE_COLUMN_TWO, Constants_Building.GRIDPANE_ROW_SEVEN);
 
 
-        Stage popUpStage = new Stage();
-        Scene scene = new Scene(gridPane, Constants_Building.SCENE_WIDTH_UNLOCK_BUILDING, Constants_Building.SCENE_HEIGHT_UNLOCK_BUILDING);
+            Stage popUpStage = new Stage();
+            Scene scene = new Scene(gridPane, Constants_Building.SCENE_WIDTH_UNLOCK_BUILDING, Constants_Building.SCENE_HEIGHT_UNLOCK_BUILDING);
+            unlockBuildingWithButton(popUpStage, building, yes);
+            disappearPopUpWindow(popUpStage, no);
 
-        unlockBuildingWithButton(popUpStage, building, yes);
-        disappearPopUpWindow(popUpStage, no);
+            popUpStage.setScene(scene);
+            popUpStage.show();
+        }
+        else
+        {
+            System.out.println("already unlocked");
+        }
 
-        popUpStage.setScene(scene);
-        popUpStage.show();
     }
 
 
@@ -129,11 +165,11 @@ public class GUIController
         Label wood = new Label(Constants_Building.WOOD);
         Label beer = new Label(Constants_Building.BEER);
         Label essence = new Label(Constants_Building.ESSENCE);
-        Label numberOfGold = new Label(Integer.toString(Inventory.getInstanceOfInventory().getInventoryGold()));
-        Label numberOfBrick = new Label(Integer.toString(Inventory.getInstanceOfInventory().getInventoryBrick()));
-        Label numberOfWood = new Label(Integer.toString(Inventory.getInstanceOfInventory().getInventoryWood()));
-        Label numberOfBeer = new Label(Integer.toString(Inventory.getInstanceOfInventory().getInventoryBeer()));
-        Label numberOfEssence = new Label(Integer.toString(Inventory.getInstanceOfInventory().getInventoryEssence()));
+        numberOfGold = new Label(Integer.toString(Inventory.getInstanceOfInventory().getInventoryGold()));
+        numberOfBrick = new Label(Integer.toString(Inventory.getInstanceOfInventory().getInventoryBrick()));
+        numberOfWood = new Label(Integer.toString(Inventory.getInstanceOfInventory().getInventoryWood()));
+        numberOfBeer = new Label(Integer.toString(Inventory.getInstanceOfInventory().getInventoryBeer()));
+        numberOfEssence = new Label(Integer.toString(Inventory.getInstanceOfInventory().getInventoryEssence()));
 
         // add labels to the gridPane
         gridpane.add(inventory, Constants_Building.GRIDPANE_COLUMN_ZERO, Constants_Building.GRIDPANE_ROW_ZERO,
@@ -161,6 +197,15 @@ public class GUIController
 
         return gridpane;
     }
+    public void updateInventory()
+    {
+        // Update the labels with current inventory values
+        numberOfGold.setText(Integer.toString(Inventory.getInstanceOfInventory().getInventoryGold()));
+        numberOfBrick.setText(Integer.toString(Inventory.getInstanceOfInventory().getInventoryBrick()));
+        numberOfWood.setText(Integer.toString(Inventory.getInstanceOfInventory().getInventoryWood()));
+        numberOfBeer.setText(Integer.toString(Inventory.getInstanceOfInventory().getInventoryBeer()));
+        numberOfEssence.setText(Integer.toString(Inventory.getInstanceOfInventory().getInventoryEssence()));
+    }
 
 
 
@@ -173,14 +218,5 @@ public class GUIController
         button.setLayoutY(positionY);
 
         return button;
-    }
-
-
-
-
-    // getter method
-    public GUIController getInstanceOfGuicontroller ()
-    {
-        return INSTANCE_OF_GUICONTROLLER;
     }
 }

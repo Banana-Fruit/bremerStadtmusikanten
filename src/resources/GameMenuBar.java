@@ -92,14 +92,14 @@ public interface GameMenuBar
             Platform.exit();
             dialogStage.close();
         },
-                Constants_MainMenu.RC_WIDTH, Constants_MainMenu.RC_HEIGHT);
+                Constants_MainMenu.RC_WIDTH, Constants_MainMenu.RC_HEIGHT, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W);
 
         // No-Button to reject the text message
         TransparentButton noButton = new TransparentButton(Constants_MainMenu.NO_BUTTON, () -> {
             dialogStage.close();
             dialogShown[0] = false;
         },
-                Constants_MainMenu.RC_WIDTH, Constants_MainMenu.RC_HEIGHT);
+                Constants_MainMenu.RC_WIDTH, Constants_MainMenu.RC_HEIGHT, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W);
 
         // HBox with yes and no button
         arrangeTwoButtonsHorizontal(buttonBox, yesButton, noButton, Constants_MainMenu.SPACE_BETWEEN_YES_NO_BOXES);
@@ -229,7 +229,7 @@ public interface GameMenuBar
             TransparentButton saveGameItem = new TransparentButton(saveGameName, () ->
             {
             }, Constants_MainMenu.GAME_LOAD_ITEM_WIDTH,
-                    Constants_MainMenu.GAME_LOAD_ITEM_HEIGHT);
+                    Constants_MainMenu.GAME_LOAD_ITEM_HEIGHT, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W);
 
             saveGameItems[i] = saveGameItem;
         }
@@ -267,7 +267,7 @@ public interface GameMenuBar
             {
                 e.printStackTrace();
             }
-        }, Constants_MainMenu.BACK_BUTTON_WIDTH, Constants_MainMenu.BACK_BUTTON_HEIGHT);
+        }, Constants_MainMenu.BACK_BUTTON_WIDTH, Constants_MainMenu.BACK_BUTTON_HEIGHT, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W);
         //adds button to the TilePane
         goBackPane.getChildren().addAll(backButton);
         //adds TilePane and GridPane to the Pane root

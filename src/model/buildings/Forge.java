@@ -3,6 +3,7 @@ package model.buildings;
 
 import control.BuildingController;
 import javafx.scene.control.Button;
+import model.Coordinate;
 import model.player.Artifact;
 import resources.constants.scenes.Constants_Building;
 
@@ -11,14 +12,15 @@ public class Forge extends Building
 {
     private static final Forge instanceOfForge = new Forge(Constants_Building.NAME_FORGE, Constants_Building.FORGE_GOLD,
             Constants_Building.FORGE_BRICK, Constants_Building.FORGE_WOOD, Constants_Building.FORGE_BEER,
-            Constants_Building.FORGE_ESSENCE, false);
+            Constants_Building.FORGE_ESSENCE, false, new Coordinate(10.0,11.0));
 
 
     // constructor
-    private Forge (String name, int numberOfGold, int numberOfBrick, int numberOfWood, int numberOfBeer, int numberOfEssence,
-                   boolean isUnlocked)
+    private Forge (String name, int numberOfGold, int numberOfBrick, int numberOfWood,
+                   int numberOfBeer, int numberOfEssence, boolean isUnlocked,
+                   Coordinate positionUpperLeft)
     {
-        super (name, numberOfGold, numberOfBrick, numberOfWood, numberOfBeer, numberOfEssence, isUnlocked);
+        super (name, numberOfGold, numberOfBrick, numberOfWood, numberOfBeer, numberOfEssence, isUnlocked, positionUpperLeft);
     }
 
 

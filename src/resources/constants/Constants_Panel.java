@@ -10,6 +10,7 @@ public interface Constants_Panel
     int MIN_TILE_INDEX = 0;
     int IMAGE_CHAR_POSITION = 0;
     int BIOME_IDENTIFIER_LINE = 0;
+    int OBSTACLE_TILE_DEFAULT_VALUE = 1;
     
     // Ignore values
     char IGNORE_LOADER_FILE_VALUE = ' ';

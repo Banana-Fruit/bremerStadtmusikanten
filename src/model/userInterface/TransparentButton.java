@@ -15,21 +15,20 @@ import resources.constants.Constants_MainMenu;
 
 public class TransparentButton extends StackPane
 {
-    // attributes
-    private static final LinearGradient gradient = createGradient(Constants_MainMenu.LINEAR_GRADIENT_OPACITY);
-    private static final LinearGradient wGradient = createGradient(Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W);
-    
+
     
     // constructor
-    public TransparentButton (String name, Runnable action, int rcwidth, int rcheight)
+    public TransparentButton (String name, Runnable action, int rcwidth, int rcheight, double opacityReleased, double opacityPressed)
     {
-        Rectangle bg = new Rectangle(rcwidth, rcheight, gradient);
+        LinearGradient gradientReleased = createGradient(opacityReleased);
+        LinearGradient gradientPressed = createGradient(opacityPressed);
+        Rectangle bg = new Rectangle(rcwidth, rcheight, gradientReleased);
         Text text = new Text(name);
         text.setFont(Font.font(Constants_MainMenu.TEXT_FONT));
         text.fillProperty().bind(Bindings.when(hoverProperty()).then(Color.WHITE).otherwise(Color.GRAY));
         setOnMouseClicked(e -> action.run());
-        setOnMousePressed(e -> bg.setFill(wGradient));
-        setOnMouseReleased(e -> bg.setFill(gradient));
+        setOnMousePressed(e -> bg.setFill(gradientPressed));
+        setOnMouseReleased(e -> bg.setFill(gradientReleased));
         getChildren().addAll(bg, text);
     }
     

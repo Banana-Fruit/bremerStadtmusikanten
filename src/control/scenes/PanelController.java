@@ -65,7 +65,7 @@ public class PanelController
     {
         try
         {
-            Panel panel = initializePanel(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
+            Panel panel = initializePanel_JonasMap(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
             PanelView.addTilesToPane(panel, pane);
             return panel;
         } catch (Exception e)
@@ -104,8 +104,23 @@ public class PanelController
                 tileSize, maxRows, maxColumns
         );
     }
-    
-    
+
+    private Panel initializePanel_JonasMap (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
+    {
+        // Create array of characters
+        int[][] intArray = PanelAndTileLoader.getCharacterArrayUsingTileFile_JonasMap(pathToLoaderFileFolder + loaderFileName, maxRows, maxColumns);
+        // Create path to resource folder with biome
+        String pathToResourceFolder = "src/resources/assets/jonas";
+        // Put characters in correlation to images
+        HashMap<Integer, Image> mapOfCharactersWithCorrelatingImages = PanelAndTileLoader.getMapWithIntegersAndImages_JonasMap(pathToResourceFolder);
+        return new Panel(
+                PanelAndTileLoader.getTileArray_JonasMap(mapOfCharactersWithCorrelatingImages, intArray, maxRows, maxColumns),
+                tileSize, maxRows, maxColumns
+        );
+    }
+
+
+
     private String getBiomeName (String pathToLoaderFile)
     {
         String biomeName = new String();
@@ -165,9 +180,30 @@ public class PanelController
         }
         
         // Check whether tile with correlating coordinates is occupied
-        //if (isTileOccupied(panel, (int)coordinate.getPositionY(), (int)coordinate.getPositionX())) return true;
-        
+
+        // Überprüfe die obere linke Ecke
+        int x = (int) coordinate.getPositionX();
+        int y = (int) coordinate.getPositionY();
+        int tileSize = panel.getTileSize();
+        if (isObstacle(panel, x, y) ||
+                // Überprüfe die obere rechte Ecke
+                isObstacle(panel, x + tileSize - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE, y) ||
+                // Überprüfe die untere linke Ecke
+                isObstacle(panel, x, y + tileSize - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE) ||
+                // Überprüfe die untere rechte Ecke
+                isObstacle(panel, x + tileSize - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE, y + tileSize - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE))
+        {
+            return true; // Der Spieler läuft über ein Hindernis
+        }
         return false; // Not occupied if method reached end
+    }
+
+    private boolean isObstacle(Panel panel, int x, int y) {
+        // Erhalte die Indizes der Kachel, die sich an den angegebenen Koordinaten befindet
+        Coordinate tileIndices = getTileIndicesFromCoordinates(panel, new Coordinate(x, y));
+
+        // Überprüfe, ob die Kachel besetzt ist
+        return panel.getTileAt((int) tileIndices.getPositionY(), (int) tileIndices.getPositionX()).getOccupied();
     }
     
     

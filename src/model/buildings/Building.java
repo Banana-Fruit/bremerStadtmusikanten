@@ -1,6 +1,9 @@
 package model.buildings;
 
 
+import control.scenes.GUIController;
+import model.Coordinate;
+
 public abstract class Building
 {
     // attributes
@@ -11,11 +14,13 @@ public abstract class Building
     public int numberOfBeer;
     public int numberOfEssence;
     public boolean isUnlocked;
+    public Coordinate positionUpperLeft;
+
 
 
     // constructor
     public Building (String name, int numberOfGold, int numberOfBrick, int numberOfWood, int numberOfBeer,
-    int numberOfEssence, boolean isUnlocked)
+                     int numberOfEssence, boolean isUnlocked, Coordinate positionUpperLeft)
     {
         this.name = name;
         this.numberOfGold = numberOfGold;
@@ -24,6 +29,7 @@ public abstract class Building
         this.numberOfBeer = numberOfBeer;
         this.numberOfEssence = numberOfEssence;
         this.isUnlocked = isUnlocked;
+        this.positionUpperLeft = positionUpperLeft;
     }
 
 
@@ -36,7 +42,10 @@ public abstract class Building
 
     public abstract void unlockBuilding ();
 
-
+    public void setUnlocked (boolean unlocked)
+    {
+        isUnlocked = unlocked;
+    }
 
     // getter methods
     public String getName ()
@@ -79,5 +88,12 @@ public abstract class Building
     {
         return isUnlocked;
     }
+
+
+    public Coordinate getPositionUpperLeft ()
+    {
+        return positionUpperLeft;
+    }
+
 
 }

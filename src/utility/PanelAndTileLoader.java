@@ -8,6 +8,7 @@ import resources.constants.Constants_Resources;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class PanelAndTileLoader
@@ -45,6 +46,8 @@ public class PanelAndTileLoader
         }
         return characterArray;
     }
+
+
     
     
     public static HashMap<Character, Image> getMapWithCharsAndImages (String imageFolderPath)
@@ -91,5 +94,131 @@ public class PanelAndTileLoader
             }
         }
         return tileArray;
+    }
+
+    //---------------------JONAS_MAP---------------------
+    public static int[][] getCharacterArrayUsingTileFile_JonasMap(String loaderFilePath, int maxRows, int maxColumns)
+    {
+        int[][] integerArray = new int[maxRows][maxColumns];
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(loaderFilePath)))
+        {
+            int row = Constants_Panel.MIN_TILE_INDEX;
+            for (int lineIndex = Constants_Panel.FILE_READER_STARTING_LINE; row < maxRows; lineIndex++)
+            {
+                if (lineIndex == Constants_Panel.BIOME_IDENTIFIER_LINE) continue;
+                char[] characters = bufferedReader.readLine().toCharArray();
+                int column = Constants_Panel.MIN_TILE_INDEX;
+                StringBuilder numberBuilder = new StringBuilder();
+                for (char currentChar : characters)
+                {
+                    if (Character.isDigit(currentChar))
+                    {
+                        numberBuilder.append(currentChar);
+                    } else if (currentChar == ' ' && numberBuilder.length() > 0)
+                    {
+                        integerArray[row][column++] = Integer.parseInt(numberBuilder.toString());
+                        numberBuilder.setLength(0);
+                    }
+                }
+                if (numberBuilder.length() > 0)
+                {
+                    integerArray[row][column] = Integer.parseInt(numberBuilder.toString());
+                }
+                row++;
+            }
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return integerArray;
+    }
+
+
+    public static Tile[][] getTileArray_JonasMap(HashMap<Integer, Image> integerImageHashMap, int[][] intArray, int maxRows, int maxColumns)
+    {
+        Tile[][] tileArray = new Tile[maxRows][maxColumns];
+        Map<Integer, Boolean> occupancyData = null;
+        try
+        {
+            occupancyData = readOccupancyData_JonasMap();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+            return tileArray;
+        }
+        for (int row = 0; row < maxRows; row++)
+        {
+            for (int column = 0; column < maxColumns; column++)
+            {
+                int intValue = intArray[row][column];
+                if (intValue == Constants_Panel.IGNORE_LOADER_FILE_VALUE) continue;
+                if (integerImageHashMap.containsKey(intValue))
+                {
+                    tileArray[row][column] = new Tile(integerImageHashMap.get(intValue));
+                } else
+                {
+                    tileArray[row][column] = new Tile(new Image("resources/assets/jonas/019_grass.png"));
+                }
+                if (occupancyData != null && occupancyData.containsKey(intValue))
+                {
+                    tileArray[row][column].setOccupied(occupancyData.get(intValue));
+                }
+            }
+        }
+        return tileArray;
+    }
+
+
+    public static HashMap<Integer, Image> getMapWithIntegersAndImages_JonasMap(String imageFolderPath)
+    {
+        HashMap<Integer, Image> currentMapOfCharsWithImages = new HashMap<>();
+        File folder = new File(imageFolderPath);
+        String[] arrayOfFileNames = folder.list();
+        if (arrayOfFileNames == null)
+        {
+            System.out.println("The folder path is invalid or contains no files: " + imageFolderPath);
+            return currentMapOfCharsWithImages;
+        }
+        for (String currentFileName : arrayOfFileNames)
+        {
+            if (!currentFileName.endsWith(Constants_Resources.PNG_SUFFIX)) continue;
+            StringBuilder numericPartBuilder = new StringBuilder();
+            for (char c : currentFileName.toCharArray())
+            {
+                if (Character.isDigit(c))
+                {
+                    numericPartBuilder.append(c);
+                } else {
+                    break;
+                }
+            }
+            if (numericPartBuilder.length() == 0) continue;
+            int keyInt = Integer.parseInt(numericPartBuilder.toString());
+            File imageFile = new File(folder, currentFileName);
+            String imagePath = imageFile.toURI().toString();
+            Image image = new Image(imagePath);
+            currentMapOfCharsWithImages.put(keyInt, image);
+        }
+        return currentMapOfCharsWithImages;
+    }
+
+
+    public static Map<Integer, Boolean> readOccupancyData_JonasMap() throws IOException
+    {
+        Map<Integer, Boolean> occupancyData = new HashMap<>();
+        InputStream is = PanelAndTileLoader.class.getResourceAsStream("/resources/assets/TileData");
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        String line;
+        while ((line = br.readLine()) != null)
+        {
+            int tileId = Integer.parseInt(line.trim().substring(0, 3));
+            if ((line = br.readLine()) != null)
+            {
+                boolean isOccupied = Boolean.parseBoolean(line.trim());
+                occupancyData.put(tileId, isOccupied);
+            }
+        }
+        br.close();
+        return occupancyData;
     }
 }
