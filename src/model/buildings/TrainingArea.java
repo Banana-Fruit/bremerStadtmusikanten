@@ -11,7 +11,7 @@ public class TrainingArea extends Building
     private static final TrainingArea INSTANCE_OF_TRAININGAREA = new TrainingArea(Constants_Building.NAME_TRAININGSAREA,
             Constants_Building.TRAININGAREA_GOLD, Constants_Building.TRAININGAREA_BRICK,
             Constants_Building.TRAININGAREA_WOOD, Constants_Building.TRAININGAREA_BEER,
-            Constants_Building.TRAININGAREA_ESSENCE, false, new Coordinate(1.0,1.0));
+            Constants_Building.TRAININGAREA_ESSENCE, false, new Coordinate(6.0,42.0));
 
 
     // constructor
@@ -30,7 +30,7 @@ public class TrainingArea extends Building
     }
 
 
-    public TrainingArea getInstanceOfTrainingarea ()
+    public static TrainingArea getInstanceOfTrainingarea ()
     {
         return INSTANCE_OF_TRAININGAREA;
     }

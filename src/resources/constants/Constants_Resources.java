@@ -14,9 +14,10 @@ public interface Constants_Resources
     String PNG_SUFFIX = ".png";
     String LOADER_FILE_SUFFIX = ".dat";
     
-    String[][] MAP_LOADER_ARRAY = new String[][] {
+    String[][] MAP_LOADER_ARRAY = new String[][]
+            {
             {"", "1", ""},
-            {"2", "main", "3"},
+            {"Mission_1", "City", "Mission_2"},
             {"", "4", ""}
     };
 }

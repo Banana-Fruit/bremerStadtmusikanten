@@ -11,6 +11,7 @@ public class Map extends Showable
 {
     private static volatile Map instance;
     Panel panel;
+    private String currentMapName;
     
     
     private Map (Scene scene)
@@ -50,5 +51,13 @@ public class Map extends Showable
     public Panel getPanel ()
     {
         return panel;
+    }
+
+    public void setCurrentMapName(String mapName) {
+        this.currentMapName = mapName; // Neu hinzugefügt
+    }
+
+    public String getCurrentMapName() {
+        return currentMapName; // Neu hinzugefügt
     }
 }
