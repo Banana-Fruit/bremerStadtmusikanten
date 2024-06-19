@@ -25,51 +25,52 @@ public class FractionCamp extends Building
     public static FractionCamp createFractionCamp(String type)
     {
         switch(type) {
-            case "Hund":
+            case Constants_Building.NAME_FRACTIONCAMP_DOG:
                 return new FractionCamp(
-                        Constants_Building.NAME_FRACTIONCAMP,
-                        Constants_Building.FRACTIONCAMP_GOLD,
-                        Constants_Building.FRACTIONCAMP_BRICK,
-                        Constants_Building.FRACTIONCAMP_WOOD,
-                        Constants_Building.FRACTIONCAMP_BEER,
-                        Constants_Building.FRACTIONCAMP_ESSENCE,
+                        Constants_Building.NAME_FRACTIONCAMP_DOG,
+                        Constants_Building.FRACTIONCAMP_DOG_GOLD,
+                        Constants_Building.FRACTIONCAMP_DOG_BRICK,
+                        Constants_Building.FRACTIONCAMP_DOG_WOOD,
+                        Constants_Building.FRACTIONCAMP_DOG_BEER,
+                        Constants_Building.FRACTIONCAMP_DOG_ESSENCE,
                         false,
-                        new Coordinate(32.0, 2.0));
-            case "Katze":
+                        new Coordinate(Constants_Building.FRACTIONCAMP_DOG_POSITION_X, Constants_Building.FRACTIONCAMP_DOG_POSITION_Y));
+            case Constants_Building.NAME_FRACTIONCAMP_CAT:
                 return new FractionCamp(
-                        "Type2Name",
-                        200, // gold
-                        150, // brick
-                        100, // wood
-                        50,  // beer
-                        25,  // essence
+                        Constants_Building.NAME_FRACTIONCAMP_CAT,
+                        Constants_Building.FRACTIONCAMP_CAT_GOLD,
+                        Constants_Building.FRACTIONCAMP_CAT_BRICK,
+                        Constants_Building.FRACTIONCAMP_CAT_WOOD,
+                        Constants_Building.FRACTIONCAMP_CAT_BEER,
+                        Constants_Building.FRACTIONCAMP_CAT_ESSENCE,
                         false,
-                        new Coordinate(39.0, 18.0));
-            case "Huhn":
+                        new Coordinate(Constants_Building.FRACTIONCAMP_CAT_POSITION_X, Constants_Building.FRACTIONCAMP_CAT_POSITION_Y));
+            case Constants_Building.NAME_FRACTIONCAMP_CHICKEN:
                 return new FractionCamp(
-                        "Type3Name",
-                        300, // gold
-                        200, // brick
-                        150, // wood
-                        75,  // beer
-                        30,  // essence
+                        Constants_Building.NAME_FRACTIONCAMP_CHICKEN,
+                        Constants_Building.FRACTIONCAMP_CHICKEN_GOLD,
+                        Constants_Building.FRACTIONCAMP_CHICKEN_BRICK,
+                        Constants_Building.FRACTIONCAMP_CHICKEN_WOOD,
+                        Constants_Building.FRACTIONCAMP_CHICKEN_BEER,
+                        Constants_Building.FRACTIONCAMP_CHICKEN_ESSENCE,
                         false,
-                        new Coordinate(14.0, 30.0));
+                        new Coordinate(Constants_Building.FRACTIONCAMP_CHICKEN_POSITION_X, Constants_Building.FRACTIONCAMP_CHICKEN_POSITION_Y));
             default:
-                throw new IllegalArgumentException("Unknown FractionCamp type: " + type);
+                throw new IllegalArgumentException(Constants_Building.UNKNOWN_FRACTIONCAMP_TYPE + type);
         }
     }
 
     // Getter methods for each type of FractionCamp
-    public static FractionCamp getDogFractionCamp () {
-        return createFractionCamp("Hund");
+    public static FractionCamp getDogFractionCamp ()
+    {
+        return createFractionCamp(Constants_Building.NAME_FRACTIONCAMP_DOG);
     }
 
     public static FractionCamp getCatFractionCamp () {
-        return createFractionCamp("Katze");
+        return createFractionCamp(Constants_Building.NAME_FRACTIONCAMP_CAT);
     }
 
     public static FractionCamp getChickenFractionCamp () {
-        return createFractionCamp("Huhn");
+        return createFractionCamp(Constants_Building.NAME_FRACTIONCAMP_CHICKEN);
     }
 }

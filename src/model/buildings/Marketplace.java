@@ -13,7 +13,7 @@ public class Marketplace extends Building
 {
     private static final Marketplace INSTANCE_OF_MARKETPLACE = new Marketplace(Constants_Building.NAME_MARKETPLACE,
             Constants_Building.MARKET_GOLD, Constants_Building.MARKET_BRICK, Constants_Building.MARKET_WOOD,
-            Constants_Building.MARKET_BEER, Constants_Building.MARKET_ESSENCE, false, new Coordinate(30.0,33.0));
+            Constants_Building.MARKET_BEER, Constants_Building.MARKET_ESSENCE, false, new Coordinate(Constants_Building.MARKETPLACE_POSITION_X,Constants_Building.MARKETPLACE_POSITION_Y));
 
 
     // constructor
