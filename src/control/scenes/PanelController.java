@@ -9,6 +9,7 @@ import model.panel.Panel;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Panel;
 import resources.constants.Constants_Resources;
+import resources.constants.scenes.Constants_Map;
 import utility.PanelAndTileLoader;
 import view.PanelView;
 
@@ -198,6 +199,26 @@ public class PanelController
         return false; // Not occupied if method reached end
     }
 
+
+
+    public boolean isVerticalMoveBlocked(Panel panel, Coordinate currentPlayerPosition, Coordinate newPlayerPosition) {
+        double yMovement = newPlayerPosition.getPositionY() - currentPlayerPosition.getPositionY();
+        if (yMovement == 0) return false;
+
+        double newY = newPlayerPosition.getPositionY();
+        Coordinate newVerticalPosition = new Coordinate(currentPlayerPosition.getPositionX(), newY);
+        return isCoordinateOccupied(panel, newVerticalPosition);
+    }
+
+    public boolean isHorizontalMoveBlocked(Panel panel, Coordinate currentPlayerPosition, Coordinate newPlayerPosition) {
+        double xMovement = newPlayerPosition.getPositionX() - currentPlayerPosition.getPositionX();
+        if (xMovement == 0) return false;
+
+        double newX = newPlayerPosition.getPositionX();
+        Coordinate newHorizontalPosition = new Coordinate(newX, currentPlayerPosition.getPositionY());
+        return isCoordinateOccupied(panel, newHorizontalPosition);
+    }
+
     private boolean isObstacle(Panel panel, int x, int y) {
         // Erhalte die Indizes der Kachel, die sich an den angegebenen Koordinaten befindet
         Coordinate tileIndices = getTileIndicesFromCoordinates(panel, new Coordinate(x, y));
@@ -207,14 +228,14 @@ public class PanelController
     }
     
     
-    private Coordinate getTileIndicesFromCoordinates (Panel panel, Coordinate coordinate)
+    public Coordinate getTileIndicesFromCoordinates (Panel panel, Coordinate coordinate)
     {
         Coordinate nullPosition = getNullPositionOfPanelInRelationToScreenSize(panel);
         Coordinate currentCoordinate = new Coordinate(coordinate.getPositionX() - nullPosition.getPositionX(),
                 coordinate.getPositionY() - nullPosition.getPositionY());
         currentCoordinate.setPositionX((int)(currentCoordinate.getPositionX() / panel.getTileSize()));
         currentCoordinate.setPositionY((int)(currentCoordinate.getPositionY() / panel.getTileSize()));
-        System.out.println(currentCoordinate.getPositionX() + " " + currentCoordinate.getPositionY());
+        //System.out.println(currentCoordinate.getPositionX() + " " + currentCoordinate.getPositionY());
         return currentCoordinate;
     }
     
