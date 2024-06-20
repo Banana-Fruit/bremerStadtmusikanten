@@ -10,7 +10,7 @@ public class Headquarter extends Building
 {
     private static final Headquarter INSTANCE_OF_HEADQUARTER = new Headquarter(Constants_Building.NAME_HEADQUARTER,
             Constants_Building.HEADQUARTER_GOLD, Constants_Building.HEADQUARTER_BRICK, Constants_Building.HEADQUARTER_WOOD,
-            Constants_Building.HEADQUARTER_BEER, Constants_Building.HEADQUARTER_ESSENCE, true, new Coordinate(4.0,34.0));
+            Constants_Building.HEADQUARTER_BEER, Constants_Building.HEADQUARTER_ESSENCE, true, new Coordinate(Constants_Building.HEADQUARTER_POSITION_X,Constants_Building.HEADQUARTER_POSITION_Y));
 
 
     private Headquarter (String name, int numberOfGold, int numberOfBrick, int numberOfWood,

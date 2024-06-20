@@ -170,15 +170,15 @@ public class PlayerController implements Runnable
 
 
         // Uebergang zu Mission 1
-        if (current.getPositionX() == 0.0 && Map.getInstance().getCurrentMapName().equals("City"))
+        if (current.getPositionX() == Constants_Map.PLAYER_AT_LEFT_BORDER && Map.getInstance().getCurrentMapName().equals(Constants_Map.MAP_NAME_CITY))
         {
 
-            switchToMission("Mission_1", 24, 49);
+            switchToMission(Constants_Map.MAP_NAME_MISSION_1, Constants_Map.PLAYER_SPAWN_MISSION_1_POSITION_X, Constants_Map.PLAYER_SPAWN_MISSION_1_POSITION_Y);
         }
         // Return to City from Mission 1
-        else if (current.getPositionX() > 45 && current.getPositionY() < 7 && Map.getInstance().getCurrentMapName().equals("Mission_1"))
+        else if (current.getPositionX() > Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_X && current.getPositionY() < Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_Y && Map.getInstance().getCurrentMapName().equals(Constants_Map.MAP_NAME_MISSION_1))
         {
-            switchToMission("City", 25, 25);
+            switchToMission(Constants_Map.MAP_NAME_CITY, Constants_Map.PLAYER_SPAWN_CITY_POSITION_X, Constants_Map.PLAYER_SPAWN_CITY_POSITION_Y);
             Platform.runLater(()-> BuildingController.getInstance().addButtons());
 
         }
@@ -187,7 +187,7 @@ public class PlayerController implements Runnable
     private void switchToMission(String newMap, int tileX, int tileY)
     {
         Map.getInstance().setCurrentMapName(newMap);
-        System.out.println("Switching to map: " + newMap);
+        System.out.println(Constants_Map.CONSOLE_PRINT_SWITCHING_MAP + newMap);
 
         Platform.runLater(() -> {
             Map.getInstance().getPane().getChildren().remove(playerView);

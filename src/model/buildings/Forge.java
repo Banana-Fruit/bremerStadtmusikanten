@@ -12,7 +12,7 @@ public class Forge extends Building
 {
     private static final Forge instanceOfForge = new Forge(Constants_Building.NAME_FORGE, Constants_Building.FORGE_GOLD,
             Constants_Building.FORGE_BRICK, Constants_Building.FORGE_WOOD, Constants_Building.FORGE_BEER,
-            Constants_Building.FORGE_ESSENCE, false, new Coordinate(29.0,16.0));
+            Constants_Building.FORGE_ESSENCE, false, new Coordinate(Constants_Building.FORGE_POSITION_X,Constants_Building.FORGE_POSITION_Y));
 
 
     // constructor
