@@ -1,6 +1,7 @@
 package control.game;
 import model.Attack;
 import model.Unit;
+import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_Sorting;
 import java.util.*;
 
@@ -14,18 +15,11 @@ public class CombatController
 			public int compare(Unit o1, Unit o2)
 			{
 				if (Integer.compare(o2.getInit(),o1.getInit()) > 0)
-				{
-					return(Constants_Sorting.POSITIVE);
-				}
+				{return(Constants_Sorting.POSITIVE);}
 				else if (Integer.compare(o2.getInit(),o1.getInit()) == 0)
-				{
-					return(Constants_Sorting.ZERO);
-				}
+				{return(Constants_Sorting.ZERO);}
 				else
-				{
-					return(Constants_Sorting.NEGATIVE) ;
-				}
-				
+				{return(Constants_Sorting.NEGATIVE);}
 			}
 		});
 		
@@ -51,19 +45,17 @@ public class CombatController
 		boolean isMagic = attackused.getMagic();
 		boolean isRanged = attackused.getRanged();
 		int atkRange = attackused.getAtkRange();
-		
-		
+
 		int shield = defender.getShield();
 		int magicResist = defender.getMagicresist();
 		int dodge = defender.getDodge();
-		
+
 		int meleeDamage = attacker.getMeele();
 		int rangedDamage = attacker.getRanged();
 		int magicDamage = attacker.getMagicDmg();
 		int currentMana = attacker.getMana();
 		int currentAmmo = attacker.getAmmo();
-		
-		
+
 		float damageBlocked;
 		int rawDamage;
 		boolean isCloseEnough;
@@ -75,7 +67,7 @@ public class CombatController
 		{
 			if (currentMana > 0)
 			{
-				damageBlocked = magicDamage * magicResist / 100;
+				damageBlocked = magicDamage * magicResist / Constants_DefaultValues.PERCENTAGE_NUMBER;
 				rawDamage = magicDamage;
 				newMana = currentMana - 1;
 				attacker.setMana(newMana);
@@ -83,7 +75,7 @@ public class CombatController
 				if (RollDice(dodge) == true)
 				{
 					DoDamage(damageBlocked, defender,rawDamage);
-					System.out.print(defender.getHp() + " sind die neuen Hp von: " + defender.getName());
+					System.out.print(defender.getHp() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
 				}
 				else
 				{
@@ -97,14 +89,14 @@ public class CombatController
 			
 			if (currentAmmo > 0)
 			{
-				damageBlocked = rangedDamage * shield/100;
+				damageBlocked = rangedDamage * shield / Constants_DefaultValues.PERCENTAGE_NUMBER;
 				rawDamage = rangedDamage;
-				newAmmo = currentAmmo -1;
+				newAmmo = currentAmmo - 1;
 				attacker.setAmmo(newAmmo);
 				if (RollDice(dodge) == true)
 				{
 					DoDamage(damageBlocked, defender,rawDamage);
-					System.out.print(defender.getHp() + " sind die neuen Hp von: " + defender.getName());
+					System.out.print(defender.getHp() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
 				}
 				else
 				{
@@ -116,12 +108,12 @@ public class CombatController
 		else
 		{
 			
-			damageBlocked = meleeDamage * shield/100;
+			damageBlocked = meleeDamage * shield / Constants_DefaultValues.PERCENTAGE_NUMBER;
 			rawDamage = meleeDamage;
 			if (RollDice(dodge) == true)
 			{
 				DoDamage(damageBlocked, defender,rawDamage);
-				System.out.print(defender.getHp() + " sind die neuen Hp von: " + defender.getName());
+				System.out.print(defender.getHp() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
 			}
 			else
 			{
