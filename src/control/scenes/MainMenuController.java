@@ -95,7 +95,8 @@ public class MainMenuController implements GameMenuBar
         Map.initialize(new Scene(SceneController.getInstance().getBasePane()));
         SceneController.getInstance().switchShowable(Map.getInstance());
         //MapController.getInstance().setNewMap("main.dat");
-        MapController.getInstance().setNewMap("Map1");
+        Map.getInstance().setCurrentMapName(Constants_Map.MAP_NAME_CITY);
+        MapController.getInstance().setNewMap(Constants_Map.MAP_NAME_CITY);
         Player.initialize();
         BuildingController.getInstance().addButtons();
 

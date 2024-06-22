@@ -2,7 +2,11 @@ package control.game;
 
 
 import control.BuildingController;
+import control.events.KeyboardController;
+import control.scenes.MapController;
 import control.scenes.PanelController;
+import control.scenes.SceneController;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import model.Coordinate;
@@ -12,6 +16,7 @@ import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Game;
 import resources.constants.Constants_Keymapping;
+import resources.constants.Constants_Resources;
 import resources.constants.scenes.Constants_Map;
 import view.OutputImageView;
 
@@ -72,34 +77,34 @@ public class PlayerController implements Runnable
         }
         return instance;
     }
-    
-    
+
+
     @Override
-    public void run ()
-    {
-        while (true)
-        {
-            try
-            {
+    public void run() {
+        while (true) {
+            try {
+                Platform.runLater(() -> checkMissionStart());
                 Thread.sleep(Constants_Game.THREAD_SLEEP_DEFAULT_TIME);
-                
-                if (!this.currentPlayerPosition.isEqual(this.newPlayerPosition)) // If player tries to move
-                {
-                    if(!PanelController.getInstance().isCoordinateOccupied(Map.getInstance().getPanel(),
-                            newPlayerPosition)) // If coordinate is not occupied
-                    {
-                         setPlayerPosition(newPlayerPosition); // Player moves
-                    } else
-                    {
-                        setPlayerPosition(currentPlayerPosition); // Otherwise player does not move
+                if (!this.currentPlayerPosition.isEqual(this.newPlayerPosition)) {
+                    // Check if vertical movement is possible
+                    boolean canMoveVertically = !PanelController.getInstance().isVerticalMoveBlocked(Map.getInstance().getPanel(), currentPlayerPosition, newPlayerPosition);
+                    if (canMoveVertically) {
+                        this.currentPlayerPosition.setPositionY(this.newPlayerPosition.getPositionY());
                     }
+
+                    // Check if horizontal movement is possible
+                    boolean canMoveHorizontally = !PanelController.getInstance().isHorizontalMoveBlocked(Map.getInstance().getPanel(), currentPlayerPosition, newPlayerPosition);
+                    if (canMoveHorizontally) {
+                        this.currentPlayerPosition.setPositionX(this.newPlayerPosition.getPositionX());
+                    }
+
+                    // Update player position
+                    setPlayerPosition(this.currentPlayerPosition);
                 }
-            } catch (InterruptedException e)
-            {
-                Thread.currentThread().interrupt(); // Preserve interrupt status
-                break; // Exit the loop if interrupted
-            } catch (Exception e)
-            {
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break;
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
@@ -157,5 +162,39 @@ public class PlayerController implements Runnable
         this.currentPlayerPosition = new Coordinate(playerPosition);
         this.newPlayerPosition = new Coordinate(playerPosition);
         playerView.setCoordinates(playerPosition);
+    }
+
+    public void checkMissionStart()
+    {
+        Coordinate current = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance().getPanel(), currentPlayerPosition);
+
+
+        // Uebergang zu Mission 1
+        if (current.getPositionX() == Constants_Map.PLAYER_AT_LEFT_BORDER && Map.getInstance().getCurrentMapName().equals(Constants_Map.MAP_NAME_CITY))
+        {
+
+            switchToMission(Constants_Map.MAP_NAME_MISSION_1, Constants_Map.PLAYER_SPAWN_MISSION_1_POSITION_X, Constants_Map.PLAYER_SPAWN_MISSION_1_POSITION_Y);
+        }
+        // Return to City from Mission 1
+        else if (current.getPositionX() > Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_X && current.getPositionY() < Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_Y && Map.getInstance().getCurrentMapName().equals(Constants_Map.MAP_NAME_MISSION_1))
+        {
+            switchToMission(Constants_Map.MAP_NAME_CITY, Constants_Map.PLAYER_SPAWN_CITY_POSITION_X, Constants_Map.PLAYER_SPAWN_CITY_POSITION_Y);
+            Platform.runLater(()-> BuildingController.getInstance().addButtons());
+
+        }
+    }
+
+    private void switchToMission(String newMap, int tileX, int tileY)
+    {
+        Map.getInstance().setCurrentMapName(newMap);
+        System.out.println(Constants_Map.CONSOLE_PRINT_SWITCHING_MAP + newMap);
+
+        Platform.runLater(() -> {
+            Map.getInstance().getPane().getChildren().remove(playerView);
+            SceneController.getInstance().switchShowable(Map.getInstance());
+            MapController.getInstance().setNewMap(newMap);
+            Map.getInstance().getPane().getChildren().add(playerView);
+            setPlayerPosition(new Coordinate(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), tileX, tileY)));
+        });
     }
 }

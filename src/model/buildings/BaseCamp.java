@@ -3,14 +3,23 @@ package model.buildings;
 
 import control.BuildingController;
 import model.Coordinate;
+import model.player.FractionDonkey;
+import model.player.Unit;
 import resources.constants.scenes.Constants_Building;
+
+import java.util.List;
 
 
 public class BaseCamp extends Building
 {
     private static final BaseCamp INSTANCE_OF_BASECAMP = new BaseCamp(Constants_Building.NAME_BASECAMP_NAME,
             Constants_Building.BASECAMP_GOLD, Constants_Building.BASECAMP_BRICK, Constants_Building.BASECAMP_WOOD,
-            Constants_Building.BASECAMP_BEER, Constants_Building.BASECAMP_ESSENCE, false, new Coordinate(21.0,9.0));
+            Constants_Building.BASECAMP_BEER, Constants_Building.BASECAMP_ESSENCE, false, new Coordinate(Constants_Building.BASECAMP_POSITION_X,Constants_Building.BASECAMP_POSITION_Y));
+
+
+    // TODO: später woanders initialisieren
+    private FractionDonkey fractionDonkey = FractionDonkey.getInstanceOfFractiondonkey();
+    private List<Unit> listOfFractions;
 
 
     // constructor
@@ -30,8 +39,53 @@ public class BaseCamp extends Building
     }
 
 
+    // ist später unnötig: unlock button besser
+    public static FractionDonkey unlockFractionDonkey (FractionDonkey fractionDonkey)
+    {
+        Unit rats = recruitRatsFromFractionDonkey(fractionDonkey);
+        Unit beetles = recruitBeetlesFromFractionDonkey(fractionDonkey);
+        Unit mosquitoes = recruitMosquitoesFromFractionDonkey(fractionDonkey);
+
+
+        return fractionDonkey;
+    }
+
+
+    private static Unit recruitRatsFromFractionDonkey (FractionDonkey fractionDonkey)
+    {
+        return fractionDonkey.getRats(); // TODO: später Einlesen
+    }
+
+
+    private static Unit recruitBeetlesFromFractionDonkey (FractionDonkey fractionDonkey)
+    {
+        return fractionDonkey.getBeetle(); // TODO: später Einlesen
+    }
+
+
+    private static Unit recruitMosquitoesFromFractionDonkey (FractionDonkey fractionDonkey)
+    {
+        return fractionDonkey.getMosquitoes(); // TODO: später Einlesen
+    }
+
+
+    public static void addUnitsToList (FractionDonkey fractionDonkey)
+    {
+        List<Unit> list = INSTANCE_OF_BASECAMP.getListOfFractions();
+        list.add(fractionDonkey.getRats());
+        list.add(fractionDonkey.getBeetle());
+        list.add(fractionDonkey.getMosquitoes());
+    }
+
+
     public static BaseCamp getInstanceOfBasecamp ()
     {
         return INSTANCE_OF_BASECAMP;
+    }
+
+
+    public List<Unit> getListOfFractions ()
+    {
+        return listOfFractions;
     }
 }

@@ -11,9 +11,9 @@ true
 005_lake_upper_right.png
 true
 006_fence_grass_down_right.png
-false
+true
 007_fence_grass_left_right.png
-false
+true
 008_fence_grass_down_left.png
 true
 009_gray_building_roof_upper_left.png
@@ -51,7 +51,7 @@ true
 025_lake_middle_right.png
 true
 026_fence_grass_up_down_rightside.png
-false
+true
 027_fence_grass_left_right_straight.png
 true
 028_fence_grass_up_down_leftside.png
@@ -111,7 +111,7 @@ true
 055_bridge_upper_stream_double.png
 false
 056_.png
-false
+true
 057.png
 false
 058.png
@@ -165,13 +165,13 @@ false
 082_sign_grass.png
 false
 083_target_grass.png
-true
+false
 084__hive_grass.png
 true
 085_well_lower_grass.png
 true
 086_fence_grass_down_end.png
-false
+true
 087_fence_grass_up_down_middle.png
 true
 088_stones_grass.png
@@ -179,7 +179,7 @@ false
 089_stones_grass_highlighted.png
 false
 090_gray_building_roof_chimney.png
-false
+true
 091_gray_building_roof_lower_frame.png
 true
 092_red_building_roof_chimney.png
@@ -227,13 +227,13 @@ true
 113_catle_archway_down_right.png
 false
 114_catle_archway_up_left.png
-false
+true
 115_catle_archway_up_left_grid.png
-false
+true
 116_catle_archway_up_right.png
-false
+true
 117_catle_archway_up_right_grid.png
-false
+true
 118_catle_down_right.png
 true
 119_catle_keyhole.png
@@ -241,7 +241,7 @@ true
 120_catle_middle_left.png
 true
 121_catle_middle_right.png
-true
+false
 122_catle_top.png
 true
 123_catle_up_right.png
@@ -251,7 +251,7 @@ true
 125_gray_building_roof_lower_left - Kopie.png
 true
 126_tent_top.png
-true
+false
 127_tent_middle_left.png
 true
 128_tent_middle_middle.png
@@ -265,7 +265,7 @@ true
 132_tent_lower_right.png
 true
 133_left_tent_upper_left.png
-true
+false
 134_left_tent_upper_middle.png
 true
 135_left_tent_upper_right.png
@@ -283,9 +283,9 @@ true
 141_left_tent_lower_right.png
 true
 142_fireplace.png
-false
+true
 143_gray_building_foundation_oven.png
-false
+true
 144_anvil.png
 true
 145_magic_amplifier_top.png
@@ -366,3 +366,7 @@ true
 true
 183_marketplace_roof_blue_lower_right.png
 true
+184_bag_path.png
+false
+185_key_path.png
+false

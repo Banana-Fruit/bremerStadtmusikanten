@@ -3,6 +3,30 @@ package resources.constants.scenes;
 
 public interface Constants_Building
 {
+    double BASECAMP_POSITION_X = 21.0;
+    double BASECAMP_POSITION_Y = 4.0;
+    double FORGE_POSITION_X = 29.0;
+    double FORGE_POSITION_Y = 16.0;
+    double HEADQUARTER_POSITION_X = 4.0;
+    double HEADQUARTER_POSITION_Y = 34.0;
+    double MAGIC_AMPLIFIER_POSITION_X = 17.0;
+    double MAGIC_AMPLIFIER_POSITION_Y = 45.0;
+    double MARKETPLACE_POSITION_X = 30.0;
+    double MARKETPLACE_POSITION_Y = 33.0;
+    double PUB_POSITION_X = 10.0;
+    double PUB_POSITION_Y = 8.0;
+    double TRAINING_AREA_POSITION_X = 6.0;
+    double TRAINING_AREA_POSITION_Y = 42.0;
+    double FRACTIONCAMP_DOG_POSITION_X = 32.0;
+    double FRACTIONCAMP_DOG_POSITION_Y = 2.0;
+    double FRACTIONCAMP_CAT_POSITION_X = 39.0;
+    double FRACTIONCAMP_CAT_POSITION_Y = 18.0;
+    double FRACTIONCAMP_CHICKEN_POSITION_X = 14.0;
+    double FRACTIONCAMP_CHICKEN_POSITION_Y = 30.0;
+    double BUILDING_BUTTON_OPACITY_RELEASED = 0.0;
+    double BUILDING_BUTTON_OPACITY_PRESSED = 0.1;
+
+
     public static final int FORGE_GOLD = 1;
     public static final int FORGE_BRICK = 1;
     public static final int FORGE_WOOD = 5;
@@ -28,11 +52,21 @@ public interface Constants_Building
     public static final int BASECAMP_WOOD = 1;
     public static final int BASECAMP_BEER = 1;
     public static final int BASECAMP_ESSENCE = 0;
-    public static final int FRACTIONCAMP_GOLD = 1;
-    public static final int FRACTIONCAMP_BRICK = 3;
-    public static final int FRACTIONCAMP_WOOD = 1;
-    public static final int FRACTIONCAMP_BEER = 1;
-    public static final int FRACTIONCAMP_ESSENCE = 0;
+    int FRACTIONCAMP_DOG_GOLD = 1;
+    int FRACTIONCAMP_DOG_BRICK = 3;
+    int FRACTIONCAMP_DOG_WOOD = 1;
+    int FRACTIONCAMP_DOG_BEER = 1;
+    int FRACTIONCAMP_DOG_ESSENCE = 0;
+    int FRACTIONCAMP_CAT_GOLD = 2;
+    int FRACTIONCAMP_CAT_BRICK = 6;
+    int FRACTIONCAMP_CAT_WOOD = 2;
+    int FRACTIONCAMP_CAT_BEER = 2;
+    int FRACTIONCAMP_CAT_ESSENCE = 0;
+    int FRACTIONCAMP_CHICKEN_GOLD = 3;
+    int FRACTIONCAMP_CHICKEN_BRICK = 9;
+    int FRACTIONCAMP_CHICKEN_WOOD = 4;
+    int FRACTIONCAMP_CHICKEN_BEER = 4;
+    int FRACTIONCAMP_CHICKEN_ESSENCE = 0;
     public static final int HEADQUARTER_GOLD = 0;
     public static final int HEADQUARTER_BRICK = 0;
     public static final int HEADQUARTER_WOOD = 0;
@@ -74,17 +108,44 @@ public interface Constants_Building
     public static final int BONUS_FACTOR_TWO = 2;
     public static final int BONUS_FACTOR_ZERO = 0;
 
+    int BUTTON_WIDTH_BASECAMP = 48;
+    int BUTTON_HEIGHT_BASECAMP = 48;
+    int BUTTON_WIDTH_FORGE = 128;
+    int BUTTON_HEIGHT_FORGE = 48;
+    int BUTTON_WIDTH_FRACTIONCAMP_DOG = 48;
+    int BUTTON_HEIGHT_FRACTIONCAMP_DOG = 48;
+    int BUTTON_WIDTH_FRACTIONCAMP_CAT = 48;
+    int BUTTON_HEIGHT_FRACTIONCAMP_CAT = 48;
+    int BUTTON_WIDTH_FRACTIONCAMP_CHICKEN = 48;
+    int BUTTON_HEIGHT_FRACTIONCAMP_CHICKEN = 48;
+    int BUTTON_WIDTH_HEADQUARTER = 96;
+    int BUTTON_HEIGHT_HEADQUARTER = 80;
+    int BUTTON_WIDTH_MAGICAMPLIFIER = 48;
+    int BUTTON_HEIGHT_MAGICAMPLIFIER = 64;
+    int BUTTON_WIDTH_MARKETPLACE = 144;
+    int BUTTON_HEIGHT_MARKETPLACE = 80;
+    int BUTTON_WIDTH_PUB = 192;
+    int BUTTON_HEIGHT_PUB = 64;
+    int BUTTON_WIDTH_TRAINING_AREA = 112;
+    int BUTTON_HEIGHT_TRAINING_AREA = 64;
+
+
+
 
     //only for the test in the console
     public static final int INVENTORY_STANDARD = 10;
 
 
     //___________________________________ String_________________________________________________
+
+
     public static final String NAME_BASECAMP_NAME = "Base Camp";
     public static final String NAME_FORGE = "Forge";
-    public static final String NAME_FRACTIONCAMP = "Fraction Camp";
+    public static final String NAME_FRACTIONCAMP_DOG = "Fraction Camp - Hund";
+    public static final String NAME_FRACTIONCAMP_CAT = "Fraction Camp - Katze";
+    public static final String NAME_FRACTIONCAMP_CHICKEN = "Fraction Camp - Huhn";
     public static final String NAME_MARKETPLACE = "Marketplace";
-    public static final String NAME_PUB = " Pub";
+    public static final String NAME_PUB = "Pub";
     public static final String NAME_TRAININGSAREA = "Training Area";
     public static final String NAME_HEADQUARTER = "Headquarter";
     public static final String NAME_MAGICAMPLIFIER = "Magic Amplifier";
@@ -106,5 +167,6 @@ public interface Constants_Building
     public static final String SCENE_TITLE = "Forge";
     public static final String BUTTON_TITLE = "Unlock the forge";
     public static final String FONT = "Arial";
+    String UNKNOWN_FRACTIONCAMP_TYPE = "Unknown FractionCamp type: ";
 
 }

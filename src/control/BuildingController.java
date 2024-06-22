@@ -1,21 +1,12 @@
 package control;
 
 
-import control.game.SavegameController;
 import control.scenes.GUIController;
-import control.scenes.MapController;
 import control.scenes.PanelController;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
 import model.Coordinate;
-import model.buildings.BaseCamp;
-import model.buildings.Building;
-import model.buildings.Forge;
-import model.buildings.FractionCamp;
-import model.panel.Panel;
+import model.buildings.*;
 import model.player.Inventory;
 import model.userInterface.TransparentButton;
-import model.userInterface.showables.MainMenu;
 import model.userInterface.showables.Map;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.scenes.Constants_Building;
@@ -79,19 +70,30 @@ public class BuildingController
 
     public void addButtons()
     {
-        Map.getInstance().getPane().getChildren().add(createBuildingButton("BC", () -> GUIController.showPriceOfBuilding(BaseCamp.getInstanceOfBasecamp()),48,48, BaseCamp.getInstanceOfBasecamp().getPositionUpperLeft()));
-        Map.getInstance().getPane().getChildren().add(createBuildingButton("FO", () -> GUIController.showPriceOfBuilding(Forge.getInstanceOfForge()),80,64, Forge.getInstanceOfForge().getPositionUpperLeft()));
-        Map.getInstance().getPane().getChildren().add(createBuildingButton("FC", () -> GUIController.showPriceOfBuilding(FractionCamp.getInstanceOfFractioncamp()),80,48, FractionCamp.getInstanceOfFractioncamp().getPositionUpperLeft()));
+        Map.getInstance().getPane().getChildren().add(createBuildingButton("BC", () -> GUIController.showPriceOfBuilding(BaseCamp.getInstanceOfBasecamp()),Constants_Building.BUTTON_WIDTH_BASECAMP,Constants_Building.BUTTON_HEIGHT_BASECAMP, BaseCamp.getInstanceOfBasecamp().getPositionUpperLeft()));
+        Map.getInstance().getPane().getChildren().add(createBuildingButton("FO", () -> GUIController.showPriceOfBuilding(Forge.getInstanceOfForge()),Constants_Building.BUTTON_WIDTH_FORGE,Constants_Building.BUTTON_HEIGHT_FORGE, Forge.getInstanceOfForge().getPositionUpperLeft()));
+        //Map.getInstance().getPane().getChildren().add(createBuildingButton("F1", () -> GUIController.showPriceOfBuilding(FractionCamp.createFractionCamp(Constants_Building.NAME_FRACTIONCAMP_DOG)),Constants_Building.BUTTON_WIDTH_FRACTIONCAMP_DOG,Constants_Building.BUTTON_HEIGHT_FRACTIONCAMP_DOG, FractionCamp.getDogFractionCamp().getPositionUpperLeft()));
+        //Map.getInstance().getPane().getChildren().add(createBuildingButton("F2", () -> GUIController.showPriceOfBuilding(FractionCamp.createFractionCamp(Constants_Building.NAME_FRACTIONCAMP_CAT)),Constants_Building.BUTTON_WIDTH_FRACTIONCAMP_CAT,Constants_Building.BUTTON_HEIGHT_FRACTIONCAMP_CAT, FractionCamp.getCatFractionCamp().getPositionUpperLeft()));
+        //Map.getInstance().getPane().getChildren().add(createBuildingButton("F3", () -> GUIController.showPriceOfBuilding(FractionCamp.createFractionCamp(Constants_Building.NAME_FRACTIONCAMP_CHICKEN)),Constants_Building.BUTTON_WIDTH_FRACTIONCAMP_CHICKEN,Constants_Building.BUTTON_HEIGHT_FRACTIONCAMP_CHICKEN, FractionCamp.getChickenFractionCamp().getPositionUpperLeft()));
+
+        Map.getInstance().getPane().getChildren().add(createBuildingButton("F1", () -> GUIController.showPriceOfBuilding(FractionCampDog.getInstanceOfFractionDogcamp()),Constants_Building.BUTTON_WIDTH_FRACTIONCAMP_DOG,Constants_Building.BUTTON_HEIGHT_FRACTIONCAMP_DOG, FractionCampDog.getInstanceOfFractionDogcamp().getPositionUpperLeft()));
+        Map.getInstance().getPane().getChildren().add(createBuildingButton("F2", () -> GUIController.showPriceOfBuilding(FractionCampCat.getInstanceOfFractionCatCamp()),Constants_Building.BUTTON_WIDTH_FRACTIONCAMP_CAT,Constants_Building.BUTTON_HEIGHT_FRACTIONCAMP_CAT, FractionCampCat.getInstanceOfFractionCatCamp().getPositionUpperLeft()));
+        Map.getInstance().getPane().getChildren().add(createBuildingButton("F3", () -> GUIController.showPriceOfBuilding(FractionCampChicken.getInstanceOfFractionChickenCamp()),Constants_Building.BUTTON_WIDTH_FRACTIONCAMP_CHICKEN,Constants_Building.BUTTON_HEIGHT_FRACTIONCAMP_CHICKEN, FractionCampChicken.getInstanceOfFractionChickenCamp().getPositionUpperLeft()));
+
+
+        Map.getInstance().getPane().getChildren().add(createBuildingButton("HQ", () -> GUIController.showPriceOfBuilding(Headquarter.getInstanceOfHeadquarter()),Constants_Building.BUTTON_WIDTH_HEADQUARTER,Constants_Building.BUTTON_HEIGHT_HEADQUARTER, Headquarter.getInstanceOfHeadquarter().getPositionUpperLeft()));
+        Map.getInstance().getPane().getChildren().add(createBuildingButton("MA", () -> GUIController.showPriceOfBuilding(MagicAmplifier.getInstanceOfMagicamplifier()),Constants_Building.BUTTON_WIDTH_MAGICAMPLIFIER,Constants_Building.BUTTON_HEIGHT_MAGICAMPLIFIER, MagicAmplifier.getInstanceOfMagicamplifier().getPositionUpperLeft()));
+        Map.getInstance().getPane().getChildren().add(createBuildingButton("MP", () -> GUIController.showPriceOfBuilding(Marketplace.getInstanceOfMarketplace()),Constants_Building.BUTTON_WIDTH_MARKETPLACE, Constants_Building.BUTTON_HEIGHT_MARKETPLACE, Marketplace.getInstanceOfMarketplace().getPositionUpperLeft()));
+        Map.getInstance().getPane().getChildren().add(createBuildingButton("PU", () -> GUIController.showPriceOfBuilding(Pub.getInstanceOfPub()),Constants_Building.BUTTON_WIDTH_PUB,Constants_Building.BUTTON_HEIGHT_PUB, Pub.getInstanceOfPub().getPositionUpperLeft()));
+        Map.getInstance().getPane().getChildren().add(createBuildingButton("TA", () -> GUIController.showPriceOfBuilding(TrainingArea.getInstanceOfTrainingarea()),Constants_Building.BUTTON_WIDTH_TRAINING_AREA,Constants_Building.BUTTON_HEIGHT_TRAINING_AREA, TrainingArea.getInstanceOfTrainingarea().getPositionUpperLeft()));
     }
 
     public TransparentButton createBuildingButton (String name, Runnable action, int itemWidth, int itemHeight, Coordinate coordinate)
     {
         Coordinate buildingCoordinate = PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(),(int) coordinate.getPositionX(),(int) coordinate.getPositionY()-1);
         TransparentButton button = new TransparentButton(name, () -> { action.run();},
-                itemWidth, itemHeight, 0.0, 0.1);
+                itemWidth, itemHeight, Constants_Building.BUILDING_BUTTON_OPACITY_RELEASED, Constants_Building.BUILDING_BUTTON_OPACITY_PRESSED);
         button.setTranslateX(buildingCoordinate.getPositionX());
-        System.out.println(coordinate.getPositionX());
-        System.out.println(coordinate.getPositionY());
         button.setTranslateY(buildingCoordinate.getPositionY());
         return button;
     }
