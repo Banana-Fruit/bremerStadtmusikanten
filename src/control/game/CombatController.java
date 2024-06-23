@@ -9,6 +9,7 @@ public class CombatController
 {
 	public void Combat(List<Unit> participants)
 	{
+		List<Attack> attacks = new UnitController().AttackCreator();
 		Collections.sort(participants, new Comparator<Unit>()
 		{
 			@Override
@@ -23,9 +24,9 @@ public class CombatController
 			}
 		});
 		
-		for(int n = 0; n<= participants.size(); n++)
+		for(int n = 0; n <= participants.size(); n++)
 		{//WIP
-			//AttackUnit(participants.get(n), choiceOfFoe(participants,n),Attackused);
+			AttackUnit(participants.get(n), choiceOfFoe(participants,n),attacks.get(participants.get(n).getMyAttack()));
 		}
 		
 		

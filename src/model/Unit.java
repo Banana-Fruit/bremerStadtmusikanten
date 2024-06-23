@@ -3,10 +3,13 @@ package model;
 public class Unit
 {
 	private String name;
-	private int hp,shield,mana,meele,ranged,ammo,dodge,magicresist,mvmspeed,init, magicDmg;
-	
+	private int hp,shield,mana,meele,ranged,ammo,dodge,magicresist,mvmspeed,init, magicDmg,myAttack,positionX,positionY;
+
+
+
+
 	public Unit(String name, int hp, int shield, int mana, int meele, int ranged, int ammo, int dodge, int magicresist,
-			int mvmspeed, int init, int magicDmg)
+				int mvmspeed, int init, int magicDmg, int myAttack, int positionX, int positionY)
 	{
 		this.name = name;
 		this.hp = hp;
@@ -20,11 +23,34 @@ public class Unit
 		this.mvmspeed = mvmspeed;
 		this.init = init;
 		this.magicDmg = magicDmg;
+		this.myAttack = myAttack;
+		this.positionX = positionX;
+		this.positionY = positionY;
 		
 	}
-	
-	
-	
+
+	public int getPositionX() {
+		return positionX;
+	}
+
+	public void setPositionX(int positionX) {
+		this.positionX = positionX;
+	}
+
+	public int getPositionY() {
+		return positionY;
+	}
+
+	public void setPositionY(int positionY) {
+		this.positionY = positionY;
+	}
+	public int getMyAttack() {
+		return myAttack;
+	}
+
+	public void setMyAttack(int myAttack) {
+		this.myAttack = myAttack;
+	}
 	public void setName(String name)
 	{
 		this.name = name;
