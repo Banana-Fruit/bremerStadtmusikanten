@@ -28,6 +28,13 @@ public class Headquarter extends Building
     }
 
 
+    // Methode für Button setOnAction
+    public static void chooseMission ()// Mission mission
+    {
+        // Mission einer Scene zuordnen und anzeigen lassen
+    }
+
+
     public static Headquarter getInstanceOfHeadquarter ()
     {
         return INSTANCE_OF_HEADQUARTER;

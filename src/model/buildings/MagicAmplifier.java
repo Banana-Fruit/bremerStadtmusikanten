@@ -3,6 +3,8 @@ package model.buildings;
 
 import control.BuildingController;
 import model.Coordinate;
+import model.player.Player;
+import resources.constants.Constants_Player_Units;
 import resources.constants.scenes.Constants_Building;
 
 
@@ -26,6 +28,12 @@ public class MagicAmplifier extends Building
     public void unlockBuilding ()
     {
         BuildingController.checkIfBuildingIsUnlock(getInstanceOfMagicamplifier());
+    }
+
+
+    public static void pushMagicSkillOfPlayer ()
+    {
+        Player.getInstance().setMagicSkill(Player.getInstance().getMagicSkill() + Constants_Player_Units.MAGIC_SKILL_BONUS);
     }
 
 
