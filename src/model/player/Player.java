@@ -14,7 +14,7 @@ public class Player
 {
     private static Player instance = null;
     private List inventory; // TODO: Holds artefacts
-    private Unit[] teamMember = new Unit [Constants_Player_Units.NUMBER_OF_TEAM_MEMBER];
+    private Unit[] teammembers = new Unit [Constants_Player_Units.NUMBER_OF_TEAM_MEMBER];
     private int magicSkill = Constants_Player_Units.MAGIC_SKILL_OF_PLAYER;
     
     
@@ -46,9 +46,9 @@ public class Player
     }
 
 
-    public Unit[] getTeamMember ()
+    public Unit[] getTeammembers()
     {
-        return teamMember;
+        return teammembers;
     }
 
 

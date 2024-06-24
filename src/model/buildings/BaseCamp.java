@@ -4,7 +4,9 @@ package model.buildings;
 import control.BuildingController;
 import model.Coordinate;
 import model.player.FractionDonkey;
-import model.player.Unit;
+import model.Unit;
+import model.player.Player;
+import resources.constants.Constants_Player_Units;
 import resources.constants.scenes.Constants_Building;
 
 import java.util.List;
@@ -14,7 +16,8 @@ public class BaseCamp extends Building
 {
     private static final BaseCamp INSTANCE_OF_BASECAMP = new BaseCamp(Constants_Building.NAME_BASECAMP_NAME,
             Constants_Building.BASECAMP_GOLD, Constants_Building.BASECAMP_BRICK, Constants_Building.BASECAMP_WOOD,
-            Constants_Building.BASECAMP_BEER, Constants_Building.BASECAMP_ESSENCE, false, new Coordinate(Constants_Building.BASECAMP_POSITION_X,Constants_Building.BASECAMP_POSITION_Y));
+            Constants_Building.BASECAMP_BEER, Constants_Building.BASECAMP_ESSENCE, false,
+            new Coordinate(Constants_Building.BASECAMP_POSITION_X,Constants_Building.BASECAMP_POSITION_Y));
 
 
     // TODO: später woanders initialisieren
@@ -37,6 +40,33 @@ public class BaseCamp extends Building
     {
         BuildingController.checkIfBuildingIsUnlock(getInstanceOfBasecamp());
     }
+
+    private void rercuitUnits(Unit unit)
+        {
+            Unit[] team = Player.getInstance().getTeammembers();
+
+            int i;
+            for (i = Constants_Player_Units.ZERO; i < team.length; i++)
+            {
+                if (team[i] == null)
+                {
+                    team[i] = unit;
+                }
+                else
+                {
+                    if(!(team[Constants_Player_Units.LAST_INDEX_NUMBER_OF_TEAM] == null))
+                    {
+                        System.out.println("The team is full.");
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+            }
+        }
+
+
 
 
     // ist später unnötig: unlock button besser

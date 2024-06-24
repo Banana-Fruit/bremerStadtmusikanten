@@ -60,7 +60,7 @@ public class Pub extends Building
 
     private static void addMercenaryToTheTeam (Unit mercenary)
     {
-        Unit[] team = Player.getInstance().getTeamMember();
+        Unit[] team = Player.getInstance().getTeammembers();
 
         int i;
         for (i = Constants_Player_Units.ZERO; i < team.length; i++)

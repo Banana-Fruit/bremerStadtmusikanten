@@ -67,69 +67,59 @@ public class CombatController
 		boolean isCloseEnough;
 		int newMana;
 		int newAmmo;
-		
-		
-		if(isMagic)
-		{
-			if (currentMana > 0)
-			{
-				damageBlocked = magicDamage * magicResist / Constants_DefaultValues.PERCENTAGE_NUMBER;
-				rawDamage = magicDamage;
-				newMana = currentMana - 1;
-				attacker.setMana(newMana);
-				
-				if (RollDice(dodge) == true)
-				{
-					DoDamage(damageBlocked, defender,rawDamage);
-					System.out.print(defender.getHealth() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
+
+	isCloseEnough = amIcloseEnough(defender,attacker,atkRange);
+
+		if(isCloseEnough == true) {
+			if (isMagic) {
+				if (currentMana > 0) {
+					damageBlocked = magicDamage * magicResist / Constants_DefaultValues.PERCENTAGE_NUMBER;
+					rawDamage = magicDamage;
+					newMana = currentMana - 1;
+					attacker.setMana(newMana);
+
+					if (RollDice(dodge)==true) {
+						DoDamage(damageBlocked, defender, rawDamage);
+						System.out.print(defender.getHealth() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
+					} else {
+						System.out.println("DODGED");
+					}
+
 				}
-				else
-				{
+			} else if (isRanged) {
+
+				if (currentAmmo > 0) {
+					damageBlocked = rangedDamage * shield / Constants_DefaultValues.PERCENTAGE_NUMBER;
+					rawDamage = rangedDamage;
+					newAmmo = currentAmmo - 1;
+					attacker.setAmmo(newAmmo);
+					if (RollDice(dodge)==true) {
+						DoDamage(damageBlocked, defender, rawDamage);
+						System.out.print(defender.getHealth() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
+					} else {
+						System.out.println("DODGED");
+					}
+				}
+
+			} else {
+
+				damageBlocked = meleeDamage * shield / Constants_DefaultValues.PERCENTAGE_NUMBER;
+				rawDamage = meleeDamage;
+				if (RollDice(dodge)==true) {
+					DoDamage(damageBlocked, defender, rawDamage);
+					System.out.print(defender.getHealth() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
+				} else {
 					System.out.println("DODGED");
 				}
-				
 			}
-		}
-		else if(isRanged)
+		}else
 		{
-			
-			if (currentAmmo > 0)
-			{
-				damageBlocked = rangedDamage * shield / Constants_DefaultValues.PERCENTAGE_NUMBER;
-				rawDamage = rangedDamage;
-				newAmmo = currentAmmo - 1;
-				attacker.setAmmo(newAmmo);
-				if (RollDice(dodge) == true)
-				{
-					DoDamage(damageBlocked, defender,rawDamage);
-					System.out.print(defender.getHealth() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
-				}
-				else
-				{
-					System.out.println("DODGED");
-				}
-			}
-			
-		}
-		else
-		{
-			
-			damageBlocked = meleeDamage * shield / Constants_DefaultValues.PERCENTAGE_NUMBER;
-			rawDamage = meleeDamage;
-			if (RollDice(dodge) == true)
-			{
-				DoDamage(damageBlocked, defender,rawDamage);
-				System.out.print(defender.getHealth() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
-			}
-			else
-			{
-				System.out.println("DODGED");
-			}
+			System.out.println("Not Close enough");
 		}
 	}
-	
-	
-	
+
+
+
 	public void DoDamage(float DmgBlocked, Unit Defender,int rawDamage)
 	{
 		int curHP = Defender.getHealth();
@@ -160,7 +150,18 @@ public class CombatController
 			
 		}
 	}
-	
+	public boolean amIcloseEnough(Unit defender,Unit attacker, int atkRange) {
+		boolean isCloseEnough;
+		int distanceX = defender.getPositionX() - attacker.getPositionX();
+		int distanceY = defender.getPositionY() - attacker.getPositionY();
+		int distance = distanceX + distanceY;
+		if (distance <= atkRange) {
+			isCloseEnough = true;
+		} else {
+			isCloseEnough = false;
+		}
+		return isCloseEnough;
+	}
 	
 	
 }
