@@ -197,4 +197,27 @@ public class PlayerController implements Runnable
             setPlayerPosition(new Coordinate(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), tileX, tileY)));
         });
     }
+
+    //TODO brauchen position für kampf start. Muss noch SwitchToCombat aufrufen
+    public void checkCombatStart()
+    {
+        Coordinate current = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance().getPanel(), currentPlayerPosition);
+
+
+    }
+    //TODO: Unsicher ob wir die methode brauchen, oder SwitchToMission nutzen können (wegen player position) :)
+    private void switchToCombat(String newMap)
+    {
+        Map.getInstance().setCurrentMapName(newMap);
+        System.out.println(Constants_Map.CONSOLE_PRINT_SWITCHING_MAP + newMap);
+
+        Platform.runLater(() -> {
+            Map.getInstance().getPane().getChildren().remove(playerView);
+            SceneController.getInstance().switchShowable(Map.getInstance());
+            MapController.getInstance().setNewMap(newMap);
+            Map.getInstance().getPane().getChildren().add(playerView);
+        });
+
+
+    }
 }

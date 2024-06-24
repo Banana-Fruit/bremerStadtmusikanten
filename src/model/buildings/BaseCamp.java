@@ -35,36 +35,37 @@ public class BaseCamp extends Building
 
 
 
+    //TODO: buttons in den verschiedenen FraktionsCamps zum rekrutieren jeder einheit  (einheiten zu sehen in Constants_Combat oder  Einheiten.CSV)
+    // + Esel fraktions Camp ist BaseCamp(?)
+    private void rercuitUnits(Unit unit)
+    {
+        Unit[] team = Player.getInstance().getTeammembers();
+
+        int i;
+        for (i = Constants_Player_Units.ZERO; i < team.length; i++)
+        {
+            if (team[i] == null)
+            {
+                team[i] = unit;
+            }
+            else
+            {
+                if(!(team[Constants_Player_Units.LAST_INDEX_NUMBER_OF_TEAM] == null))
+                {
+                    System.out.println("The team is full.");
+                }
+                else
+                {
+                    i++;
+                }
+            }
+        }
+    }
     @Override
     public void unlockBuilding ()
     {
         BuildingController.checkIfBuildingIsUnlock(getInstanceOfBasecamp());
     }
-
-    private void rercuitUnits(Unit unit)
-        {
-            Unit[] team = Player.getInstance().getTeammembers();
-
-            int i;
-            for (i = Constants_Player_Units.ZERO; i < team.length; i++)
-            {
-                if (team[i] == null)
-                {
-                    team[i] = unit;
-                }
-                else
-                {
-                    if(!(team[Constants_Player_Units.LAST_INDEX_NUMBER_OF_TEAM] == null))
-                    {
-                        System.out.println("The team is full.");
-                    }
-                    else
-                    {
-                        i++;
-                    }
-                }
-            }
-        }
 
 
 

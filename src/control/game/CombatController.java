@@ -2,17 +2,43 @@ package control.game;
 import model.Attack;
 import model.Unit;
 import resources.constants.Constants_DefaultValues;
+import resources.constants.Constants_Player_Units;
 import resources.constants.Constants_Sorting;
+import model.player.Player;
+
 import java.util.*;
 
 public class CombatController
 {
-	public void switchToCombat()
+	//TODO: Anpassen koordinaten (weiß nicht wie die Koordinaten im  kampf berechenet werden / wo welche ist
+	private void initializeCombatPositions(List<Unit> myUnits, List<Unit> enemies)
 	{
+		for(int i = 0; i < myUnits.size();i++)
+		{
+			myUnits.get(i).setPositionX(1);
+			myUnits.get(i).setPositionY(i);
+		}
+		for(int i = 0; i < enemies.size();i++)
+		{
+			enemies.get(i).setPositionX(1);
+			enemies.get(i).setPositionY(i);
+		}
 
 	}
-	public void Combat(List<Unit> participants)
+//TODO: Wie bekommen wir die liste der gegner? Wie bewegen wir die units?
+	public void Combat(List<Unit> enemies)
 	{
+
+		Unit[] myTeam = Player.getInstance().getTeammembers();
+		List<Unit> myUnits = Convert(myTeam);
+
+		initializeCombatPositions(myUnits,enemies);
+
+		List<Unit> participants = new ArrayList<>();
+		participants.addAll(myUnits);
+		participants.addAll(enemies);
+
+
 		UnitController unitController = UnitController.getInstance();
 		List<Attack> attacks = unitController.AttackCreator();
 		Collections.sort(participants, new Comparator<Unit>()
@@ -20,9 +46,9 @@ public class CombatController
 			@Override
 			public int compare(Unit o1, Unit o2)
 			{
-				if (Integer.compare(o2.getInitiative(),o1.getInitiative()) > 0)
+				if (Integer.compare(o2.getInitiative(),o1.getInitiative()) > Constants_Sorting.ZERO)
 				{return(Constants_Sorting.POSITIVE);}
-				else if (Integer.compare(o2.getInitiative(),o1.getInitiative()) == 0)
+				else if (Integer.compare(o2.getInitiative(),o1.getInitiative()) == Constants_Sorting.ZERO)
 				{return(Constants_Sorting.ZERO);}
 				else
 				{return(Constants_Sorting.NEGATIVE);}
@@ -31,16 +57,16 @@ public class CombatController
 		
 		for(int n = 0; n <= participants.size(); n++)
 		{//WIP
-			AttackUnit(participants.get(n), choiceOfFoe(participants,n),attacks.get(participants.get(n).getMyAttack()));
+			AttackUnit(participants.get(n), choiceOfFoe(enemies),attacks.get(participants.get(n).getMyAttack()));
 		}
 		
 		
 	}
 	
-	private static Unit choiceOfFoe(List<Unit> ListofFoes,int n)
+	private static Unit choiceOfFoe(List<Unit> ListofFoes)
 	{
-		int m = n;//IndexofClickedFoe;
-		Unit choice = ListofFoes.get(m);
+		int indexOfChosenEnemy = 0 ;//Choose();
+		Unit choice = ListofFoes.get(indexOfChosenEnemy);
 		return choice;
 	}
 	
@@ -162,6 +188,16 @@ public class CombatController
 		}
 		return isCloseEnough;
 	}
-	
+	public List<Unit> Convert (Unit[] Gegner)
+	{
+		List<Unit> units = new ArrayList<>();
+
+		for (int i = Constants_Player_Units.ZERO; i < Gegner.length; i++)
+		{
+				units.add(Gegner[i]);
+		}
+		return units;
+	}
+
 	
 }
