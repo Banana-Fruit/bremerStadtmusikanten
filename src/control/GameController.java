@@ -4,6 +4,7 @@ package control;
 import control.events.KeyboardController;
 import control.events.MouseController;
 import control.game.PlayerController;
+import control.game.UnitController;
 import control.scenes.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -67,6 +68,7 @@ public class GameController
         PlayerController.initialize();
         BuildingController.initialize();
         GUIController.initialize();
+        UnitController.initialize();
 
         // Initialise models
         Settings.initialize(new Scene(SceneController.getInstance().getBasePane()));

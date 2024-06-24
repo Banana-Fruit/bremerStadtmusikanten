@@ -1,14 +1,20 @@
 package model.player;
 
+import resources.constants.Constants_Combat;
+import control.game.UnitController;
+import model.Unit;
+import java.util.List;
 
 public class FractionChicken
 {
+    UnitController unitController = UnitController.getInstance();
+    List<model.Unit> units = unitController.UnitCreator();
     private static FractionChicken instanceOfFractionChicken = new FractionChicken();
-    private Unit chick = new Unit(2,2,2,2,2,2,2,2,2);
-    private Unit fightingChicken = new Unit(2,2,2,2,2,2,2,2,2);
-    private Unit chef = new Unit(2,2,2,2,2,2,2,2,2);
-    private Unit turkey = new Unit(2,2,2,2,2,2,2,2,2);
-    private Unit chickenWithHat = new Unit(2,2,2,2,2,2,2,2,2);
+    private Unit chef = units.get(Constants_Combat.CHEF);
+    private Unit turkey = units.get(Constants_Combat.TURKEY);
+    private Unit chickenWithHat = units.get(Constants_Combat.CHICKEN_WITH_HAT);
+    private Unit chick = units.get(Constants_Combat.CHICK);
+    private Unit fightingChicken = units.get(Constants_Combat.FIGHTING_CHICKEN);
 
 
     public FractionChicken (Unit chick, Unit fightingChicken, Unit chef, Unit turkey, Unit chickenWithHat)

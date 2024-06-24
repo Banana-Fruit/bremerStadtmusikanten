@@ -1,22 +1,28 @@
 package model.player;
 
+import resources.constants.Constants_Combat;
+import control.game.UnitController;
+import model.Unit;
+import java.util.List;
 
 public class FractionRoland
 {
+    UnitController unitController = UnitController.getInstance();
+    List<model.Unit> units = unitController.UnitCreator();
     private static FractionRoland instanceOfFractionRoland = new FractionRoland();
-    private Unit theSevenLazyOnes = new Unit(2,2,2,2,2,2,2,2,2);
-    private Unit roland = new Unit(2,2,2,2,2,2,2,2,2);
-    private Unit citizen = new Unit(2,2,2,2,2,2,2,2,2);
-    private Unit statueOfBremenTownMusicians = new Unit(2,2,2,2,2,2,2,2,2);
-    private Unit citizenWithHat = new Unit(2,2,2,2,2,2,2,2,2);
+    private Unit citizen = units.get(Constants_Combat.CITIZEN);
+    private Unit statueOfBremerStadtmusikanten = units.get(Constants_Combat.STATUE_OF_BREMERSTADTMUSIKANTEN);
+    private Unit citizenWithHat = units.get(Constants_Combat.CITIZEN_WITH_HAT);
+    private Unit theSevenLazyOnes = units.get(Constants_Combat.SEVEN_LAZY_ONES);
+    private Unit roland = units.get(Constants_Combat.ROLAND);
 
 
-    public FractionRoland (Unit theSevenLazyOnes, Unit roland, Unit citizen, Unit statueOfBremenTownMusicians, Unit citizenWithHat)
+    public FractionRoland (Unit theSevenLazyOnes, Unit roland, Unit citizen, Unit statueOfBremerStadtmusikanten, Unit citizenWithHat)
     {
         this.theSevenLazyOnes = theSevenLazyOnes;
         this.roland = roland;
         this.citizen = citizen;
-        this. statueOfBremenTownMusicians = statueOfBremenTownMusicians;
+        this.statueOfBremerStadtmusikanten = statueOfBremerStadtmusikanten;
         this.citizenWithHat = citizenWithHat;
     }
 
@@ -47,9 +53,9 @@ public class FractionRoland
     }
 
 
-    public Unit getStatueOfBremenTownMusicians ()
+    public Unit getStatueOfBremerStadtmusikanten()
     {
-        return statueOfBremenTownMusicians;
+        return statueOfBremerStadtmusikanten;
     }
 
 

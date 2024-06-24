@@ -4,12 +4,18 @@ import model.Unit;
 import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_Sorting;
 import java.util.*;
+import control.game.UnitController;
 
 public class CombatController
 {
+	public void switchToCombat()
+	{
+
+	}
 	public void Combat(List<Unit> participants)
 	{
-		List<Attack> attacks = new UnitController().AttackCreator();
+		UnitController unitController = UnitController.getInstance();
+		List<Attack> attacks = unitController.AttackCreator();
 		Collections.sort(participants, new Comparator<Unit>()
 		{
 			@Override

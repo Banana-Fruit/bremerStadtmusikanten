@@ -1,30 +1,35 @@
 package model.player;
-
+import control.game.UnitController;
+import model.Unit;
+import resources.constants.Constants_Combat;
+import java.util.List;
 
 public class FractionCat
 {
+    UnitController unitController = UnitController.getInstance();
+    List<Unit> units = unitController.UnitCreator();
     private static FractionCat instanceOfFractionCat = new FractionCat();
-    private Unit cat = new Unit(2,2,2,2,2,2,2,2,2);
-    private Unit tiger = new Unit(2,2,2,2,2,2,2,2,2);
-    private Unit housekeeper = new Unit(2,2,2,2,2,2,2,2,2);
-    private Unit jaguar = new Unit(2,2,2,2,2,2,2,2,2);
-    private Unit catWithHat = new Unit(2,2,2,2,2,2,2,2,2);
+    private Unit housekeeper = units.get(Constants_Combat.HOUSEKEEPER);
+    private Unit jaguar = units.get(Constants_Combat.JAGUAR);
+    private Unit Bingus = units.get(Constants_Combat.BINGUS);
+    private Unit cat = units.get(Constants_Combat.CAT);
+    private Unit tiger = units.get(Constants_Combat.TIGER);
 
 
 
-    public FractionCat (Unit cat, Unit tiger, Unit housekeeper, Unit jaguar, Unit catWithHat)
+    public FractionCat (Unit cat, Unit tiger, Unit housekeeper, Unit jaguar, Unit Bingus)
     {
         this.cat = cat;
         this.tiger = tiger;
         this.housekeeper = housekeeper;
         this.jaguar = jaguar;
-        this.catWithHat = catWithHat;
+        this.Bingus = Bingus;
     }
 
 
     public FractionCat ()
     {
-        ;
+
     }
 
 
@@ -53,9 +58,9 @@ public class FractionCat
     }
 
 
-    public Unit getCatWithHat ()
+    public Unit getBingus()
     {
-        return catWithHat;
+        return Bingus;
     }
 
 

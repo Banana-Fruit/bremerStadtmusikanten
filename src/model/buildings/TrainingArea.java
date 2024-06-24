@@ -4,7 +4,6 @@ package model.buildings;
 import control.BuildingController;
 import model.Coordinate;
 import model.player.*;
-import org.apache.struts.chain.Constants;
 import resources.constants.Constants_Player_Units;
 import resources.constants.scenes.Constants_Building;
 
@@ -65,7 +64,7 @@ public class TrainingArea extends Building
         Unit germanShepherd = FractionDog.getInstanceOfFractionDog().getGermanShepherd();
         Unit hunter = FractionDog.getInstanceOfFractionDog().getHunter();
         Unit bulldog = FractionDog.getInstanceOfFractionDog().getBulldog();
-        Unit dogWithHat = FractionDog.getInstanceOfFractionDog().getDogWithHat();
+        Unit dogWithHat = FractionDog.getInstanceOfFractionDog().getHundini();
 
         goldenRetriever.setRangeOfMotion(goldenRetriever.getRangeOfMotion() + Constants_Player_Units.TRAINING_BONUS);
         germanShepherd.setRangeOfMotion(germanShepherd.getRangeOfMotion() + Constants_Player_Units.TRAINING_BONUS);
@@ -81,7 +80,7 @@ public class TrainingArea extends Building
         Unit germanShepherd = FractionDog.getInstanceOfFractionDog().getGermanShepherd();
         Unit hunter = FractionDog.getInstanceOfFractionDog().getHunter();
         Unit bulldog = FractionDog.getInstanceOfFractionDog().getBulldog();
-        Unit dogWithHat = FractionDog.getInstanceOfFractionDog().getDogWithHat();
+        Unit dogWithHat = FractionDog.getInstanceOfFractionDog().getHundini();
 
         goldenRetriever.setShield(goldenRetriever.getShield() + Constants_Player_Units.TRAINING_BONUS);
         germanShepherd.setShield(germanShepherd.getShield() + Constants_Player_Units.TRAINING_BONUS);
@@ -97,7 +96,7 @@ public class TrainingArea extends Building
         Unit tiger = FractionCat.getInstanceOfFractionCat().getTiger();
         Unit housekeeper = FractionCat.getInstanceOfFractionCat().getHousekeeper();
         Unit jaguar = FractionCat.getInstanceOfFractionCat().getJaguar();
-        Unit catWithHat = FractionCat.getInstanceOfFractionCat().getCatWithHat();
+        Unit catWithHat = FractionCat.getInstanceOfFractionCat().getBingus();
 
         cat.setProactive(cat.getProactive() + Constants_Player_Units.TRAINING_BONUS);
         tiger.setProactive(tiger.getProactive() + Constants_Player_Units.TRAINING_BONUS);
@@ -113,7 +112,7 @@ public class TrainingArea extends Building
         Unit tiger = FractionCat.getInstanceOfFractionCat().getTiger();
         Unit housekeeper = FractionCat.getInstanceOfFractionCat().getHousekeeper();
         Unit jaguar = FractionCat.getInstanceOfFractionCat().getJaguar();
-        Unit catWithHat = FractionCat.getInstanceOfFractionCat().getCatWithHat();
+        Unit catWithHat = FractionCat.getInstanceOfFractionCat().getBingus();
 
         cat.setEvade(cat.getEvade() + Constants_Player_Units.TRAINING_BONUS);
         tiger.setEvade(tiger.getEvade() + Constants_Player_Units.TRAINING_BONUS);

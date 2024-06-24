@@ -1,7 +1,10 @@
 package control.game;
 
+import control.scenes.MainMenuController;
 import model.Attack;
 import model.Unit;
+import resources.constants.Constants_ExceptionMessages;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.io.BufferedReader;
@@ -10,6 +13,32 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class UnitController {
+	private static volatile UnitController instance = null;
+
+	private UnitController()
+	{
+	}
+	public static synchronized void initialize ()
+	{
+		if (instance == null)
+		{
+			instance = new UnitController();
+		} else
+		{
+			throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
+		}
+	}
+
+	public static UnitController getInstance()
+	{
+		if (instance == null)
+		{
+			throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+		}
+		return instance;
+	}
+
+
 	public List<Unit> UnitCreator() {//WIP
 		List<Unit> units = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(
