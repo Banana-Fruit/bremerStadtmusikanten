@@ -4,7 +4,6 @@ import model.Unit;
 import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_Sorting;
 import java.util.*;
-import control.game.UnitController;
 
 public class CombatController
 {
@@ -21,9 +20,9 @@ public class CombatController
 			@Override
 			public int compare(Unit o1, Unit o2)
 			{
-				if (Integer.compare(o2.getInit(),o1.getInit()) > 0)
+				if (Integer.compare(o2.getInitiative(),o1.getInitiative()) > 0)
 				{return(Constants_Sorting.POSITIVE);}
-				else if (Integer.compare(o2.getInit(),o1.getInit()) == 0)
+				else if (Integer.compare(o2.getInitiative(),o1.getInitiative()) == 0)
 				{return(Constants_Sorting.ZERO);}
 				else
 				{return(Constants_Sorting.NEGATIVE);}
@@ -59,7 +58,7 @@ public class CombatController
 
 		int meleeDamage = attacker.getMeele();
 		int rangedDamage = attacker.getRanged();
-		int magicDamage = attacker.getMagicDmg();
+		int magicDamage = attacker.getMagicDamage();
 		int currentMana = attacker.getMana();
 		int currentAmmo = attacker.getAmmo();
 
@@ -82,7 +81,7 @@ public class CombatController
 				if (RollDice(dodge) == true)
 				{
 					DoDamage(damageBlocked, defender,rawDamage);
-					System.out.print(defender.getHp() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
+					System.out.print(defender.getHealth() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
 				}
 				else
 				{
@@ -103,7 +102,7 @@ public class CombatController
 				if (RollDice(dodge) == true)
 				{
 					DoDamage(damageBlocked, defender,rawDamage);
-					System.out.print(defender.getHp() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
+					System.out.print(defender.getHealth() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
 				}
 				else
 				{
@@ -120,7 +119,7 @@ public class CombatController
 			if (RollDice(dodge) == true)
 			{
 				DoDamage(damageBlocked, defender,rawDamage);
-				System.out.print(defender.getHp() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
+				System.out.print(defender.getHealth() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
 			}
 			else
 			{
@@ -133,13 +132,13 @@ public class CombatController
 	
 	public void DoDamage(float DmgBlocked, Unit Defender,int rawDamage)
 	{
-		int curHP = Defender.getHp();
+		int curHP = Defender.getHealth();
 		int roundDamageDealt;
 		int newHP;
 		
 		roundDamageDealt = Math.round(rawDamage - DmgBlocked);
 		newHP = curHP - roundDamageDealt;
-		Defender.setHp(newHP);
+		Defender.setHealth(newHP);
 		
 	}
 	

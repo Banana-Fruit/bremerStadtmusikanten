@@ -2,12 +2,15 @@ package model.buildings;
 
 
 import control.BuildingController;
+import control.game.UnitController;
 import model.Coordinate;
 import model.player.Inventory;
 import model.player.Player;
-import model.player.Unit;
+import model.Unit;
 import resources.constants.Constants_Player_Units;
 import resources.constants.scenes.Constants_Building;
+import resources.constants.Constants_Combat;
+import java.util.List;
 
 
 public class Pub extends Building
@@ -36,10 +39,9 @@ public class Pub extends Building
 
     public static void recruitAMercenary ()
     {
-        Unit mercenary = new Unit(Constants_Player_Units.VALUE_MERCENARY,Constants_Player_Units.VALUE_MERCENARY,
-                Constants_Player_Units.VALUE_MERCENARY,Constants_Player_Units.VALUE_MERCENARY,
-                Constants_Player_Units.VALUE_MERCENARY, Constants_Player_Units.VALUE_MERCENARY,
-                Constants_Player_Units.VALUE_MERCENARY,Constants_Player_Units.VALUE_MERCENARY,Constants_Player_Units.VALUE_MERCENARY);
+        UnitController unitController = UnitController.getInstance();
+        List<Unit> units = unitController.UnitCreator();
+        Unit mercenary = units.get(Constants_Combat.MERCENARY);
 
         // pay for the mercenary to become a member in the team
         payForTheMercenary();

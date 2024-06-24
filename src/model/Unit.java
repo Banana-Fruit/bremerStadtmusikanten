@@ -3,16 +3,16 @@ package model;
 public class Unit
 {
 	private String name;
-	private int hp,shield,mana,meele,ranged,ammo,dodge,magicresist,mvmspeed,init, magicDmg,myAttack,positionX,positionY;
+	private int health,shield,mana,meele,ranged,ammo,dodge,magicresist,RangeOfMotion, initiative, magicDamage,myAttack,positionX,positionY;
 
 
 
 
-	public Unit(String name, int hp, int shield, int mana, int meele, int ranged, int ammo, int dodge, int magicresist,
-				int mvmspeed, int init, int magicDmg, int myAttack, int positionX, int positionY)
+	public Unit(String name, int health, int shield, int mana, int meele, int ranged, int ammo, int dodge, int magicresist,
+				int RangeOfMotion, int initiative, int magicDamage, int myAttack, int positionX, int positionY)
 	{
 		this.name = name;
-		this.hp = hp;
+		this.health = health;
 		this.shield = shield;
 		this.mana = mana;
 		this.meele = meele;
@@ -20,9 +20,9 @@ public class Unit
 		this.ammo = ammo;
 		this.dodge = dodge;
 		this.magicresist = magicresist;
-		this.mvmspeed = mvmspeed;
-		this.init = init;
-		this.magicDmg = magicDmg;
+		this.RangeOfMotion = RangeOfMotion;
+		this.initiative = initiative;
+		this.magicDamage = magicDamage;
 		this.myAttack = myAttack;
 		this.positionX = positionX;
 		this.positionY = positionY;
@@ -56,19 +56,19 @@ public class Unit
 		this.name = name;
 	}
 	
-	public int getMagicDmg()
+	public int getMagicDamage()
 	{
-		return magicDmg;
+		return magicDamage;
 	}
 	
-	public void setMagicDmg(int magicDmg)
+	public void setMagicDamage(int magicDamage)
 	{
-		this.magicDmg = magicDmg;
+		this.magicDamage = magicDamage;
 	}
 	
-	public void setHp(int hp)
+	public void setHealth(int health)
 	{
-		this.hp = hp;
+		this.health = health;
 	}
 	
 	public void setShield(int shield)
@@ -106,14 +106,14 @@ public class Unit
 		this.magicresist = magicresist;
 	}
 	
-	public void setMvmspeed(int mvmspeed)
+	public void setRangeOfMotion(int mvmspeed)
 	{
-		this.mvmspeed = mvmspeed;
+		this.RangeOfMotion = mvmspeed;
 	}
 	
-	public void setInit(int init)
+	public void setInitiative(int initiative)
 	{
-		this.init = init;
+		this.initiative = initiative;
 	}
 	
 	public String getName()
@@ -121,9 +121,9 @@ public class Unit
 		return name;
 	}
 	
-	public int getHp()
+	public int getHealth()
 	{
-		return hp;
+		return health;
 	}
 	
 	public int getShield()
@@ -161,13 +161,13 @@ public class Unit
 		return magicresist;
 	}
 	
-	public int getMvmspeed()
+	public int getRangeOfMotion()
 	{
-		return mvmspeed;
+		return RangeOfMotion;
 	}
 	
-	public int getInit()
+	public int getInitiative()
 	{
-		return init;
+		return initiative;
 	}
 }

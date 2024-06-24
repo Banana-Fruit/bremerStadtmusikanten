@@ -3,6 +3,7 @@ package model.buildings;
 
 import control.BuildingController;
 import model.Coordinate;
+import model.Unit;
 import model.player.*;
 import resources.constants.Constants_Player_Units;
 import resources.constants.scenes.Constants_Building;
@@ -38,9 +39,9 @@ public class TrainingArea extends Building
         Unit beetles = FractionDonkey.getInstanceOfFractiondonkey().getBeetle();
         Unit mosquitoes = FractionDonkey.getInstanceOfFractiondonkey().getMosquitoes();
 
-        rats.setCloseCombat(rats.getCloseCombat() + Constants_Player_Units.TRAINING_BONUS);
-        beetles.setCloseCombat(beetles.getCloseCombat() + Constants_Player_Units.TRAINING_BONUS);
-        mosquitoes.setCloseCombat(mosquitoes.getCloseCombat() + Constants_Player_Units.TRAINING_BONUS);
+        rats.setMeele(rats.getMeele() + Constants_Player_Units.TRAINING_BONUS);
+        beetles.setMeele(beetles.getMeele() + Constants_Player_Units.TRAINING_BONUS);
+        mosquitoes.setMeele(mosquitoes.getMeele() + Constants_Player_Units.TRAINING_BONUS);
     }
 
 
@@ -98,11 +99,11 @@ public class TrainingArea extends Building
         Unit jaguar = FractionCat.getInstanceOfFractionCat().getJaguar();
         Unit catWithHat = FractionCat.getInstanceOfFractionCat().getBingus();
 
-        cat.setProactive(cat.getProactive() + Constants_Player_Units.TRAINING_BONUS);
-        tiger.setProactive(tiger.getProactive() + Constants_Player_Units.TRAINING_BONUS);
-        housekeeper.setProactive(housekeeper.getProactive() + Constants_Player_Units.TRAINING_BONUS);
-        jaguar.setProactive(jaguar.getProactive() + Constants_Player_Units.TRAINING_BONUS);
-        catWithHat.setProactive(catWithHat.getProactive() + Constants_Player_Units.TRAINING_BONUS);
+        cat.setInitiative(cat.getInitiative() + Constants_Player_Units.TRAINING_BONUS);
+        tiger.setInitiative(tiger.getInitiative() + Constants_Player_Units.TRAINING_BONUS);
+        housekeeper.setInitiative(housekeeper.getInitiative() + Constants_Player_Units.TRAINING_BONUS);
+        jaguar.setInitiative(jaguar.getInitiative() + Constants_Player_Units.TRAINING_BONUS);
+        catWithHat.setInitiative(catWithHat.getInitiative() + Constants_Player_Units.TRAINING_BONUS);
     }
 
 
@@ -114,11 +115,11 @@ public class TrainingArea extends Building
         Unit jaguar = FractionCat.getInstanceOfFractionCat().getJaguar();
         Unit catWithHat = FractionCat.getInstanceOfFractionCat().getBingus();
 
-        cat.setEvade(cat.getEvade() + Constants_Player_Units.TRAINING_BONUS);
-        tiger.setEvade(tiger.getEvade() + Constants_Player_Units.TRAINING_BONUS);
-        housekeeper.setEvade(housekeeper.getEvade() + Constants_Player_Units.TRAINING_BONUS);
-        jaguar.setEvade(jaguar.getEvade() + Constants_Player_Units.TRAINING_BONUS);
-        catWithHat.setEvade(catWithHat.getEvade() + Constants_Player_Units.TRAINING_BONUS);
+        cat.setDodge(cat.getDodge() + Constants_Player_Units.TRAINING_BONUS);
+        tiger.setDodge(tiger.getDodge() + Constants_Player_Units.TRAINING_BONUS);
+        housekeeper.setDodge(housekeeper.getDodge() + Constants_Player_Units.TRAINING_BONUS);
+        jaguar.setDodge(jaguar.getDodge() + Constants_Player_Units.TRAINING_BONUS);
+        catWithHat.setDodge(catWithHat.getDodge() + Constants_Player_Units.TRAINING_BONUS);
     }
 
 
@@ -130,11 +131,11 @@ public class TrainingArea extends Building
         Unit turkey = FractionChicken.getInstanceOfFractionChicken().getTurkey();
         Unit chickenWithHat = FractionChicken.getInstanceOfFractionChicken().getChickenWithHat();
 
-        chick.setMagic(chick.getMagic() + Constants_Player_Units.TRAINING_BONUS);
-        fightingChicken.setMagic(fightingChicken.getMagic() + Constants_Player_Units.TRAINING_BONUS);
-        chef.setMagic(chef.getMagic() + Constants_Player_Units.TRAINING_BONUS);
-        turkey.setMagic(turkey.getMagic() + Constants_Player_Units.TRAINING_BONUS);
-        chickenWithHat.setMagic(chickenWithHat.getMagic() + Constants_Player_Units.TRAINING_BONUS);
+        chick.setMagicDamage(chick.getMagicDamage() + Constants_Player_Units.TRAINING_BONUS);
+        fightingChicken.setMagicDamage(fightingChicken.getMagicDamage() + Constants_Player_Units.TRAINING_BONUS);
+        chef.setMagicDamage(chef.getMagicDamage() + Constants_Player_Units.TRAINING_BONUS);
+        turkey.setMagicDamage(turkey.getMagicDamage() + Constants_Player_Units.TRAINING_BONUS);
+        chickenWithHat.setMagicDamage(chickenWithHat.getMagicDamage() + Constants_Player_Units.TRAINING_BONUS);
     }
 
 
@@ -146,11 +147,11 @@ public class TrainingArea extends Building
         Unit turkey = FractionChicken.getInstanceOfFractionChicken().getTurkey();
         Unit chickenWithHat = FractionChicken.getInstanceOfFractionChicken().getChickenWithHat();
 
-        chick.setMagicResidence(chick.getMagicResidence() + Constants_Player_Units.TRAINING_BONUS);
-        fightingChicken.setMagicResidence(fightingChicken.getMagicResidence() + Constants_Player_Units.TRAINING_BONUS);
-        chef.setMagicResidence(chef.getMagicResidence() + Constants_Player_Units.TRAINING_BONUS);
-        turkey.setMagicResidence(turkey.getMagicResidence() + Constants_Player_Units.TRAINING_BONUS);
-        chickenWithHat.setMagicResidence(chickenWithHat.getMagicResidence() + Constants_Player_Units.TRAINING_BONUS);
+        chick.setMagicresist(chick.getMagicresist() + Constants_Player_Units.TRAINING_BONUS);
+        fightingChicken.setMagicresist(fightingChicken.getMagicresist() + Constants_Player_Units.TRAINING_BONUS);
+        chef.setMagicresist(chef.getMagicresist() + Constants_Player_Units.TRAINING_BONUS);
+        turkey.setMagicresist(turkey.getMagicresist() + Constants_Player_Units.TRAINING_BONUS);
+        chickenWithHat.setMagicresist(chickenWithHat.getMagicresist() + Constants_Player_Units.TRAINING_BONUS);
     }
 
 

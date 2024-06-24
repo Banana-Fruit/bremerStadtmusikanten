@@ -25,6 +25,6 @@ public interface Constants_Combat
     int ROLAND = 20;
     int BEETLE = 21;
     int MOSQUITOES = 22;
-
+    int MERCENARY = 23;
 
 }
