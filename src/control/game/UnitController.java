@@ -114,10 +114,25 @@ public class UnitController {
 	public void addUnitsMission1() {
 		Platform.runLater(() -> {
 			List<Unit> units = unitCreator(); // Erstelle Einheiten aus der CSV-Datei
-			for (Unit unit : units) {
-				setUnitPosition(unit, unit.getPositionX(), unit.getPositionY());
+			List<Coordinate> positions = getUnitPositionsForMission1(); // Bekomme vordefinierte oder zufällige Positionen
+
+			for (int i = 0; i < units.size() && i < positions.size(); i++) {
+				setUnitPosition(units.get(i),(int) positions.get(i).getPositionX(),(int) positions.get(i).getPositionY());
 			}
 		});
+	}
+
+	private List<Coordinate> getUnitPositionsForMission1() {
+		List<Coordinate> positions = new ArrayList<>();
+
+		// Beispiel für vordefinierte Positionen
+		positions.add(new Coordinate(Constants_Player_Units.UNIT_1_POSITION_X, Constants_Player_Units.UNIT_1_POSITION_Y));
+		positions.add(new Coordinate(Constants_Player_Units.UNIT_2_POSITION_X, Constants_Player_Units.UNIT_2_POSITION_Y));
+		positions.add(new Coordinate(Constants_Player_Units.UNIT_3_POSITION_X, Constants_Player_Units.UNIT_3_POSITION_Y));
+		positions.add(new Coordinate(Constants_Player_Units.UNIT_4_POSITION_X, Constants_Player_Units.UNIT_4_POSITION_Y));
+		positions.add(new Coordinate(Constants_Player_Units.UNIT_5_POSITION_X, Constants_Player_Units.UNIT_5_POSITION_Y));
+		
+		return positions;
 	}
 
 	private void setUnitPosition(Unit unit, int tileX, int tileY) {

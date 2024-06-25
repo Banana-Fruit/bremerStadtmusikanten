@@ -204,15 +204,17 @@ public class PlayerController implements Runnable
     }
 
     //TODO brauchen position für kampf start. Muss noch SwitchToCombat aufrufen
-    private void checkCombatStart() {
+    private void checkCombatStart()
+    {
         Coordinate current = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance().getPanel(), currentPlayerPosition);
 
-        for (HashMap.Entry<Coordinate, Unit> entry : UnitController.getInstance().getUnitPositions().entrySet()) {
+        for (HashMap.Entry<Coordinate, Unit> entry : UnitController.getInstance().getUnitPositions().entrySet())
+        {
             Coordinate unitPosition = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance().getPanel(), entry.getKey());
 
             // Check proximity
-            if (Math.abs(current.getPositionX() - unitPosition.getPositionX()) <= 1 &&
-                    Math.abs(current.getPositionY() - unitPosition.getPositionY()) <= 1) {
+            if (Math.abs(current.getPositionX() - unitPosition.getPositionX()) <= Constants_Map.PROXIMITY &&
+                    Math.abs(current.getPositionY() - unitPosition.getPositionY()) <= Constants_Map.PROXIMITY) {
                 startCombat(entry.getKey());
                 return; // Assuming only one combat can start per move
             }
@@ -220,11 +222,9 @@ public class PlayerController implements Runnable
     }
 
 
-    private void startCombat(Coordinate coordinate) {
-        // Logic to start combat
-
-
-        // Assuming combat is over and unit is defeated for this example
+    private void startCombat(Coordinate coordinate)
+    {
+        //Todo: Implement Combat
         UnitController.getInstance().removeUnit(coordinate);
     }
     private void checkProximityToUnits()
@@ -244,14 +244,14 @@ public class PlayerController implements Runnable
 
     public boolean isNear()
     {
-        double distanceThreshold = 17.0; // Define an appropriate threshold value
+        double distanceThreshold = Constants_Map.DISTANCE_THRESHOLD; // Define an appropriate threshold value
         for (java.util.Map.Entry<Coordinate, Unit> entry : UnitController.getInstance().getUnitPositions().entrySet())
         {
             Coordinate unitPosition = entry.getKey();
 
             double distance = Math.sqrt(
-                    Math.pow(unitPosition.getPositionX() - currentPlayerPosition.getPositionX(), 2) +
-                            Math.pow(unitPosition.getPositionY() - currentPlayerPosition.getPositionY(), 2)
+                    Math.pow(unitPosition.getPositionX() - currentPlayerPosition.getPositionX(), Constants_Map.DISTANCE_TO_UNIT_POW) +
+                            Math.pow(unitPosition.getPositionY() - currentPlayerPosition.getPositionY(), Constants_Map.DISTANCE_TO_UNIT_POW)
             );
             if (distance < distanceThreshold)
             {
@@ -267,8 +267,7 @@ public class PlayerController implements Runnable
         {
             return;
         }
-        SceneController.getInstance().createYesOrNoButton("Kampf betreten?", () -> {
-            System.out.println("Betrete Kampf");
+        SceneController.getInstance().createYesOrNoButton(Constants_Map.HEADER_JOIN_FIGHT, () -> {
             checkCombatStart();
         });
     }

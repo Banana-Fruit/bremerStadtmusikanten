@@ -14,7 +14,7 @@ public interface Constants_Map
     int TILE_SIZE = 21;
     int MAX_ROWS = 50;
     int MAX_COLUMNS = 50;
-    int UNIT_SIZE = 16;
+    int UNIT_SIZE = 21;
     
     // Player
     int STARTPOSITION_X = 10;
@@ -29,6 +29,7 @@ public interface Constants_Map
     String MAP_NAME_CITY = "City";
     String MAP_NAME_COMBAT = "Kampf";
     String CONSOLE_PRINT_SWITCHING_MAP = "Switching to map: ";
+    String HEADER_JOIN_FIGHT = "Kampf betreten?";
 
     //Positioncheck
 
@@ -41,7 +42,7 @@ public interface Constants_Map
     int PLAYER_FINISH_MISSION_1_POSITION_Y = 7;
 
 
-
-
-
+    double DISTANCE_THRESHOLD = 22.0;
+    double PROXIMITY = 1.0;
+    double DISTANCE_TO_UNIT_POW = 2.0;
 }
