@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.buildings.*;
 import model.userInterface.Game;
+import model.userInterface.showables.Map;
 import model.userInterface.showables.Showable;
 import resources.GameMenuBar;
 import resources.constants.Constants_ExceptionMessages;
@@ -76,7 +77,7 @@ public class SceneController
             @Override
             public void handle(ActionEvent actionEvent)
             {
-                stage.close();
+                SceneController.getInstance().switchShowable(Map.getInstance());
             }
         });
     }
