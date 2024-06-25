@@ -67,4 +67,5 @@ public interface Constants_Map
     int REWARD_4_POSITION_Y = 5;
     int REWARD_5_POSITION_X = 2;
     int REWARD_5_POSITION_Y = 24;
+    String ARROW_LEFT = "resources/assets/jonas/186_arrow_left.png";
 }

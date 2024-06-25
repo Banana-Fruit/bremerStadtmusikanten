@@ -64,6 +64,12 @@ public class PlayerController implements Runnable
         Map.getInstance().getPane().getChildren().add(playerView);
         setPlayerPosition(playerPosition);
     }
+    public void updatePlayer ()
+    {
+        Map.getInstance().getPane().getChildren().remove(playerView);
+        addPlayer(currentPlayerPosition);
+    }
+
 
     @Override
     public void run() {
