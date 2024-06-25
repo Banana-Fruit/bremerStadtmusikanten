@@ -91,7 +91,7 @@ public class MainMenuController implements GameMenuBar
         PlayerController.getInstance().addPlayer(PanelController.getInstance().getCoordinateFromPanelTile(
                 Map.getInstance().getPanel(), Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
         PlayerController.getInstance().setPlayerInventory();
-        Map.getInstance().getPane().getChildren().add(GUIController.createInventory());
+        Map.getInstance().getPane().getChildren().add(DisplayController.createInventory());
         new Thread(KeyboardController.getInstance()).start();
         new Thread(PlayerController.getInstance()).start();
     }

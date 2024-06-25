@@ -1,7 +1,6 @@
 package model.buildings;
 
 
-import control.scenes.GUIController;
 import model.Coordinate;
 
 public abstract class Building

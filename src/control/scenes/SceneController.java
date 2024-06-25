@@ -1,6 +1,7 @@
 package control.scenes;
 
 
+import control.BuildingController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -87,27 +88,27 @@ public class SceneController
     {
         if (building == BaseCamp.getInstanceOfBasecamp())
         {
-            GUIController.getInsideBaseCamp(gridpane);
+            BuildingController.getInsideBaseCamp(gridpane);
         }
         else if (building == MagicAmplifier.getInstanceOfMagicamplifier())
         {
-            GUIController.getInsideMagicAmplifier(gridpane);
+            BuildingController.getInsideMagicAmplifier(gridpane);
         }
         else if (building == Headquarter.getInstanceOfHeadquarter())
         {
-            GUIController.getInsideHeadquarter(gridpane);
+            BuildingController.getInsideHeadquarter(gridpane);
         }
         else if (building == TrainingArea.getInstanceOfTrainingarea())
         {
-            GUIController.getInsideTrainingsArea(gridpane);
+            BuildingController.getInsideTrainingsArea(gridpane);
         }
         else if (building == Pub.getInstanceOfPub())
         {
-            GUIController.getInsidePub(gridpane);
+            BuildingController.getInsidePub(gridpane);
         }
         else if (building == FractionCampDog.getInstanceOfFractionDogcamp())
         {
-            GUIController.getInsideFractionCampDog(gridpane);
+            BuildingController.getInsideFractionCampDog(gridpane);
         }
 
     }
@@ -122,6 +123,7 @@ public class SceneController
                 Constants_MainMenu.MENUBAR_LOAD));
         return pane;
     }
+
     
     
     public void switchShowable(Showable showable)
@@ -131,6 +133,7 @@ public class SceneController
         this.stage.setFullScreenExitHint("");
         this.stage.setScene(showable.getScene());
     }
+
 
 
     // Method to retrieve the Singleton instance without parameters
