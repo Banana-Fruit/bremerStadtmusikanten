@@ -91,6 +91,7 @@ public class PlayerController implements Runnable
                     Platform.runLater(() -> {
                         MapController.getInstance().checkMissionStart();
                         MapController.getInstance().checkProximityToUnits();
+                        MapController.getInstance().checkRewardCollection();
                     });
                 }
             } catch (InterruptedException e) {

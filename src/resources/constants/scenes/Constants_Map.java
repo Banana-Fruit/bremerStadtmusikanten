@@ -1,7 +1,13 @@
 package resources.constants.scenes;
 
 
+import model.Coordinate;
 import utility.ValueConversion;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public interface Constants_Map
@@ -45,4 +51,26 @@ public interface Constants_Map
     double DISTANCE_THRESHOLD = 22.0;
     double PROXIMITY = 1.0;
     double DISTANCE_TO_UNIT_POW = 2.0;
+
+
+
+    String REWARD_IMAGE_PATH = "resources/assets/jonas/184_bag_path.png";
+
+    double REWARD_COLLECTION_RADIUS = 16;
+    int REWARD_GOLD_AMOUNT = 10;
+    int REWARD_BEER_AMOUNT = 5;
+    int REWARD_BRICK_AMOUNT = 15;
+    int REWARD_ESSENCE_AMOUNT = 20;
+    int REWARD_WOOD_AMOUNT = 25;
+
+    public static final int REWARD_1_POSITION_X = 40;
+    public static final int REWARD_1_POSITION_Y = 35;
+    public static final int REWARD_2_POSITION_X = 42;
+    public static final int REWARD_2_POSITION_Y = 8;
+    public static final int REWARD_3_POSITION_X = 30;
+    public static final int REWARD_3_POSITION_Y = 2;
+    public static final int REWARD_4_POSITION_X = 8;
+    public static final int REWARD_4_POSITION_Y = 5;
+    public static final int REWARD_5_POSITION_X = 2;
+    public static final int REWARD_5_POSITION_Y = 24;
 }
