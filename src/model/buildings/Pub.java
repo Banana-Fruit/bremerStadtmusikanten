@@ -42,7 +42,7 @@ public class Pub extends Building
     public static void recruitAMercenary ()
     {
         UnitController unitController = UnitController.getInstance();
-        List<Unit> units = unitController.UnitCreator();
+        List<Unit> units = unitController.unitCreator();
         Unit mercenary = units.get(Constants_Combat.MERCENARY);
 
         // pay for the mercenary to become a member in the team

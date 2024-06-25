@@ -3,16 +3,20 @@ package control.scenes;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.buildings.*;
 import model.userInterface.Game;
+import model.userInterface.TransparentButton;
 import model.userInterface.showables.Map;
 import model.userInterface.showables.Showable;
 import resources.GameMenuBar;
@@ -28,6 +32,7 @@ public class SceneController
 {
     private static SceneController instance = null;
     private final Stage stage;
+    private boolean dialogShown = false;
     
     
     private SceneController (Stage stage)
@@ -131,7 +136,78 @@ public class SceneController
         this.stage.setFullScreenExitHint("");
         this.stage.setScene(showable.getScene());
     }
+    public boolean isDialogShown()
+    {
+        return dialogShown;
+    }
 
+    public void createYesOrNoButton(String header, Runnable action)
+    {
+        if (dialogShown)
+        {
+            return;
+        }
+
+        Stage dialogStage = new Stage();
+        VBox dialogVbox = new VBox();
+        HBox buttonBox = new HBox();
+        dialogVbox.setSpacing(Constants_MainMenu.VBOX_SPACE_BETWEEN_CHOICE_AND_TEXT);
+
+        Scene dialogScene = new Scene(dialogVbox, Constants_MainMenu.DIALOG_SCENE_WIDTH,
+                Constants_MainMenu.DIALOG_SCENE_HEIGHT);
+        setDialogWindow(dialogStage, dialogVbox, header);
+
+        Text message = new Text(header);
+        message.setFill(Color.WHITE);
+
+        TransparentButton yesButton = new TransparentButton(Constants_MainMenu.YES_BUTTON, () -> {
+            action.run();
+            dialogStage.close();
+            dialogShown = false;
+        },
+                Constants_MainMenu.RC_WIDTH, Constants_MainMenu.RC_HEIGHT, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W);
+
+        TransparentButton noButton = new TransparentButton(Constants_MainMenu.NO_BUTTON, () -> {
+            dialogStage.close();
+            dialogShown = false;
+        },
+                Constants_MainMenu.RC_WIDTH, Constants_MainMenu.RC_HEIGHT, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W);
+
+        arrangeTwoButtonsHorizontal(buttonBox, yesButton, noButton, Constants_MainMenu.SPACE_BETWEEN_YES_NO_BOXES);
+        dialogVbox.getChildren().addAll(message, buttonBox);
+
+        Background background = new Background(new BackgroundFill(Color.rgb(Constants_MainMenu.RGB_SCHWARZ, Constants_MainMenu.RGB_SCHWARZ, Constants_MainMenu.RGB_SCHWARZ, Constants_MainMenu.LINEAR_GRADIENT_OPACITY), CornerRadii.EMPTY, Insets.EMPTY));
+        dialogVbox.setBackground(background);
+
+        showSceneOnStage(dialogScene, dialogStage);
+        dialogShown = true;
+    }
+
+
+    private static void setDialogWindow(Stage dialogStage, VBox dialogVbox, String header)
+    {
+        dialogStage.initStyle(StageStyle.TRANSPARENT);
+        dialogStage.setTitle(header);
+        //set position of the vbox
+        dialogVbox.setAlignment(Pos.CENTER);
+    }
+
+
+    private static void arrangeTwoButtonsHorizontal(HBox buttonBox, TransparentButton button1, TransparentButton button2, int space)
+    {
+        //Position of the HBox
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.setSpacing(space);
+        //add the MenuItems
+        buttonBox.getChildren().addAll(button1, button2);
+    }
+
+    private static void showSceneOnStage(Scene dialogScene, Stage dialogStage)
+    {
+        dialogScene.setFill(Color.TRANSPARENT);
+        dialogStage.setScene(dialogScene);
+        dialogStage.show();
+    }
 
     // Method to retrieve the Singleton instance without parameters
     public static SceneController getInstance ()

@@ -9,7 +9,7 @@ import java.util.List;
 public class FractionDog
 {
     UnitController unitController = UnitController.getInstance();
-    List<model.Unit> units = unitController.UnitCreator();
+    List<model.Unit> units = unitController.unitCreator();
     private static FractionDog instanceOfFractionDog = new FractionDog();
     private Unit hunter = units.get(Constants_Combat.HUNTER);
     private Unit bulldog = units.get(Constants_Combat.MASTIFF);

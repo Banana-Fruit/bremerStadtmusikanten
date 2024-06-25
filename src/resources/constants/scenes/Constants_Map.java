@@ -8,11 +8,13 @@ public interface Constants_Map
 {
     // File Management
     String PLAYER_VIEW_STANDARD = "resources/assets/map/player/esel.png";
+    String UNIT_VIEW_STANDARD = "resources/assets/map/player/unit.png";
     
     
     int TILE_SIZE = 21;
     int MAX_ROWS = 50;
     int MAX_COLUMNS = 50;
+    int UNIT_SIZE = 16;
     
     // Player
     int STARTPOSITION_X = 10;
@@ -25,6 +27,7 @@ public interface Constants_Map
     // Map
     String MAP_NAME_MISSION_1 = "Mission_1";
     String MAP_NAME_CITY = "City";
+    String MAP_NAME_COMBAT = "Kampf";
     String CONSOLE_PRINT_SWITCHING_MAP = "Switching to map: ";
 
     //Positioncheck

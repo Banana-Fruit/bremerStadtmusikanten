@@ -2,6 +2,7 @@ package control.events;
 
 
 import control.game.PlayerController;
+import control.scenes.SceneController;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -70,7 +71,11 @@ public class KeyboardController implements Runnable
                     pressedKeys.remove(keyEvent.getCode());
                 }
             });
-            
+            if (SceneController.getInstance().isDialogShown())
+            {
+                pressedKeys.clear(); // Clear pressed keys if a dialog is shown
+                continue; // Skip processing keys if dialog is shown
+            }
             Platform.runLater(new Runnable()
             {
                 @Override

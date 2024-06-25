@@ -1,11 +1,18 @@
 package control.game;
 
-import control.scenes.MainMenuController;
+import control.scenes.PanelController;
+import javafx.application.Platform;
+import javafx.scene.image.Image;
 import model.Attack;
+import model.Coordinate;
 import model.Unit;
+import model.userInterface.showables.Map;
 import resources.constants.*;
+import resources.constants.scenes.Constants_Map;
+import view.OutputImageView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -14,9 +21,11 @@ import java.io.IOException;
 
 public class UnitController {
 	private static volatile UnitController instance = null;
+	private final HashMap<Coordinate, Unit> unitPositions;
 
 	private UnitController()
 	{
+		unitPositions = new HashMap<>();
 	}
 	public static synchronized void initialize ()
 	{
@@ -30,7 +39,7 @@ public class UnitController {
 	}
 
 
-	public List<Unit> UnitCreator() {//WIP
+	public List<Unit> unitCreator () {//WIP
 		List<Unit> units = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(
 				new FileReader(Constants_Player_Units.FILE_READ_UNITS))) {
@@ -54,9 +63,9 @@ public class UnitController {
 				int positionX = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_POSITION_X]);
 				int positionY = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_POSITION_Y]);
 
-
+				OutputImageView unitView = new OutputImageView(new Image(Constants_Map.UNIT_VIEW_STANDARD), Constants_Map.UNIT_SIZE);
 				units.add(new Unit(Name, health, shield, mana, meeleDamage, rangedDamage, ammo, dodge,
-						magicResistance, movementPoints, initiative, magicDamage, myAttack, positionX, positionY));
+						magicResistance, movementPoints, initiative, magicDamage, myAttack, positionX, positionY,unitView));
 
 			}
 		} catch (FileNotFoundException e) {
@@ -100,6 +109,34 @@ public class UnitController {
 			throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
 		}
 		return instance;
+	}
+
+	public void addUnitsMission1() {
+		Platform.runLater(() -> {
+			List<Unit> units = unitCreator(); // Erstelle Einheiten aus der CSV-Datei
+			for (Unit unit : units) {
+				setUnitPosition(unit, unit.getPositionX(), unit.getPositionY());
+			}
+		});
+	}
+
+	private void setUnitPosition(Unit unit, int tileX, int tileY) {
+		Coordinate coordinate = new Coordinate(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), tileX, tileY));
+		Map.getInstance().getPane().getChildren().add(unit.getUnitView());
+		unit.getUnitView().setCoordinates(coordinate);
+		unitPositions.put(coordinate, unit);
+	}
+
+	public void removeUnit(Coordinate coordinate) {
+		Platform.runLater(() -> {
+			Map.getInstance().getPane().getChildren().remove(unitPositions.get(coordinate).getUnitView());
+			unitPositions.remove(coordinate);
+		});
+	}
+
+	public HashMap<Coordinate, Unit> getUnitPositions()
+	{
+		return unitPositions;
 	}
 
 }
