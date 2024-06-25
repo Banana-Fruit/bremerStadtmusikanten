@@ -42,7 +42,7 @@ public class UnitController {
 	public List<Unit> UnitCreator() {//WIP
 		List<Unit> units = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(
-				new FileReader("Einheiten"))) {
+				new FileReader("src/resources/Einheiten.csv"))) {
 
 			String line;
 			while ((line = br.readLine())!=null) {
