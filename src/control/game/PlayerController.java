@@ -22,6 +22,7 @@ import resources.constants.scenes.Constants_Map;
 import view.OutputImageView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 
@@ -34,6 +35,7 @@ public class PlayerController implements Runnable
     private Coordinate currentPlayerPosition;
     private Coordinate newPlayerPosition;
     private final OutputImageView playerView;
+    private boolean dialogShown = false;
     
     
     private PlayerController ()
@@ -74,29 +76,35 @@ public class PlayerController implements Runnable
     public void run() {
         while (true) {
             try {
-                Platform.runLater(() -> checkMissionStart());
                 Thread.sleep(Constants_Game.THREAD_SLEEP_DEFAULT_TIME);
+
                 if (!this.currentPlayerPosition.isEqual(this.newPlayerPosition)) {
+                    Coordinate targetPosition = new Coordinate(this.newPlayerPosition.getPositionX(), this.newPlayerPosition.getPositionY());
+
                     // Check if vertical movement is possible
-                    boolean canMoveVertically = !PanelController.getInstance().isVerticalMoveBlocked(Map.getInstance().getPanel(), currentPlayerPosition, newPlayerPosition);
-                    if (canMoveVertically) {
-                        this.currentPlayerPosition.setPositionY(this.newPlayerPosition.getPositionY());
+                    if (!PanelController.getInstance().isVerticalMoveBlocked(Map.getInstance().getPanel(), this.currentPlayerPosition, targetPosition)) {
+                        this.currentPlayerPosition.setPositionY(targetPosition.getPositionY());
                     }
 
                     // Check if horizontal movement is possible
-                    boolean canMoveHorizontally = !PanelController.getInstance().isHorizontalMoveBlocked(Map.getInstance().getPanel(), currentPlayerPosition, newPlayerPosition);
-                    if (canMoveHorizontally) {
-                        this.currentPlayerPosition.setPositionX(this.newPlayerPosition.getPositionX());
+                    if (!PanelController.getInstance().isHorizontalMoveBlocked(Map.getInstance().getPanel(), this.currentPlayerPosition, targetPosition)) {
+                        this.currentPlayerPosition.setPositionX(targetPosition.getPositionX());
                     }
 
                     // Update player position
-                    setPlayerPosition(this.currentPlayerPosition);
+                    setPlayerPosition(new Coordinate(this.currentPlayerPosition.getPositionX(), this.currentPlayerPosition.getPositionY()));
+
+                    // Check for mission start and proximity to units
+                    Platform.runLater(() -> {
+                        checkMissionStart();
+                        checkProximityToUnits();
+                    });
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
     }
@@ -106,6 +114,11 @@ public class PlayerController implements Runnable
     {
         if (Game.getInstance().getCurrentShowable() == Map.getInstance().getShowable())
         {
+            if (SceneController.getInstance().isDialogShown())
+            {
+                return; // Ignore key presses if a dialog is open
+            }
+
             boolean isDiagonal = pressedKeys.size() > Constants_DefaultValues.ONE;
             
             if (pressedKeys.contains(Constants_Keymapping.moveUP)) moveUP(isDiagonal);
@@ -163,8 +176,8 @@ public class PlayerController implements Runnable
         // Uebergang zu Mission 1
         if (current.getPositionX() == Constants_Map.PLAYER_AT_LEFT_BORDER && Map.getInstance().getCurrentMapName().equals(Constants_Map.MAP_NAME_CITY))
         {
-
             switchToMission(Constants_Map.MAP_NAME_MISSION_1, Constants_Map.PLAYER_SPAWN_MISSION_1_POSITION_X, Constants_Map.PLAYER_SPAWN_MISSION_1_POSITION_Y);
+            UnitController.getInstance().addUnitsMission1();
         }
         // Return to City from Mission 1
         else if (current.getPositionX() > Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_X && current.getPositionY()
@@ -191,26 +204,74 @@ public class PlayerController implements Runnable
     }
 
     //TODO brauchen position für kampf start. Muss noch SwitchToCombat aufrufen
-    public void checkCombatStart()
-    {
+    private void checkCombatStart() {
         Coordinate current = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance().getPanel(), currentPlayerPosition);
 
+        for (HashMap.Entry<Coordinate, Unit> entry : UnitController.getInstance().getUnitPositions().entrySet()) {
+            Coordinate unitPosition = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance().getPanel(), entry.getKey());
 
+            // Check proximity
+            if (Math.abs(current.getPositionX() - unitPosition.getPositionX()) <= 1 &&
+                    Math.abs(current.getPositionY() - unitPosition.getPositionY()) <= 1) {
+                startCombat(entry.getKey());
+                return; // Assuming only one combat can start per move
+            }
+        }
     }
-    //TODO: Unsicher ob wir die methode brauchen, oder SwitchToMission nutzen können (wegen player position) :)
-    private void switchToCombat(String newMap)
-    {
-        Map.getInstance().setCurrentMapName(newMap);
-        System.out.println(Constants_Map.CONSOLE_PRINT_SWITCHING_MAP + newMap);
 
-        Platform.runLater(() -> {
-            Map.getInstance().getPane().getChildren().remove(playerView);
-            SceneController.getInstance().switchShowable(Map.getInstance());
-            MapController.getInstance().setNewMap(newMap);
-            Map.getInstance().getPane().getChildren().add(playerView);
+
+    private void startCombat(Coordinate coordinate) {
+        // Logic to start combat
+
+
+        // Assuming combat is over and unit is defeated for this example
+        UnitController.getInstance().removeUnit(coordinate);
+    }
+    private void checkProximityToUnits()
+    {
+        if (isNear())
+        {
+            if (!dialogShown)
+            {
+                dialogShown = true;
+                showDialog();
+            }
+        } else
+        {
+            dialogShown = false;
+        }
+    }
+
+    public boolean isNear()
+    {
+        double distanceThreshold = 17.0; // Define an appropriate threshold value
+        for (java.util.Map.Entry<Coordinate, Unit> entry : UnitController.getInstance().getUnitPositions().entrySet())
+        {
+            Coordinate unitPosition = entry.getKey();
+
+            double distance = Math.sqrt(
+                    Math.pow(unitPosition.getPositionX() - currentPlayerPosition.getPositionX(), 2) +
+                            Math.pow(unitPosition.getPositionY() - currentPlayerPosition.getPositionY(), 2)
+            );
+            if (distance < distanceThreshold)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void showDialog()
+    {
+        if (SceneController.getInstance().isDialogShown())
+        {
+            return;
+        }
+        SceneController.getInstance().createYesOrNoButton("Kampf betreten?", () -> {
+            System.out.println("Betrete Kampf");
+            checkCombatStart();
         });
     }
-
 
     public static void addUnitToTheTeam (Unit unit)
     {

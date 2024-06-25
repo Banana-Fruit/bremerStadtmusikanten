@@ -21,6 +21,8 @@ public interface Constants_City
     int GRIDPANE_ROW_THIRTEEN = 13;
     int GRIDPANE_ROW_SEVENTEEN = 17;
     int FONT_NAME_BUILDING = 20;
+    int HEADQUARTER_SYMBOL_POSITION_X = 330;
+    int HEADQUARTER_SYMBOL_POSITION_Y = 530;
 
 
     String INFO_SHIELD = "Shield: ";
@@ -68,4 +70,6 @@ public interface Constants_City
     String CITY_LABEL_MARKETPLACE = "MP";
     String CITY_LABEL_PUB = "PU";
     String CITY_LABEL_TRAININGS_AREA = "TA";
+    String HEADQUARTER_SYMBOL_MISSION1 = "<- This way to mission one";
+    String HEADQUARTER_SYMBOL_BUTTON_BACKGROUND = "-fx-background-color:transparent";
 }

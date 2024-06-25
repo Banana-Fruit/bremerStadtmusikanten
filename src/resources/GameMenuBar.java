@@ -1,6 +1,7 @@
 package resources;
 
 import control.scenes.MainMenuController;
+import control.scenes.SceneController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -66,57 +67,13 @@ public interface GameMenuBar
      *
      * @author Jonas Helfer
      */
-    static void closeGame()
-    {
-        // Todo: Dialog nicht doppelt anzeigen ohne dieses boolean?
-        final boolean[] dialogShown = {false};
-        if (dialogShown[0])
+    static void closeGame() {
+        if (SceneController.getInstance().isDialogShown())
         {
             return;
         }
-        Stage dialogStage = new Stage();
-        VBox dialogVbox = new VBox();
-        dialogVbox.setSpacing(Constants_MainMenu.VBOX_SPACE_BETWEEN_CHOICE_AND_TEXT);
-        HBox buttonBox = new HBox();
-        Scene dialogScene = new Scene(dialogVbox, Constants_MainMenu.DIALOG_SCENE_WIDTH,
-                Constants_MainMenu.DIALOG_SCENE_HEIGHT);
-        // set a dialog window with a text message
-        setDialogWindow(dialogStage, dialogVbox);
 
-        // Text message whether to close the game
-        Text message = new Text(Constants_MainMenu.MESSAGE_CLOSE_GAME);
-        message.setFill(Color.WHITE);
-
-        // Yes-Button to commit the text message
-        TransparentButton yesButton = new TransparentButton(Constants_MainMenu.YES_BUTTON, () -> {
-            Platform.exit();
-            dialogStage.close();
-        },
-                Constants_MainMenu.RC_WIDTH, Constants_MainMenu.RC_HEIGHT, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W);
-
-        // No-Button to reject the text message
-        TransparentButton noButton = new TransparentButton(Constants_MainMenu.NO_BUTTON, () -> {
-            dialogStage.close();
-            dialogShown[0] = false;
-        },
-                Constants_MainMenu.RC_WIDTH, Constants_MainMenu.RC_HEIGHT, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W);
-
-        // HBox with yes and no button
-        arrangeTwoButtonsHorizontal(buttonBox, yesButton, noButton, Constants_MainMenu.SPACE_BETWEEN_YES_NO_BOXES);
-
-        // Add message and buttons to the VBox
-        dialogVbox.getChildren().addAll(message, buttonBox);
-
-
-
-        // Set the dialog Background black
-        Background background = new Background(new BackgroundFill(Color.rgb(Constants_MainMenu.RGB_SCHWARZ, Constants_MainMenu.RGB_SCHWARZ, Constants_MainMenu.RGB_SCHWARZ, Constants_MainMenu.LINEAR_GRADIENT_OPACITY), CornerRadii.EMPTY, Insets.EMPTY));
-        // Set the dialog background with an image
-        //Background background = createBackground(Constants_MenuSetting.PATH_BACKGROUND_IMAGE, dialogStage.getWidth(), dialogStage.getHeight());
-        dialogVbox.setBackground(background);
-
-        showSceneOnStage(dialogScene, dialogStage);
-        dialogShown[0] = true;
+        SceneController.getInstance().createYesOrNoButton(Constants_MainMenu.MESSAGE_CLOSE_GAME, () -> Platform.exit());
     }
     private static Background createBackground (String path, double sceneWidth, double sceneHeight) throws IllegalArgumentException
     {

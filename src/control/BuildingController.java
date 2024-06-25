@@ -27,6 +27,8 @@ import resources.constants.Constants_ExceptionMessages;
 import resources.constants.scenes.Constants_Building;
 import resources.constants.scenes.Constants_City;
 
+import java.awt.*;
+
 
 public class BuildingController
 {
@@ -186,6 +188,7 @@ public class BuildingController
         Map.getInstance().getPane().getChildren().add(createBuildingButton(Constants_City.CITY_LABEL_MARKETPLACE, () -> showPriceOfBuilding(Marketplace.getInstanceOfMarketplace()),Constants_Building.BUTTON_WIDTH_MARKETPLACE, Constants_Building.BUTTON_HEIGHT_MARKETPLACE, Marketplace.getInstanceOfMarketplace().getPositionUpperLeft()));
         Map.getInstance().getPane().getChildren().add(createBuildingButton(Constants_City.CITY_LABEL_PUB, () -> showPriceOfBuilding(Pub.getInstanceOfPub()),Constants_Building.BUTTON_WIDTH_PUB,Constants_Building.BUTTON_HEIGHT_PUB, Pub.getInstanceOfPub().getPositionUpperLeft()));
         Map.getInstance().getPane().getChildren().add(createBuildingButton(Constants_City.CITY_LABEL_TRAININGS_AREA, () -> showPriceOfBuilding(TrainingArea.getInstanceOfTrainingarea()),Constants_Building.BUTTON_WIDTH_TRAINING_AREA,Constants_Building.BUTTON_HEIGHT_TRAINING_AREA, TrainingArea.getInstanceOfTrainingarea().getPositionUpperLeft()));
+        Map.getInstance().getPane().getChildren().add(showWayToMission(false));
     }
 
     public TransparentButton createBuildingButton (String name, Runnable action, int itemWidth, int itemHeight, Coordinate coordinate)
@@ -355,6 +358,18 @@ public class BuildingController
     }
 
 
+    private static Button showWayToMission (boolean visible)
+    {
+        Button toMissionOne = new Button (Constants_City.HEADQUARTER_SYMBOL_MISSION1);
+        toMissionOne.setLayoutX(Constants_City.HEADQUARTER_SYMBOL_POSITION_X);
+        toMissionOne.setLayoutY(Constants_City.HEADQUARTER_SYMBOL_POSITION_Y);
+        toMissionOne.setStyle(Constants_City.HEADQUARTER_SYMBOL_BUTTON_BACKGROUND);
+        toMissionOne.setVisible(visible);
+
+        return toMissionOne;
+    }
+
+
     private static void showWayToMissionOne (Button button)
     {
         button.setOnAction(new EventHandler<ActionEvent>()
@@ -362,7 +377,7 @@ public class BuildingController
             @Override
             public void handle(ActionEvent actionEvent)
             {
-                ;
+                showWayToMission(true);
             }
         });
     }

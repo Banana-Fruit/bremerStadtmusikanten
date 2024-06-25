@@ -8,7 +8,7 @@ import java.util.List;
 public class FractionRoland
 {
     UnitController unitController = UnitController.getInstance();
-    List<model.Unit> units = unitController.UnitCreator();
+    List<model.Unit> units = unitController.unitCreator();
     private static FractionRoland instanceOfFractionRoland = new FractionRoland();
     private Unit citizen = units.get(Constants_Combat.CITIZEN);
     private Unit statueOfBremerStadtmusikanten = units.get(Constants_Combat.STATUE_OF_BREMERSTADTMUSIKANTEN);
