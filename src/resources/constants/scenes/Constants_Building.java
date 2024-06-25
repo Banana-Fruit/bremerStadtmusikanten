@@ -168,5 +168,20 @@ public interface Constants_Building
     public static final String BUTTON_TITLE = "Unlock the forge";
     public static final String FONT = "Arial";
     String UNKNOWN_FRACTIONCAMP_TYPE = "Unknown FractionCamp type: ";
+    String IS_UNLOCKED = "already unlocked";
+    String TEAM_FULL = "The team is full.";
+    String MAGIC_SKILL_BEFORE = "MagicSkill before: %d \n";
+    String MAGIC_SKILL_AFTER = "MagicSkill after: %d";
+    String EXCHANGE_BEER = "beer";
+    String EXCHANGE_WOOD = "wood";
+    String EXCHANGE_BRICK = "brick";
+    String EXCHANGE_GOLD = "gold";
+    String EXCHANGE_ESSENCE = "essence";
+    String INVALID_INPUT = "Invalid input.";
+    String EXCHANGE_BEER_FOR = "For %d beers you get %d %s.";
+    String EXCHANGE_WOOD_FOR = "For %d woods you get %d %s.";
+    String EXCHANGE_BRICK_FOR = "For %d bricks you get %d %s.";
+    String EXCHANGE_GOLD_FOR = "For %d golds you get %d %s.";
+    String EXCHANGE_ESSENCE_FOR = "For %d golds you get %d %s.";
 
 }

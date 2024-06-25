@@ -24,6 +24,13 @@ public class MouseController implements Runnable
     }
     
     
+    @Override
+    public void run ()
+    {
+    
+    }
+
+
     // Method to retrieve the Singleton instance without parameters
     public static MouseController getInstance ()
     {
@@ -32,12 +39,5 @@ public class MouseController implements Runnable
             throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
         }
         return instance;
-    }
-    
-    
-    @Override
-    public void run ()
-    {
-    
     }
 }

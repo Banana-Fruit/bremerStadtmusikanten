@@ -16,4 +16,10 @@ public interface Constants_Panel
     char IGNORE_LOADER_FILE_VALUE = ' ';
     String EMPTY_STRING = "";
     int FILE_READER_STARTING_LINE = 0;
+
+    String FILE_PANEL = "src/resources/assets/jonas";
+    String INVALID_FILE_PATH = "The folder path is invalid or contains no files: ";
+    String FILE_PATH_GRASS = "resources/assets/jonas/019_grass.png";
+    String FILE_PATH_TILE_DATA = "/resources/assets/TileData";
+
 }

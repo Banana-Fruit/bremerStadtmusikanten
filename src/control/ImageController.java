@@ -28,16 +28,7 @@ public class ImageController implements Runnable
         }
     }
     
-    
-    // Method to retrieve the Singleton instance without parameters
-    public static ImageController getInstance ()
-    {
-        if (instance == null)
-        {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
-        }
-        return instance;
-    }
+
     
     
     @Override
@@ -57,5 +48,17 @@ public class ImageController implements Runnable
                 //OutputImageView.scaleImageViewToSceneSize(entry.getKey(), entry.getValue(), this.game.getCurrentShowable().getScene());
             }*/
         }
+    }
+
+
+
+    // Method to retrieve the Singleton instance without parameters
+    public static ImageController getInstance ()
+    {
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+        }
+        return instance;
     }
 }

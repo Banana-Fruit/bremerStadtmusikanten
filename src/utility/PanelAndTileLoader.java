@@ -3,6 +3,7 @@ package utility;
 
 import javafx.scene.image.Image;
 import model.panel.Tile;
+import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_Panel;
 import resources.constants.Constants_Resources;
 
@@ -60,7 +61,7 @@ public class PanelAndTileLoader
         
         // Check if the folder is valid and contains files
         if (arrayOfFileNames == null)
-            System.out.println("The folder path is invalid or contains no files: " + imageFolderPath); // TODO: Custom exception
+            System.out.println(Constants_Panel.INVALID_FILE_PATH + imageFolderPath); // TODO: Custom exception
         
         for (String currentFileName : arrayOfFileNames)
         {
@@ -114,13 +115,13 @@ public class PanelAndTileLoader
                     if (Character.isDigit(currentChar))
                     {
                         numberBuilder.append(currentChar);
-                    } else if (currentChar == ' ' && numberBuilder.length() > 0)
+                    } else if (currentChar == ' ' && numberBuilder.length() > Constants_DefaultValues.ZERO)
                     {
                         integerArray[row][column++] = Integer.parseInt(numberBuilder.toString());
-                        numberBuilder.setLength(0);
+                        numberBuilder.setLength(Constants_DefaultValues.ZERO);
                     }
                 }
-                if (numberBuilder.length() > 0)
+                if (numberBuilder.length() > Constants_DefaultValues.ZERO)
                 {
                     integerArray[row][column] = Integer.parseInt(numberBuilder.toString());
                 }
@@ -146,9 +147,9 @@ public class PanelAndTileLoader
             e.printStackTrace();
             return tileArray;
         }
-        for (int row = 0; row < maxRows; row++)
+        for (int row = Constants_DefaultValues.START_FOR_LOOP; row < maxRows; row++)
         {
-            for (int column = 0; column < maxColumns; column++)
+            for (int column = Constants_DefaultValues.START_FOR_LOOP; column < maxColumns; column++)
             {
                 int intValue = intArray[row][column];
                 if (intValue == Constants_Panel.IGNORE_LOADER_FILE_VALUE) continue;
@@ -157,7 +158,7 @@ public class PanelAndTileLoader
                     tileArray[row][column] = new Tile(integerImageHashMap.get(intValue));
                 } else
                 {
-                    tileArray[row][column] = new Tile(new Image("resources/assets/jonas/019_grass.png"));
+                    tileArray[row][column] = new Tile(new Image(Constants_Panel.FILE_PATH_GRASS));
                 }
                 if (occupancyData != null && occupancyData.containsKey(intValue))
                 {
@@ -176,7 +177,7 @@ public class PanelAndTileLoader
         String[] arrayOfFileNames = folder.list();
         if (arrayOfFileNames == null)
         {
-            System.out.println("The folder path is invalid or contains no files: " + imageFolderPath);
+            System.out.println(Constants_Panel.INVALID_FILE_PATH + imageFolderPath);
             return currentMapOfCharsWithImages;
         }
         for (String currentFileName : arrayOfFileNames)
@@ -206,12 +207,12 @@ public class PanelAndTileLoader
     public static Map<Integer, Boolean> readOccupancyData_JonasMap() throws IOException
     {
         Map<Integer, Boolean> occupancyData = new HashMap<>();
-        InputStream is = PanelAndTileLoader.class.getResourceAsStream("/resources/assets/TileData");
+        InputStream is = PanelAndTileLoader.class.getResourceAsStream(Constants_Panel.FILE_PATH_TILE_DATA);
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line;
         while ((line = br.readLine()) != null)
         {
-            int tileId = Integer.parseInt(line.trim().substring(0, 3));
+            int tileId = Integer.parseInt(line.trim().substring(Constants_DefaultValues.ZERO, Constants_DefaultValues.THREE));
             if ((line = br.readLine()) != null)
             {
                 boolean isOccupied = Boolean.parseBoolean(line.trim());

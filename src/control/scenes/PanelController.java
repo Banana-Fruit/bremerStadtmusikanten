@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import model.Coordinate;
 import model.panel.Panel;
+import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Panel;
 import resources.constants.Constants_Resources;
@@ -39,16 +40,7 @@ public class PanelController
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
-    
-    
-    public static PanelController getInstance ()
-    {
-        if (instance == null)
-        {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
-        }
-        return instance;
-    }
+
     
     
     /**
@@ -95,7 +87,8 @@ public class PanelController
         char[][] charArray = PanelAndTileLoader.getCharacterArrayUsingTileFile(pathToLoaderFileFolder + loaderFileName, maxRows, maxColumns);
         
         // Create path to resource folder with biome
-        String pathToResourceFolder = pathToLoaderFileFolder.replace(Constants_Resources.LOADER_FILES_FOLDER, Constants_Panel.EMPTY_STRING) + getBiomeName(pathToLoaderFileFolder + loaderFileName);
+        String pathToResourceFolder = pathToLoaderFileFolder.replace(Constants_Resources.LOADER_FILES_FOLDER, Constants_Panel.EMPTY_STRING)
+                + getBiomeName(pathToLoaderFileFolder + loaderFileName);
         
         // Put characters in correlation to images
         HashMap<Character, Image> mapOfCharactersWithCorrelatingImages = PanelAndTileLoader.getMapWithCharsAndImages(pathToResourceFolder);
@@ -111,7 +104,7 @@ public class PanelController
         // Create array of characters
         int[][] intArray = PanelAndTileLoader.getCharacterArrayUsingTileFile_JonasMap(pathToLoaderFileFolder + loaderFileName, maxRows, maxColumns);
         // Create path to resource folder with biome
-        String pathToResourceFolder = "src/resources/assets/jonas";
+        String pathToResourceFolder = Constants_Panel.FILE_PANEL;
         // Put characters in correlation to images
         HashMap<Integer, Image> mapOfCharactersWithCorrelatingImages = PanelAndTileLoader.getMapWithIntegersAndImages_JonasMap(pathToResourceFolder);
         return new Panel(
@@ -128,7 +121,7 @@ public class PanelController
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(pathToLoaderFile)))
         {
             String line;
-            for (int i = 0; (line = bufferedReader.readLine()) != null; i++)
+            for (int i = Constants_DefaultValues.START_FOR_LOOP; (line = bufferedReader.readLine()) != null; i++)
             {
                 if (i != Constants_Panel.BIOME_IDENTIFIER_LINE) continue;
                 biomeName = line;
@@ -192,7 +185,8 @@ public class PanelController
                 // Überprüfe die untere linke Ecke
                 isObstacle(panel, x, y + tileSize - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE) ||
                 // Überprüfe die untere rechte Ecke
-                isObstacle(panel, x + tileSize - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE, y + tileSize - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE))
+                isObstacle(panel, x + tileSize - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE, y + tileSize
+                        - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE))
         {
             return true; // Der Spieler läuft über ein Hindernis
         }
@@ -203,7 +197,7 @@ public class PanelController
 
     public boolean isVerticalMoveBlocked(Panel panel, Coordinate currentPlayerPosition, Coordinate newPlayerPosition) {
         double yMovement = newPlayerPosition.getPositionY() - currentPlayerPosition.getPositionY();
-        if (yMovement == 0) return false;
+        if (yMovement == Constants_DefaultValues.ZERO) return false;
 
         double newY = newPlayerPosition.getPositionY();
         Coordinate newVerticalPosition = new Coordinate(currentPlayerPosition.getPositionX(), newY);
@@ -212,7 +206,7 @@ public class PanelController
 
     public boolean isHorizontalMoveBlocked(Panel panel, Coordinate currentPlayerPosition, Coordinate newPlayerPosition) {
         double xMovement = newPlayerPosition.getPositionX() - currentPlayerPosition.getPositionX();
-        if (xMovement == 0) return false;
+        if (xMovement == Constants_DefaultValues.ZERO) return false;
 
         double newX = newPlayerPosition.getPositionX();
         Coordinate newHorizontalPosition = new Coordinate(newX, currentPlayerPosition.getPositionY());
@@ -267,5 +261,15 @@ public class PanelController
                         Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF));
         //System.out.println(x + " " + y);
         return new Coordinate(x, y);
+    }
+
+
+    public static PanelController getInstance ()
+    {
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+        }
+        return instance;
     }
 }

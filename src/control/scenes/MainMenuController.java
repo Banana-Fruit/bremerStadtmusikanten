@@ -6,9 +6,7 @@ import control.events.KeyboardController;
 import control.game.PlayerController;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
-import javafx.scene.paint.LinearGradient;
 import model.player.Player;
-import model.userInterface.Game;
 import model.userInterface.showables.*;
 import model.userInterface.TransparentButton;
 import resources.constants.Constants_ExceptionMessages;
@@ -37,17 +35,7 @@ public class MainMenuController implements GameMenuBar
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
-    
-    
-    public static MainMenuController getInstance ()
-    {
-        if (instance == null)
-        {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
-        }
-        return instance;
-    }
-    
+
     
     public void addButtons ()
     {
@@ -126,5 +114,15 @@ public class MainMenuController implements GameMenuBar
         LoadGame.getInstance().getPane().getChildren().add(gridPane);
         
         SceneController.getInstance().switchShowable(LoadGame.getInstance());
+    }
+
+
+    public static MainMenuController getInstance ()
+    {
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+        }
+        return instance;
     }
 }

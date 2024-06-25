@@ -36,37 +36,37 @@ public class Marketplace extends Building
     {
         int numberOfResourceForBeer;
 
-        if (Objects.equals(resource, "wood"))
+        if (Objects.equals(resource, Constants_Building.EXCHANGE_WOOD))
         {
             numberOfResourceForBeer = numberOfBeer / Constants_Building.TWO;
-            System.out.printf("For %d beers you get %d woods.", numberOfBeer, numberOfResourceForBeer);
+            System.out.printf(Constants_Building.EXCHANGE_BEER_FOR, numberOfBeer, numberOfResourceForBeer, Constants_Building.EXCHANGE_WOOD);
             Inventory.getInstanceOfInventory().setInventoryBeer(Inventory.getInstanceOfInventory().getInventoryBeer() - numberOfBeer);
             Inventory.getInstanceOfInventory().setInventoryWood(Inventory.getInstanceOfInventory().getInventoryWood() + numberOfResourceForBeer);
         }
-        else if (Objects.equals(resource, "brick"))
+        else if (Objects.equals(resource, Constants_Building.EXCHANGE_BRICK))
         {
             numberOfResourceForBeer = numberOfBeer / Constants_Building.FOUR;
-            System.out.printf("For %d beers you get %d bricks.", numberOfBeer, numberOfResourceForBeer);
+            System.out.printf(Constants_Building.EXCHANGE_BEER_FOR, numberOfBeer, numberOfResourceForBeer, Constants_Building.EXCHANGE_BRICK);
             Inventory.getInstanceOfInventory().setInventoryBeer(Inventory.getInstanceOfInventory().getInventoryBeer() - numberOfBeer);
             Inventory.getInstanceOfInventory().setInventoryBrick(Inventory.getInstanceOfInventory().getInventoryBrick() + numberOfResourceForBeer);
         }
-        else if (Objects.equals(resource, "gold"))
+        else if (Objects.equals(resource, Constants_Building.EXCHANGE_GOLD))
         {
             numberOfResourceForBeer = numberOfBeer / Constants_Building.EIGHT;
-            System.out.printf("For %d beers you get %d golds.", numberOfBeer, numberOfResourceForBeer);
+            System.out.printf(Constants_Building.EXCHANGE_BEER_FOR, numberOfBeer, numberOfResourceForBeer, Constants_Building.EXCHANGE_GOLD);
             Inventory.getInstanceOfInventory().setInventoryBeer(Inventory.getInstanceOfInventory().getInventoryBeer() - numberOfBeer);
             Inventory.getInstanceOfInventory().setInventoryGold(Inventory.getInstanceOfInventory().getInventoryGold() + numberOfResourceForBeer);
         }
-        else if (Objects.equals(resource, "essence"))
+        else if (Objects.equals(resource, Constants_Building.EXCHANGE_ESSENCE))
         {
             numberOfResourceForBeer = numberOfBeer / Constants_Building.SIXTEEN;
-            System.out.printf("For %d beers you get %d essence.", numberOfBeer, numberOfResourceForBeer);
+            System.out.printf(Constants_Building.EXCHANGE_BEER_FOR, numberOfBeer, numberOfResourceForBeer, Constants_Building.EXCHANGE_ESSENCE);
             Inventory.getInstanceOfInventory().setInventoryBeer(Inventory.getInstanceOfInventory().getInventoryBeer() - numberOfBeer);
             Inventory.getInstanceOfInventory().setInventoryEssence(Inventory.getInstanceOfInventory().getInventoryEssence() + numberOfResourceForBeer);
         }
         else
         {
-            System.out.println("Invalid input.");
+            System.out.println(Constants_Building.INVALID_INPUT);
         }
     }
 
@@ -75,37 +75,37 @@ public class Marketplace extends Building
     {
         int numberOfResourceForWood;
 
-        if (Objects.equals(resource, "beer"))
+        if (Objects.equals(resource, Constants_Building.EXCHANGE_BEER))
         {
             numberOfResourceForWood = numberOfWood * Constants_Building.TWO;
-            System.out.printf("For %d woods you get %d beers.", numberOfWood, numberOfResourceForWood);
+            System.out.printf(Constants_Building.EXCHANGE_WOOD_FOR, numberOfWood, numberOfResourceForWood, Constants_Building.EXCHANGE_BEER);
             Inventory.getInstanceOfInventory().setInventoryWood(Inventory.getInstanceOfInventory().getInventoryWood() - numberOfWood);
             Inventory.getInstanceOfInventory().setInventoryBeer(Inventory.getInstanceOfInventory().getInventoryBeer() + numberOfResourceForWood);
         }
-        else if (Objects.equals(resource, "brick"))
+        else if (Objects.equals(resource, Constants_Building.EXCHANGE_BRICK))
         {
             numberOfResourceForWood = numberOfWood / Constants_Building.TWO;
-            System.out.printf("For %d woods you get %d bricks.", numberOfWood, numberOfResourceForWood);
+            System.out.printf(Constants_Building.EXCHANGE_WOOD_FOR, numberOfWood, numberOfResourceForWood, Constants_Building.EXCHANGE_BRICK);
             Inventory.getInstanceOfInventory().setInventoryWood(Inventory.getInstanceOfInventory().getInventoryWood() - numberOfWood);
             Inventory.getInstanceOfInventory().setInventoryBrick(Inventory.getInstanceOfInventory().getInventoryBrick() + numberOfResourceForWood);
         }
-        else if (Objects.equals(resource, "gold"))
+        else if (Objects.equals(resource, Constants_Building.EXCHANGE_GOLD))
         {
             numberOfResourceForWood = numberOfWood / Constants_Building.FOUR;
-            System.out.printf("For %d woods you get %d golds.", numberOfWood, numberOfResourceForWood);
+            System.out.printf(Constants_Building.EXCHANGE_WOOD_FOR, numberOfWood, numberOfResourceForWood, Constants_Building.EXCHANGE_GOLD);
             Inventory.getInstanceOfInventory().setInventoryWood(Inventory.getInstanceOfInventory().getInventoryWood() - numberOfWood);
             Inventory.getInstanceOfInventory().setInventoryGold(Inventory.getInstanceOfInventory().getInventoryGold() + numberOfResourceForWood);
         }
-        else if (Objects.equals(resource, "essence"))
+        else if (Objects.equals(resource, Constants_Building.EXCHANGE_ESSENCE))
         {
             numberOfResourceForWood = numberOfWood / Constants_Building.EIGHT;
-            System.out.printf("For %d woods you get %d essence.", numberOfWood, numberOfResourceForWood);
+            System.out.printf(Constants_Building.EXCHANGE_WOOD_FOR, numberOfWood, numberOfResourceForWood, Constants_Building.EXCHANGE_ESSENCE);
             Inventory.getInstanceOfInventory().setInventoryWood(Inventory.getInstanceOfInventory().getInventoryWood() - numberOfWood);
             Inventory.getInstanceOfInventory().setInventoryEssence(Inventory.getInstanceOfInventory().getInventoryEssence() + numberOfResourceForWood);
         }
         else
         {
-            System.out.println("Invalid input.");
+            System.out.println(Constants_Building.INVALID_INPUT);
         }
     }
 
@@ -115,37 +115,37 @@ public class Marketplace extends Building
     {
         int numberOfResourceForBrick;
 
-        if (Objects.equals(resource, "beer"))
+        if (Objects.equals(resource, Constants_Building.EXCHANGE_BEER))
         {
             numberOfResourceForBrick = numberOfBrick * Constants_Building.FOUR;
-            System.out.printf("For %d bricks you get %d beers.", numberOfBrick, numberOfResourceForBrick);
+            System.out.printf(Constants_Building.EXCHANGE_BRICK_FOR, numberOfBrick, numberOfResourceForBrick, Constants_Building.EXCHANGE_BEER);
             Inventory.getInstanceOfInventory().setInventoryBrick(Inventory.getInstanceOfInventory().getInventoryBrick() - numberOfBrick);
             Inventory.getInstanceOfInventory().setInventoryBeer(Inventory.getInstanceOfInventory().getInventoryBeer() + numberOfResourceForBrick);
         }
-        else if (Objects.equals(resource, "wood"))
+        else if (Objects.equals(resource, Constants_Building.EXCHANGE_WOOD))
         {
             numberOfResourceForBrick = numberOfBrick * Constants_Building.TWO;
-            System.out.printf("For %d bricks you get %d woods.", numberOfBrick, numberOfResourceForBrick);
+            System.out.printf(Constants_Building.EXCHANGE_BRICK_FOR, numberOfBrick, numberOfResourceForBrick, Constants_Building.EXCHANGE_WOOD);
             Inventory.getInstanceOfInventory().setInventoryBrick(Inventory.getInstanceOfInventory().getInventoryBrick() - numberOfBrick);
             Inventory.getInstanceOfInventory().setInventoryWood(Inventory.getInstanceOfInventory().getInventoryWood() + numberOfResourceForBrick);
         }
-        else if (Objects.equals(resource, "gold"))
+        else if (Objects.equals(resource, Constants_Building.EXCHANGE_GOLD))
         {
             numberOfResourceForBrick = numberOfBrick / Constants_Building.TWO;
-            System.out.printf("For %d bricks you get %d golds.", numberOfBrick, numberOfResourceForBrick);
+            System.out.printf(Constants_Building.EXCHANGE_BRICK_FOR, numberOfBrick, numberOfResourceForBrick, Constants_Building.EXCHANGE_GOLD);
             Inventory.getInstanceOfInventory().setInventoryBrick(Inventory.getInstanceOfInventory().getInventoryBrick() - numberOfBrick);
             Inventory.getInstanceOfInventory().setInventoryGold(Inventory.getInstanceOfInventory().getInventoryGold() + numberOfResourceForBrick);
         }
-        else if (Objects.equals(resource, "essence"))
+        else if (Objects.equals(resource, Constants_Building.EXCHANGE_ESSENCE))
         {
             numberOfResourceForBrick = numberOfBrick / Constants_Building.FOUR;
-            System.out.printf("For %d bricks you get %d essence.", numberOfBrick, numberOfResourceForBrick);
+            System.out.printf(Constants_Building.EXCHANGE_BRICK_FOR, numberOfBrick, numberOfResourceForBrick, Constants_Building.EXCHANGE_ESSENCE);
             Inventory.getInstanceOfInventory().setInventoryBrick(Inventory.getInstanceOfInventory().getInventoryBrick() - numberOfBrick);
             Inventory.getInstanceOfInventory().setInventoryEssence(Inventory.getInstanceOfInventory().getInventoryEssence() + numberOfResourceForBrick);
         }
         else
         {
-            System.out.println("Invalid input.");
+            System.out.println(Constants_Building.INVALID_INPUT);
         }
     }
 
@@ -154,38 +154,38 @@ public class Marketplace extends Building
     {
         int numberOfResourceForGold;
 
-        if (Objects.equals(resource, "beer"))
+        if (Objects.equals(resource, Constants_Building.EXCHANGE_BEER))
 
         {
             numberOfResourceForGold = numberOfGold * Constants_Building.EIGHT;
-            System.out.printf("For %d golds you get %d beers.", numberOfGold, numberOfResourceForGold);
+            System.out.printf(Constants_Building.EXCHANGE_GOLD_FOR, numberOfGold, numberOfResourceForGold, Constants_Building.EXCHANGE_BEER);
             Inventory.getInstanceOfInventory().setInventoryGold(Inventory.getInstanceOfInventory().getInventoryGold() - numberOfGold);
             Inventory.getInstanceOfInventory().setInventoryBeer(Inventory.getInstanceOfInventory().getInventoryBeer() + numberOfResourceForGold);
         }
-        else if (Objects.equals(resource, "wood"))
+        else if (Objects.equals(resource, Constants_Building.EXCHANGE_WOOD))
         {
             numberOfResourceForGold = numberOfGold * Constants_Building.FOUR;
-            System.out.printf("For %d golds you get %d woods.", numberOfGold, numberOfResourceForGold);
+            System.out.printf(Constants_Building.EXCHANGE_GOLD_FOR, numberOfGold, numberOfResourceForGold, Constants_Building.EXCHANGE_WOOD);
             Inventory.getInstanceOfInventory().setInventoryGold(Inventory.getInstanceOfInventory().getInventoryGold() - numberOfGold);
             Inventory.getInstanceOfInventory().setInventoryWood(Inventory.getInstanceOfInventory().getInventoryWood() + numberOfResourceForGold);
         }
-        else if (Objects.equals(resource, "brick"))
+        else if (Objects.equals(resource, Constants_Building.EXCHANGE_BRICK))
         {
             numberOfResourceForGold = numberOfGold * Constants_Building.TWO;
-            System.out.printf("For %d golds you get %d bricks.", numberOfGold, numberOfResourceForGold);
+            System.out.printf(Constants_Building.EXCHANGE_GOLD_FOR, numberOfGold, numberOfResourceForGold, Constants_Building.EXCHANGE_BRICK);
             Inventory.getInstanceOfInventory().setInventoryGold(Inventory.getInstanceOfInventory().getInventoryGold() - numberOfGold);
             Inventory.getInstanceOfInventory().setInventoryBrick(Inventory.getInstanceOfInventory().getInventoryBrick() + numberOfResourceForGold);
         }
-        else if (Objects.equals(resource, "essence"))
+        else if (Objects.equals(resource, Constants_Building.EXCHANGE_ESSENCE))
         {
             numberOfResourceForGold = numberOfGold / Constants_Building.TWO;
-            System.out.printf("For %d golds you get %d essence.", numberOfGold, numberOfResourceForGold);
+            System.out.printf(Constants_Building.EXCHANGE_GOLD_FOR, numberOfGold, numberOfResourceForGold, Constants_Building.EXCHANGE_ESSENCE);
             Inventory.getInstanceOfInventory().setInventoryGold(Inventory.getInstanceOfInventory().getInventoryGold() - numberOfGold);
             Inventory.getInstanceOfInventory().setInventoryEssence(Inventory.getInstanceOfInventory().getInventoryEssence() + numberOfResourceForGold);
         }
         else
         {
-            System.out.println("Invalid input.");
+            System.out.println(Constants_Building.INVALID_INPUT);
         }
     }
 
@@ -194,38 +194,38 @@ public class Marketplace extends Building
     {
         int numberOfResourceForEssence;
 
-        if (Objects.equals(resource, "beer"))
+        if (Objects.equals(resource, Constants_Building.EXCHANGE_BEER))
 
         {
             numberOfResourceForEssence = numberOfEssence * Constants_Building.SIXTEEN;
-            System.out.printf("For %d golds you get %d beers.", numberOfEssence, numberOfResourceForEssence);
+            System.out.printf(Constants_Building.EXCHANGE_ESSENCE_FOR, numberOfEssence, numberOfResourceForEssence, Constants_Building.EXCHANGE_BEER);
             Inventory.getInstanceOfInventory().setInventoryEssence(Inventory.getInstanceOfInventory().getInventoryEssence() - numberOfEssence);
             Inventory.getInstanceOfInventory().setInventoryBeer(Inventory.getInstanceOfInventory().getInventoryBeer() + numberOfResourceForEssence);
         }
-        else if (Objects.equals(resource, "wood"))
+        else if (Objects.equals(resource, Constants_Building.EXCHANGE_WOOD))
         {
             numberOfResourceForEssence = numberOfEssence * Constants_Building.EIGHT;
-            System.out.printf("For %d golds you get %d woods.", numberOfEssence, numberOfResourceForEssence);
+            System.out.printf(Constants_Building.EXCHANGE_ESSENCE_FOR, numberOfEssence, numberOfResourceForEssence, Constants_Building.EXCHANGE_WOOD);
             Inventory.getInstanceOfInventory().setInventoryEssence(Inventory.getInstanceOfInventory().getInventoryEssence() - numberOfEssence);
             Inventory.getInstanceOfInventory().setInventoryWood(Inventory.getInstanceOfInventory().getInventoryWood() + numberOfResourceForEssence);
         }
-        else if (Objects.equals(resource, "brick"))
+        else if (Objects.equals(resource, Constants_Building.EXCHANGE_BRICK))
         {
             numberOfResourceForEssence = numberOfEssence * Constants_Building.FOUR;
-            System.out.printf("For %d golds you get %d bricks.", numberOfEssence, numberOfResourceForEssence);
+            System.out.printf(Constants_Building.EXCHANGE_ESSENCE_FOR, numberOfEssence, numberOfResourceForEssence, Constants_Building.EXCHANGE_BRICK);
             Inventory.getInstanceOfInventory().setInventoryEssence(Inventory.getInstanceOfInventory().getInventoryEssence() - numberOfEssence);
             Inventory.getInstanceOfInventory().setInventoryBrick(Inventory.getInstanceOfInventory().getInventoryBrick() + numberOfResourceForEssence);
         }
-        else if (Objects.equals(resource, "gold"))
+        else if (Objects.equals(resource, Constants_Building.EXCHANGE_GOLD))
         {
             numberOfResourceForEssence = numberOfEssence * Constants_Building.TWO;
-            System.out.printf("For %d golds you get %d golds.", numberOfEssence, numberOfResourceForEssence);
+            System.out.printf(Constants_Building.EXCHANGE_ESSENCE_FOR, numberOfEssence, numberOfResourceForEssence, Constants_Building.EXCHANGE_GOLD);
             Inventory.getInstanceOfInventory().setInventoryEssence(Inventory.getInstanceOfInventory().getInventoryEssence() - numberOfEssence);
             Inventory.getInstanceOfInventory().setInventoryGold(Inventory.getInstanceOfInventory().getInventoryGold() + numberOfResourceForEssence);
         }
         else
         {
-            System.out.println("Invalid input.");
+            System.out.println(Constants_Building.INVALID_INPUT);
         }
     }
 

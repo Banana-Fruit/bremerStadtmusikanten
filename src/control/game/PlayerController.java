@@ -2,7 +2,6 @@ package control.game;
 
 
 import control.BuildingController;
-import control.events.KeyboardController;
 import control.scenes.MapController;
 import control.scenes.PanelController;
 import control.scenes.SceneController;
@@ -15,10 +14,10 @@ import model.player.Inventory;
 import model.player.Player;
 import model.userInterface.showables.Map;
 import model.userInterface.Game;
+import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Game;
 import resources.constants.Constants_Keymapping;
-import resources.constants.Constants_Resources;
 import resources.constants.scenes.Constants_Map;
 import view.OutputImageView;
 
@@ -57,28 +56,17 @@ public class PlayerController implements Runnable
     //Todo: Nur zum testen die Methode eingefügt
     public void setPlayerInventory()
     {
-        Inventory.getInstanceOfInventory().setInventoryGold(10);
-        Inventory.getInstanceOfInventory().setInventoryBeer(10);
-        Inventory.getInstanceOfInventory().setInventoryBrick(10);
-        Inventory.getInstanceOfInventory().setInventoryEssence(10);
-        Inventory.getInstanceOfInventory().setInventoryWood(10);
+        Inventory.getInstanceOfInventory().setInventoryGold(Constants_DefaultValues.DEFAULT_INVENTORY_VALUE);
+        Inventory.getInstanceOfInventory().setInventoryBeer(Constants_DefaultValues.DEFAULT_INVENTORY_VALUE);
+        Inventory.getInstanceOfInventory().setInventoryBrick(Constants_DefaultValues.DEFAULT_INVENTORY_VALUE);
+        Inventory.getInstanceOfInventory().setInventoryEssence(Constants_DefaultValues.DEFAULT_INVENTORY_VALUE);
+        Inventory.getInstanceOfInventory().setInventoryWood(Constants_DefaultValues.DEFAULT_INVENTORY_VALUE);
     }
     
     public void addPlayer (Coordinate playerPosition)
     {
         Map.getInstance().getPane().getChildren().add(playerView);
         setPlayerPosition(playerPosition);
-    }
-    
-    
-    // Method to retrieve the Singleton instance without parameters
-    public static PlayerController getInstance ()
-    {
-        if (instance == null)
-        {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
-        }
-        return instance;
     }
 
 
@@ -118,7 +106,7 @@ public class PlayerController implements Runnable
     {
         if (Game.getInstance().getCurrentShowable() == Map.getInstance().getShowable())
         {
-            boolean isDiagonal = pressedKeys.size() > 1;
+            boolean isDiagonal = pressedKeys.size() > Constants_DefaultValues.ONE;
             
             if (pressedKeys.contains(Constants_Keymapping.moveUP)) moveUP(isDiagonal);
             if (pressedKeys.contains(Constants_Keymapping.moveLEFT)) moveLEFT(isDiagonal);
@@ -179,7 +167,8 @@ public class PlayerController implements Runnable
             switchToMission(Constants_Map.MAP_NAME_MISSION_1, Constants_Map.PLAYER_SPAWN_MISSION_1_POSITION_X, Constants_Map.PLAYER_SPAWN_MISSION_1_POSITION_Y);
         }
         // Return to City from Mission 1
-        else if (current.getPositionX() > Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_X && current.getPositionY() < Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_Y && Map.getInstance().getCurrentMapName().equals(Constants_Map.MAP_NAME_MISSION_1))
+        else if (current.getPositionX() > Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_X && current.getPositionY()
+                < Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_Y && Map.getInstance().getCurrentMapName().equals(Constants_Map.MAP_NAME_MISSION_1))
         {
             switchToMission(Constants_Map.MAP_NAME_CITY, Constants_Map.PLAYER_SPAWN_CITY_POSITION_X, Constants_Map.PLAYER_SPAWN_CITY_POSITION_Y);
             Platform.runLater(()-> BuildingController.getInstance().addButtons());
@@ -230,5 +219,16 @@ public class PlayerController implements Runnable
         team.add(unit);
 
         //System.out.println(team.toString());
+    }
+
+
+    // Method to retrieve the Singleton instance without parameters
+    public static PlayerController getInstance ()
+    {
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+        }
+        return instance;
     }
 }

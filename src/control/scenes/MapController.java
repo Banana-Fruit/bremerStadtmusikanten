@@ -30,18 +30,7 @@ public class MapController
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
-    
-    
-    // Method to retrieve the Singleton instance without parameters
-    public static MapController getInstance ()
-    {
-        if (instance == null)
-        {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
-        }
-        return instance;
-    }
-    
+
     
     public void setNewMap (String loaderFileName)
     {
@@ -51,5 +40,16 @@ public class MapController
                         Constants_Map.MAX_ROWS, Constants_Map.MAX_COLUMNS
                 )
         );
+    }
+
+
+    // Method to retrieve the Singleton instance without parameters
+    public static MapController getInstance ()
+    {
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+        }
+        return instance;
     }
 }

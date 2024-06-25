@@ -8,6 +8,6 @@ public class ValueConversion
 {
     public static double getDiagonalSizeFromSquareLength (double squareLength)
     {
-        return Math.sqrt(Math.pow(squareLength, Constants_DefaultValues.SQUARE_EXPONENT) * 2);
+        return Math.sqrt(Math.pow(squareLength, Constants_DefaultValues.SQUARE_EXPONENT) * Constants_DefaultValues.TWO);
     }
 }

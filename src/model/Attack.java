@@ -12,15 +12,33 @@ public class Attack
 		this.isRanged = isRanged;
 	}
 	
-	public boolean getRanged() {return isRanged;}
+	public boolean getRanged()
+	{
+		return isRanged;
+	}
 	
-	public void setRanged(boolean ranged) {isRanged = ranged;}
+	public void setRanged(boolean ranged)
+	{
+		isRanged = ranged;
+	}
 	
-	public boolean getMagic() {return isMagic;}
+	public boolean getMagic()
+	{
+		return isMagic;
+	}
 	
-	public void setMagic(boolean magic) {isMagic = magic;}
+	public void setMagic(boolean magic)
+	{
+		isMagic = magic;
+	}
 	
-	public int getAtkRange() {return AtkRange;}
+	public int getAtkRange()
+	{
+		return AtkRange;
+	}
 	
-	public void setAtkRange(int atkRange) {AtkRange = atkRange;}
+	public void setAtkRange(int atkRange)
+	{
+		AtkRange = atkRange;
+	}
 }

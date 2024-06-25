@@ -1,6 +1,7 @@
 package control.game;
 import model.Attack;
 import model.Unit;
+import resources.constants.Constants_Combat;
 import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_Player_Units;
 import resources.constants.Constants_Sorting;
@@ -10,22 +11,31 @@ import java.util.*;
 
 public class CombatController
 {
-	//TODO: Anpassen koordinaten (weiß nicht wie die Koordinaten im  kampf berechenet werden / wo welche ist
+	private CombatController INSTANCE_OF_COMBAT_CONTROLLER = new CombatController();
+
+
+	private CombatController ()
+	{
+		;
+	}
+
+
+	//TODO: Anpassen Koordinaten (weiß nicht wie die Koordinaten im kampf berechenet werden / wo welche ist
 	private void initializeCombatPositions(List<Unit> myUnits, List<Unit> enemies)
 	{
-		for(int i = 0; i < myUnits.size();i++)
+		for(int i = Constants_DefaultValues.START_FOR_LOOP; i < myUnits.size();i++)
 		{
-			myUnits.get(i).setPositionX(1);
+			myUnits.get(i).setPositionX(Constants_Combat.UNIT_POSITION_X);
 			myUnits.get(i).setPositionY(i);
 		}
-		for(int i = 0; i < enemies.size();i++)
+		for(int i = Constants_DefaultValues.START_FOR_LOOP; i < enemies.size();i++)
 		{
-			enemies.get(i).setPositionX(1);
+			enemies.get(i).setPositionX(Constants_Combat.UNIT_POSITION_X);
 			enemies.get(i).setPositionY(i);
 		}
 
 	}
-//TODO: Wie bekommen wir die liste der gegner? Wie bewegen wir die units?
+	//TODO: Wie bekommen wir die liste der gegner? Wie bewegen wir die units?
 	public void Combat(ArrayList<Unit> enemies)
 	{
 
@@ -55,7 +65,7 @@ public class CombatController
 			}
 		});
 		
-		for(int n = 0; n <= participants.size(); n++)
+		for(int n = Constants_DefaultValues.START_FOR_LOOP; n <= participants.size(); n++)
 		{//WIP
 			AttackUnit(participants.get(n), choiceOfFoe(enemies),attacks.get(participants.get(n).getMyAttack()));
 		}
@@ -65,7 +75,7 @@ public class CombatController
 	
 	private static Unit choiceOfFoe(List<Unit> ListofFoes)
 	{
-		int indexOfChosenEnemy = 0 ;//Choose();
+		int indexOfChosenEnemy = Constants_Combat.INDEX_CHOOSEN_ENEMY ;//Choose();
 		Unit choice = ListofFoes.get(indexOfChosenEnemy);
 		return choice;
 	}
@@ -98,32 +108,32 @@ public class CombatController
 
 		if(isCloseEnough == true) {
 			if (isMagic) {
-				if (currentMana > 0) {
+				if (currentMana > Constants_DefaultValues.ZERO) {
 					damageBlocked = magicDamage * magicResist / Constants_DefaultValues.PERCENTAGE_NUMBER;
 					rawDamage = magicDamage;
-					newMana = currentMana - 1;
+					newMana = currentMana - Constants_DefaultValues.ONE;
 					attacker.setMana(newMana);
 
 					if (RollDice(dodge)==true) {
 						DoDamage(damageBlocked, defender, rawDamage);
-						System.out.print(defender.getHealth() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
+						System.out.print(defender.getHealth() + Constants_Combat.NEW_HP + defender.getName()); //nur für Debugging
 					} else {
-						System.out.println("DODGED");
+						System.out.println(Constants_Combat.DODGED);
 					}
 
 				}
 			} else if (isRanged) {
 
-				if (currentAmmo > 0) {
+				if (currentAmmo > Constants_DefaultValues.ZERO) {
 					damageBlocked = rangedDamage * shield / Constants_DefaultValues.PERCENTAGE_NUMBER;
 					rawDamage = rangedDamage;
-					newAmmo = currentAmmo - 1;
+					newAmmo = currentAmmo - Constants_DefaultValues.ONE;
 					attacker.setAmmo(newAmmo);
 					if (RollDice(dodge)==true) {
 						DoDamage(damageBlocked, defender, rawDamage);
-						System.out.print(defender.getHealth() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
+						System.out.print(defender.getHealth() + Constants_Combat.NEW_HP + defender.getName()); //nur für Debugging
 					} else {
-						System.out.println("DODGED");
+						System.out.println(Constants_Combat.DODGED);
 					}
 				}
 
@@ -133,14 +143,14 @@ public class CombatController
 				rawDamage = meleeDamage;
 				if (RollDice(dodge)==true) {
 					DoDamage(damageBlocked, defender, rawDamage);
-					System.out.print(defender.getHealth() + " sind die neuen Hp von: " + defender.getName()); //nur für Debugging
+					System.out.print(defender.getHealth() + Constants_Combat.NEW_HP + defender.getName()); //nur für Debugging
 				} else {
-					System.out.println("DODGED");
+					System.out.println(Constants_Combat.DODGED);
 				}
 			}
 		}else
 		{
-			System.out.println("Not Close enough");
+			System.out.println(Constants_Combat.NOT_CLOSE);
 		}
 	}
 
@@ -199,5 +209,9 @@ public class CombatController
 		return units;
 	}
 
-	
+
+	public CombatController getINSTANCE_OF_COMBAT_CONTROLLER ()
+	{
+		return INSTANCE_OF_COMBAT_CONTROLLER;
+	}
 }

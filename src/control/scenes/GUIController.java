@@ -1,7 +1,6 @@
 package control.scenes;
 
 
-import control.BuildingController;
 import control.game.PlayerController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,8 +19,10 @@ import model.buildings.TrainingArea;
 import model.player.FractionDog;
 import model.player.FractionDonkey;
 import model.player.Inventory;
+import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.scenes.Constants_Building;
+import resources.constants.scenes.Constants_City;
 
 
 public class GUIController
@@ -50,16 +51,6 @@ public class GUIController
         {
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
-    }
-
-
-    public static GUIController getInstance ()
-    {
-        if (instance == null)
-        {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
-        }
-        return instance;
     }
 
 
@@ -98,7 +89,8 @@ public class GUIController
         }
         else
         {
-            System.out.println("already unlocked");
+            System.out.println(Constants_Building.IS_UNLOCKED);
+            SceneController.buildSceneBuildingInside(building);
         }
 
     }
@@ -113,10 +105,7 @@ public class GUIController
             {
                 building.unlockBuilding();
                 stage.close();
-                // TODO: Markierung (ist später weg, muss mit Threads arbeiten, da noch keine Abfrage der Zustände)
-                SceneController.buildSceneBuildingInside(stage,building);
-                //SceneController.switchToSceneBuildingInside(SceneController.buildSceneBuildingInside(stage, building),
-                        //SceneController.buildSceneBuildingInside(stage, building));
+                SceneController.buildSceneBuildingInside(building);
             }
         });
     }
@@ -155,7 +144,7 @@ public class GUIController
                 @Override
                 public void handle (ActionEvent actionEvent)
                 {
-                    SceneController.buildSceneBuildingInside(stage, building);
+                    SceneController.buildSceneBuildingInside(building);
                 }
             });
         }
@@ -223,25 +212,25 @@ public class GUIController
         VBox attributesOfUnit = new VBox();
         HBox structureInformation = new HBox();
 
-        Label name = new Label ("UNIT NAME");
-        Label shield = new Label ("Shield: ");
-        Label health = new Label ("Health: ");
-        Label mana = new Label ("Mana: ");
-        Label meele = new Label ("Meele: ");
-        Label ranged = new Label ("Ranged: ");
-        Label ammo = new Label ("Ammo: ");
-        Label dodge = new Label ("Dodeg: ");
-        Label magicResist = new Label("Magic resist: ");
-        Label rangeOfMotion = new Label("Range of Motion: ");
-        Label initiative = new Label ("Initiative: ");
-        Label magicDamage = new Label ("Magic damage: ");
-        Label myAttack = new Label ("My attack: ");
+        Label name = new Label (unit.getName());
+        Label shield = new Label (Constants_City.INFO_SHIELD);
+        Label health = new Label (Constants_City.INFO_HEALTH);
+        Label mana = new Label (Constants_City.INFO_MANA);
+        Label meele = new Label (Constants_City.INFO_MEELE);
+        Label ranged = new Label (Constants_City.INFO_RANGED);
+        Label ammo = new Label (Constants_City.INFO_AMMO);
+        Label dodge = new Label (Constants_City.INFO_DODGE);
+        Label magicResist = new Label(Constants_City.INFO_MAGIC_RESISTENCE);
+        Label rangeOfMotion = new Label(Constants_City.INFO_RANGE_OF_MOTION);
+        Label initiative = new Label (Constants_City.INFO_INITIATIVE);
+        Label magicDamage = new Label (Constants_City.INFO_MAGIC_DAMAGE);
+        Label myAttack = new Label (Constants_City.INFO_MY_ATTACK);
 
         attributesOfUnit.getChildren().addAll(name, shield, health, mana, meele, ranged, ammo, dodge, magicResist,
                 rangeOfMotion, initiative, magicDamage, myAttack);
 
 
-        Label infoName = new Label("");
+        Label infoName = new Label(Constants_DefaultValues.EMPTY);
         Label numberOfShield = new Label(Integer.toString(unit.getShield()));
         Label numberOfHealth = new Label(Integer.toString(unit.getHealth()));
         Label numberOfMana = new Label (Integer.toString(unit.getMana()));
@@ -260,7 +249,7 @@ public class GUIController
 
 
         structureInformation.getChildren().addAll(attributesOfUnit, informationAboutUnit);
-        structureInformation.setSpacing(5);
+        structureInformation.setSpacing(Constants_City.SPACING_HBOX);
 
         return structureInformation;
     }
@@ -269,21 +258,21 @@ public class GUIController
     //---------------------GUI BaseCamp-------------------------------------
     public static void getInsideBaseCamp (GridPane gridpane)
     {
-        Button recruitRats = new Button("recruit rats");
-        Button recruitBeetles = new Button("recruit beetles");
-        Button recruitMosquitoes = new Button("recruit mosquitoes");
+        Button recruitRats = new Button(Constants_City.BASECAMP_BUTTON_RATS);
+        Button recruitBeetles = new Button(Constants_City.BASECAMP_BUTTON_BEETLES);
+        Button recruitMosquitoes = new Button(Constants_City.BASECAMP_BUTTON_MOSQUITOES);
 
         HBox infoRats = informAboutUnit(FractionDonkey.getInstanceOfFractiondonkey().getRats());
         HBox infoBeetle = informAboutUnit(FractionDonkey.getInstanceOfFractiondonkey().getBeetle());
         HBox infoMosquitoes = informAboutUnit(FractionDonkey.getInstanceOfFractiondonkey().getMosquitoes());
 
-        gridpane.add(infoRats, 1, 2);
-        gridpane.add(infoBeetle, 5, 2);
-        gridpane.add(infoMosquitoes, 9, 2);
-        gridpane.add(recruitRats, 1, 3);
-        gridpane.add(recruitBeetles, 5, 3);
-        gridpane.add(recruitMosquitoes, 9, 3);
-        gridpane.setVgap(10);
+        gridpane.add(infoRats, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridpane.add(infoBeetle, Constants_City.GRIDPANE_ROW_FIVE, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridpane.add(infoMosquitoes, Constants_City.GRIDPANE_ROW_NINE, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridpane.add(recruitRats, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridpane.add(recruitBeetles, Constants_City.GRIDPANE_ROW_FIVE, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridpane.add(recruitMosquitoes, Constants_City.GRIDPANE_ROW_NINE, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridpane.setVgap(Constants_City.GRIDPANE_VGAP);
 
         recruitARat(recruitRats);
         recruitABeetle(recruitBeetles);
@@ -333,9 +322,9 @@ public class GUIController
 
     public static void getInsideMagicAmplifier (GridPane gridpane)
     {
-        Button pushMagic = new Button("push magic skill");
+        Button pushMagic = new Button(Constants_City.MAGIC_AMPLIFIER_BUTTON);
 
-        gridpane.add(pushMagic, 1, 3);
+        gridpane.add(pushMagic, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_THREE);
 
         pushMagicSkillsOfPlayer(pushMagic);
     }
@@ -357,15 +346,15 @@ public class GUIController
     // -------------------------GUI Headquarter ---------------------------
     public static void getInsideHeadquarter (GridPane gridPane)
     {
-        Button mission1 = new Button("Mission 1");
-        Button mission2 = new Button("Mission 2");
-        Button mission3 = new Button ("Mission 3");
-        Button mission4 = new Button ("Mission 4");
+        Button mission1 = new Button(Constants_City.HEADQUARTER_BUTTON_M1);
+        Button mission2 = new Button(Constants_City.HEADQUARTER_BUTTON_M2);
+        Button mission3 = new Button (Constants_City.HEADQUARTER_BUTTON_M3);
+        Button mission4 = new Button (Constants_City.HEADQUARTER_BUTTON_M4);
 
-        gridPane.add(mission1, 1, 3);
-        gridPane.add(mission2, 2, 3);
-        gridPane.add(mission3, 1, 4);
-        gridPane.add(mission4, 2, 4);
+        gridPane.add(mission1, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridPane.add(mission2, Constants_City.GRIDPANE_ROW_TWO, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridPane.add(mission3, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_FOUR);
+        gridPane.add(mission4, Constants_City.GRIDPANE_ROW_TWO, Constants_City.GRIDPANE_COLUMN_FOUR);
 
         showWayToMissionOne(mission1);
     }
@@ -388,19 +377,19 @@ public class GUIController
 
     public static void getInsideTrainingsArea (GridPane gridPane)
     {
-        Button DogsAttackTraining = new Button("Fraction Dog Attack");
-        Button DogsDefenseTraining = new Button("Fraction Dog Defense");
-        Button CatsAttackTraining = new Button ("Fraction Cat Attack");
-        Button CatsDefenseTraining = new Button ("Fraction Cat Defense");
-        Button ChickenAttackTraining = new Button("Fraction Chicken Attack");
-        Button ChickenDefenseTraining = new Button ("Fraction Chicken Defense");
+        Button DogsAttackTraining = new Button(Constants_City.TRAINING_AREA_BUTTON_DOG_ATTACK);
+        Button DogsDefenseTraining = new Button(Constants_City.TRAINING_AREA_BUTTON_DOG_DEFENSE);
+        Button CatsAttackTraining = new Button (Constants_City.TRAINING_AREA_BUTTON_CAT_ATTACK);
+        Button CatsDefenseTraining = new Button (Constants_City.TRAINING_AREA_BUTTON_CAT_DEFENSE);
+        Button ChickenAttackTraining = new Button(Constants_City.TRAINING_AREA_BUTTON_CHICKEN_ATTACK);
+        Button ChickenDefenseTraining = new Button (Constants_City.TRAINING_AREA_BUTTON_CHICKEN_DEFENSE);
 
-        gridPane.add(DogsAttackTraining, 1, 3);
-        gridPane.add(DogsDefenseTraining, 2, 3);
-        gridPane.add(CatsAttackTraining, 1,4);
-        gridPane.add(CatsDefenseTraining, 2,4);
-        gridPane.add(ChickenAttackTraining, 1, 5);
-        gridPane.add(ChickenDefenseTraining, 2,5);
+        gridPane.add(DogsAttackTraining, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridPane.add(DogsDefenseTraining, Constants_City.GRIDPANE_ROW_TWO, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridPane.add(CatsAttackTraining, Constants_City.GRIDPANE_ROW_ONE,Constants_City.GRIDPANE_COLUMN_FOUR);
+        gridPane.add(CatsDefenseTraining, Constants_City.GRIDPANE_ROW_TWO,Constants_City.GRIDPANE_COLUMN_FOUR);
+        gridPane.add(ChickenAttackTraining, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_FIVE);
+        gridPane.add(ChickenDefenseTraining, Constants_City.GRIDPANE_ROW_TWO,Constants_City.GRIDPANE_COLUMN_FIVE);
 
         trainDogAttack(DogsAttackTraining);
         trainDogDefense(DogsDefenseTraining);
@@ -495,11 +484,11 @@ public class GUIController
 
     public static void getInsidePub (GridPane gridPane)
     {
-        Button findMercenary = new Button("recruit a mercenary");
-        Label info = new Label("To recruit a mercenary spend one beer.");
+        Button findMercenary = new Button(Constants_City.PUB_BUTTON);
+        Label info = new Label(Constants_City.PUB_LABEL);
 
-        gridPane.add(findMercenary, 3, 2);
-        gridPane.add(info, 2, 2);
+        gridPane.add(findMercenary, Constants_City.GRIDPANE_ROW_THREE, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridPane.add(info, Constants_City.GRIDPANE_ROW_TWO, Constants_City.GRIDPANE_COLUMN_TWO);
 
         findAMercenary(findMercenary);
     }
@@ -521,11 +510,11 @@ public class GUIController
 
     public static void getInsideFractionCampDog (GridPane gridpane)
     {
-        Button recruitGoldenRetriever = new Button("recruit golden Retriever");
-        Button recruitGermanShepherd = new Button ("recruit german Shepherd");
-        Button recruitHunter = new Button("recruit hunter");
-        Button recruitBulldog = new Button("recruit bulldog");
-        Button recruitDogWithHat = new Button ("recruit Hundini");
+        Button recruitGoldenRetriever = new Button(Constants_City.FRACTION_DOG_BUTTON_GOLDEN_RETRIEVER);
+        Button recruitGermanShepherd = new Button (Constants_City.FRACTION_DOG_BUTTON_GERMAN_SHEPHERD);
+        Button recruitHunter = new Button(Constants_City.FRACTION_DOG_BUTTON_HUNTER);
+        Button recruitBulldog = new Button(Constants_City.FRACTION_DOG_BUTTON_BULLDOG);
+        Button recruitDogWithHat = new Button (Constants_City.FRACTION_DOG_BUTTON_HUNDINI);
 
         HBox infoGoldenRetriever = informAboutUnit(FractionDog.getInstanceOfFractionDog().getGoldenRetriever());
         HBox infoGermanShepherd = informAboutUnit(FractionDog.getInstanceOfFractionDog().getGermanShepherd());
@@ -533,23 +522,33 @@ public class GUIController
         HBox infoBulldog = informAboutUnit(FractionDog.getInstanceOfFractionDog().getBulldog());
         HBox infoDogWithHat = informAboutUnit(FractionDog.getInstanceOfFractionDog().getHundini());
 
-        gridpane.add(infoGoldenRetriever, 1, 2);
-        gridpane.add(infoGermanShepherd, 5, 2);
-        gridpane.add(infoHunter, 9, 2);
-        gridpane.add(infoBulldog, 13, 2);
-        gridpane.add(infoDogWithHat, 17, 2);
-        gridpane.add(recruitGoldenRetriever, 1, 3);
-        gridpane.add(recruitGermanShepherd, 5, 3);
-        gridpane.add(recruitHunter, 9, 3);
-        gridpane.add(recruitBulldog, 13, 3);
-        gridpane.add(recruitDogWithHat, 17, 3);
-        gridpane.setVgap(10);
+        gridpane.add(infoGoldenRetriever, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridpane.add(infoGermanShepherd, Constants_City.GRIDPANE_ROW_FIVE, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridpane.add(infoHunter, Constants_City.GRIDPANE_ROW_NINE, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridpane.add(infoBulldog, Constants_City.GRIDPANE_ROW_THIRTEEN, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridpane.add(infoDogWithHat, Constants_City.GRIDPANE_ROW_SEVENTEEN, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridpane.add(recruitGoldenRetriever, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridpane.add(recruitGermanShepherd, Constants_City.GRIDPANE_ROW_FIVE, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridpane.add(recruitHunter, Constants_City.GRIDPANE_ROW_NINE, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridpane.add(recruitBulldog, Constants_City.GRIDPANE_ROW_THIRTEEN, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridpane.add(recruitDogWithHat, Constants_City.GRIDPANE_ROW_SEVENTEEN, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridpane.setVgap(Constants_City.GRIDPANE_VGAP);
 
         recruitGoldenRetriever.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionDog.getInstanceOfFractionDog().getGoldenRetriever()));
         recruitGermanShepherd.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionDog.getInstanceOfFractionDog().getGermanShepherd()));
         recruitHunter.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionDog.getInstanceOfFractionDog().getHunter()));
         recruitBulldog.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionDog.getInstanceOfFractionDog().getBulldog()));
         recruitDogWithHat.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionDog.getInstanceOfFractionDog().getHundini()));
+    }
+
+
+    public static GUIController getInstance ()
+    {
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+        }
+        return instance;
     }
 
 }

@@ -1,6 +1,8 @@
 package model.map;
 
 
+import resources.constants.Constants_DefaultValues;
+
 import java.awt.*;
 
 
@@ -9,12 +11,12 @@ import java.awt.*;
  */
 public class Obstacle
 {
-    private int positionX = 0;
-    private int positionY = 0;
-    private int imageOffsetX = 0;
-    private int imageOffsetY = 0;
-    private int hitboxLengthX = 0;
-    private int hitboxLengthY = 0;
+    private int positionX = Constants_DefaultValues.ZERO;
+    private int positionY = Constants_DefaultValues.ZERO;
+    private int imageOffsetX = Constants_DefaultValues.ZERO;
+    private int imageOffsetY = Constants_DefaultValues.ZERO;
+    private int hitboxLengthX = Constants_DefaultValues.ZERO;
+    private int hitboxLengthY = Constants_DefaultValues.ZERO;
     private Image obstacleImage;
     
     

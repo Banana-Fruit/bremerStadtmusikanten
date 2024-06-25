@@ -27,4 +27,16 @@ public interface Constants_Combat
     int MOSQUITOES = 22;
     int MERCENARY = 23;
 
+
+    int UNIT_POSITION_X = 1;
+    int INDEX_CHOOSEN_ENEMY = 0;
+
+
+    // Strings
+
+    String NEW_HP = " sind die neuen Hp von: ";
+    String DODGED = "DODGED";
+    String NOT_CLOSE = "Not Close enough";
+    String ATTACK_LIST = "Angriffe";
+
 }

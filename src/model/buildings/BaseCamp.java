@@ -53,7 +53,7 @@ public class BaseCamp extends Building
             {
                 if(!(team.get(Constants_Player_Units.LAST_INDEX_NUMBER_OF_TEAM) == null))
                 {
-                    System.out.println("The team is full.");
+                    System.out.println(Constants_Building.TEAM_FULL);
                 }
                 else
                 {

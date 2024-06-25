@@ -42,17 +42,7 @@ public class GameController
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
-    
-    
-    public static GameController getInstance ()
-    {
-        if (instance == null)
-        {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
-        }
-        return instance;
-    }
-    
+
     
     private void init ()
     {
@@ -79,5 +69,15 @@ public class GameController
 
         SceneController.getInstance().switchShowable(MainMenu.getInstance());
         this.stage.show();
+    }
+
+
+    public static GameController getInstance ()
+    {
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+        }
+        return instance;
     }
 }

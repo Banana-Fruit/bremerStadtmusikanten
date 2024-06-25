@@ -39,16 +39,6 @@ public class KeyboardController implements Runnable
     }
     
     
-    public static KeyboardController getInstance ()
-    {
-        if (instance == null)
-        {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
-        }
-        return instance;
-    }
-    
-    
     @Override
     public void run ()
     {
@@ -104,5 +94,15 @@ public class KeyboardController implements Runnable
             if (pressedKeys.contains(currentCode)) playerRelatedKeys.add(currentCode);
         }
         if (!playerRelatedKeys.isEmpty()) PlayerController.getInstance().handleKeyPresses(playerRelatedKeys);
+    }
+
+
+    public static KeyboardController getInstance ()
+    {
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+        }
+        return instance;
     }
 }

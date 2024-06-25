@@ -2,7 +2,6 @@ package model.buildings;
 
 
 import control.BuildingController;
-import javafx.scene.control.Button;
 import model.Coordinate;
 import model.player.Artifact;
 import resources.constants.scenes.Constants_Building;

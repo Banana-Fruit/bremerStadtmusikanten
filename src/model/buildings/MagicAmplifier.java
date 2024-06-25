@@ -33,9 +33,9 @@ public class MagicAmplifier extends Building
 
     public static void pushMagicSkillOfPlayer ()
     {
-        System.out.printf("MagicSkill before: %d \n", Player.getInstance().getMagicSkill());
+        System.out.printf(Constants_Building.MAGIC_SKILL_BEFORE, Player.getInstance().getMagicSkill());
         Player.getInstance().setMagicSkill(Player.getInstance().getMagicSkill() + Constants_Player_Units.MAGIC_SKILL_BONUS);
-        System.out.printf("MagicSkill after: %d" , Player.getInstance().getMagicSkill());
+        System.out.printf(Constants_Building.MAGIC_SKILL_AFTER , Player.getInstance().getMagicSkill());
     }
 
 

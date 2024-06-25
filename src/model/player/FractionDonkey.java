@@ -7,8 +7,6 @@ import java.util.List;
 
 public class FractionDonkey
 {
-    // = new Unit(2,2,2,2,2,2,2,2,2 * Player.getInstance().getMagicSkill()); entfernte zeile
-    // (musste das auf einen einheitlichen stand bringen weil wir mit leicht verschiedenen Units gearbeitet haben)
     UnitController unitController = UnitController.getInstance();
     List<model.Unit> units = unitController.UnitCreator();
     private static FractionDonkey instanceOfFractiondonkey = new FractionDonkey();

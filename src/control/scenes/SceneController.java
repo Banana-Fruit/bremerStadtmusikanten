@@ -17,6 +17,7 @@ import model.userInterface.showables.Showable;
 import resources.GameMenuBar;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_MainMenu;
+import resources.constants.scenes.Constants_City;
 
 
 /**
@@ -44,38 +45,27 @@ public class SceneController
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
+
     
-    
-    // Method to retrieve the Singleton instance without parameters
-    public static SceneController getInstance ()
-    {
-        if (instance == null)
-        {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
-        }
-        return instance;
-    }
-    
-    
-    public static void buildSceneBuildingInside (Stage stage, Building building)
+    public static void buildSceneBuildingInside (Building building)
     {
         GridPane gridpane = new GridPane();
-        Button goBack = new Button("go back");
+        Button goBack = new Button(Constants_City.INSIDE_BUTTON_GO_BACK);
         Label nameOfBuilding = new Label(building.getName());
-        nameOfBuilding.setFont(new Font("Arial", 20));
+        nameOfBuilding.setFont(new Font(Constants_City.INSIDE_NAME_FONT, Constants_City.FONT_NAME_BUILDING));
         gridpane.setAlignment(Pos.CENTER);
-        gridpane.setHgap(10);
-        gridpane.setVgap(100);
-        gridpane.add(goBack, 7, 1);
-        gridpane.add(nameOfBuilding, 1, 1);
-        closeBuildingInside(goBack, stage);
+        gridpane.setHgap(Constants_City.GRIDPANE_HGAP_INSIDE);
+        gridpane.setVgap(Constants_City.GRIDPANE_VGAP_INSIDE);
+        gridpane.add(goBack, Constants_City.GRIDPANE_ROW_SEVEN, Constants_City.GRIDPANE_COLUMN_ONE);
+        gridpane.add(nameOfBuilding, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_ONE);
+        closeBuildingInside(goBack, SceneController.instance.stage);
 
         chooseTheRightBuildingInside(building, gridpane);
 
         Scene scene = new Scene(gridpane);
-        stage.setScene(scene);
-        stage.setFullScreen(true);
-        stage.show();
+        SceneController.instance.stage.setScene(scene);
+        SceneController.instance.stage.setFullScreen(true);
+        SceneController.instance.stage.show();
     }
 
 
@@ -139,5 +129,16 @@ public class SceneController
         this.stage.setFullScreen(true);
         this.stage.setFullScreenExitHint("");
         this.stage.setScene(showable.getScene());
+    }
+
+
+    // Method to retrieve the Singleton instance without parameters
+    public static SceneController getInstance ()
+    {
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+        }
+        return instance;
     }
 }
