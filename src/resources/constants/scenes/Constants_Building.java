@@ -184,4 +184,6 @@ public interface Constants_Building
     String EXCHANGE_GOLD_FOR = "For %d golds you get %d %s.";
     String EXCHANGE_ESSENCE_FOR = "For %d golds you get %d %s.";
 
+    double GRIDPANE_LAYOUT_POSITION_X = 30;
+    double GRIDPANE_LAYOUT_POSITION_Y = 30;
 }

@@ -32,11 +32,9 @@ public interface Constants_MainMenu
     int RGB_SCHWARZ = 0;
     int DIALOG_SCENE_WIDTH = 300;
     int DIALOG_SCENE_HEIGHT = 150;
-    int VBOX_V = 10;
-    int VBOX_ITEM_WIDTH = 200;
-    int VBOX_ITEM_HEIGHT = 30;
-    int VBOX_XPOSITION = 300;
-    int VBOX_YPOSITION = 100;
+    int VBOX_V = 20;
+    int VBOX_ITEM_WIDTH = 300;
+    int VBOX_ITEM_HEIGHT = 40;
     int RC_WIDTH = 50;
     int RC_HEIGHT = 30;
     double TEXT_FONT = 18.0;

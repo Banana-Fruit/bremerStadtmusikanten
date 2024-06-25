@@ -163,7 +163,8 @@ public class MapController
         SceneController.getInstance().createYesOrNoButton(Constants_Map.HEADER_JOIN_FIGHT, this::checkCombatStart);
     }
 
-    public void addRewardsMission1() {
+    public void addRewardsMission1()
+    {
         Platform.runLater(() -> {
             HashMap<Coordinate, String> rewards = getRewardLocationsForMission1(); // Get predefined reward locations and types
 
@@ -173,19 +174,21 @@ public class MapController
         });
     }
 
-    private HashMap<Coordinate, String> getRewardLocationsForMission1() {
+    private HashMap<Coordinate, String> getRewardLocationsForMission1()
+    {
         HashMap<Coordinate, String> rewardLocations = new HashMap<>();
 
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_1_POSITION_X, Constants_Map.REWARD_1_POSITION_Y), "gold");
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_1_POSITION_X, Constants_Map.REWARD_1_POSITION_Y), "wood");
         rewardLocations.put(new Coordinate(Constants_Map.REWARD_2_POSITION_X, Constants_Map.REWARD_2_POSITION_Y), "beer");
         rewardLocations.put(new Coordinate(Constants_Map.REWARD_3_POSITION_X, Constants_Map.REWARD_3_POSITION_Y), "brick");
         rewardLocations.put(new Coordinate(Constants_Map.REWARD_4_POSITION_X, Constants_Map.REWARD_4_POSITION_Y), "essence");
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_5_POSITION_X, Constants_Map.REWARD_5_POSITION_Y), "wood");
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_5_POSITION_X, Constants_Map.REWARD_5_POSITION_Y), "gold");
 
         return rewardLocations;
     }
 
-    private void setRewardPosition(Coordinate tileCoordinate, String rewardType) {
+    private void setRewardPosition(Coordinate tileCoordinate, String rewardType)
+    {
         Coordinate coordinate = new Coordinate(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), (int) tileCoordinate.getPositionX(), (int) tileCoordinate.getPositionY()));
         ImageView rewardView = new ImageView(Constants_Map.REWARD_IMAGE_PATH);
         rewardView.setFitWidth(Constants_Map.TILE_SIZE);
@@ -197,22 +200,28 @@ public class MapController
         rewardViews.put(rewardView, rewardType);
     }
 
+
     // Ensure this method exists to collect rewards when the player moves over them
-    public void checkRewardCollection() {
+    public void checkRewardCollection()
+    {
         Iterator<HashMap.Entry<ImageView, String>> iterator = rewardViews.entrySet().iterator();
-        while (iterator.hasNext()) {
+        while (iterator.hasNext())
+        {
             HashMap.Entry<ImageView, String> entry = iterator.next();
             ImageView rewardView = entry.getKey();
             String rewardType = entry.getValue();
 
-            if (isPlayerOnReward(rewardView)) {
+            if (isPlayerOnReward(rewardView))
+            {
                 collectReward(rewardView, rewardType);
+                DisplayController.getInstance().updateInventory();
                 iterator.remove();
             }
         }
     }
 
-    private boolean isPlayerOnReward(ImageView rewardView) {
+    private boolean isPlayerOnReward(ImageView rewardView)
+    {
         Coordinate playerPosition = PlayerController.getInstance().getCurrentPlayerPosition();
         double playerX = playerPosition.getPositionX();
         double playerY = playerPosition.getPositionY();
@@ -223,13 +232,15 @@ public class MapController
                 Math.abs(playerY - rewardY) < Constants_Map.REWARD_COLLECTION_RADIUS;
     }
 
-    private void collectReward(ImageView rewardView, String rewardType) {
+    private void collectReward(ImageView rewardView, String rewardType)
+    {
         Pane mapPane = Map.getInstance().getPane();
         mapPane.getChildren().remove(rewardView);
 
         // Update the player's inventory based on the reward type
         Inventory inventory = Inventory.getInstanceOfInventory();
-        switch (rewardType) {
+        switch (rewardType)
+        {
             case "gold":
                 inventory.setInventoryGold(inventory.getInventoryGold() + Constants_Map.REWARD_GOLD_AMOUNT);
                 break;

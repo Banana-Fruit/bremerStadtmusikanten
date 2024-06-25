@@ -42,6 +42,10 @@ public class DisplayController
     public static GridPane createInventory()
     {
         GridPane gridpane = new GridPane();
+        gridpane.setLayoutX(Constants_Building.GRIDPANE_LAYOUT_POSITION_X);
+        gridpane.setLayoutY(Constants_Building.GRIDPANE_LAYOUT_POSITION_Y);
+
+
 
         // create labels
         Label inventory = new Label(Constants_Building.RESOURCES_INVENTORY);
