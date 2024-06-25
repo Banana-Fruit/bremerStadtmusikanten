@@ -26,10 +26,10 @@ public class CombatController
 
 	}
 //TODO: Wie bekommen wir die liste der gegner? Wie bewegen wir die units?
-	public void Combat(List<Unit> enemies)
+	public void Combat(ArrayList<Unit> enemies)
 	{
 
-		Unit[] myTeam = Player.getInstance().getTeammembers();
+		ArrayList<Unit> myTeam = Player.getInstance().getTeamMembers();
 		List<Unit> myUnits = Convert(myTeam);
 
 		initializeCombatPositions(myUnits,enemies);
@@ -188,13 +188,13 @@ public class CombatController
 		}
 		return isCloseEnough;
 	}
-	public List<Unit> Convert (Unit[] Gegner)
+	public List<Unit> Convert (ArrayList<Unit> Gegner)
 	{
 		List<Unit> units = new ArrayList<>();
 
-		for (int i = Constants_Player_Units.ZERO; i < Gegner.length; i++)
+		for (int i = Constants_Player_Units.ZERO; i < Gegner.size(); i++)
 		{
-				units.add(Gegner[i]);
+				units.add(Gegner.get(i));
 		}
 		return units;
 	}

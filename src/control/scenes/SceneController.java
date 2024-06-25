@@ -1,10 +1,17 @@
 package control.scenes;
 
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import model.buildings.Building;
+import model.buildings.*;
 import model.userInterface.Game;
 import model.userInterface.showables.Showable;
 import resources.GameMenuBar;
@@ -52,7 +59,66 @@ public class SceneController
     
     public static void buildSceneBuildingInside (Stage stage, Building building)
     {
-    
+        GridPane gridpane = new GridPane();
+        Button goBack = new Button("go back");
+        Label nameOfBuilding = new Label(building.getName());
+        nameOfBuilding.setFont(new Font("Arial", 20));
+        gridpane.setAlignment(Pos.CENTER);
+        gridpane.setHgap(10);
+        gridpane.setVgap(100);
+        gridpane.add(goBack, 7, 1);
+        gridpane.add(nameOfBuilding, 1, 1);
+        closeBuildingInside(goBack, stage);
+
+        chooseTheRightBuildingInside(building, gridpane);
+
+        Scene scene = new Scene(gridpane);
+        stage.setScene(scene);
+        stage.setFullScreen(true);
+        stage.show();
+    }
+
+
+    private static void closeBuildingInside (Button button, Stage stage)
+    {
+        button.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+                stage.close();
+            }
+        });
+    }
+
+
+    private static void chooseTheRightBuildingInside (Building building, GridPane gridpane)
+    {
+        if (building == BaseCamp.getInstanceOfBasecamp())
+        {
+            GUIController.getInsideBaseCamp(gridpane);
+        }
+        else if (building == MagicAmplifier.getInstanceOfMagicamplifier())
+        {
+            GUIController.getInsideMagicAmplifier(gridpane);
+        }
+        else if (building == Headquarter.getInstanceOfHeadquarter())
+        {
+            GUIController.getInsideHeadquarter(gridpane);
+        }
+        else if (building == TrainingArea.getInstanceOfTrainingarea())
+        {
+            GUIController.getInsideTrainingsArea(gridpane);
+        }
+        else if (building == Pub.getInstanceOfPub())
+        {
+            GUIController.getInsidePub(gridpane);
+        }
+        else if (building == FractionCampDog.getInstanceOfFractionDogcamp())
+        {
+            GUIController.getInsideFractionCampDog(gridpane);
+        }
+
     }
     
     

@@ -10,7 +10,9 @@ import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import model.Coordinate;
+import model.Unit;
 import model.player.Inventory;
+import model.player.Player;
 import model.userInterface.showables.Map;
 import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
@@ -20,6 +22,7 @@ import resources.constants.Constants_Resources;
 import resources.constants.scenes.Constants_Map;
 import view.OutputImageView;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 
@@ -217,7 +220,15 @@ public class PlayerController implements Runnable
             MapController.getInstance().setNewMap(newMap);
             Map.getInstance().getPane().getChildren().add(playerView);
         });
+    }
 
 
+    public static void addUnitToTheTeam (Unit unit)
+    {
+        ArrayList<Unit> team = Player.getInstance().getTeamMembers();
+
+        team.add(unit);
+
+        //System.out.println(team.toString());
     }
 }

@@ -4,6 +4,8 @@ package model.player;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Player_Units;
 import model.Unit;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -13,8 +15,8 @@ import java.util.List;
 public class Player
 {
     private static Player instance = null;
-    private List inventory; // TODO: Holds artefacts
-    private Unit[] teammembers = new Unit [Constants_Player_Units.NUMBER_OF_TEAM_MEMBER];
+    private ArrayList<Artifact> listOfArtifacts; // TODO: Holds artefacts
+    private ArrayList<Unit> teamMember = new ArrayList<>();
     private int magicSkill = Constants_Player_Units.MAGIC_SKILL_OF_PLAYER;
     
     
@@ -46,9 +48,15 @@ public class Player
     }
 
 
-    public Unit[] getTeammembers()
+    public ArrayList<Unit> getTeamMembers()
     {
-        return teammembers;
+        return teamMember;
+    }
+
+
+    public ArrayList<Artifact> getListOfArtifacts ()
+    {
+        return listOfArtifacts;
     }
 
 

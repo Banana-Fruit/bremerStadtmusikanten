@@ -10,6 +10,8 @@ import model.Unit;
 import resources.constants.Constants_Player_Units;
 import resources.constants.scenes.Constants_Building;
 import resources.constants.Constants_Combat;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -60,18 +62,18 @@ public class Pub extends Building
 
     private static void addMercenaryToTheTeam (Unit mercenary)
     {
-        Unit[] team = Player.getInstance().getTeammembers();
+        ArrayList<Unit> team = Player.getInstance().getTeamMembers();
 
         int i;
-        for (i = Constants_Player_Units.ZERO; i < team.length; i++)
+        for (i = Constants_Player_Units.ZERO; i < team.size(); i++)
         {
-            if (team[i] == null)
+            if (team.get(i) == null)
             {
-                team[i] = mercenary;
+                team.add(mercenary);
             }
             else
             {
-                if(!(team[Constants_Player_Units.LAST_INDEX_NUMBER_OF_TEAM] == null))
+                if(!(team.get(Constants_Player_Units.LAST_INDEX_NUMBER_OF_TEAM) == null))
                 {
                     System.out.println("The team is full.");
                 }

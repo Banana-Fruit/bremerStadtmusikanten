@@ -9,6 +9,7 @@ import model.player.Player;
 import resources.constants.Constants_Player_Units;
 import resources.constants.scenes.Constants_Building;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,20 +38,20 @@ public class BaseCamp extends Building
 
     //TODO: buttons in den verschiedenen FraktionsCamps zum rekrutieren jeder einheit  (einheiten zu sehen in Constants_Combat oder  Einheiten.CSV)
     // + Esel fraktions Camp ist BaseCamp(?)
-    private void rercuitUnits(Unit unit)
+    private void recruitUnits (Unit unit)
     {
-        Unit[] team = Player.getInstance().getTeammembers();
+        ArrayList<Unit> team = Player.getInstance().getTeamMembers();
 
         int i;
-        for (i = Constants_Player_Units.ZERO; i < team.length; i++)
+        for (i = Constants_Player_Units.ZERO; i < team.size(); i++)
         {
-            if (team[i] == null)
+            if (team.get(i) == null)
             {
-                team[i] = unit;
+                team.add(unit);
             }
             else
             {
-                if(!(team[Constants_Player_Units.LAST_INDEX_NUMBER_OF_TEAM] == null))
+                if(!(team.get(Constants_Player_Units.LAST_INDEX_NUMBER_OF_TEAM) == null))
                 {
                     System.out.println("The team is full.");
                 }
@@ -61,6 +62,8 @@ public class BaseCamp extends Building
             }
         }
     }
+
+
     @Override
     public void unlockBuilding ()
     {
