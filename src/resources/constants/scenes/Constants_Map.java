@@ -19,7 +19,7 @@ public interface Constants_Map
     int STARTPOSITION_Y = 25;
     float PLAYER_SPEED = 1;
     float SPEED_MULTIPLIER = 6f;
-    double PLAYER_SIZE = ValueConversion.getDiagonalSizeFromSquareLength(16);
+    double PLAYER_SIZE = ValueConversion.getDiagonalSizeFromSquareLength(TILE_SIZE);
     double ADJUST_DIAGONAL_MOVEMENT = Math.sqrt(2) / 2;
 
     // Map
