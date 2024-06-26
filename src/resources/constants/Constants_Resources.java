@@ -6,6 +6,8 @@ public interface Constants_Resources
     // Locations
     String MAP_LOADER_FILES_FOLDER = "src/resources/assets/map/background/loaderFiles/";
     String MAP_LOADER_FILES_FOLDER_JONAS_MAP = "src/resources/assets/";
+    String СOMBAT_LOADER_FILES_FOLDER = "src/resources/assets/combat/loaderFiles/";
+    String COMBAT_BACKGROUND_PATH = "resources/assets/combat/grass.png";
     
     // Folder names
     String LOADER_FILES_FOLDER = "loaderFiles/";
@@ -20,4 +22,5 @@ public interface Constants_Resources
             {"Mission_1", "City", "Mission_2"},
             {"", "4", ""}
     };
+    String COMBAT_NAME = "main.dat";
 }

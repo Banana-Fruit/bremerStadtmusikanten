@@ -2,6 +2,11 @@ package resources.constants;
 
 public interface Constants_Combat
 {
+    int MAX_ROWS = 10;
+    int MAX_COLUMNS = 20;
+    int TILE_SIZE = 100;
+    
+    
     int RAT = 0;
     int HUNTER = 1;
     int MASTIFF = 2;
@@ -38,5 +43,4 @@ public interface Constants_Combat
     String DODGED = "DODGED";
     String NOT_CLOSE = "Not Close enough";
     String ATTACK_LIST = "Angriffe";
-
 }

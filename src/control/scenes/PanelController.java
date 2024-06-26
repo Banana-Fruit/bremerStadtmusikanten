@@ -70,6 +70,22 @@ public class PanelController
     }
     
     
+    public Panel getAndShowPanelUsingChars (Pane pane, String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
+    {
+        try
+        {
+            Panel panel = initializePanel(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
+            PanelView.addTilesToPane(panel, pane);
+            return panel;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            // Consider throwing a custom exception or handling it appropriately
+            return null;
+        }
+    }
+    
+    
     /**
      * Returns a panel based on the given parameters.
      *

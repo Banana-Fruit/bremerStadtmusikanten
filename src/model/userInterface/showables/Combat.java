@@ -3,19 +3,28 @@ package model.userInterface.showables;
 
 import javafx.scene.Scene;
 import model.panel.Panel;
+import resources.constants.Constants_Combat;
 import resources.constants.Constants_ExceptionMessages;
+import resources.constants.Constants_Resources;
 
 
-public class Map extends Showable
+public class Combat extends Showable
 {
-    private static volatile Map instance;
+    private static volatile Combat instance;
     private Panel panel;
     private String currentMapName;
     
     
-    private Map (Scene scene)
+    private Combat (Scene scene)
     {
         super(scene);
+        init();
+    }
+    
+    
+    private void init ()
+    {
+        setBackground(Constants_Resources.COMBAT_BACKGROUND_PATH);
     }
     
     
@@ -23,7 +32,7 @@ public class Map extends Showable
     {
         if (instance == null)
         {
-            instance = new Map(scene);
+            instance = new Combat(scene);
         } else
         {
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
@@ -31,7 +40,7 @@ public class Map extends Showable
     }
     
     
-    public static Map getInstance ()
+    public static Combat getInstance ()
     {
         if (instance == null)
         {
@@ -51,12 +60,16 @@ public class Map extends Showable
     {
         return panel;
     }
-
-    public void setCurrentMapName(String mapName) {
+    
+    
+    public void setCurrentMapName (String mapName)
+    {
         this.currentMapName = mapName; // Neu hinzugefügt
     }
-
-    public String getCurrentMapName() {
+    
+    
+    public String getCurrentMapName ()
+    {
         return currentMapName; // Neu hinzugefügt
     }
 }

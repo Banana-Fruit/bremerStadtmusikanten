@@ -8,6 +8,7 @@ import control.game.UnitController;
 import control.scenes.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.userInterface.showables.Combat;
 import model.userInterface.showables.LoadGame;
 import model.userInterface.showables.MainMenu;
 import model.userInterface.Game;
@@ -67,6 +68,7 @@ public class GameController
         UnitController.initialize();
 
         // Initialise models
+        Combat.initialize(new Scene(SceneController.getInstance().getBasePane()));
         MainMenu.initialize(new Scene(SceneController.getInstance().getBasePane()));
         LoadGame.initialize(new Scene(SceneController.getInstance().getBasePane(),
                 Constants_MainMenu.SCENE_WIDTH, Constants_MainMenu.SCENE_HEIGHT));

@@ -2,10 +2,7 @@ package view;
 
 
 import control.scenes.PanelController;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import model.Coordinate;
 import model.panel.Panel;
 import resources.constants.Constants_Panel;
