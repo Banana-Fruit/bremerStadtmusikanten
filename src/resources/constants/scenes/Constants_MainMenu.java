@@ -1,4 +1,4 @@
-package resources.constants;
+package resources.constants.scenes;
 
 
 public interface Constants_MainMenu
@@ -25,6 +25,8 @@ public interface Constants_MainMenu
     String PATH_BACKGROUND_IMAGE = "resources/assets/mainmenu/Bremen.jpg";
     
     //________________________________ Constants _________________________________
+    int BUTTON_POSITION_X = 1000;
+    int BUTTON_POSITION_Y = 500;
     int DIALOG_VBOX = 20;
     int MENU_HBOX = 30;
     int SPACE_BETWEEN_YES_NO_BOXES = 35;
@@ -54,13 +56,13 @@ public interface Constants_MainMenu
     int GRIDPANE_WIDTH = 800;
     int GRIDPANE_HEIGHT = 400;
     int GRIDPANE_TRANSLATE_Y = 50;
-    int GRIDPANE_GAP = 40;
+    int GRIDPANE_GAP = 80;
     int NUMBER_OF_GAMES = 4;
     int START_LOOP = 0;
     int ONE = 1;
     int TWO = 2;
-    int GAME_LOAD_ITEM_WIDTH = 250;
-    int GAME_LOAD_ITEM_HEIGHT = 150;
+    int GAME_LOAD_ITEM_WIDTH = 400;
+    int GAME_LOAD_ITEM_HEIGHT = 250;
     int TILEPANE_TRANSLATE_Y = 410;
     int TILEPANE_WIDTH = 800;
     int TILEPANE_HEIGHT = 70;

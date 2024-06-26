@@ -2,7 +2,6 @@ package model.userInterface.showables;
 
 
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
 import model.panel.Panel;
 import resources.constants.Constants_ExceptionMessages;
 

@@ -1,6 +1,5 @@
 package control.game;
 
-import control.scenes.MainMenuController;
 import model.Attack;
 import model.Unit;
 import resources.constants.Constants_ExceptionMessages;

@@ -14,9 +14,9 @@ import javafx.stage.Stage;
 import model.buildings.*;
 import model.userInterface.Game;
 import model.userInterface.showables.Showable;
-import resources.GameMenuBar;
+import utility.GameMenuBar;
 import resources.constants.Constants_ExceptionMessages;
-import resources.constants.Constants_MainMenu;
+import resources.constants.scenes.Constants_MainMenu;
 
 
 /**
@@ -26,6 +26,7 @@ public class SceneController
 {
     private static SceneController instance = null;
     private final Stage stage;
+    private Showable previousShowable = null;
     
     
     private SceneController (Stage stage)
@@ -69,56 +70,50 @@ public class SceneController
         gridpane.add(goBack, 7, 1);
         gridpane.add(nameOfBuilding, 1, 1);
         closeBuildingInside(goBack, stage);
-
+        
         chooseTheRightBuildingInside(building, gridpane);
-
+        
         Scene scene = new Scene(gridpane);
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
     }
-
-
+    
+    
     private static void closeBuildingInside (Button button, Stage stage)
     {
         button.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
-            public void handle(ActionEvent actionEvent)
+            public void handle (ActionEvent actionEvent)
             {
                 stage.close();
             }
         });
     }
-
-
+    
+    
     private static void chooseTheRightBuildingInside (Building building, GridPane gridpane)
     {
         if (building == BaseCamp.getInstanceOfBasecamp())
         {
             GUIController.getInsideBaseCamp(gridpane);
-        }
-        else if (building == MagicAmplifier.getInstanceOfMagicamplifier())
+        } else if (building == MagicAmplifier.getInstanceOfMagicamplifier())
         {
             GUIController.getInsideMagicAmplifier(gridpane);
-        }
-        else if (building == Headquarter.getInstanceOfHeadquarter())
+        } else if (building == Headquarter.getInstanceOfHeadquarter())
         {
             GUIController.getInsideHeadquarter(gridpane);
-        }
-        else if (building == TrainingArea.getInstanceOfTrainingarea())
+        } else if (building == TrainingArea.getInstanceOfTrainingarea())
         {
             GUIController.getInsideTrainingsArea(gridpane);
-        }
-        else if (building == Pub.getInstanceOfPub())
+        } else if (building == Pub.getInstanceOfPub())
         {
             GUIController.getInsidePub(gridpane);
-        }
-        else if (building == FractionCampDog.getInstanceOfFractionDogcamp())
+        } else if (building == FractionCampDog.getInstanceOfFractionDogcamp())
         {
             GUIController.getInsideFractionCampDog(gridpane);
         }
-
     }
     
     
@@ -126,18 +121,25 @@ public class SceneController
     {
         Pane pane = new Pane();
         // creates a Menu bar with two points (game and settings) and add two menuItems to the point game
-        pane.getChildren().add(GameMenuBar.createMenuBarWithTwoPoints(stage, Constants_MainMenu.MENUBAR_GAME,
+        pane.getChildren().add(GameMenuBar.createMenuBarWithTwoPoints(Constants_MainMenu.MENUBAR_GAME,
                 Constants_MainMenu.MENUBAR_SETTING, Constants_MainMenu.MENUBAR_CLOSE,
                 Constants_MainMenu.MENUBAR_LOAD));
         return pane;
     }
     
     
-    public void switchShowable(Showable showable)
+    public void switchShowable (Showable showable)
     {
+        this.previousShowable = Game.getInstance().getCurrentShowable();
         Game.getInstance().setCurrentShowable(showable);
         this.stage.setFullScreen(true);
         this.stage.setFullScreenExitHint("");
         this.stage.setScene(showable.getScene());
+    }
+    
+    
+    public void switchToPreviousShowable ()
+    {
+        switchShowable(previousShowable);
     }
 }
