@@ -1,6 +1,7 @@
 package model.userInterface.showables;
 
 
+import javafx.beans.property.Property;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -57,7 +58,7 @@ public class Showable
                 new Image(path),
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT,
+                BackgroundPosition.CENTER,
                 new BackgroundSize(this.scene.getWidth(), this.scene.getHeight(),
                         Constants_Showable.BACKGROUND_AS_PERCENTAGE, Constants_Showable.BACKGROUND_AS_PERCENTAGE,
                         Constants_Showable.BACKGROUND_CONTAIN, Constants_Showable.BACKGROUND_COVER)

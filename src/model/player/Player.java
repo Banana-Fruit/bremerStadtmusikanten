@@ -27,13 +27,7 @@ public class Player
     
     public static synchronized void initialize ()
     {
-        if (instance == null)
-        {
-            instance = new Player();
-        } else
-        {
-            throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
-        }
+        instance = new Player();
     }
     
     

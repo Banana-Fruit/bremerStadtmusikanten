@@ -12,7 +12,7 @@ public interface Constants_Map
     String UNIT_VIEW_STANDARD = "resources/assets/map/player/unit.png";
     
     
-    int TILE_SIZE = 21;
+    int TILE_SIZE = 19;
     int MAX_ROWS = 50;
     int MAX_COLUMNS = 50;
     int UNIT_SIZE = 21;

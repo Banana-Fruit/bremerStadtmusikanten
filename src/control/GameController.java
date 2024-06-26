@@ -7,10 +7,13 @@ import control.game.PlayerController;
 import control.game.UnitController;
 import control.scenes.*;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import model.buildings.BaseCamp;
 import model.userInterface.showables.LoadGame;
 import model.userInterface.showables.MainMenu;
 import model.userInterface.Game;
+import model.userInterface.showables.Map;
 import model.userInterface.showables.Settings;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_MainMenu;
@@ -39,7 +42,17 @@ public class GameController
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
-
+    
+    
+    public static GameController getInstance ()
+    {
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+        }
+        return instance;
+    }
+    
     
     private void init ()
     {
@@ -58,23 +71,12 @@ public class GameController
         UnitController.initialize();
 
         // Initialise models
-        Settings.initialize(new Scene(SceneController.getInstance().getBasePane()));
+        MainMenu.initialize(new Scene(SceneController.getInstance().getBasePane()));
         LoadGame.initialize(new Scene(SceneController.getInstance().getBasePane(),
                 Constants_MainMenu.SCENE_WIDTH, Constants_MainMenu.SCENE_HEIGHT));
-        MainMenu.initialize(new Scene(SceneController.getInstance().getBasePane()));
-        MainMenuController.getInstance().addButtons();
+        Map.initialize(new Scene(SceneController.getInstance().getBasePane()));
 
         SceneController.getInstance().switchShowable(MainMenu.getInstance());
         this.stage.show();
-    }
-
-
-    public static GameController getInstance ()
-    {
-        if (instance == null)
-        {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
-        }
-        return instance;
     }
 }

@@ -66,4 +66,10 @@ public class Game
     {
         return gameTitle;
     }
+    
+    
+    public Stage getStage ()
+    {
+        return stage;
+    }
 }
