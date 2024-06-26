@@ -60,6 +60,16 @@ public interface Constants_City
     String FRACTION_DOG_BUTTON_HUNTER = "recruit hunter";
     String FRACTION_DOG_BUTTON_BULLDOG = "recruit bulldog";
     String FRACTION_DOG_BUTTON_HUNDINI = "recruit hundini";
+    String FRACTION_CAT_BUTTON_CAT = "recruit cat";
+    String FRACTION_CAT_BUTTON_JAGUAR = "recruit jaguar";
+    String FRACTION_CAT_BUTTON_HOUSEKEEPER = "recruit housekeeper";
+    String FRACTION_CAT_BUTTON_TIGER = "recruit tiger";
+    String FRACTION_CAT_BUTTON_BINGUS = "recruit bingus";
+    String FRACTION_CHICKEN_BUTTON_CHICK = "recruit chick";
+    String FRACTION_CHICKEN_BUTTON_FIGHTING_CHICKEN = "recruit fighting chicken";
+    String FRACTION_CHICKEN_BUTTON_CHEF = "recruit chef";
+    String FRACTION_CHICKEN_BUTTON_TURKEY = "recruit turkey";
+    String FRACTION_CHICKEN_BUTTON_CHICKEN_WITH_HAT = "recruit chicken with hat";
     String CITY_LABEL_BASECAMP = "BC";
     String CITY_LABEL_FORGE = "FO";
     String CITY_LABEL_FRACTION_CAMP_DOG = "F1";

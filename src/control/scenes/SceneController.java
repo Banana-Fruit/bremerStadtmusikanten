@@ -115,7 +115,14 @@ public class SceneController
         {
             BuildingController.getInsideFractionCampDog(gridpane);
         }
-
+        else if (building == FractionCampCat.getInstanceOfFractionCatCamp())
+        {
+            BuildingController.getInsideFractionCampCat(gridpane);
+        }
+        else if (building == FractionCampChicken.getInstanceOfFractionChickenCamp())
+        {
+            BuildingController.getInsideFractionCampChicken(gridpane);
+        }
     }
     
     

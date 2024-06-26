@@ -17,9 +17,7 @@ import javafx.stage.Stage;
 import model.Coordinate;
 import model.Unit;
 import model.buildings.*;
-import model.player.FractionDog;
-import model.player.FractionDonkey;
-import model.player.Inventory;
+import model.player.*;
 import model.userInterface.TransparentButton;
 import model.userInterface.showables.Map;
 import resources.constants.Constants_DefaultValues;
@@ -188,7 +186,6 @@ public class BuildingController
         Map.getInstance().getPane().getChildren().add(createBuildingButton(Constants_City.CITY_LABEL_MARKETPLACE, () -> showPriceOfBuilding(Marketplace.getInstanceOfMarketplace()),Constants_Building.BUTTON_WIDTH_MARKETPLACE, Constants_Building.BUTTON_HEIGHT_MARKETPLACE, Marketplace.getInstanceOfMarketplace().getPositionUpperLeft()));
         Map.getInstance().getPane().getChildren().add(createBuildingButton(Constants_City.CITY_LABEL_PUB, () -> showPriceOfBuilding(Pub.getInstanceOfPub()),Constants_Building.BUTTON_WIDTH_PUB,Constants_Building.BUTTON_HEIGHT_PUB, Pub.getInstanceOfPub().getPositionUpperLeft()));
         Map.getInstance().getPane().getChildren().add(createBuildingButton(Constants_City.CITY_LABEL_TRAININGS_AREA, () -> showPriceOfBuilding(TrainingArea.getInstanceOfTrainingarea()),Constants_Building.BUTTON_WIDTH_TRAINING_AREA,Constants_Building.BUTTON_HEIGHT_TRAINING_AREA, TrainingArea.getInstanceOfTrainingarea().getPositionUpperLeft()));
-        Map.getInstance().getPane().getChildren().add(showWayToMission(false));
     }
 
     public TransparentButton createBuildingButton (String name, Runnable action, int itemWidth, int itemHeight, Coordinate coordinate)
@@ -264,17 +261,25 @@ public class BuildingController
         HBox infoBeetle = informAboutUnit(FractionDonkey.getInstanceOfFractiondonkey().getBeetle());
         HBox infoMosquitoes = informAboutUnit(FractionDonkey.getInstanceOfFractiondonkey().getMosquitoes());
 
-        gridpane.add(infoRats, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_TWO);
-        gridpane.add(infoBeetle, Constants_City.GRIDPANE_ROW_FIVE, Constants_City.GRIDPANE_COLUMN_TWO);
-        gridpane.add(infoMosquitoes, Constants_City.GRIDPANE_ROW_NINE, Constants_City.GRIDPANE_COLUMN_TWO);
-        gridpane.add(recruitRats, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_THREE);
-        gridpane.add(recruitBeetles, Constants_City.GRIDPANE_ROW_FIVE, Constants_City.GRIDPANE_COLUMN_THREE);
-        gridpane.add(recruitMosquitoes, Constants_City.GRIDPANE_ROW_NINE, Constants_City.GRIDPANE_COLUMN_THREE);
-        gridpane.setVgap(Constants_City.GRIDPANE_VGAP);
+        informAboutUnitsFromFractionDonkey(gridpane, infoRats, infoBeetle, infoMosquitoes, recruitRats, recruitBeetles,
+                recruitMosquitoes);
 
         recruitARat(recruitRats);
         recruitABeetle(recruitBeetles);
         recruitAMosquitoe(recruitMosquitoes);
+    }
+
+
+    private static void informAboutUnitsFromFractionDonkey (GridPane gridpane, HBox info1, HBox info2, HBox info3,
+                                                            Button button1, Button button2, Button button3)
+    {
+        gridpane.add(info1, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridpane.add(info2, Constants_City.GRIDPANE_ROW_FIVE, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridpane.add(info3, Constants_City.GRIDPANE_ROW_NINE, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridpane.add(button1, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridpane.add(button2, Constants_City.GRIDPANE_ROW_FIVE, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridpane.add(button3, Constants_City.GRIDPANE_ROW_NINE, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridpane.setVgap(Constants_City.GRIDPANE_VGAP);
     }
 
 
@@ -358,18 +363,6 @@ public class BuildingController
     }
 
 
-    private static Button showWayToMission (boolean visible)
-    {
-        Button toMissionOne = new Button (Constants_City.HEADQUARTER_SYMBOL_MISSION1);
-        toMissionOne.setLayoutX(Constants_City.HEADQUARTER_SYMBOL_POSITION_X);
-        toMissionOne.setLayoutY(Constants_City.HEADQUARTER_SYMBOL_POSITION_Y);
-        toMissionOne.setStyle(Constants_City.HEADQUARTER_SYMBOL_BUTTON_BACKGROUND);
-        toMissionOne.setVisible(visible);
-
-        return toMissionOne;
-    }
-
-
     private static void showWayToMissionOne (Button button)
     {
         button.setOnAction(new EventHandler<ActionEvent>()
@@ -377,7 +370,7 @@ public class BuildingController
             @Override
             public void handle(ActionEvent actionEvent)
             {
-                showWayToMission(true);
+                ;
             }
         });
     }
@@ -524,31 +517,90 @@ public class BuildingController
         Button recruitGermanShepherd = new Button (Constants_City.FRACTION_DOG_BUTTON_GERMAN_SHEPHERD);
         Button recruitHunter = new Button(Constants_City.FRACTION_DOG_BUTTON_HUNTER);
         Button recruitBulldog = new Button(Constants_City.FRACTION_DOG_BUTTON_BULLDOG);
-        Button recruitDogWithHat = new Button (Constants_City.FRACTION_DOG_BUTTON_HUNDINI);
+        Button recruitHundini = new Button (Constants_City.FRACTION_DOG_BUTTON_HUNDINI);
 
         HBox infoGoldenRetriever = informAboutUnit(FractionDog.getInstanceOfFractionDog().getGoldenRetriever());
         HBox infoGermanShepherd = informAboutUnit(FractionDog.getInstanceOfFractionDog().getGermanShepherd());
         HBox infoHunter = informAboutUnit(FractionDog.getInstanceOfFractionDog().getHunter());
         HBox infoBulldog = informAboutUnit(FractionDog.getInstanceOfFractionDog().getBulldog());
-        HBox infoDogWithHat = informAboutUnit(FractionDog.getInstanceOfFractionDog().getHundini());
+        HBox infoHundini = informAboutUnit(FractionDog.getInstanceOfFractionDog().getHundini());
 
-        gridpane.add(infoGoldenRetriever, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_TWO);
-        gridpane.add(infoGermanShepherd, Constants_City.GRIDPANE_ROW_FIVE, Constants_City.GRIDPANE_COLUMN_TWO);
-        gridpane.add(infoHunter, Constants_City.GRIDPANE_ROW_NINE, Constants_City.GRIDPANE_COLUMN_TWO);
-        gridpane.add(infoBulldog, Constants_City.GRIDPANE_ROW_THIRTEEN, Constants_City.GRIDPANE_COLUMN_TWO);
-        gridpane.add(infoDogWithHat, Constants_City.GRIDPANE_ROW_SEVENTEEN, Constants_City.GRIDPANE_COLUMN_TWO);
-        gridpane.add(recruitGoldenRetriever, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_THREE);
-        gridpane.add(recruitGermanShepherd, Constants_City.GRIDPANE_ROW_FIVE, Constants_City.GRIDPANE_COLUMN_THREE);
-        gridpane.add(recruitHunter, Constants_City.GRIDPANE_ROW_NINE, Constants_City.GRIDPANE_COLUMN_THREE);
-        gridpane.add(recruitBulldog, Constants_City.GRIDPANE_ROW_THIRTEEN, Constants_City.GRIDPANE_COLUMN_THREE);
-        gridpane.add(recruitDogWithHat, Constants_City.GRIDPANE_ROW_SEVENTEEN, Constants_City.GRIDPANE_COLUMN_THREE);
-        gridpane.setVgap(Constants_City.GRIDPANE_VGAP);
+        informAboutTheUnitsOfOneFraction(gridpane, infoGoldenRetriever, infoGermanShepherd, infoHunter, infoBulldog, infoHundini,
+                recruitGoldenRetriever, recruitGermanShepherd, recruitHunter,recruitBulldog, recruitHundini);
 
         recruitGoldenRetriever.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionDog.getInstanceOfFractionDog().getGoldenRetriever()));
         recruitGermanShepherd.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionDog.getInstanceOfFractionDog().getGermanShepherd()));
         recruitHunter.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionDog.getInstanceOfFractionDog().getHunter()));
         recruitBulldog.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionDog.getInstanceOfFractionDog().getBulldog()));
-        recruitDogWithHat.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionDog.getInstanceOfFractionDog().getHundini()));
+        recruitHundini.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionDog.getInstanceOfFractionDog().getHundini()));
+    }
+
+
+    public static void getInsideFractionCampCat (GridPane gridpane)
+    {
+        Button recruitCat = new Button(Constants_City.FRACTION_CAT_BUTTON_CAT);
+        Button recruitJaguar = new Button (Constants_City.FRACTION_CAT_BUTTON_JAGUAR);
+        Button recruitHousekeeper = new Button(Constants_City.FRACTION_CAT_BUTTON_HOUSEKEEPER);
+        Button recruitTiger = new Button(Constants_City.FRACTION_CAT_BUTTON_TIGER);
+        Button recruitBingus = new Button (Constants_City.FRACTION_CAT_BUTTON_BINGUS);
+
+        HBox infoCat = informAboutUnit(FractionCat.getInstanceOfFractionCat().getCat());
+        HBox infoJaguar = informAboutUnit(FractionCat.getInstanceOfFractionCat().getJaguar());
+        HBox infoHousekeeper = informAboutUnit(FractionCat.getInstanceOfFractionCat().getHousekeeper());
+        HBox infoTiger = informAboutUnit(FractionCat.getInstanceOfFractionCat().getTiger());
+        HBox infoBingus = informAboutUnit(FractionCat.getInstanceOfFractionCat().getBingus());
+
+        informAboutTheUnitsOfOneFraction(gridpane, infoCat, infoJaguar, infoHousekeeper, infoTiger, infoBingus,
+                recruitCat, recruitJaguar, recruitHousekeeper, recruitTiger, recruitBingus);
+
+        recruitCat.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionCat.getInstanceOfFractionCat().getCat()));
+        recruitJaguar.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionCat.getInstanceOfFractionCat().getJaguar()));
+        recruitHousekeeper.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionCat.getInstanceOfFractionCat().getHousekeeper()));
+        recruitTiger.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionCat.getInstanceOfFractionCat().getTiger()));
+        recruitBingus.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionCat.getInstanceOfFractionCat().getBingus()));
+    }
+
+
+    public static void getInsideFractionCampChicken (GridPane gridpane)
+    {
+        Button recruitChick = new Button(Constants_City.FRACTION_CHICKEN_BUTTON_CHICK);
+        Button recruitFightingChicken = new Button (Constants_City.FRACTION_CHICKEN_BUTTON_FIGHTING_CHICKEN);
+        Button recruitChef = new Button(Constants_City.FRACTION_CHICKEN_BUTTON_CHEF);
+        Button recruitTurkey = new Button(Constants_City.FRACTION_CHICKEN_BUTTON_TURKEY);
+        Button recruitChickenWithHat = new Button (Constants_City.FRACTION_CHICKEN_BUTTON_CHICKEN_WITH_HAT);
+
+        HBox infoChick = informAboutUnit(FractionChicken.getInstanceOfFractionChicken().getChick());
+        HBox infoFightingChicken = informAboutUnit(FractionChicken.getInstanceOfFractionChicken().getFightingChicken());
+        HBox infoChef = informAboutUnit(FractionChicken.getInstanceOfFractionChicken().getChef());
+        HBox infoTurkey = informAboutUnit(FractionChicken.getInstanceOfFractionChicken().getTurkey());
+        HBox infoChickenWithHat = informAboutUnit(FractionChicken.getInstanceOfFractionChicken().getChickenWithHat());
+
+        informAboutTheUnitsOfOneFraction(gridpane, infoChick, infoFightingChicken, infoChef, infoTurkey, infoChickenWithHat,
+                recruitChick, recruitFightingChicken, recruitChef, recruitTurkey, recruitChickenWithHat);
+
+        recruitChick.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionChicken.getInstanceOfFractionChicken().getChick()));
+        recruitFightingChicken.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionChicken.getInstanceOfFractionChicken().getFightingChicken()));
+        recruitChef.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionChicken.getInstanceOfFractionChicken().getChef()));
+        recruitTurkey.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionChicken.getInstanceOfFractionChicken().getTurkey()));
+        recruitChickenWithHat.setOnAction(e -> PlayerController.addUnitToTheTeam(FractionChicken.getInstanceOfFractionChicken().getChickenWithHat()));
+    }
+
+
+    private static void informAboutTheUnitsOfOneFraction (GridPane gridpane, HBox info1, HBox info2, HBox info3,
+                                                              HBox info4, HBox info5, Button button1, Button button2,
+                                                              Button button3, Button button4, Button button5)
+    {
+        gridpane.add(info1, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridpane.add(info2, Constants_City.GRIDPANE_ROW_FIVE, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridpane.add(info3, Constants_City.GRIDPANE_ROW_NINE, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridpane.add(info4, Constants_City.GRIDPANE_ROW_THIRTEEN, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridpane.add(info5, Constants_City.GRIDPANE_ROW_SEVENTEEN, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridpane.add(button1, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridpane.add(button2, Constants_City.GRIDPANE_ROW_FIVE, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridpane.add(button3, Constants_City.GRIDPANE_ROW_NINE, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridpane.add(button4, Constants_City.GRIDPANE_ROW_THIRTEEN, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridpane.add(button5, Constants_City.GRIDPANE_ROW_SEVENTEEN, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridpane.setVgap(Constants_City.GRIDPANE_VGAP);
     }
 
 
