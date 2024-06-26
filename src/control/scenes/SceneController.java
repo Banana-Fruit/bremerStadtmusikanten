@@ -22,7 +22,7 @@ import model.userInterface.showables.Map;
 import model.userInterface.showables.Showable;
 import resources.GameMenuBar;
 import resources.constants.Constants_ExceptionMessages;
-import resources.constants.Constants_MainMenu;
+import resources.constants.scenes.Constants_MainMenu;
 import resources.constants.scenes.Constants_City;
 
 
@@ -130,7 +130,7 @@ public class SceneController
     {
         Pane pane = new Pane();
         // creates a Menu bar with two points (game and settings) and add two menuItems to the point game
-        pane.getChildren().add(GameMenuBar.createMenuBarWithTwoPoints(stage, Constants_MainMenu.MENUBAR_GAME,
+        pane.getChildren().add(GameMenuBar.createMenuBarWithTwoPoints(Constants_MainMenu.MENUBAR_GAME,
                 Constants_MainMenu.MENUBAR_SETTING, Constants_MainMenu.MENUBAR_CLOSE,
                 Constants_MainMenu.MENUBAR_LOAD));
         return pane;

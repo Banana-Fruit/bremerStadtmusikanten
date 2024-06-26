@@ -4,7 +4,7 @@ package model.userInterface.showables;
 import control.BuildingController;
 import control.events.KeyboardController;
 import control.game.PlayerController;
-import control.scenes.GUIController;
+import control.scenes.DisplayController;
 import control.scenes.MapController;
 import control.scenes.PanelController;
 import control.scenes.SceneController;
@@ -106,7 +106,7 @@ public class MainMenu extends Showable
         PlayerController.getInstance().addPlayer(PanelController.getInstance().getCoordinateFromPanelTile(
                 Map.getInstance().getPanel(), Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
         PlayerController.getInstance().setPlayerInventory();
-        Map.getInstance().getPane().getChildren().add(GUIController.createInventory());
+        Map.getInstance().getPane().getChildren().add(DisplayController.createInventory());
         
         new Thread(KeyboardController.getInstance()).start();
         new Thread(PlayerController.getInstance()).start();

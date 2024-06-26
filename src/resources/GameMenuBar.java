@@ -1,30 +1,27 @@
 package resources;
 
-import control.scenes.MainMenuController;
 import control.scenes.SceneController;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.userInterface.TransparentButton;
-import resources.constants.Constants_MainMenu;
+import model.userInterface.showables.LoadGame;
+import resources.constants.Constants_Popup;
+import resources.constants.scenes.Constants_MainMenu;
+import utility.CloseGame;
 
 
 public interface GameMenuBar
 {
-
-    static MenuBar createMenuBarWithTwoPoints(Stage stage, String point1, String point2,
+    static MenuBar createMenuBarWithTwoPoints(String point1, String point2,
                                               String menuItem1, String menuItem2)
     {
         MenuBar menuBar = new MenuBar();
@@ -40,51 +37,26 @@ public interface GameMenuBar
         menuGame.getItems().addAll(finishItem, loadItem);
 
         // close the game
-        closeTheGame(finishItem);
+        closeGame(finishItem);
         // load the game
-        loadTheGame(stage, loadItem);
+        loadGame(loadItem);
 
 
         return menuBar;
     }
 
     //_______________________________close Button________________________________________
-    private static void closeTheGame(MenuItem finish)
+    private static void closeGame(MenuItem finish)
     {
         finish.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent actionEvent)
             {
-                closeGame();
+                CloseGame closeGame = new CloseGame(Constants_Popup.MESSAGE_CLOSE_GAME, Constants_Popup.TEXT_TO_BUTTONS_SPACING,
+                        Constants_Popup.POPUP_WIDTH, Constants_Popup.POPUP_HEIGHT, Constants_Popup.defaultBackgroundColor);
             }
         });
-    }
-
-
-    /**
-     * Methode zum Abfragen und Beenden des Spiels
-     *
-     * @author Jonas Helfer
-     */
-    static void closeGame() {
-        if (SceneController.getInstance().isDialogShown())
-        {
-            return;
-        }
-
-        SceneController.getInstance().createYesOrNoButton(Constants_MainMenu.MESSAGE_CLOSE_GAME, () -> Platform.exit());
-    }
-    private static Background createBackground (String path, double sceneWidth, double sceneHeight) throws IllegalArgumentException
-    {
-        Image imgBackground = new Image(path);
-        BackgroundSize backgroundSize = new BackgroundSize(sceneWidth, sceneHeight, false, false, true, false);
-        return new Background(new BackgroundImage(
-                imgBackground,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT,
-                backgroundSize));
     }
 
 
@@ -119,39 +91,16 @@ public interface GameMenuBar
     //_________________________________load Button___________________________________________
 
 
-    private static void loadTheGame(Stage stage, MenuItem loadItem)
+    private static void loadGame (MenuItem loadItem)
     {
         loadItem.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent actionEvent)
             {
-                loadGame(stage);
+                SceneController.getInstance().switchShowable(LoadGame.getInstance());
             }
         });
-    }
-
-    static void loadGame(Stage stage)
-    {
-        Pane root = new Pane();
-        Scene scene = new Scene(root, Constants_MainMenu.SCENE_WIDTH, Constants_MainMenu.SCENE_HEIGHT);
-
-        Background background = createBackground(Constants_MainMenu.PATH_BACKGROUND_IMAGE, stage.getWidth(), stage.getHeight());
-        root.setBackground(background);
-
-        // creates a gridpane
-        GridPane gridPane = createGridPaneForLoadGame(Constants_MainMenu.GRIDPANE_WIDTH, Constants_MainMenu.GRIDPANE_HEIGHT,
-                Constants_MainMenu.GRIDPANE_GAP);
-
-        // creates four items in the gridpane for the different game loads
-        createMenuItemsForGameLoads(gridPane);
-
-        // creates a TilePane with the option to go back
-        createTilePaneToGoBack(root, gridPane);
-
-
-        stage.setScene(scene);
-        stage.show();
     }
 
 
@@ -216,7 +165,7 @@ public interface GameMenuBar
             // Define the action for the goBack button
             try {
                 // Assuming MainMenuController has a method to start the main menu scene
-                MainMenuController.getInstance().addButtons();
+                //MainMenuController.getInstance().addButtons();
             } catch (Exception e)
             {
                 e.printStackTrace();
