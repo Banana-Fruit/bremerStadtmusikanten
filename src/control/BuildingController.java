@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -24,6 +25,8 @@ import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.scenes.Constants_Building;
 import resources.constants.scenes.Constants_City;
+import resources.constants.scenes.Constants_Map;
+import view.OutputImageView;
 
 import java.awt.*;
 
@@ -370,10 +373,18 @@ public class BuildingController
             @Override
             public void handle(ActionEvent actionEvent)
             {
-                ;
+                OutputImageView arrowView = new OutputImageView(new Image(Constants_Map.ARROW_LEFT), Constants_Map.PLAYER_SIZE);
+                Map.getInstance().getPane().getChildren().add(arrowView);
+
+
+                // Koordinaten für den Pfeil setzen
+                arrowView.setCoordinates(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), 25,25));
+
+                PlayerController.getInstance().updatePlayer();
             }
         });
     }
+
 
 
     // ---------------------------- Trainingsarea ------------------------------------
@@ -509,7 +520,7 @@ public class BuildingController
         });
     }
 
-    //---------------------- GUI FractionCamp Dog --------------------------------
+    //---------------------- GUI FractionCamps --------------------------------
 
     public static void getInsideFractionCampDog (GridPane gridpane)
     {

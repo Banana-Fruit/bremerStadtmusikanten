@@ -19,7 +19,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class UnitController {
+public class UnitController
+{
 	private static volatile UnitController instance = null;
 	private final HashMap<Coordinate, Unit> unitPositions;
 
@@ -42,10 +43,12 @@ public class UnitController {
 	public List<Unit> unitCreator () {//WIP
 		List<Unit> units = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(
-				new FileReader(Constants_Player_Units.FILE_READ_UNITS))) {
+				new FileReader(Constants_Player_Units.FILE_READ_UNITS)))
+		{
 
 			String line;
-			while ((line = br.readLine())!=null) {
+			while ((line = br.readLine())!=null)
+			{
 				String[] values = line.split(Constants_DefaultValues.SPLIT);
 				String Name = values[Constants_IndexPropertyUnit.INDEX_NAME];
 				int health = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_HEALTH]);
@@ -68,9 +71,11 @@ public class UnitController {
 						magicResistance, movementPoints, initiative, magicDamage, myAttack, positionX, positionY,unitView));
 
 			}
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e)
+		{
 			throw new RuntimeException(e);
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			throw new RuntimeException(e);
 		}
 		return units;
@@ -93,9 +98,11 @@ public class UnitController {
 
 				attacks.add(new Attack(attackRange,isMagic,isRanged));
 			}
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e)
+		{
 			throw new RuntimeException(e);
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			throw new RuntimeException(e);
 		}
 		return attacks;
@@ -111,23 +118,42 @@ public class UnitController {
 		return instance;
 	}
 
-	public void addUnitsMission1() {
+	public void addUnitsMission1()
+	{
 		Platform.runLater(() -> {
 			List<Unit> units = unitCreator(); // Erstelle Einheiten aus der CSV-Datei
-			for (Unit unit : units) {
-				setUnitPosition(unit, unit.getPositionX(), unit.getPositionY());
+			List<Coordinate> positions = getUnitPositionsForMission1(); // Bekomme vordefinierte oder zufällige Positionen
+
+			for (int i = 0; i < units.size() && i < positions.size(); i++)
+			{
+				setUnitPosition(units.get(i),(int) positions.get(i).getPositionX(),(int) positions.get(i).getPositionY());
 			}
 		});
 	}
 
-	private void setUnitPosition(Unit unit, int tileX, int tileY) {
+	private List<Coordinate> getUnitPositionsForMission1()
+	{
+		List<Coordinate> positions = new ArrayList<>();
+
+		positions.add(new Coordinate(Constants_Player_Units.UNIT_1_POSITION_X, Constants_Player_Units.UNIT_1_POSITION_Y));
+		positions.add(new Coordinate(Constants_Player_Units.UNIT_2_POSITION_X, Constants_Player_Units.UNIT_2_POSITION_Y));
+		positions.add(new Coordinate(Constants_Player_Units.UNIT_3_POSITION_X, Constants_Player_Units.UNIT_3_POSITION_Y));
+		positions.add(new Coordinate(Constants_Player_Units.UNIT_4_POSITION_X, Constants_Player_Units.UNIT_4_POSITION_Y));
+		positions.add(new Coordinate(Constants_Player_Units.UNIT_5_POSITION_X, Constants_Player_Units.UNIT_5_POSITION_Y));
+		
+		return positions;
+	}
+
+	private void setUnitPosition(Unit unit, int tileX, int tileY)
+	{
 		Coordinate coordinate = new Coordinate(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), tileX, tileY));
 		Map.getInstance().getPane().getChildren().add(unit.getUnitView());
 		unit.getUnitView().setCoordinates(coordinate);
 		unitPositions.put(coordinate, unit);
 	}
 
-	public void removeUnit(Coordinate coordinate) {
+	public void removeUnit(Coordinate coordinate)
+	{
 		Platform.runLater(() -> {
 			Map.getInstance().getPane().getChildren().remove(unitPositions.get(coordinate).getUnitView());
 			unitPositions.remove(coordinate);

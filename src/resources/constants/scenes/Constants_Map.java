@@ -4,6 +4,7 @@ package resources.constants.scenes;
 import utility.ValueConversion;
 
 
+
 public interface Constants_Map
 {
     // File Management
@@ -14,7 +15,7 @@ public interface Constants_Map
     int TILE_SIZE = 21;
     int MAX_ROWS = 50;
     int MAX_COLUMNS = 50;
-    int UNIT_SIZE = 16;
+    int UNIT_SIZE = 21;
     
     // Player
     int STARTPOSITION_X = 10;
@@ -29,6 +30,7 @@ public interface Constants_Map
     String MAP_NAME_CITY = "City";
     String MAP_NAME_COMBAT = "Kampf";
     String CONSOLE_PRINT_SWITCHING_MAP = "Switching to map: ";
+    String HEADER_JOIN_FIGHT = "Kampf betreten?";
 
     //Positioncheck
 
@@ -41,7 +43,29 @@ public interface Constants_Map
     int PLAYER_FINISH_MISSION_1_POSITION_Y = 7;
 
 
+    double DISTANCE_THRESHOLD = 22.0;
+    double PROXIMITY = 1.0;
+    double DISTANCE_TO_UNIT_POW = 2.0;
 
 
 
+    String REWARD_IMAGE_PATH = "resources/assets/jonas/184_bag_path.png";
+
+    double REWARD_COLLECTION_RADIUS = 16;
+    int REWARD_GOLD_AMOUNT = 5;
+    int REWARD_BEER_AMOUNT = 5;
+    int REWARD_BRICK_AMOUNT = 5;
+    int REWARD_ESSENCE_AMOUNT = 5;
+    int REWARD_WOOD_AMOUNT = 5;
+    int REWARD_1_POSITION_X = 40;
+    int REWARD_1_POSITION_Y = 35;
+    int REWARD_2_POSITION_X = 42;
+    int REWARD_2_POSITION_Y = 8;
+    int REWARD_3_POSITION_X = 30;
+    int REWARD_3_POSITION_Y = 2;
+    int REWARD_4_POSITION_X = 8;
+    int REWARD_4_POSITION_Y = 5;
+    int REWARD_5_POSITION_X = 2;
+    int REWARD_5_POSITION_Y = 24;
+    String ARROW_LEFT = "resources/assets/jonas/186_arrow_left.png";
 }

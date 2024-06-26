@@ -15,4 +15,15 @@ public interface Constants_Player_Units
 
     //Strings
     String FILE_READ_UNITS = "src/resources/Einheiten.csv";
+    double UNIT_1_POSITION_X = 34;
+    double UNIT_1_POSITION_Y = 30;
+    double UNIT_2_POSITION_X = 31;
+    double UNIT_2_POSITION_Y = 12;
+    double UNIT_3_POSITION_X = 17;
+    double UNIT_3_POSITION_Y = 17;
+    double UNIT_4_POSITION_X = 9;
+    double UNIT_4_POSITION_Y = 17;
+    double UNIT_5_POSITION_X = 10;
+    double UNIT_5_POSITION_Y = 30;
+
 }

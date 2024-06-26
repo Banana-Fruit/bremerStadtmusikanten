@@ -4,8 +4,10 @@ package control.scenes;
 import control.BuildingController;
 import control.events.KeyboardController;
 import control.game.PlayerController;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import javafx.stage.Screen;
 import model.player.Player;
 import model.userInterface.showables.*;
 import model.userInterface.TransparentButton;
@@ -41,12 +43,11 @@ public class MainMenuController implements GameMenuBar
     {
         // creates a Menu with six menuItems
         MainMenu.getInstance().getPane().getChildren().add(createMenuInVBox(Constants_MainMenu.VBOX_ITEM_WIDTH,
-                Constants_MainMenu.VBOX_ITEM_HEIGHT, Constants_MainMenu.VBOX_XPOSITION,
-                Constants_MainMenu.VBOX_YPOSITION));
+                Constants_MainMenu.VBOX_ITEM_HEIGHT));
     }
 
     
-    public static VBox createMenuInVBox (int itemWidth, int itemHeight, int xPositionVBox, int yPositionVBox)
+    public static VBox createMenuInVBox (int itemWidth, int itemHeight)
     {
         VBox box = new VBox(Constants_MainMenu.VBOX_V,
                 new TransparentButton(Constants_MainMenu.MENU_NEW_GAME, () ->
@@ -69,11 +70,25 @@ public class MainMenuController implements GameMenuBar
                 {
                     GameMenuBar.closeGame();
                 }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W));
-        
-        // X-Position of the vertical field
-        box.setTranslateX(xPositionVBox);
-        // Y-Position of the vertical field
-        box.setTranslateY(yPositionVBox);
+
+
+        // Set alignment of VBox to center
+        box.setAlignment(Pos.CENTER);
+
+        // Calculate center position of screen
+        double screenWidth = Screen.getPrimary().getBounds().getWidth();
+        double screenHeight = Screen.getPrimary().getBounds().getHeight();
+
+        // Calculate position to center VBox
+        double vboxWidth = itemWidth; // Set the width of the VBox
+        double vboxHeight = Constants_MainMenu.VBOX_V * itemHeight; // Set the height of the VBox
+        double vboxX = (screenWidth - vboxWidth) / 2;
+        double vboxY = (screenHeight - vboxHeight) / 2;
+
+        // Set position of VBox
+        box.setLayoutX(vboxX);
+        box.setLayoutY(vboxY);
+
         return box;
     }
     
@@ -101,18 +116,29 @@ public class MainMenuController implements GameMenuBar
     {
         SceneController.getInstance().switchShowable(Settings.getInstance());
     }
-    
-    
-    private static void loadGame ()
+
+
+    public static void loadGame()
     {
         GridPane gridPane = GameMenuBar.createGridPaneForLoadGame(Constants_MainMenu.GRIDPANE_WIDTH, Constants_MainMenu.GRIDPANE_HEIGHT,
-                Constants_MainMenu.GRIDPANE_TRANSLATE_Y, Constants_MainMenu.GRIDPANE_GAP);
-        
+                Constants_MainMenu.GRIDPANE_GAP);
+
+        gridPane.setAlignment(Pos.CENTER); // Center align the GridPane content
+
+        // Calculate position to center GridPane
+
+        double gridPaneX = (Screen.getPrimary().getBounds().getWidth() - Constants_MainMenu.GRIDPANE_WIDTH) / 2;
+        double gridPaneY = (Screen.getPrimary().getBounds().getHeight() - Constants_MainMenu.GRIDPANE_HEIGHT) / 2;
+
+        // Set position of GridPane
+        gridPane.setLayoutX(gridPaneX);
+        gridPane.setLayoutY(gridPaneY);
+
         GameMenuBar.createMenuItemsForGameLoads(gridPane);
         GameMenuBar.createTilePaneToGoBack(MainMenu.getInstance().getPane(), gridPane);
-        
+
         LoadGame.getInstance().getPane().getChildren().add(gridPane);
-        
+
         SceneController.getInstance().switchShowable(LoadGame.getInstance());
     }
 

@@ -141,7 +141,7 @@ public interface GameMenuBar
 
         // creates a gridpane
         GridPane gridPane = createGridPaneForLoadGame(Constants_MainMenu.GRIDPANE_WIDTH, Constants_MainMenu.GRIDPANE_HEIGHT,
-                Constants_MainMenu.GRIDPANE_TRANSLATE_Y, Constants_MainMenu.GRIDPANE_GAP);
+                Constants_MainMenu.GRIDPANE_GAP);
 
         // creates four items in the gridpane for the different game loads
         createMenuItemsForGameLoads(gridPane);
@@ -155,12 +155,9 @@ public interface GameMenuBar
     }
 
 
-    static GridPane createGridPaneForLoadGame (int width, int height, int translateY, int gap)
-    {
+    static GridPane createGridPaneForLoadGame (double width, double height, double gap) {
         GridPane gridPane = new GridPane();
-        gridPane.setAlignment(Pos.CENTER);
         gridPane.setPrefSize(width, height);
-        gridPane.setTranslateY(translateY);
         gridPane.setHgap(gap);
         gridPane.setVgap(gap);
         return gridPane;
