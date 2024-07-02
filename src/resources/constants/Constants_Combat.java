@@ -35,7 +35,7 @@ public interface Constants_Combat
 
     int UNIT_POSITION_X = 1;
     int INDEX_CHOOSEN_ENEMY = 0;
-
+    int DEATH = 0;
 
     // Strings
 
