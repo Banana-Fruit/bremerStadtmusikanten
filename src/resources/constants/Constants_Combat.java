@@ -42,7 +42,7 @@ public interface Constants_Combat
     String NEW_HP = " sind die neuen Hp von: ";
     String DODGED = "DODGED";
     String NOT_CLOSE = "Not Close enough";
-    String ATTACK_LIST = "Angriffe";
+    String ATTACK_LIST = "src/resources/Angriffe.csv";
     int MIN_ROW = 0;
     int MIN_COLUMN = 0;
     String BUTTON_TEXT = "";
