@@ -4,10 +4,6 @@ package resources.constants.scenes;
 public interface Constants_MainMenu
 {
     //________________________________ Strings ________________________________
-    String MENUBAR_SETTING = "Settings";
-    String MENUBAR_GAME = "Game";
-    String MENUBAR_LOAD = "Load the game";
-    String MENUBAR_CLOSE = "Close the game";
     String YES_BUTTON = "Yes";
     String NO_BUTTON = "No";
     String MENU_NEW_GAME = "New Game";

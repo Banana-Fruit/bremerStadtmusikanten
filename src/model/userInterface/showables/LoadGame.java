@@ -54,7 +54,7 @@ public class LoadGame extends Showable
         
         TransparentButton backButton = new TransparentButton(Constants_MainMenu.BACK_BUTTON_NAME, () ->
         {
-            SceneController.getInstance().switchShowable(MainMenu.getInstance());
+            SceneController.getInstance().switchBackShowable();
         }, Constants_MainMenu.VBOX_ITEM_WIDTH, Constants_MainMenu.VBOX_ITEM_HEIGHT, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W);
         
         gridPane.add(backButton, 0, 2);

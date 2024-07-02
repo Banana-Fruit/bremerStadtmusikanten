@@ -24,5 +24,6 @@ public class CombatController
                         Constants_Combat.MAX_ROWS, Constants_Combat.MAX_COLUMNS
                 )
         );
+        Combat.getInstance().addTileButtons();
     }
 }

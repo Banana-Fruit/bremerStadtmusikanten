@@ -1,22 +1,15 @@
 package model.userInterface.showables;
 
 
-import control.BuildingController;
-import control.events.KeyboardController;
-import control.game.PlayerController;
-import control.scenes.DisplayController;
-import control.scenes.MapController;
-import control.scenes.PanelController;
+import control.GameController;
 import control.scenes.SceneController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
-import model.player.Player;
 import model.userInterface.TransparentButton;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Popup;
 import resources.constants.scenes.Constants_MainMenu;
-import resources.constants.scenes.Constants_Map;
 import resources.constants.scenes.Constants_Showable;
 import utility.CloseGame;
 
@@ -98,18 +91,7 @@ public class MainMenu extends Showable
     
     private static void newGame ()
     {
-        SceneController.getInstance().switchShowable(Map.getInstance());
-        Map.getInstance().setCurrentMapName(Constants_Map.MAP_NAME_CITY);
-        MapController.getInstance().setNewMap(Constants_Map.MAP_NAME_CITY);
-        Player.initialize();
-        BuildingController.getInstance().addButtons();
-        PlayerController.getInstance().addPlayer(PanelController.getInstance().getCoordinateFromPanelTile(
-                Map.getInstance().getPanel(), Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
-        PlayerController.getInstance().setPlayerInventory();
-        Map.getInstance().getPane().getChildren().add(DisplayController.createInventory());
-        
-        new Thread(KeyboardController.getInstance()).start();
-        new Thread(PlayerController.getInstance()).start();
+        GameController.getInstance().newGame();
     }
     
     

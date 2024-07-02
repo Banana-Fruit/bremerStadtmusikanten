@@ -43,4 +43,9 @@ public interface Constants_Combat
     String DODGED = "DODGED";
     String NOT_CLOSE = "Not Close enough";
     String ATTACK_LIST = "Angriffe";
+    int MIN_ROW = 0;
+    int MIN_COLUMN = 0;
+    String BUTTON_TEXT = "";
+    double OPACITY_PRESSED = 0;
+    double OPACITY_RELEASED = 0.5;
 }

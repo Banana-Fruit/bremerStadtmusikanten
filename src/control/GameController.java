@@ -1,13 +1,12 @@
 package control;
 
 
-import control.events.KeyboardController;
-import control.events.MouseController;
 import control.game.PlayerController;
 import control.game.UnitController;
 import control.scenes.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.player.Player;
 import model.userInterface.showables.Combat;
 import model.userInterface.showables.LoadGame;
 import model.userInterface.showables.MainMenu;
@@ -15,6 +14,7 @@ import model.userInterface.Game;
 import model.userInterface.showables.Map;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.scenes.Constants_MainMenu;
+import resources.constants.scenes.Constants_Map;
 
 
 public class GameController
@@ -59,7 +59,6 @@ public class GameController
         // Initialise controllers
         SceneController.initialize(this.stage);
         KeyboardController.initialize();
-        MouseController.initialize();
         PanelController.initialize();
         MapController.initialize();
         PlayerController.initialize();
@@ -76,5 +75,22 @@ public class GameController
 
         SceneController.getInstance().switchShowable(MainMenu.getInstance());
         this.stage.show();
+    }
+    
+    
+    public void newGame ()
+    {
+        SceneController.getInstance().switchShowable(Map.getInstance());
+        Map.getInstance().setCurrentMapName(Constants_Map.MAP_NAME_CITY);
+        MapController.getInstance().setNewMap(Constants_Map.MAP_NAME_CITY);
+        Player.initialize();
+        BuildingController.getInstance().addButtons();
+        PlayerController.getInstance().addPlayer(PanelController.getInstance().getCoordinateFromPanelTile(
+                Map.getInstance().getPanel(), Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
+        PlayerController.getInstance().setPlayerInventory();
+        Map.getInstance().getPane().getChildren().add(DisplayController.createInventory());
+        
+        new Thread(KeyboardController.getInstance()).start();
+        new Thread(PlayerController.getInstance()).start();
     }
 }

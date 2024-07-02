@@ -20,10 +20,11 @@ import model.userInterface.Game;
 import model.userInterface.TransparentButton;
 import model.userInterface.showables.Map;
 import model.userInterface.showables.Showable;
-import resources.GameMenuBar;
+import utility.GameMenuBar;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.scenes.Constants_MainMenu;
 import resources.constants.scenes.Constants_City;
+import resources.constants.scenes.Constants_Showable;
 
 
 /**
@@ -34,6 +35,7 @@ public class SceneController
     private static SceneController instance = null;
     private final Stage stage;
     private boolean dialogShown = false;
+    private Showable previousShowable = null;
     
     
     private SceneController (Stage stage)
@@ -130,9 +132,7 @@ public class SceneController
     {
         Pane pane = new Pane();
         // creates a Menu bar with two points (game and settings) and add two menuItems to the point game
-        pane.getChildren().add(GameMenuBar.createMenuBarWithTwoPoints(Constants_MainMenu.MENUBAR_GAME,
-                Constants_MainMenu.MENUBAR_SETTING, Constants_MainMenu.MENUBAR_CLOSE,
-                Constants_MainMenu.MENUBAR_LOAD));
+        pane.getChildren().add(GameMenuBar.createMenuBar());
         return pane;
     }
 
@@ -140,11 +140,24 @@ public class SceneController
     
     public void switchShowable(Showable showable)
     {
+        this.previousShowable = Game.getInstance().getCurrentShowable();
         Game.getInstance().setCurrentShowable(showable);
         this.stage.setFullScreen(true);
         this.stage.setFullScreenExitHint("");
         this.stage.setScene(showable.getScene());
     }
+    
+    
+    public void switchBackShowable()
+    {
+        Showable previousShowable = Game.getInstance().getCurrentShowable();
+        Game.getInstance().setCurrentShowable(this.previousShowable);
+        this.stage.setFullScreen(true);
+        this.stage.setFullScreenExitHint(Constants_Showable.HIDE_EXIT_HINT_STRING);
+        this.stage.setScene(Game.getInstance().getCurrentShowable().getScene());
+    }
+    
+    
     public boolean isDialogShown()
     {
         return dialogShown;
