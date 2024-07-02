@@ -1,24 +1,19 @@
 package model.userInterface.showables;
 
 
-import control.BuildingController;
-import control.events.KeyboardController;
-import control.game.PlayerController;
-import control.scenes.DisplayController;
-import control.scenes.MapController;
-import control.scenes.PanelController;
+import control.GameController;
 import control.scenes.SceneController;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
-import model.player.Player;
+import model.userInterface.Game;
 import model.userInterface.TransparentButton;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Popup;
 import resources.constants.scenes.Constants_MainMenu;
-import resources.constants.scenes.Constants_Map;
 import resources.constants.scenes.Constants_Showable;
-import utility.CloseGame;
+import utility.popup.Popup;
 
 
 public class MainMenu extends Showable
@@ -73,6 +68,9 @@ public class MainMenu extends Showable
                 new TransparentButton(Constants_MainMenu.MENU_NEW_GAME, () -> {
                     newGame();
                 }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
+                new TransparentButton(Constants_MainMenu.MENU_CONTINUE_GAME, () -> {
+                    continueGame();
+                }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
                 new TransparentButton(Constants_MainMenu.MENU_LOAD_GAME, () -> {
                     loadGame();
                 }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
@@ -96,20 +94,15 @@ public class MainMenu extends Showable
     }
     
     
-    private static void newGame ()
+    private void continueGame ()
     {
         SceneController.getInstance().switchShowable(Map.getInstance());
-        Map.getInstance().setCurrentMapName(Constants_Map.MAP_NAME_CITY);
-        MapController.getInstance().setNewMap(Constants_Map.MAP_NAME_CITY);
-        Player.initialize();
-        BuildingController.getInstance().addButtons();
-        PlayerController.getInstance().addPlayer(PanelController.getInstance().getCoordinateFromPanelTile(
-                Map.getInstance().getPanel(), Constants_Map.STARTPOSITION_X, Constants_Map.STARTPOSITION_Y));
-        PlayerController.getInstance().setPlayerInventory();
-        Map.getInstance().getPane().getChildren().add(DisplayController.createInventory());
-        
-        new Thread(KeyboardController.getInstance()).start();
-        new Thread(PlayerController.getInstance()).start();
+    }
+    
+    
+    private static void newGame ()
+    {
+        GameController.getInstance().newGame();
     }
     
     
@@ -121,7 +114,24 @@ public class MainMenu extends Showable
     
     private void closeGame ()
     {
-        CloseGame closeGame = new CloseGame(Constants_Popup.MESSAGE_CLOSE_GAME, Constants_Popup.TEXT_TO_BUTTONS_SPACING,
-                Constants_Popup.POPUP_WIDTH, Constants_Popup.POPUP_HEIGHT, Constants_Popup.defaultBackgroundColor);
+        Popup.createPopupWithAction(Game.getInstance().getCurrentShowable().getPane(), Constants_Popup.MESSAGE_CLOSE_GAME,
+                new Runnable()
+                {
+                    @Override
+                    public void run ()
+                    {
+                    
+                    }
+                }, new Runnable()
+                {
+                    @Override
+                    public void run ()
+                    {
+                        Platform.exit();
+                        System.exit(Constants_Popup.SYSTEM_EXIT_CODE);
+                    }
+                }, Constants_Popup.NO, Constants_Popup.YES, Constants_Popup.TEXT_TO_BUTTONS_SPACING,
+                Constants_Popup.POPUP_WIDTH, Constants_Popup.POPUP_HEIGHT, Constants_Popup.defaultBackgroundColor
+        );
     }
 }

@@ -47,6 +47,25 @@ public class TransparentButton extends StackPane
     }
     
     
+    public TransparentButton (String name, int rcwidth, int rcheight, double opacityReleased, double opacityPressed, double xPos, double yPos)
+    {
+        LinearGradient gradientReleased = createGradient(opacityReleased);
+        LinearGradient gradientPressed = createGradient(opacityPressed);
+        Rectangle bg = new Rectangle(rcwidth, rcheight, gradientReleased);
+        Text text = new Text(name);
+        text.setFont(Font.font(Constants_MainMenu.TEXT_FONT));
+        text.fillProperty().bind(Bindings.when(hoverProperty()).then(Color.WHITE).otherwise(Color.GRAY));
+        setOnMousePressed(e -> bg.setFill(gradientPressed));
+        setOnMouseReleased(e -> bg.setFill(gradientReleased));
+        
+        setLayoutX(xPos);
+        setLayoutY(yPos);
+        
+        getChildren().addAll(bg, text);
+    }
+    
+    
+    
     /**
      * Method for creating a linear gradient with a specific opacity
      *

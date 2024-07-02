@@ -2,7 +2,6 @@ package control.scenes;
 
 
 import model.userInterface.showables.Combat;
-import model.userInterface.showables.Map;
 import resources.constants.Constants_Combat;
 import resources.constants.Constants_Resources;
 
@@ -24,5 +23,6 @@ public class CombatController
                         Constants_Combat.MAX_ROWS, Constants_Combat.MAX_COLUMNS
                 )
         );
+        Combat.getInstance().addTileButtons();
     }
 }

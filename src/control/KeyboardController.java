@@ -1,4 +1,4 @@
-package control.events;
+package control;
 
 
 import control.game.PlayerController;
