@@ -1,9 +1,10 @@
 package control.scenes;
 
 
+import javafx.application.Platform;
 import model.userInterface.showables.Combat;
-import model.userInterface.showables.Map;
 import resources.constants.Constants_Combat;
+import resources.constants.Constants_Game;
 import resources.constants.Constants_Resources;
 
 
@@ -12,6 +13,13 @@ public class CombatController
     public static void startCombat (String loaderFileName)
     {
         setNewArena(loaderFileName);
+        try
+        {
+            Thread.sleep(Constants_Game.THREAD_SLEEP_DEFAULT_TIME);
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
         SceneController.getInstance().switchShowable(Combat.getInstance().getShowable());
     }
     

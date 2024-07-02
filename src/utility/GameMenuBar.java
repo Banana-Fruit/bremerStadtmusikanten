@@ -3,15 +3,19 @@ package utility;
 
 import control.GameController;
 import control.scenes.SceneController;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import model.userInterface.Game;
 import model.userInterface.showables.LoadGame;
 import model.userInterface.showables.MainMenu;
+import model.userInterface.showables.Map;
 import resources.constants.Constants_MenuBar;
 import resources.constants.Constants_Popup;
+import utility.popup.Popup;
 
 
 public interface GameMenuBar
@@ -52,6 +56,7 @@ public interface GameMenuBar
         MenuItem closeItem = new MenuItem(Constants_MenuBar.MENUBAR_CLOSE);
         MenuItem loadItem = new MenuItem(Constants_MenuBar.MENUBAR_LOAD);
         MenuItem newItem = new MenuItem(Constants_MenuBar.MENUBAR_NEWGAME);
+        MenuItem continueItem = new MenuItem(Constants_MenuBar.MENUBAR_CONTINUE);
         
         loadItem.setOnAction(new EventHandler<ActionEvent>()
         {
@@ -66,8 +71,24 @@ public interface GameMenuBar
             @Override
             public void handle (ActionEvent actionEvent)
             {
-                CloseGame closeGame = new CloseGame(Constants_Popup.MESSAGE_CLOSE_GAME, Constants_Popup.TEXT_TO_BUTTONS_SPACING,
-                        Constants_Popup.POPUP_WIDTH, Constants_Popup.POPUP_HEIGHT, Constants_Popup.defaultBackgroundColor);
+                Popup.createPopupWithAction(Game.getInstance().getCurrentShowable().getPane(), Constants_Popup.MESSAGE_CLOSE_GAME,
+                        new Runnable()
+                        {
+                            @Override
+                            public void run ()
+                            {
+                                Platform.exit();
+                            }
+                        }, new Runnable()
+                        {
+                            @Override
+                            public void run ()
+                            {
+                            
+                            }
+                        }, Constants_Popup.YES, Constants_Popup.NO, Constants_Popup.TEXT_TO_BUTTONS_SPACING, Constants_Popup.POPUP_WIDTH, Constants_Popup.POPUP_HEIGHT,
+                        Constants_Popup.defaultBackgroundColor
+                );
             }
         });
         newItem.setOnAction(new EventHandler<ActionEvent>()
@@ -78,8 +99,16 @@ public interface GameMenuBar
                 GameController.getInstance().newGame();
             }
         });
+        continueItem.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle (ActionEvent actionEvent)
+            {
+                SceneController.getInstance().switchShowable(Map.getInstance());
+            }
+        });
         
-        menuGame.getItems().addAll(newItem, loadItem, closeItem);
+        menuGame.getItems().addAll(newItem, continueItem, loadItem, closeItem);
         return menuGame;
     }
     

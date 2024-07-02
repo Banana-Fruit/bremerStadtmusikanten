@@ -1,30 +1,35 @@
-package utility;
+package utility.popup;
 
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import model.userInterface.Game;
 import model.userInterface.TransparentButton;
 import resources.constants.Constants_Popup;
 
 
 public interface Popup
 {
-    default Node createPopup(String message, int textToButtonsSpacing, int width, int height, Color backgroundColor) {
+    static void createPopupWithAction (Pane currentPane, String message, Runnable onOption1, Runnable onOption2,
+                                              String option1Name, String option2Name, int textToButtonsSpacing,
+                                              int width, int height, Color backgroundColor)
+    {
         StackPane popupRoot = new StackPane();
         popupRoot.setPrefSize(width, height);
         
         // Create Yes and No buttons
-        TransparentButton yesButton = new TransparentButton(Constants_Popup.YES, () -> {
-            onYES();
+        TransparentButton yesButton = new TransparentButton(option1Name, () ->
+        {
+            onOption1.run();
+            removePopup(currentPane, popupRoot);
         }, Constants_Popup.ITEM_WIDTH, Constants_Popup.ITEM_HEIGHT, Constants_Popup.LINEAR_GRADIENT_OPACITY, Constants_Popup.LINEAR_GRADIENT_OPACITYW);
         
-        TransparentButton noButton = new TransparentButton(Constants_Popup.NO, () -> {
-            onNO();
+        TransparentButton noButton = new TransparentButton(option2Name, () ->
+        {
+            onOption2.run();
+            removePopup(currentPane, popupRoot);
         }, Constants_Popup.ITEM_WIDTH, Constants_Popup.ITEM_HEIGHT, Constants_Popup.LINEAR_GRADIENT_OPACITY, Constants_Popup.LINEAR_GRADIENT_OPACITYW);
         
         // Place buttons in an HBox
@@ -46,35 +51,21 @@ public interface Popup
         popupRoot.getChildren().add(vbox);
         
         // Center the popup in its parent Pane
-        popupRoot.layoutXProperty().bind(Game.getInstance().getCurrentShowable().getPane().widthProperty().subtract(
-                popupRoot.widthProperty()).divide(Constants_Popup.CENTER_POPUP_VAR));
-        popupRoot.layoutYProperty().bind(Game.getInstance().getCurrentShowable().getPane().heightProperty().subtract(
-                popupRoot.heightProperty()).divide(Constants_Popup.CENTER_POPUP_VAR));
+        popupRoot.layoutXProperty().bind(currentPane.widthProperty().subtract(popupRoot.widthProperty()).divide(Constants_Popup.CENTER_POPUP_VAR));
+        popupRoot.layoutYProperty().bind(currentPane.heightProperty().subtract(popupRoot.heightProperty()).divide(Constants_Popup.CENTER_POPUP_VAR));
         
-        return popupRoot;
+        addPopup(currentPane, popupRoot);
     }
     
     
-    default void addPopup ()
+    private static void addPopup (Pane currentPane, StackPane popup)
     {
-    
+        currentPane.getChildren().add(popup);
     }
     
     
-    default void removePopup ()
+    private static void removePopup (Pane currentPane, StackPane popup)
     {
-    
-    }
-    
-    
-    default void onNO ()
-    {
-    
-    }
-    
-    
-    default void onYES ()
-    {
-    
+        currentPane.getChildren().remove(popup);
     }
 }
