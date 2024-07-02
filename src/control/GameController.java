@@ -3,6 +3,7 @@ package control;
 
 import control.events.KeyboardController;
 import control.events.MouseController;
+import control.game.CombatController;
 import control.game.PlayerController;
 import control.game.UnitController;
 import control.scenes.*;
@@ -66,6 +67,7 @@ public class GameController
         BuildingController.initialize();
         DisplayController.initialize();
         UnitController.initialize();
+        CombatController.initialize();
 
         // Initialise models
         Combat.initialize(new Scene(SceneController.getInstance().getBasePane()));

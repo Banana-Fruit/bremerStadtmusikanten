@@ -40,8 +40,8 @@ public class UnitController
 	}
 
 
-	public List<Unit> unitCreator () {//WIP
-		List<Unit> units = new ArrayList<>();
+	public ArrayList<Unit> unitCreator () {
+		ArrayList<Unit> units = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(
 				new FileReader(Constants_Player_Units.FILE_READ_UNITS)))
 		{
@@ -63,8 +63,8 @@ public class UnitController
 				int initiative = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_INITIATIVE]);
 				int magicDamage = Integer.valueOf(values[Constants_IndexPropertyUnit.MAGIC_DAMAGE]);
 				int myAttack = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_MY_ATTACK]);
-				int positionX = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_POSITION_X]);
-				int positionY = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_POSITION_Y]);
+				double positionX = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_POSITION_X]);
+				double positionY = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_POSITION_Y]);
 
 				OutputImageView unitView = new OutputImageView(new Image(Constants_Map.UNIT_VIEW_STANDARD), Constants_Map.UNIT_SIZE);
 				units.add(new Unit(Name, health, shield, mana, meeleDamage, rangedDamage, ammo, dodge,

@@ -14,7 +14,7 @@ public interface Constants_Player_Units
 
 
     //Strings
-    String FILE_READ_UNITS = "src/resources/Einheiten.csv";
+    String FILE_READ_UNITS = "src/resources/constants/Einheiten.csv";
     double UNIT_1_POSITION_X = 34;
     double UNIT_1_POSITION_Y = 30;
     double UNIT_2_POSITION_X = 31;

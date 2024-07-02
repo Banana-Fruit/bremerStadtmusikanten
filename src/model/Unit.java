@@ -5,13 +5,14 @@ import view.OutputImageView;
 public class Unit
 {
 	private String name;
-	private int health,shield,mana,meele,ranged,ammo,dodge,magicresist,RangeOfMotion, initiative, magicDamage,myAttack,positionX,positionY;
+	private int health,shield,mana,meele,ranged,ammo,dodge,magicresist,RangeOfMotion, initiative, magicDamage,myAttack;
+	private double positionX,positionY;
 
 	OutputImageView unitView;
 
 
 	public Unit(String name, int health, int shield, int mana, int meele, int ranged, int ammo, int dodge, int magicresist,
-				int RangeOfMotion, int initiative, int magicDamage, int myAttack, int positionX, int positionY, OutputImageView unitView)
+				int RangeOfMotion, int initiative, int magicDamage, int myAttack, double positionX, double positionY, OutputImageView unitView)
 	{
 		this.name = name;
 		this.health = health;
@@ -31,19 +32,19 @@ public class Unit
 		this.unitView = unitView;
 	}
 
-	public int getPositionX() {
+	public double getPositionX() {
 		return positionX;
 	}
 
-	public void setPositionX(int positionX) {
+	public void setPositionX(double positionX) {
 		this.positionX = positionX;
 	}
 
-	public int getPositionY() {
+	public double getPositionY() {
 		return positionY;
 	}
 
-	public void setPositionY(int positionY) {
+	public void setPositionY(double positionY) {
 		this.positionY = positionY;
 	}
 	public int getMyAttack() {

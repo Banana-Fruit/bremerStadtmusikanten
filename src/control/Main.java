@@ -1,6 +1,7 @@
 package control;
 
 
+import control.game.CombatController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.userInterface.Game;
@@ -16,11 +17,13 @@ public class Main extends Application
     {
         Game.initialize(stage);
         GameController.initialize(stage);
+
     }
-    
-    
+
+
     public static void main (String[] args)
     {
         launch(args);
+
     }
 }

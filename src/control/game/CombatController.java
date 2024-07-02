@@ -1,17 +1,37 @@
 package control.game;
+import control.GameController;
+import javafx.application.Application;
+import javafx.stage.Stage;
 import model.Attack;
+import model.Coordinate;
 import model.Unit;
-import resources.constants.Constants_Combat;
-import resources.constants.Constants_DefaultValues;
-import resources.constants.Constants_Player_Units;
-import resources.constants.Constants_Sorting;
+import model.userInterface.Game;
+import resources.constants.*;
 import model.player.Player;
 
 import java.util.*;
 
 public class CombatController
 {
-	private CombatController INSTANCE_OF_COMBAT_CONTROLLER = new CombatController();
+	private static CombatController instance = null;
+	public static CombatController getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new CombatController();
+		}
+		return instance;
+	}
+	public static synchronized void initialize ()
+	{
+		if (instance == null)
+		{
+			instance = new CombatController();
+		} else
+		{
+			throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
+		}
+	}
 
 
 	private CombatController ()
@@ -44,7 +64,7 @@ public class CombatController
 
 		initializeCombatPositions(myUnits,enemies);
 
-		List<Unit> participants = new ArrayList<>();
+		ArrayList<Unit> participants = new ArrayList<>();
 		participants.addAll(myUnits);
 		participants.addAll(enemies);
 
@@ -64,26 +84,34 @@ public class CombatController
 				{return(Constants_Sorting.NEGATIVE);}
 			}
 		});
-		
+
 		for(int n = Constants_DefaultValues.START_FOR_LOOP; n <= participants.size(); n++)
 		{//WIP
-			AttackUnit(participants.get(n), choiceOfFoe(enemies),attacks.get(participants.get(n).getMyAttack()));
+			if(participants.get(n).getHealth() > Constants_Combat.DEATH)
+			{
+				AttackUnit(participants.get(n), choiceOfFoe(enemies),attacks.get(participants.get(n).getMyAttack()));
+			}else
+			{
+				ArrayList<Unit> newParticipants = Die(participants.indexOf(participants.get(n)), participants);
+				participants = newParticipants;
+				enemies.contains(participants.get(n));
+			}
 		}
-		
-		
+
+
 	}
-	
+
 	private static Unit choiceOfFoe(List<Unit> ListofFoes)
 	{
 		int indexOfChosenEnemy = Constants_Combat.INDEX_CHOOSEN_ENEMY ;//Choose();
 		Unit choice = ListofFoes.get(indexOfChosenEnemy);
 		return choice;
 	}
-	
-	
+
+
 	public void AttackUnit(Unit attacker, Unit defender,Attack attackused)
 	{
-		
+
 		boolean isMagic = attackused.getMagic();
 		boolean isRanged = attackused.getRanged();
 		int atkRange = attackused.getAtkRange();
@@ -161,13 +189,13 @@ public class CombatController
 		int curHP = Defender.getHealth();
 		int roundDamageDealt;
 		int newHP;
-		
+
 		roundDamageDealt = Math.round(rawDamage - DmgBlocked);
 		newHP = curHP - roundDamageDealt;
 		Defender.setHealth(newHP);
-		
+
 	}
-	
+
 	public boolean RollDice(int chance)
 	{
 		Random random = new Random();
@@ -181,16 +209,16 @@ public class CombatController
 		{
 			didDodge = false;
 			return didDodge;
-			
-			
-			
+
+
+
 		}
 	}
 	public boolean amIcloseEnough(Unit defender,Unit attacker, int atkRange) {
 		boolean isCloseEnough;
-		int distanceX = defender.getPositionX() - attacker.getPositionX();
-		int distanceY = defender.getPositionY() - attacker.getPositionY();
-		int distance = distanceX + distanceY;
+		double distanceX = defender.getPositionX() - attacker.getPositionX();
+		double distanceY = defender.getPositionY() - attacker.getPositionY();
+		double distance = distanceX + distanceY;
 		if (distance <= atkRange) {
 			isCloseEnough = true;
 		} else {
@@ -208,10 +236,29 @@ public class CombatController
 		}
 		return units;
 	}
-
-
-	public CombatController getINSTANCE_OF_COMBAT_CONTROLLER ()
+	public ArrayList<Unit> Die(int IndexofDeadUnit, ArrayList<Unit> participants)
 	{
-		return INSTANCE_OF_COMBAT_CONTROLLER;
+		participants.remove(IndexofDeadUnit);
+		return participants;
 	}
+	public void move(Unit unit, Coordinate newUnitPosition)
+	{
+		Coordinate oldPosition = new Coordinate(unit.getPositionX(),unit.getPositionY());
+		unit.setPositionX(newUnitPosition.getPositionX());
+		unit.setPositionY(newUnitPosition.getPositionY());
+
+
+	}
+
+
+
+
+//DEBUG
+	/*public static void TestCombat()
+	{
+		UnitController UC = UnitController.getInstance();
+		CombatController CC = CombatController.getInstance();
+		CC.Combat(UC.unitCreator());
+	}*/
+
 }
