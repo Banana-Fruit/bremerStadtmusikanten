@@ -20,20 +20,20 @@ public interface Popup
         popupRoot.setPrefSize(width, height);
         
         // Create Yes and No buttons
-        TransparentButton yesButton = new TransparentButton(option1Name, () ->
+        TransparentButton option1Button = new TransparentButton(option1Name, () ->
         {
             onOption1.run();
             removePopup(currentPane, popupRoot);
         }, Constants_Popup.ITEM_WIDTH, Constants_Popup.ITEM_HEIGHT, Constants_Popup.LINEAR_GRADIENT_OPACITY, Constants_Popup.LINEAR_GRADIENT_OPACITYW);
         
-        TransparentButton noButton = new TransparentButton(option2Name, () ->
+        TransparentButton option2Button = new TransparentButton(option2Name, () ->
         {
             onOption2.run();
             removePopup(currentPane, popupRoot);
         }, Constants_Popup.ITEM_WIDTH, Constants_Popup.ITEM_HEIGHT, Constants_Popup.LINEAR_GRADIENT_OPACITY, Constants_Popup.LINEAR_GRADIENT_OPACITYW);
         
         // Place buttons in an HBox
-        HBox hbox = new HBox(Constants_Popup.HBOX_H, noButton, yesButton);
+        HBox hbox = new HBox(Constants_Popup.HBOX_H, option1Button, option2Button);
         hbox.setAlignment(Pos.CENTER);
         
         // Create layout and add nodes

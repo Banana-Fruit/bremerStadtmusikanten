@@ -120,17 +120,17 @@ public class MainMenu extends Showable
                     @Override
                     public void run ()
                     {
-                        Platform.exit();
+                    
                     }
                 }, new Runnable()
                 {
                     @Override
                     public void run ()
                     {
-                    
+                        Platform.exit();
                     }
-                }, Constants_Popup.YES, Constants_Popup.NO, Constants_Popup.TEXT_TO_BUTTONS_SPACING, Constants_Popup.POPUP_WIDTH, Constants_Popup.POPUP_HEIGHT,
-                Constants_Popup.defaultBackgroundColor
+                }, Constants_Popup.NO, Constants_Popup.YES, Constants_Popup.TEXT_TO_BUTTONS_SPACING,
+                Constants_Popup.POPUP_WIDTH, Constants_Popup.POPUP_HEIGHT, Constants_Popup.defaultBackgroundColor
         );
     }
 }

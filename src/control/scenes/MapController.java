@@ -1,5 +1,6 @@
 package control.scenes;
 
+
 import control.BuildingController;
 import control.game.PlayerController;
 import control.game.UnitController;
@@ -9,33 +10,38 @@ import javafx.scene.layout.Pane;
 import model.Coordinate;
 import model.Unit;
 import model.player.Inventory;
+import model.userInterface.Game;
 import model.userInterface.showables.Combat;
 import model.userInterface.showables.Map;
 import resources.constants.Constants_Combat;
 import resources.constants.Constants_ExceptionMessages;
+import resources.constants.Constants_Popup;
 import resources.constants.Constants_Resources;
 import resources.constants.scenes.Constants_Map;
+import utility.popup.Popup;
 
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+
 /**
- * Responsible for player movement and interaction solely on the map.
- * A map controller contains one map instance and is a Singleton.
- * It is responsible to do pane switches, if the player leaves a specific part of the map.
+ * Responsible for player movement and interaction solely on the map. A map controller contains one map instance and is
+ * a Singleton. It is responsible to do pane switches, if the player leaves a specific part of the map.
  */
 public class MapController
 {
     private static volatile MapController instance = null;
     private boolean dialogShown = false;
     private final HashMap<ImageView, String> rewardViews = new HashMap<>();
-
-
-    private MapController () {}
-
-
+    
+    
+    private MapController ()
+    {
+    }
+    
+    
     public static synchronized void initialize ()
     {
         if (instance == null)
@@ -46,8 +52,8 @@ public class MapController
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
-
-
+    
+    
     public void setNewMap (String loaderFileName)
     {
         Map.getInstance().setPanel(
@@ -57,12 +63,13 @@ public class MapController
                 )
         );
     }
-
-    public void checkMissionStart()
+    
+    
+    public void checkMissionStart ()
     {
         Coordinate current = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance().getPanel(), PlayerController.getInstance().getCurrentPlayerPosition());
-
-
+        
+        
         // Uebergang zu Mission 1
         if (current.getPositionX() == Constants_Map.PLAYER_AT_LEFT_BORDER && Map.getInstance().getCurrentMapName().equals(Constants_Map.MAP_NAME_CITY))
         {
@@ -78,13 +85,15 @@ public class MapController
             Platform.runLater(() -> BuildingController.getInstance().addButtons());
         }
     }
-
-    private void switchToMission(String newMap, int tileX, int tileY)
+    
+    
+    private void switchToMission (String newMap, int tileX, int tileY)
     {
         Map.getInstance().setCurrentMapName(newMap);
         System.out.println(Constants_Map.CONSOLE_PRINT_SWITCHING_MAP + newMap);
-
-        Platform.runLater(() -> {
+        
+        Platform.runLater(() ->
+        {
             PlayerController playerController = PlayerController.getInstance();
             Map.getInstance().getPane().getChildren().remove(playerController.getPlayerView());
             SceneController.getInstance().switchShowable(Map.getInstance());
@@ -93,34 +102,37 @@ public class MapController
             playerController.setPlayerPosition(new Coordinate(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), tileX, tileY)));
         });
     }
-
+    
+    
     //TODO: Implement Combat start logic
-    private void checkCombatStart()
+    private void checkCombatStart ()
     {
         PlayerController playerController = PlayerController.getInstance();
         Coordinate current = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance().getPanel(), playerController.getCurrentPlayerPosition());
-
+        
         for (Entry<Coordinate, Unit> entry : UnitController.getInstance().getUnitPositions().entrySet())
         {
             Coordinate unitPosition = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance().getPanel(), entry.getKey());
-
+            
             // Check proximity
             if (Math.abs(current.getPositionX() - unitPosition.getPositionX()) <= Constants_Map.PROXIMITY &&
-                    Math.abs(current.getPositionY() - unitPosition.getPositionY()) <= Constants_Map.PROXIMITY) {
+                    Math.abs(current.getPositionY() - unitPosition.getPositionY()) <= Constants_Map.PROXIMITY)
+            {
                 startCombat(entry.getKey());
                 return; // Assuming only one combat can start per move
             }
         }
     }
-
-    private void startCombat(Coordinate coordinate)
+    
+    
+    private void startCombat (Coordinate coordinate)
     {
-        //TODO: Implement Combat
         UnitController.getInstance().removeUnit(coordinate);
         CombatController.startCombat(Constants_Resources.COMBAT_NAME);
     }
-
-    public void checkProximityToUnits()
+    
+    
+    public void checkProximityToUnits ()
     {
         if (isNear())
         {
@@ -134,17 +146,18 @@ public class MapController
             dialogShown = false;
         }
     }
-
-    public boolean isNear()
+    
+    
+    public boolean isNear ()
     {
         double distanceThreshold = Constants_Map.DISTANCE_THRESHOLD; // Define an appropriate threshold value
         PlayerController playerController = PlayerController.getInstance();
         Coordinate currentPlayerPosition = playerController.getCurrentPlayerPosition();
-
+        
         for (Entry<Coordinate, Unit> entry : UnitController.getInstance().getUnitPositions().entrySet())
         {
             Coordinate unitPosition = entry.getKey();
-
+            
             double distance = Math.sqrt(
                     Math.pow(unitPosition.getPositionX() - currentPlayerPosition.getPositionX(), Constants_Map.DISTANCE_TO_UNIT_POW) +
                             Math.pow(unitPosition.getPositionY() - currentPlayerPosition.getPositionY(), Constants_Map.DISTANCE_TO_UNIT_POW)
@@ -156,41 +169,60 @@ public class MapController
         }
         return false;
     }
-
-    private void showDialog()
+    
+    
+    private void showDialog ()
     {
-        if (SceneController.getInstance().isDialogShown())
-        {
-            return;
-        }
-        SceneController.getInstance().createYesOrNoButton(Constants_Map.HEADER_JOIN_FIGHT, this::checkCombatStart);
+        Popup.createPopupWithAction(Game.getInstance().getCurrentShowable().getPane(), Constants_Map.HEADER_JOIN_FIGHT,
+                new Runnable()
+                {
+                    @Override
+                    public void run ()
+                    {
+                    
+                    }
+                }, new Runnable()
+                {
+                    @Override
+                    public void run ()
+                    {
+                        CombatController.startCombat(Constants_Resources.COMBAT_NAME);
+                    }
+                }, Constants_Popup.NO, Constants_Popup.YES, Constants_Popup.TEXT_TO_BUTTONS_SPACING,
+                Constants_Popup.POPUP_WIDTH, Constants_Popup.POPUP_HEIGHT, Constants_Popup.defaultBackgroundColor
+        );
     }
-
-    public void addRewardsMission1()
+    
+    
+    public void addRewardsMission1 ()
     {
-        Platform.runLater(() -> {
+        Platform.runLater(() ->
+        {
             HashMap<Coordinate, String> rewards = getRewardLocationsForMission1(); // Get predefined reward locations and types
-
-            for (HashMap.Entry<Coordinate, String> entry : rewards.entrySet()) {
+            
+            for (HashMap.Entry<Coordinate, String> entry : rewards.entrySet())
+            {
                 setRewardPosition(entry.getKey(), entry.getValue());
             }
         });
     }
-
-    private HashMap<Coordinate, String> getRewardLocationsForMission1()
+    
+    
+    private HashMap<Coordinate, String> getRewardLocationsForMission1 ()
     {
         HashMap<Coordinate, String> rewardLocations = new HashMap<>();
-
+        
         rewardLocations.put(new Coordinate(Constants_Map.REWARD_1_POSITION_X, Constants_Map.REWARD_1_POSITION_Y), "wood");
         rewardLocations.put(new Coordinate(Constants_Map.REWARD_2_POSITION_X, Constants_Map.REWARD_2_POSITION_Y), "beer");
         rewardLocations.put(new Coordinate(Constants_Map.REWARD_3_POSITION_X, Constants_Map.REWARD_3_POSITION_Y), "brick");
         rewardLocations.put(new Coordinate(Constants_Map.REWARD_4_POSITION_X, Constants_Map.REWARD_4_POSITION_Y), "essence");
         rewardLocations.put(new Coordinate(Constants_Map.REWARD_5_POSITION_X, Constants_Map.REWARD_5_POSITION_Y), "gold");
-
+        
         return rewardLocations;
     }
-
-    private void setRewardPosition(Coordinate tileCoordinate, String rewardType)
+    
+    
+    private void setRewardPosition (Coordinate tileCoordinate, String rewardType)
     {
         Coordinate coordinate = new Coordinate(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), (int) tileCoordinate.getPositionX(), (int) tileCoordinate.getPositionY()));
         ImageView rewardView = new ImageView(Constants_Map.REWARD_IMAGE_PATH);
@@ -198,14 +230,14 @@ public class MapController
         rewardView.setFitHeight(Constants_Map.TILE_SIZE);
         rewardView.setLayoutX(coordinate.getPositionX());
         rewardView.setLayoutY(coordinate.getPositionY());
-
+        
         Map.getInstance().getPane().getChildren().add(rewardView);
         rewardViews.put(rewardView, rewardType);
     }
-
-
+    
+    
     // Ensure this method exists to collect rewards when the player moves over them
-    public void checkRewardCollection()
+    public void checkRewardCollection ()
     {
         Iterator<HashMap.Entry<ImageView, String>> iterator = rewardViews.entrySet().iterator();
         while (iterator.hasNext())
@@ -213,7 +245,7 @@ public class MapController
             HashMap.Entry<ImageView, String> entry = iterator.next();
             ImageView rewardView = entry.getKey();
             String rewardType = entry.getValue();
-
+            
             if (isPlayerOnReward(rewardView))
             {
                 collectReward(rewardView, rewardType);
@@ -222,24 +254,26 @@ public class MapController
             }
         }
     }
-
-    private boolean isPlayerOnReward(ImageView rewardView)
+    
+    
+    private boolean isPlayerOnReward (ImageView rewardView)
     {
         Coordinate playerPosition = PlayerController.getInstance().getCurrentPlayerPosition();
         double playerX = playerPosition.getPositionX();
         double playerY = playerPosition.getPositionY();
         double rewardX = rewardView.getLayoutX();
         double rewardY = rewardView.getLayoutY();
-
+        
         return Math.abs(playerX - rewardX) < Constants_Map.REWARD_COLLECTION_RADIUS &&
                 Math.abs(playerY - rewardY) < Constants_Map.REWARD_COLLECTION_RADIUS;
     }
-
-    private void collectReward(ImageView rewardView, String rewardType)
+    
+    
+    private void collectReward (ImageView rewardView, String rewardType)
     {
         Pane mapPane = Map.getInstance().getPane();
         mapPane.getChildren().remove(rewardView);
-
+        
         // Update the player's inventory based on the reward type
         Inventory inventory = Inventory.getInstanceOfInventory();
         switch (rewardType)
@@ -263,10 +297,8 @@ public class MapController
                 throw new IllegalArgumentException("Unknown reward type: " + rewardType);
         }
     }
-
-
-
-
+    
+    
     // Method to retrieve the Singleton instance without parameters
     public static MapController getInstance ()
     {
