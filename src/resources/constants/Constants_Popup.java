@@ -20,4 +20,5 @@ public interface Constants_Popup
     float CENTER_POPUP_VAR = 2;
     
     String MESSAGE_CLOSE_GAME = "Do you really want to finish the game?";
+    int SYSTEM_EXIT_CODE = 0;
 }

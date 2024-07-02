@@ -85,6 +85,7 @@ public interface GameMenuBar
                             public void run ()
                             {
                                 Platform.exit();
+                                System.exit(Constants_Popup.SYSTEM_EXIT_CODE);
                             }
                         }, Constants_Popup.NO, Constants_Popup.YES, Constants_Popup.TEXT_TO_BUTTONS_SPACING,
                         Constants_Popup.POPUP_WIDTH, Constants_Popup.POPUP_HEIGHT, Constants_Popup.defaultBackgroundColor
