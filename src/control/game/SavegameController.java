@@ -1,5 +1,6 @@
 package control.game;
 
+
 import model.Savegame;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -10,22 +11,26 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+
 public class SavegameController
 {
     private static SavegameController instance = null;
     private final String saveGameDirectory = Constants_Savegame.SAVEGAME_DIRECTORY;
-
-    private SavegameController() {}
-
-
-    public void saveToFile(Savegame savegame, String fileName)
+    
+    
+    private SavegameController ()
+    {
+    }
+    
+    
+    public void saveToFile (Savegame savegame, String fileName)
     {
         JSONObject json = new JSONObject();
         json.put(Constants_Savegame.JSON_OBJECT_INVENTORY_GOLD, savegame.getGold());
         json.put(Constants_Savegame.JSON_OBJECT_INVENTORY_COAL, savegame.getCoal());
         json.put(Constants_Savegame.JSON_OBJECT_INVENTORY_BRICKS, savegame.getStone());
         json.put(Constants_Savegame.JSON_OBJECT_PLAYER_NAME, savegame.getPlayerName());
-
+        
         try (FileWriter file = new FileWriter(saveGameDirectory + fileName))
         {
             file.write(json.toString(Constants_Savegame.INDENT_FACTOR));
@@ -36,19 +41,20 @@ public class SavegameController
             e.printStackTrace();
         }
     }
-
-    public Savegame loadFromFile(String fileName)
+    
+    
+    public Savegame loadFromFile (String fileName)
     {
         try (FileReader reader = new FileReader(saveGameDirectory + fileName))
         {
             JSONTokener tokener = new JSONTokener(reader);
             JSONObject json = new JSONObject(tokener);
-
+            
             int gold = json.getInt(Constants_Savegame.JSON_OBJECT_INVENTORY_GOLD);
             int coal = json.getInt(Constants_Savegame.JSON_OBJECT_INVENTORY_COAL);
             int stone = json.getInt(Constants_Savegame.JSON_OBJECT_INVENTORY_BRICKS);
             String playerName = json.getString(Constants_Savegame.JSON_OBJECT_PLAYER_NAME);
-
+            
             return new Savegame(gold, coal, stone, playerName);
         } catch (IOException | JSONException e)
         {
@@ -56,16 +62,17 @@ public class SavegameController
             return null;
         }
     }
-
+    
+    
     //Todo: main löschen, war nur zum Ausprobieren da
-    public static void main(String[] args)
+    public static void main (String[] args)
     {
         SavegameController savegameController = SavegameController.getInstance();
-
+        
         Savegame savegame = new Savegame(Constants_Savegame.SAVE_GOLD, Constants_Savegame.SAVE_COAL,
                 Constants_Savegame.SAVE_STONE, Constants_Savegame.SAVE_PLAYER_NAME);
         savegameController.saveToFile(savegame, Constants_Savegame.SAVE_FILE);
-
+        
         Savegame loadedSavegame = savegameController.loadFromFile(Constants_Savegame.SAVE_FILE);
         if (loadedSavegame != null)
         {
@@ -76,9 +83,9 @@ public class SavegameController
             System.out.println(Constants_Savegame.OUTPUT_NAME + loadedSavegame.getPlayerName());
         }
     }
-
-
-    public static SavegameController getInstance()
+    
+    
+    public static SavegameController getInstance ()
     {
         if (instance == null)
         {

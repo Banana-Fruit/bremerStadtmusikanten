@@ -27,7 +27,9 @@ public class KeyboardController implements Runnable
     private final Set<KeyCode> pressedKeys = new HashSet<>();
     
     
-    private KeyboardController () {}
+    private KeyboardController ()
+    {
+    }
     
     
     public static synchronized void initialize ()
@@ -88,7 +90,7 @@ public class KeyboardController implements Runnable
                 @Override
                 public void run ()
                 {
-                    if(!pressedKeys.isEmpty())
+                    if (!pressedKeys.isEmpty())
                     {
                         routeToPlayerController(pressedKeys);
                     }
@@ -113,8 +115,8 @@ public class KeyboardController implements Runnable
         }
         if (!playerRelatedKeys.isEmpty()) PlayerController.getInstance().handleKeyPresses(playerRelatedKeys);
     }
-
-
+    
+    
     public static KeyboardController getInstance ()
     {
         if (instance == null)

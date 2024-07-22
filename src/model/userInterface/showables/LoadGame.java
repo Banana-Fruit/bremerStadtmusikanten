@@ -11,9 +11,15 @@ import resources.constants.scenes.Constants_MainMenu;
 import resources.constants.scenes.Constants_Showable;
 
 
+/**
+ * LoadGame class contains the scene of the class.
+ * <p>
+ * author Michael Markov
+ */
 public class LoadGame extends Showable
 {
     private static volatile LoadGame instance;
+    
     
     private LoadGame (Scene scene)
     {
@@ -87,7 +93,7 @@ public class LoadGame extends Showable
     }
     
     
-    private TransparentButton[] createGameLoadsItems(int numberOfGames)
+    private TransparentButton[] createGameLoadsItems (int numberOfGames)
     {
         TransparentButton[] saveGameItems = new TransparentButton[numberOfGames];
         
@@ -144,7 +150,7 @@ public class LoadGame extends Showable
     }*/
     
     
-    private void defineTilePane(TilePane tilePane)
+    private void defineTilePane (TilePane tilePane)
     {
         tilePane.setAlignment(Pos.BOTTOM_CENTER);
         tilePane.setTranslateY(Constants_MainMenu.TILEPANE_TRANSLATE_Y);

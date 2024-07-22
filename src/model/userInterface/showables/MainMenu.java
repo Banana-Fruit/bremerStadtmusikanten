@@ -16,6 +16,11 @@ import resources.constants.scenes.Constants_Showable;
 import utility.popup.Popup;
 
 
+/**
+ * MainMenu class contains the scene of the MainMenu.
+ *
+ * @author Michael Markov
+ */
 public class MainMenu extends Showable
 {
     private static volatile MainMenu instance;
@@ -56,6 +61,12 @@ public class MainMenu extends Showable
         addButtons();
     }
     
+    
+    /**
+     * Method adds buttons (VBOX) to pane.
+     *
+     * @author Michael Markov
+     */
     public void addButtons ()
     {
         // creates a Menu with six menuItems
@@ -63,21 +74,35 @@ public class MainMenu extends Showable
     }
     
     
-    public VBox createMenuInVBox(int itemWidth, int itemHeight) {
+    /**
+     * Creates a vertical box consisting of 5 buttons.
+     *
+     * @param itemWidth
+     * @param itemHeight
+     * @return
+     * @author Michael Markov
+     */
+    public VBox createMenuInVBox (int itemWidth, int itemHeight)
+    {
         VBox box = new VBox(Constants_MainMenu.VBOX_V,
-                new TransparentButton(Constants_MainMenu.MENU_NEW_GAME, () -> {
+                new TransparentButton(Constants_MainMenu.MENU_NEW_GAME, () ->
+                {
                     newGame();
                 }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
-                new TransparentButton(Constants_MainMenu.MENU_CONTINUE_GAME, () -> {
+                new TransparentButton(Constants_MainMenu.MENU_CONTINUE_GAME, () ->
+                {
                     continueGame();
                 }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
-                new TransparentButton(Constants_MainMenu.MENU_LOAD_GAME, () -> {
+                new TransparentButton(Constants_MainMenu.MENU_LOAD_GAME, () ->
+                {
                     loadGame();
                 }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
-                new TransparentButton(Constants_MainMenu.MENU_MULTIPLAYER, () -> {
+                new TransparentButton(Constants_MainMenu.MENU_MULTIPLAYER, () ->
+                {
                     // TODO: Multiplayer
                 }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
-                new TransparentButton(Constants_MainMenu.MENU_CLOSE_GAME, () -> {
+                new TransparentButton(Constants_MainMenu.MENU_CLOSE_GAME, () ->
+                {
                     closeGame();
                 }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W));
         
@@ -94,24 +119,44 @@ public class MainMenu extends Showable
     }
     
     
+    /**
+     * Method that runs if the correlating button is pressed.
+     *
+     * @author Michael Markov
+     */
     private void continueGame ()
     {
         SceneController.getInstance().switchShowable(Map.getInstance());
     }
     
     
+    /**
+     * Method that runs if the correlating button is pressed.
+     *
+     * @author Michael Markov
+     */
     private static void newGame ()
     {
         GameController.getInstance().newGame();
     }
     
     
+    /**
+     * Method that runs if the correlating button is pressed.
+     *
+     * @author Michael Markov
+     */
     private void loadGame ()
     {
         SceneController.getInstance().switchShowable(LoadGame.getInstance());
     }
     
     
+    /**
+     * Method that runs if the correlating button is pressed.
+     *
+     * @author Michael Markov
+     */
     private void closeGame ()
     {
         Popup.createPopupWithAction(Game.getInstance().getCurrentShowable().getPane(), Constants_Popup.MESSAGE_CLOSE_GAME,

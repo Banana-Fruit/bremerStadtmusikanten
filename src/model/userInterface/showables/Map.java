@@ -6,6 +6,11 @@ import model.panel.Panel;
 import resources.constants.Constants_ExceptionMessages;
 
 
+/**
+ * Map class which contains the scene.
+ *
+ * @author Michael Markov
+ */
 public class Map extends Showable
 {
     private static volatile Map instance;
@@ -51,12 +56,16 @@ public class Map extends Showable
     {
         return panel;
     }
-
-    public void setCurrentMapName(String mapName) {
+    
+    
+    public void setCurrentMapName (String mapName)
+    {
         this.currentMapName = mapName; // Neu hinzugefügt
     }
-
-    public String getCurrentMapName() {
+    
+    
+    public String getCurrentMapName ()
+    {
         return currentMapName; // Neu hinzugefügt
     }
 }

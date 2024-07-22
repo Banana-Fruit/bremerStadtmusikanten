@@ -1,14 +1,14 @@
 package model.panel;
 
 
-import model.userInterface.showables.Map;
 import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_Panel;
-import view.OutputImageView;
 
 
 /**
- * Panel consists of Tiles
+ * Panel consists of Tiles.
+ *
+ * @author Michael Markov
  */
 public class Panel
 {
@@ -30,12 +30,22 @@ public class Panel
     }
     
     
+    /**
+     * Initialiser for panel
+     *
+     * @author Michael Markov
+     */
     private void init ()
     {
         setTileArrayToRestrictedOriginArray();
     }
     
     
+    /**
+     * Restricts array of tiles to a specific amount of rows and columns.
+     *
+     * @author Michael Markov
+     */
     private void setTileArrayToRestrictedOriginArray ()
     {
         for (int row = Constants_Panel.MIN_TILE_INDEX; row < maxRows; row++)
@@ -54,6 +64,13 @@ public class Panel
     }
     
     
+    /**
+     * Returns tile at a specific index
+     *
+     * @param row
+     * @param column
+     * @return
+     */
     public Tile getTileAt (int row, int column)
     {
         return tileArray[row][column];

@@ -1,7 +1,6 @@
 package control.scenes;
 
 
-
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import model.player.Inventory;
@@ -15,20 +14,21 @@ import resources.constants.scenes.Constants_Building;
 public class DisplayController
 {
     private static volatile DisplayController instance = null;
-
+    
     private static Label numberOfGold;
     private static Label numberOfBrick;
     private static Label numberOfWood;
     private static Label numberOfBeer;
     private static Label numberOfEssence;
-
-
+    
+    
     // default constructor
     private DisplayController ()
     {
         ;
     }
-
+    
+    
     public static synchronized void initialize ()
     {
         if (instance == null)
@@ -39,17 +39,15 @@ public class DisplayController
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
-
-
     
-    public static GridPane createInventory()
+    
+    public static GridPane createInventory ()
     {
         GridPane gridpane = new GridPane();
         gridpane.setLayoutX(Constants_Building.GRIDPANE_LAYOUT_POSITION_X);
         gridpane.setLayoutY(Constants_Building.GRIDPANE_LAYOUT_POSITION_Y);
-
-
-
+        
+        
         // create labels
         Label inventory = new Label(Constants_Building.RESOURCES_INVENTORY);
         Label gold = new Label(Constants_Building.GOLD);
@@ -62,10 +60,10 @@ public class DisplayController
         numberOfWood = new Label(Integer.toString(Inventory.getInstanceOfInventory().getInventoryWood()));
         numberOfBeer = new Label(Integer.toString(Inventory.getInstanceOfInventory().getInventoryBeer()));
         numberOfEssence = new Label(Integer.toString(Inventory.getInstanceOfInventory().getInventoryEssence()));
-
+        
         // add labels to the gridPane
         gridpane.add(inventory, Constants_Building.GRIDPANE_COLUMN_ZERO, Constants_Building.GRIDPANE_ROW_ZERO,
-                Constants_Building.GRIDPANE_SIZE_TWO,Constants_Building.GRIDPANE_SIZE_TWO);
+                Constants_Building.GRIDPANE_SIZE_TWO, Constants_Building.GRIDPANE_SIZE_TWO);
         gridpane.add(gold, Constants_Building.GRIDPANE_COLUMN_ZERO, Constants_Building.GRIDPANE_ROW_THREE,
                 Constants_Building.GRIDPANE_SIZE_ONE, Constants_Building.GRIDPANE_SIZE_ONE);
         gridpane.add(brick, Constants_Building.GRIDPANE_COLUMN_ZERO, Constants_Building.GRIDPANE_ROW_FOUR,
@@ -76,22 +74,22 @@ public class DisplayController
                 Constants_Building.GRIDPANE_SIZE_ONE, Constants_Building.GRIDPANE_SIZE_ONE);
         gridpane.add(essence, Constants_Building.GRIDPANE_COLUMN_ZERO, Constants_Building.GRIDPANE_ROW_SEVEN,
                 Constants_Building.GRIDPANE_SIZE_ONE, Constants_Building.GRIDPANE_SIZE_ONE);
-        gridpane.add(numberOfGold, Constants_Building.GRIDPANE_COLUMN_ONE,Constants_Building.GRIDPANE_ROW_THREE,
-                Constants_Building.GRIDPANE_SIZE_ONE,Constants_Building.GRIDPANE_SIZE_ONE);
-        gridpane.add(numberOfBrick, Constants_Building.GRIDPANE_COLUMN_ONE,Constants_Building.GRIDPANE_ROW_FOUR,
-                Constants_Building.GRIDPANE_SIZE_ONE,Constants_Building.GRIDPANE_SIZE_ONE);
-        gridpane.add(numberOfWood, Constants_Building.GRIDPANE_COLUMN_ONE,Constants_Building.GRIDPANE_ROW_FIVE,
-                Constants_Building.GRIDPANE_SIZE_ONE,Constants_Building.GRIDPANE_SIZE_ONE);
-        gridpane.add(numberOfBeer, Constants_Building.GRIDPANE_COLUMN_ONE,Constants_Building.GRIDPANE_ROW_SIX,
-                Constants_Building.GRIDPANE_SIZE_ONE,Constants_Building.GRIDPANE_SIZE_ONE);
-        gridpane.add(numberOfEssence, Constants_Building.GRIDPANE_COLUMN_ONE,Constants_Building.GRIDPANE_ROW_SEVEN,
-                Constants_Building.GRIDPANE_SIZE_ONE,Constants_Building.GRIDPANE_SIZE_ONE);
-
+        gridpane.add(numberOfGold, Constants_Building.GRIDPANE_COLUMN_ONE, Constants_Building.GRIDPANE_ROW_THREE,
+                Constants_Building.GRIDPANE_SIZE_ONE, Constants_Building.GRIDPANE_SIZE_ONE);
+        gridpane.add(numberOfBrick, Constants_Building.GRIDPANE_COLUMN_ONE, Constants_Building.GRIDPANE_ROW_FOUR,
+                Constants_Building.GRIDPANE_SIZE_ONE, Constants_Building.GRIDPANE_SIZE_ONE);
+        gridpane.add(numberOfWood, Constants_Building.GRIDPANE_COLUMN_ONE, Constants_Building.GRIDPANE_ROW_FIVE,
+                Constants_Building.GRIDPANE_SIZE_ONE, Constants_Building.GRIDPANE_SIZE_ONE);
+        gridpane.add(numberOfBeer, Constants_Building.GRIDPANE_COLUMN_ONE, Constants_Building.GRIDPANE_ROW_SIX,
+                Constants_Building.GRIDPANE_SIZE_ONE, Constants_Building.GRIDPANE_SIZE_ONE);
+        gridpane.add(numberOfEssence, Constants_Building.GRIDPANE_COLUMN_ONE, Constants_Building.GRIDPANE_ROW_SEVEN,
+                Constants_Building.GRIDPANE_SIZE_ONE, Constants_Building.GRIDPANE_SIZE_ONE);
+        
         return gridpane;
     }
     
     
-    public void updateInventory()
+    public void updateInventory ()
     {
         // Update the labels with current inventory values
         numberOfGold.setText(Integer.toString(Inventory.getInstanceOfInventory().getInventoryGold()));
@@ -101,8 +99,7 @@ public class DisplayController
         numberOfEssence.setText(Integer.toString(Inventory.getInstanceOfInventory().getInventoryEssence()));
     }
     
-
-
+    
     public static DisplayController getInstance ()
     {
         if (instance == null)
@@ -111,5 +108,4 @@ public class DisplayController
         }
         return instance;
     }
-
 }

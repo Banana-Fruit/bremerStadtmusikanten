@@ -12,6 +12,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+/**
+ * Responsible for loading panels consisting of tiles from a loader file.
+ *
+ * @author Michael Markov
+ */
 public class PanelAndTileLoader
 {
     /**
@@ -22,6 +27,7 @@ public class PanelAndTileLoader
      * @param maxRows
      * @param maxColumns
      * @return
+     * @author Michael Markov
      */
     public static char[][] getCharacterArrayUsingTileFile (String loaderFilePath, int maxRows, int maxColumns)
     {
@@ -47,10 +53,16 @@ public class PanelAndTileLoader
         }
         return characterArray;
     }
-
-
     
     
+    /**
+     * Returns map of images and correlating chars from the path of the image folder. The images should have a letter as
+     * the first character, which then correlates all images to the first letter of their name.
+     *
+     * @param imageFolderPath
+     * @return
+     * @author Michael Markov
+     */
     public static HashMap<Character, Image> getMapWithCharsAndImages (String imageFolderPath)
     {
         HashMap<Character, Image> currentMapOfCharsWithImages = new HashMap<>();
@@ -83,6 +95,17 @@ public class PanelAndTileLoader
     }
     
     
+    /**
+     * Returns tile array from char array and hashmap of images with the correlating character. The method also caps all
+     * images to a certain amount of rows and columns.
+     *
+     * @param characterImageHashMap
+     * @param charArray
+     * @param maxRows
+     * @param maxColumns
+     * @return
+     * @author Michael Markov
+     */
     public static Tile[][] getTileArray (HashMap<Character, Image> characterImageHashMap, char[][] charArray, int maxRows, int maxColumns)
     {
         Tile[][] tileArray = new Tile[maxRows][maxColumns];
@@ -96,9 +119,10 @@ public class PanelAndTileLoader
         }
         return tileArray;
     }
-
+    
+    
     //---------------------JONAS_MAP---------------------
-    public static int[][] getCharacterArrayUsingTileFile_JonasMap(String loaderFilePath, int maxRows, int maxColumns)
+    public static int[][] getCharacterArrayUsingTileFile_JonasMap (String loaderFilePath, int maxRows, int maxColumns)
     {
         int[][] integerArray = new int[maxRows][maxColumns];
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(loaderFilePath)))
@@ -133,9 +157,9 @@ public class PanelAndTileLoader
         }
         return integerArray;
     }
-
-
-    public static Tile[][] getTileArray_JonasMap(HashMap<Integer, Image> integerImageHashMap, int[][] intArray, int maxRows, int maxColumns)
+    
+    
+    public static Tile[][] getTileArray_JonasMap (HashMap<Integer, Image> integerImageHashMap, int[][] intArray, int maxRows, int maxColumns)
     {
         Tile[][] tileArray = new Tile[maxRows][maxColumns];
         Map<Integer, Boolean> occupancyData = null;
@@ -168,9 +192,9 @@ public class PanelAndTileLoader
         }
         return tileArray;
     }
-
-
-    public static HashMap<Integer, Image> getMapWithIntegersAndImages_JonasMap(String imageFolderPath)
+    
+    
+    public static HashMap<Integer, Image> getMapWithIntegersAndImages_JonasMap (String imageFolderPath)
     {
         HashMap<Integer, Image> currentMapOfCharsWithImages = new HashMap<>();
         File folder = new File(imageFolderPath);
@@ -189,7 +213,8 @@ public class PanelAndTileLoader
                 if (Character.isDigit(c))
                 {
                     numericPartBuilder.append(c);
-                } else {
+                } else
+                {
                     break;
                 }
             }
@@ -202,9 +227,9 @@ public class PanelAndTileLoader
         }
         return currentMapOfCharsWithImages;
     }
-
-
-    public static Map<Integer, Boolean> readOccupancyData_JonasMap() throws IOException
+    
+    
+    public static Map<Integer, Boolean> readOccupancyData_JonasMap () throws IOException
     {
         Map<Integer, Boolean> occupancyData = new HashMap<>();
         InputStream is = PanelAndTileLoader.class.getResourceAsStream(Constants_Panel.FILE_PATH_TILE_DATA);

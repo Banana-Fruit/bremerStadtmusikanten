@@ -16,55 +16,55 @@ public class FractionCampCat extends Building
             Constants_Building.NAME_FRACTIONCAMP_CAT, Constants_Building.FRACTIONCAMP_CAT_GOLD,
             Constants_Building.FRACTIONCAMP_CAT_BRICK, Constants_Building.FRACTIONCAMP_CAT_WOOD,
             Constants_Building.FRACTIONCAMP_CAT_BEER, Constants_Building.FRACTIONCAMP_CAT_ESSENCE, false,
-            new Coordinate(Constants_Building.FRACTIONCAMP_CAT_POSITION_X,Constants_Building.FRACTIONCAMP_CAT_POSITION_Y));
-
+            new Coordinate(Constants_Building.FRACTIONCAMP_CAT_POSITION_X, Constants_Building.FRACTIONCAMP_CAT_POSITION_Y));
+    
     private List<Unit> listOfFractions;
-
-
+    
+    
     private FractionCampCat (String name, int numberOfGold, int numberOfBrick, int numberOfWood, int numberOfBeer,
                              int numberOfEssence, boolean isUnlocked, Coordinate positionUpperLeft)
     {
-        super (name, numberOfGold, numberOfBrick, numberOfWood, numberOfBeer, numberOfEssence, isUnlocked, positionUpperLeft);
+        super(name, numberOfGold, numberOfBrick, numberOfWood, numberOfBeer, numberOfEssence, isUnlocked, positionUpperLeft);
     }
-
-
+    
+    
     @Override
     public void unlockBuilding ()
     {
         BuildingController.checkIfBuildingIsUnlock(getInstanceOfFractionCatCamp());
     }
-
-
+    
+    
     private static Unit recruitCatsFromFractionCat (FractionCat fractionCat)
     {
         return fractionCat.getCat(); // TODO: später Einlesen
     }
-
-
+    
+    
     private static Unit recruitTigersFromFractionCat (FractionCat fractionCat)
     {
         return fractionCat.getTiger(); // TODO: später Einlesen
     }
-
-
+    
+    
     private static Unit recruitHousekeepersFromFractionCat (FractionCat fractionCat)
     {
         return fractionCat.getHousekeeper(); // TODO: später Einlesen
     }
-
-
+    
+    
     private static Unit recruitJaguarsFromFractionCat (FractionCat fractionCat)
     {
         return fractionCat.getJaguar(); // TODO: später Einlesen
     }
-
-
+    
+    
     private static Unit recruitCatsWithHatFromFractionCat (FractionCat fractionCat)
     {
         return fractionCat.getBingus(); // TODO: später Einlesen
     }
-
-
+    
+    
     public static void addUnitsToList (FractionCat fractionCat)
     {
         List<Unit> list = INSTANCE_OF_FRACTION_CAT_CAMP.getListOfFractions();
@@ -74,15 +74,14 @@ public class FractionCampCat extends Building
         list.add(fractionCat.getTiger());
         list.add(fractionCat.getBingus());
     }
-
-
-
+    
+    
     public static FractionCampCat getInstanceOfFractionCatCamp ()
     {
         return INSTANCE_OF_FRACTION_CAT_CAMP;
     }
-
-
+    
+    
     public List<Unit> getListOfFractions ()
     {
         return listOfFractions;

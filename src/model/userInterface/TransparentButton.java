@@ -15,7 +15,7 @@ import resources.constants.scenes.Constants_MainMenu;
 
 public class TransparentButton extends StackPane
 {
-
+    
     
     // constructor
     public TransparentButton (String name, Runnable action, int rcwidth, int rcheight, double opacityReleased, double opacityPressed)
@@ -31,8 +31,8 @@ public class TransparentButton extends StackPane
         setOnMouseReleased(e -> bg.setFill(gradientReleased));
         getChildren().addAll(bg, text);
     }
-
-
+    
+    
     public TransparentButton (String name, int rcwidth, int rcheight, double opacityReleased, double opacityPressed)
     {
         LinearGradient gradientReleased = createGradient(opacityReleased);
@@ -63,7 +63,6 @@ public class TransparentButton extends StackPane
         
         getChildren().addAll(bg, text);
     }
-    
     
     
     /**

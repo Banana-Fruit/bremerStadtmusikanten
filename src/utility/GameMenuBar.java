@@ -18,8 +18,19 @@ import resources.constants.Constants_Popup;
 import utility.popup.Popup;
 
 
+/**
+ * The game menu bar appears on top of all scenes to provide a quick way to access all menu options.
+ *
+ * @author Michael Markov
+ */
 public interface GameMenuBar
 {
+    /**
+     * Creates a standard menu bar with all necessary tabs.
+     *
+     * @return
+     * @author Michael Markov
+     */
     static MenuBar createMenuBar ()
     {
         MenuBar menuBar = new MenuBar();
@@ -30,7 +41,12 @@ public interface GameMenuBar
         return menuBar;
     }
     
-    
+    /**
+     * The multiplayer tab contains items that are related to the multiplayer functionalities.
+     *
+     * @return
+     * @author Michael Markov
+     */
     static Menu getMultiplayerTab ()
     {
         Menu menuMultiplayer = new Menu(Constants_MenuBar.MENUBAR_MULTIPLAYER);
@@ -50,6 +66,12 @@ public interface GameMenuBar
     }
     
     
+    /**
+     * The game tab contains items that are related to the game functionalities.
+     *
+     * @return
+     * @author Michael Markov
+     */
     static Menu getGameTab ()
     {
         Menu menuGame = new Menu(Constants_MenuBar.MENUBAR_GAME);
@@ -113,7 +135,12 @@ public interface GameMenuBar
         return menuGame;
     }
     
-    
+    /**
+     * The main menu tab contains items that are related to the main menu functionalities.
+     *
+     * @return
+     * @author Michael Markov
+     */
     static Menu getMainMenuTab ()
     {
         Menu menuMainMenu = new Menu(Constants_MenuBar.MENUBAR_MAINMENU);

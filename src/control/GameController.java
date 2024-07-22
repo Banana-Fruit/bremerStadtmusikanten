@@ -58,7 +58,8 @@ public class GameController
     
     
     /**
-     * Private initializer for the GameController. Initializes all the controllers required, for the application to work.
+     * Private initializer for the GameController. Initializes all the controllers required, for the application to
+     * work.
      *
      * @author Michael Markov
      */
@@ -75,14 +76,14 @@ public class GameController
         BuildingController.initialize();
         DisplayController.initialize();
         UnitController.initialize();
-
+        
         // Initialise models
         Combat.initialize(new Scene(SceneController.getInstance().getBasePane()));
         MainMenu.initialize(new Scene(SceneController.getInstance().getBasePane()));
         LoadGame.initialize(new Scene(SceneController.getInstance().getBasePane(),
                 Constants_MainMenu.SCENE_WIDTH, Constants_MainMenu.SCENE_HEIGHT));
         Map.initialize(new Scene(SceneController.getInstance().getBasePane()));
-
+        
         SceneController.getInstance().switchShowable(MainMenu.getInstance());
         this.stage.show();
     }

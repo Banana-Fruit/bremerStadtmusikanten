@@ -54,7 +54,7 @@ public class SceneController
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
-
+    
     
     public static void buildSceneBuildingInside (Building building)
     {
@@ -68,60 +68,53 @@ public class SceneController
         gridpane.add(goBack, Constants_City.GRIDPANE_ROW_SEVEN, Constants_City.GRIDPANE_COLUMN_ONE);
         gridpane.add(nameOfBuilding, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_ONE);
         closeBuildingInside(goBack, SceneController.instance.stage);
-
+        
         chooseTheRightBuildingInside(building, gridpane);
-
+        
         Scene scene = new Scene(gridpane);
         SceneController.instance.stage.setScene(scene);
         SceneController.instance.stage.setFullScreen(true);
         SceneController.instance.stage.show();
     }
-
-
+    
+    
     private static void closeBuildingInside (Button button, Stage stage)
     {
         button.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
-            public void handle(ActionEvent actionEvent)
+            public void handle (ActionEvent actionEvent)
             {
                 SceneController.getInstance().switchShowable(Map.getInstance());
             }
         });
     }
-
-
+    
+    
     private static void chooseTheRightBuildingInside (Building building, GridPane gridpane)
     {
         if (building == BaseCamp.getInstanceOfBasecamp())
         {
             BuildingController.getInsideBaseCamp(gridpane);
-        }
-        else if (building == MagicAmplifier.getInstanceOfMagicamplifier())
+        } else if (building == MagicAmplifier.getInstanceOfMagicamplifier())
         {
             BuildingController.getInsideMagicAmplifier(gridpane);
-        }
-        else if (building == Headquarter.getInstanceOfHeadquarter())
+        } else if (building == Headquarter.getInstanceOfHeadquarter())
         {
             BuildingController.getInsideHeadquarter(gridpane);
-        }
-        else if (building == TrainingArea.getInstanceOfTrainingarea())
+        } else if (building == TrainingArea.getInstanceOfTrainingarea())
         {
             BuildingController.getInsideTrainingsArea(gridpane);
-        }
-        else if (building == Pub.getInstanceOfPub())
+        } else if (building == Pub.getInstanceOfPub())
         {
             BuildingController.getInsidePub(gridpane);
-        }
-        else if (building == FractionCampDog.getInstanceOfFractionDogcamp())
+        } else if (building == FractionCampDog.getInstanceOfFractionDogcamp())
         {
             BuildingController.getInsideFractionCampDog(gridpane);
-        }
-        else if (building == FractionCampCat.getInstanceOfFractionCatCamp())
+        } else if (building == FractionCampCat.getInstanceOfFractionCatCamp())
         {
             BuildingController.getInsideFractionCampCat(gridpane);
-        }
-        else if (building == FractionCampChicken.getInstanceOfFractionChickenCamp())
+        } else if (building == FractionCampChicken.getInstanceOfFractionChickenCamp())
         {
             BuildingController.getInsideFractionCampChicken(gridpane);
         }
@@ -135,10 +128,9 @@ public class SceneController
         pane.getChildren().add(GameMenuBar.createMenuBar());
         return pane;
     }
-
     
     
-    public void switchShowable(Showable showable)
+    public void switchShowable (Showable showable)
     {
         this.previousShowable = Game.getInstance().getCurrentShowable();
         Game.getInstance().setCurrentShowable(showable);
@@ -148,7 +140,7 @@ public class SceneController
     }
     
     
-    public void switchBackShowable()
+    public void switchBackShowable ()
     {
         Showable previousShowable = Game.getInstance().getCurrentShowable();
         Game.getInstance().setCurrentShowable(this.previousShowable);
@@ -158,64 +150,67 @@ public class SceneController
     }
     
     
-    public boolean isDialogShown()
+    public boolean isDialogShown ()
     {
         return dialogShown;
     }
-
-    public void createYesOrNoButton(String header, Runnable action)
+    
+    
+    public void createYesOrNoButton (String header, Runnable action)
     {
         if (dialogShown)
         {
             return;
         }
-
+        
         Stage dialogStage = new Stage();
         VBox dialogVbox = new VBox();
         HBox buttonBox = new HBox();
         dialogVbox.setSpacing(Constants_MainMenu.VBOX_SPACE_BETWEEN_CHOICE_AND_TEXT);
-
+        
         Scene dialogScene = new Scene(dialogVbox, Constants_MainMenu.DIALOG_SCENE_WIDTH,
                 Constants_MainMenu.DIALOG_SCENE_HEIGHT);
         setDialogWindow(dialogStage, dialogVbox, header);
-
+        
         Text message = new Text(header);
         message.setFill(Color.WHITE);
-
-        TransparentButton yesButton = new TransparentButton(Constants_MainMenu.YES_BUTTON, () -> {
+        
+        TransparentButton yesButton = new TransparentButton(Constants_MainMenu.YES_BUTTON, () ->
+        {
             action.run();
             dialogStage.close();
             dialogShown = false;
         },
                 Constants_MainMenu.RC_WIDTH, Constants_MainMenu.RC_HEIGHT, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W);
-
-        TransparentButton noButton = new TransparentButton(Constants_MainMenu.NO_BUTTON, () -> {
+        
+        TransparentButton noButton = new TransparentButton(Constants_MainMenu.NO_BUTTON, () ->
+        {
             dialogStage.close();
             dialogShown = false;
         },
                 Constants_MainMenu.RC_WIDTH, Constants_MainMenu.RC_HEIGHT, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W);
-
+        
         arrangeTwoButtonsHorizontal(buttonBox, yesButton, noButton, Constants_MainMenu.SPACE_BETWEEN_YES_NO_BOXES);
         dialogVbox.getChildren().addAll(message, buttonBox);
-
+        
         Background background = new Background(new BackgroundFill(Color.rgb(Constants_MainMenu.RGB_SCHWARZ, Constants_MainMenu.RGB_SCHWARZ, Constants_MainMenu.RGB_SCHWARZ, Constants_MainMenu.LINEAR_GRADIENT_OPACITY), CornerRadii.EMPTY, Insets.EMPTY));
         dialogVbox.setBackground(background);
-
+        
         showSceneOnStage(dialogScene, dialogStage);
         dialogShown = true;
     }
-
-
-    private static void setDialogWindow(Stage dialogStage, VBox dialogVbox, String header)
+    
+    
+    private static void setDialogWindow (Stage dialogStage, VBox dialogVbox, String header)
     {
         dialogStage.initStyle(StageStyle.TRANSPARENT);
         dialogStage.setTitle(header);
         //set position of the vbox
         dialogVbox.setAlignment(Pos.CENTER);
     }
-
-
-    private static void arrangeTwoButtonsHorizontal(HBox buttonBox, TransparentButton button1, TransparentButton button2, int space)
+    
+    
+    private static void arrangeTwoButtonsHorizontal (HBox buttonBox, TransparentButton button1, TransparentButton button2, int space)
     {
         //Position of the HBox
         buttonBox.setAlignment(Pos.CENTER);
@@ -223,15 +218,16 @@ public class SceneController
         //add the MenuItems
         buttonBox.getChildren().addAll(button1, button2);
     }
-
-    private static void showSceneOnStage(Scene dialogScene, Stage dialogStage)
+    
+    
+    private static void showSceneOnStage (Scene dialogScene, Stage dialogStage)
     {
         dialogScene.setFill(Color.TRANSPARENT);
         dialogStage.setScene(dialogScene);
         dialogStage.show();
     }
-
-
+    
+    
     // Method to retrieve the Singleton instance without parameters
     public static SceneController getInstance ()
     {

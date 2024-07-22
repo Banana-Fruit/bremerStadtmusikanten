@@ -52,7 +52,8 @@ public class MapController
     
     
     /**
-     * Loads a new map onto an existing map scene by loading a new panel from the loader file. The loader file should be loacted in resources/assets/.
+     * Loads a new map onto an existing map scene by loading a new panel from the loader file. The loader file should be
+     * loacted in resources/assets/.
      *
      * @param loaderFileName
      * @author Michael Markov

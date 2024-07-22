@@ -18,7 +18,6 @@ public class Main extends Application
     {
         Game.initialize(stage);
         GameController.initialize(stage);
-
     }
 
 

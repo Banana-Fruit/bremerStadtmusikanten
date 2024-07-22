@@ -11,11 +11,15 @@ import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Resources;
 
 
+/**
+ * Combat class contains the scene of the combat.
+ *
+ * @author Michael Markov
+ */
 public class Combat extends Showable
 {
     private static volatile Combat instance;
     private Panel panel;
-    private String currentMapName;
     
     
     private Combat (Scene scene)
@@ -72,23 +76,5 @@ public class Combat extends Showable
     public void setPanel (Panel panel)
     {
         this.panel = panel;
-    }
-    
-    
-    public Panel getPanel ()
-    {
-        return panel;
-    }
-    
-    
-    public void setCurrentMapName (String mapName)
-    {
-        this.currentMapName = mapName; // Neu hinzugefügt
-    }
-    
-    
-    public String getCurrentMapName ()
-    {
-        return currentMapName; // Neu hinzugefügt
     }
 }

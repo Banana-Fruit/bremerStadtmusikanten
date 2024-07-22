@@ -1,6 +1,11 @@
 package model;
 
 
+/**
+ * Holds two variables with two positions. Can be used to store any doubles which are position related.
+ *
+ * @author Michael Markov
+ */
 public class Coordinate
 {
     double positionX;
@@ -44,6 +49,13 @@ public class Coordinate
     }
     
     
+    /**
+     * Compares given coordinates with local coordinates and returns a boolean. If equal, the returned value is true.
+     *
+     * @param coordinate
+     * @return
+     * @author Michael Markov
+     */
     public boolean isEqual (Coordinate coordinate)
     {
         return this.positionX == coordinate.positionX && this.positionY == coordinate.positionY;

@@ -10,11 +10,32 @@ import model.userInterface.TransparentButton;
 import resources.constants.Constants_Popup;
 
 
+/**
+ * Creates a popup that overlays over the current scene graph without actually needing its own scene. The popup consists
+ * of a message and two buttons. The text, spacing between the buttons, size and color can be customized to the liking.
+ *
+ * @author Michael Markov
+ */
 public interface Popup
 {
+    /**
+     * Base functionality of the popup. Highly customizable allowing for different messages, colour options and size
+     * options.
+     *
+     * @param currentPane
+     * @param message
+     * @param onOption1
+     * @param onOption2
+     * @param option1Name
+     * @param option2Name
+     * @param textToButtonsSpacing
+     * @param width
+     * @param height
+     * @param backgroundColor
+     */
     static void createPopupWithAction (Pane currentPane, String message, Runnable onOption1, Runnable onOption2,
-                                              String option1Name, String option2Name, int textToButtonsSpacing,
-                                              int width, int height, Color backgroundColor)
+                                       String option1Name, String option2Name, int textToButtonsSpacing,
+                                       int width, int height, Color backgroundColor)
     {
         StackPane popupRoot = new StackPane();
         popupRoot.setPrefSize(width, height);
@@ -58,12 +79,23 @@ public interface Popup
     }
     
     
+    /**
+     * Adds popup to the current pane.
+     *
+     * @param currentPane
+     * @param popup
+     */
     private static void addPopup (Pane currentPane, StackPane popup)
     {
         currentPane.getChildren().add(popup);
     }
     
-    
+    /**
+     * Removes popup from the current pane.
+     *
+     * @param currentPane
+     * @param popup
+     */
     private static void removePopup (Pane currentPane, StackPane popup)
     {
         currentPane.getChildren().remove(popup);

@@ -40,26 +40,26 @@ public class Player
         }
         return instance;
     }
-
-
-    public ArrayList<Unit> getTeamMembers()
+    
+    
+    public ArrayList<Unit> getTeamMembers ()
     {
         return teamMember;
     }
-
-
+    
+    
     public ArrayList<Artifact> getListOfArtifacts ()
     {
         return listOfArtifacts;
     }
-
-
+    
+    
     public int getMagicSkill ()
     {
         return magicSkill;
     }
-
-
+    
+    
     public void setMagicSkill (int magicSkill)
     {
         this.magicSkill = magicSkill;

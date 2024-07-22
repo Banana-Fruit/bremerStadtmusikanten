@@ -7,6 +7,8 @@ import resources.constants.Constants_Panel;
 
 /**
  * Tiles contain images, position information, and whether it is occupied (i.e. player can not move on it).
+ *
+ * @author Michael Markov
  */
 public class Tile
 {

@@ -44,7 +44,6 @@ public class PanelController
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
-
     
     
     /**
@@ -130,7 +129,8 @@ public class PanelController
                 tileSize, maxRows, maxColumns
         );
     }
-
+    
+    
     private Panel initializePanel_JonasMap (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
         // Create array of characters
@@ -147,8 +147,8 @@ public class PanelController
     
     
     /**
-     * The biome name is located on the first line of the loading file. This name will be used to access the tile images.
-     * All the method needs, is the path to the loader file.
+     * The biome name is located on the first line of the loading file. This name will be used to access the tile
+     * images. All the method needs, is the path to the loader file.
      *
      * @param pathToLoaderFile
      * @return
@@ -213,7 +213,7 @@ public class PanelController
         }
         
         // Check whether tile with correlating coordinates is occupied
-
+        
         // Überprüfe die obere linke Ecke
         int x = (int) coordinate.getPositionX();
         int y = (int) coordinate.getPositionY();
@@ -231,38 +231,43 @@ public class PanelController
         }
         return false; // Not occupied if method reached end
     }
-
-
-
-    public boolean isVerticalMoveBlocked(Panel panel, Coordinate currentPlayerPosition, Coordinate newPlayerPosition) {
+    
+    
+    public boolean isVerticalMoveBlocked (Panel panel, Coordinate currentPlayerPosition, Coordinate newPlayerPosition)
+    {
         double yMovement = newPlayerPosition.getPositionY() - currentPlayerPosition.getPositionY();
         if (yMovement == Constants_DefaultValues.ZERO) return false;
-
+        
         double newY = newPlayerPosition.getPositionY();
         Coordinate newVerticalPosition = new Coordinate(currentPlayerPosition.getPositionX(), newY);
         return isCoordinateOccupied(panel, newVerticalPosition);
     }
-
-    public boolean isHorizontalMoveBlocked(Panel panel, Coordinate currentPlayerPosition, Coordinate newPlayerPosition) {
+    
+    
+    public boolean isHorizontalMoveBlocked (Panel panel, Coordinate currentPlayerPosition, Coordinate newPlayerPosition)
+    {
         double xMovement = newPlayerPosition.getPositionX() - currentPlayerPosition.getPositionX();
         if (xMovement == Constants_DefaultValues.ZERO) return false;
-
+        
         double newX = newPlayerPosition.getPositionX();
         Coordinate newHorizontalPosition = new Coordinate(newX, currentPlayerPosition.getPositionY());
         return isCoordinateOccupied(panel, newHorizontalPosition);
     }
-
-    private boolean isObstacle(Panel panel, int x, int y) {
+    
+    
+    private boolean isObstacle (Panel panel, int x, int y)
+    {
         // Erhalte die Indizes der Kachel, die sich an den angegebenen Koordinaten befindet
         Coordinate tileIndices = getTileIndicesFromCoordinates(panel, new Coordinate(x, y));
-
+        
         // Überprüfe, ob die Kachel besetzt ist
         return panel.getTileAt((int) tileIndices.getPositionY(), (int) tileIndices.getPositionX()).getOccupied();
     }
     
     
     /**
-     * Following method can be utilised to return pile indices from the stage location. The indices will be returned as an instance of Coordinate.
+     * Following method can be utilised to return pile indices from the stage location. The indices will be returned as
+     * an instance of Coordinate.
      *
      * @param panel
      * @param coordinate
@@ -274,8 +279,8 @@ public class PanelController
         Coordinate nullPosition = getNullPositionOfPanelInRelationToScreenSize(panel);
         Coordinate currentCoordinate = new Coordinate(coordinate.getPositionX() - nullPosition.getPositionX(),
                 coordinate.getPositionY() - nullPosition.getPositionY());
-        currentCoordinate.setPositionX((int)(currentCoordinate.getPositionX() / panel.getTileSize()));
-        currentCoordinate.setPositionY((int)(currentCoordinate.getPositionY() / panel.getTileSize()));
+        currentCoordinate.setPositionX((int) (currentCoordinate.getPositionX() / panel.getTileSize()));
+        currentCoordinate.setPositionY((int) (currentCoordinate.getPositionY() / panel.getTileSize()));
         //System.out.println(currentCoordinate.getPositionX() + " " + currentCoordinate.getPositionY());
         return currentCoordinate;
     }
@@ -299,8 +304,8 @@ public class PanelController
     
     
     /**
-     * Returns the coordinates of the upper left corner of the upper left tile which can also be caled the "NullPosition".
-     * The postion is returned via an instance of Coordinate.
+     * Returns the coordinates of the upper left corner of the upper left tile which can also be caled the
+     * "NullPosition". The postion is returned via an instance of Coordinate.
      *
      * @param panel
      * @return
@@ -317,8 +322,8 @@ public class PanelController
         //System.out.println(x + " " + y);
         return new Coordinate(x, y);
     }
-
-
+    
+    
     public static PanelController getInstance ()
     {
         if (instance == null)
