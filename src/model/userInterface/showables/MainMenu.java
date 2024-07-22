@@ -6,6 +6,9 @@ import control.scenes.SceneController;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
 import model.userInterface.Game;
 import model.userInterface.TransparentButton;
@@ -13,7 +16,11 @@ import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Popup;
 import resources.constants.scenes.Constants_MainMenu;
 import resources.constants.scenes.Constants_Showable;
+import utility.ChatClient;
+import utility.ChatServer;
 import utility.popup.Popup;
+
+import java.util.Optional;
 
 
 /**
@@ -24,6 +31,8 @@ import utility.popup.Popup;
 public class MainMenu extends Showable
 {
     private static volatile MainMenu instance;
+    private static ChatServer chatServer;
+    private static ChatClient chatClient;
     
     
     private MainMenu (Scene scene)
@@ -99,7 +108,7 @@ public class MainMenu extends Showable
                 }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
                 new TransparentButton(Constants_MainMenu.MENU_MULTIPLAYER, () ->
                 {
-                    // TODO: Multiplayer
+                    openMultiplayerConnectionMenu();
                 }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
                 new TransparentButton(Constants_MainMenu.MENU_CLOSE_GAME, () ->
                 {
@@ -117,8 +126,45 @@ public class MainMenu extends Showable
         
         return box;
     }
-    
-    
+
+    private void openMultiplayerConnectionMenu()
+    {
+        SceneController.getInstance().switchShowable(Combat.getInstance());
+        String serverAddress;
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Netzwerkmodus");
+        alert.setHeaderText("Möchten Sie als Server oder Client starten?");
+        alert.setContentText("Wählen Sie den Modus:");
+
+        ButtonType buttonTypeServer = new ButtonType("Server");
+        ButtonType buttonTypeClient = new ButtonType("Client");
+
+        alert.getButtonTypes().setAll(buttonTypeServer, buttonTypeClient);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeServer)
+        {
+
+            Combat.getInstance().getPane().getChildren().add(ChatClient.createChatArea());
+            ChatServer.initialize();
+            chatServer = ChatServer.getInstance();
+            new Thread(() -> chatServer.start(13579)).start();
+            serverAddress = "192.168.0.90";
+
+        } else
+        {
+            TextInputDialog dialog = new TextInputDialog("localhost");
+            dialog.setTitle("Server Adresse");
+            dialog.setHeaderText("Geben Sie die Server-Adresse ein");
+            dialog.setContentText("Adresse:");
+
+            Optional<String> address = dialog.showAndWait();
+            serverAddress = address.orElseThrow();
+        }
+        chatClient = new ChatClient(13579, serverAddress);
+    }
+
+
     /**
      * Method that runs if the correlating button is pressed.
      *
