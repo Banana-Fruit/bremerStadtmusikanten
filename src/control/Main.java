@@ -1,7 +1,6 @@
 package control;
 
 
-import control.game.CombatController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.userInterface.Game;
@@ -9,6 +8,8 @@ import model.userInterface.Game;
 
 /**
  * This is the heart of the program. The program is initiated here.
+ *
+ * @author Michael Markov
  */
 public class Main extends Application
 {

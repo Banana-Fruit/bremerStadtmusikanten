@@ -11,16 +11,13 @@ import model.Coordinate;
 import model.Unit;
 import model.player.Inventory;
 import model.userInterface.Game;
-import model.userInterface.showables.Combat;
 import model.userInterface.showables.Map;
-import resources.constants.Constants_Combat;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Popup;
 import resources.constants.Constants_Resources;
 import resources.constants.scenes.Constants_Map;
 import utility.popup.Popup;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -54,14 +51,15 @@ public class MapController
     }
     
     
+    /**
+     * Loads a new map onto an existing map scene by loading a new panel from the loader file. The loader file should be loacted in resources/assets/.
+     *
+     * @param loaderFileName
+     * @author Michael Markov
+     */
     public void setNewMap (String loaderFileName)
     {
-        Map.getInstance().setPanel(
-                PanelController.getInstance().getAndShowPanel(Map.getInstance().getPane(),
-                        Constants_Resources.MAP_LOADER_FILES_FOLDER_JONAS_MAP, loaderFileName, Constants_Map.TILE_SIZE,
-                        Constants_Map.MAX_ROWS, Constants_Map.MAX_COLUMNS
-                )
-        );
+        Map.getInstance().setPanel(PanelController.getInstance().getAndShowPanel(Map.getInstance().getPane(), Constants_Resources.MAP_LOADER_FILES_FOLDER_JONAS_MAP, loaderFileName, Constants_Map.TILE_SIZE, Constants_Map.MAX_ROWS, Constants_Map.MAX_COLUMNS));
     }
     
     
@@ -78,8 +76,7 @@ public class MapController
             addRewardsMission1();
         }
         // Return to City from Mission 1
-        else if (current.getPositionX() > Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_X && current.getPositionY()
-                < Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_Y && Map.getInstance().getCurrentMapName().equals(Constants_Map.MAP_NAME_MISSION_1))
+        else if (current.getPositionX() > Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_X && current.getPositionY() < Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_Y && Map.getInstance().getCurrentMapName().equals(Constants_Map.MAP_NAME_MISSION_1))
         {
             switchToMission(Constants_Map.MAP_NAME_CITY, Constants_Map.PLAYER_SPAWN_CITY_POSITION_X, Constants_Map.PLAYER_SPAWN_CITY_POSITION_Y);
             Platform.runLater(() -> BuildingController.getInstance().addButtons());
@@ -115,8 +112,7 @@ public class MapController
             Coordinate unitPosition = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance().getPanel(), entry.getKey());
             
             // Check proximity
-            if (Math.abs(current.getPositionX() - unitPosition.getPositionX()) <= Constants_Map.PROXIMITY &&
-                    Math.abs(current.getPositionY() - unitPosition.getPositionY()) <= Constants_Map.PROXIMITY)
+            if (Math.abs(current.getPositionX() - unitPosition.getPositionX()) <= Constants_Map.PROXIMITY && Math.abs(current.getPositionY() - unitPosition.getPositionY()) <= Constants_Map.PROXIMITY)
             {
                 startCombat(entry.getKey());
                 return; // Assuming only one combat can start per move
@@ -158,10 +154,7 @@ public class MapController
         {
             Coordinate unitPosition = entry.getKey();
             
-            double distance = Math.sqrt(
-                    Math.pow(unitPosition.getPositionX() - currentPlayerPosition.getPositionX(), Constants_Map.DISTANCE_TO_UNIT_POW) +
-                            Math.pow(unitPosition.getPositionY() - currentPlayerPosition.getPositionY(), Constants_Map.DISTANCE_TO_UNIT_POW)
-            );
+            double distance = Math.sqrt(Math.pow(unitPosition.getPositionX() - currentPlayerPosition.getPositionX(), Constants_Map.DISTANCE_TO_UNIT_POW) + Math.pow(unitPosition.getPositionY() - currentPlayerPosition.getPositionY(), Constants_Map.DISTANCE_TO_UNIT_POW));
             if (distance < distanceThreshold)
             {
                 return true;
@@ -173,24 +166,21 @@ public class MapController
     
     private void showDialog ()
     {
-        Popup.createPopupWithAction(Game.getInstance().getCurrentShowable().getPane(), Constants_Map.HEADER_JOIN_FIGHT,
-                new Runnable()
-                {
-                    @Override
-                    public void run ()
-                    {
-                    
-                    }
-                }, new Runnable()
-                {
-                    @Override
-                    public void run ()
-                    {
-                        CombatController.startCombat(Constants_Resources.COMBAT_NAME);
-                    }
-                }, Constants_Popup.NO, Constants_Popup.YES, Constants_Popup.TEXT_TO_BUTTONS_SPACING,
-                Constants_Popup.POPUP_WIDTH, Constants_Popup.POPUP_HEIGHT, Constants_Popup.defaultBackgroundColor
-        );
+        Popup.createPopupWithAction(Game.getInstance().getCurrentShowable().getPane(), Constants_Map.HEADER_JOIN_FIGHT, new Runnable()
+        {
+            @Override
+            public void run ()
+            {
+            
+            }
+        }, new Runnable()
+        {
+            @Override
+            public void run ()
+            {
+                CombatController.startCombat(Constants_Resources.COMBAT_NAME);
+            }
+        }, Constants_Popup.NO, Constants_Popup.YES, Constants_Popup.TEXT_TO_BUTTONS_SPACING, Constants_Popup.POPUP_WIDTH, Constants_Popup.POPUP_HEIGHT, Constants_Popup.defaultBackgroundColor);
     }
     
     
@@ -264,8 +254,7 @@ public class MapController
         double rewardX = rewardView.getLayoutX();
         double rewardY = rewardView.getLayoutY();
         
-        return Math.abs(playerX - rewardX) < Constants_Map.REWARD_COLLECTION_RADIUS &&
-                Math.abs(playerY - rewardY) < Constants_Map.REWARD_COLLECTION_RADIUS;
+        return Math.abs(playerX - rewardX) < Constants_Map.REWARD_COLLECTION_RADIUS && Math.abs(playerY - rewardY) < Constants_Map.REWARD_COLLECTION_RADIUS;
     }
     
     

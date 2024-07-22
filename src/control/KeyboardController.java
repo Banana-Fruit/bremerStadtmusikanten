@@ -18,6 +18,8 @@ import java.util.Set;
 
 /**
  * The KeyboardController listens to key presses, and routes them to other controllers.
+ *
+ * @author Michael Markov
  */
 public class KeyboardController implements Runnable
 {
@@ -40,6 +42,11 @@ public class KeyboardController implements Runnable
     }
     
     
+    /**
+     * This runnable is responsible for tracing key actions and routing certain actions to other controllers.
+     *
+     * @author Michael Markov
+     */
     @Override
     public void run ()
     {
@@ -91,6 +98,12 @@ public class KeyboardController implements Runnable
     }
     
     
+    /**
+     * Method to route player related key presses to the player controller.
+     *
+     * @param pressedKeys
+     * @author Michael Markov
+     */
     public void routeToPlayerController (Set<KeyCode> pressedKeys)
     {
         Set<KeyCode> playerRelatedKeys = new HashSet<>();

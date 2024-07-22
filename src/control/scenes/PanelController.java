@@ -10,7 +10,6 @@ import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Panel;
 import resources.constants.Constants_Resources;
-import resources.constants.scenes.Constants_Map;
 import utility.PanelAndTileLoader;
 import view.PanelView;
 
@@ -20,6 +19,11 @@ import java.io.IOException;
 import java.util.HashMap;
 
 
+/**
+ * The panel controller handles the loading of the panel as well as allowing player movement.
+ *
+ * @author Michael Markov
+ */
 public class PanelController
 {
     private static volatile PanelController instance = null;
@@ -53,6 +57,7 @@ public class PanelController
      * @param maxRows
      * @param maxColumns
      * @return
+     * @author Michael Markov
      */
     public Panel getAndShowPanel (Pane pane, String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
@@ -70,6 +75,17 @@ public class PanelController
     }
     
     
+    /**
+     * Returns a panel based on the given parameters and adds it directly to the pane.
+     *
+     * @param pane
+     * @param pathToLoaderFileFolder
+     * @param loaderFileName
+     * @param tileSize
+     * @param maxRows
+     * @param maxColumns
+     * @return
+     */
     public Panel getAndShowPanelUsingChars (Pane pane, String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
         try
@@ -87,7 +103,7 @@ public class PanelController
     
     
     /**
-     * Returns a panel based on the given parameters.
+     * Returns a panel based on the given parameters. The panel is derived from a char loading file.
      *
      * @param pathToLoaderFileFolder
      * @param loaderFileName
@@ -128,9 +144,16 @@ public class PanelController
                 tileSize, maxRows, maxColumns
         );
     }
-
-
-
+    
+    
+    /**
+     * The biome name is located on the first line of the loading file. This name will be used to access the tile images.
+     * All the method needs, is the path to the loader file.
+     *
+     * @param pathToLoaderFile
+     * @return
+     * @author Michael Markov
+     */
     private String getBiomeName (String pathToLoaderFile)
     {
         String biomeName = new String();
@@ -238,6 +261,14 @@ public class PanelController
     }
     
     
+    /**
+     * Following method can be utilised to return pile indices from the stage location. The indices will be returned as an instance of Coordinate.
+     *
+     * @param panel
+     * @param coordinate
+     * @return
+     * @author Michael Markov
+     */
     public Coordinate getTileIndicesFromCoordinates (Panel panel, Coordinate coordinate)
     {
         Coordinate nullPosition = getNullPositionOfPanelInRelationToScreenSize(panel);
@@ -267,6 +298,14 @@ public class PanelController
     }
     
     
+    /**
+     * Returns the coordinates of the upper left corner of the upper left tile which can also be caled the "NullPosition".
+     * The postion is returned via an instance of Coordinate.
+     *
+     * @param panel
+     * @return
+     * @author Michael Markov
+     */
     private Coordinate getNullPositionOfPanelInRelationToScreenSize (Panel panel)
     {
         double x = ((Screen.getPrimary().getBounds().getWidth() / Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -

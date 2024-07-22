@@ -2,7 +2,6 @@ package model.userInterface.showables;
 
 
 import control.scenes.PanelController;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import model.Coordinate;
 import model.panel.Panel;
@@ -10,8 +9,6 @@ import model.userInterface.TransparentButton;
 import resources.constants.Constants_Combat;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Resources;
-
-import javax.swing.text.Position;
 
 
 public class Combat extends Showable

@@ -1,16 +1,16 @@
 package control.game;
-import control.GameController;
-import javafx.application.Application;
-import javafx.stage.Stage;
 import model.Attack;
 import model.Coordinate;
 import model.Unit;
-import model.userInterface.Game;
 import resources.constants.*;
 import model.player.Player;
 
 import java.util.*;
 
+
+/**
+ * The combat controller handles everything related to the combat.
+ */
 public class CombatController
 {
 	private static CombatController instance = null;

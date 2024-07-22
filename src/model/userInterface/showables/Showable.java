@@ -1,7 +1,6 @@
 package model.userInterface.showables;
 
 
-import javafx.beans.property.Property;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;

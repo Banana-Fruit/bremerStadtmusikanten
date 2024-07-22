@@ -17,6 +17,11 @@ import resources.constants.scenes.Constants_MainMenu;
 import resources.constants.scenes.Constants_Map;
 
 
+/**
+ * The game controller is supposed to handle everything related to the game. Meaning starting a new game.
+ *
+ * @author Michael Markov
+ */
 public class GameController
 {
     private static volatile GameController instance = null;
@@ -52,6 +57,11 @@ public class GameController
     }
     
     
+    /**
+     * Private initializer for the GameController. Initializes all the controllers required, for the application to work.
+     *
+     * @author Michael Markov
+     */
     private void init ()
     {
         this.stage.setTitle(Game.getInstance().getGameTitle());
@@ -78,6 +88,11 @@ public class GameController
     }
     
     
+    /**
+     * Method used to create a new game.
+     *
+     * @author Michael Markov
+     */
     public void newGame ()
     {
         SceneController.getInstance().switchShowable(Map.getInstance());

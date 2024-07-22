@@ -9,6 +9,9 @@ import resources.constants.Constants_ExceptionMessages;
 import resources.constants.scenes.Constants_Building;
 
 
+/**
+ * The GUI processes are handled by the display controller.
+ */
 public class DisplayController
 {
     private static volatile DisplayController instance = null;

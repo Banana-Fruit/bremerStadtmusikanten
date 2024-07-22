@@ -28,8 +28,6 @@ import resources.constants.scenes.Constants_City;
 import resources.constants.scenes.Constants_Map;
 import view.OutputImageView;
 
-import java.awt.*;
-
 
 public class BuildingController
 {

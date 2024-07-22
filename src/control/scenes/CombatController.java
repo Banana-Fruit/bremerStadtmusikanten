@@ -6,8 +6,17 @@ import resources.constants.Constants_Combat;
 import resources.constants.Constants_Resources;
 
 
+/**
+ * The combat controller is responsible for handling the combat arena.
+ */
 public class CombatController
 {
+    /**
+     * Method switches to combat scene by loading a new arena.
+     *
+     * @param loaderFileName
+     * @author Michael Markov
+     */
     public static void startCombat (String loaderFileName)
     {
         setNewArena(loaderFileName);
@@ -15,6 +24,12 @@ public class CombatController
     }
     
     
+    /**
+     * Sets a new arena for the map with the loader file name. Uses the folder resources/assets/combat/loaderFiles/
+     *
+     * @param loaderFileName
+     * @author Michael Markov
+     */
     private static void setNewArena (String loaderFileName)
     {
         Combat.getInstance().setPanel(
