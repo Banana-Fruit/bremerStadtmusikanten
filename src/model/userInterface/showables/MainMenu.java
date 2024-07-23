@@ -85,12 +85,13 @@ public class MainMenu extends Showable
 
 
     /**
-     * Creates a vertical box consisting of 5 buttons.
-     *
-     * @param itemWidth
-     * @param itemHeight
-     * @return
+     * Creates a VBox containing the main menu buttons.
      * @author Michael Markov, Jonas Helfer
+     * @param itemWidth The width of each menu button
+     * @param itemHeight The height of each menu button
+     * @return VBox containing the main menu buttons
+     * @precondition The Constants classes are properly initialized with all necessary values
+     * @postcondition A VBox with centered, styled menu buttons is created and returned
      */
     public VBox createMenuInVBox (int itemWidth, int itemHeight)
     {
@@ -128,7 +129,13 @@ public class MainMenu extends Showable
         return box;
     }
 
-
+    /**
+     * Opens the multiplayer connection menu and sets up the chat interface.
+     * This method initializes either a server or client based on user selection.
+     * @author Jonas Helfer
+     * @precondition The game is in a state where multiplayer can be initiated
+     * @postcondition The chat area is added to the combat scene and a server or client connection is established
+     */
     private void openMultiplayerConnectionMenu()
     {
         try
@@ -169,7 +176,6 @@ public class MainMenu extends Showable
                 }, Constants_Multiplayer.HOST, Constants_Multiplayer.GUEST, Constants_Popup.TEXT_TO_BUTTONS_SPACING,
                 Constants_Popup.POPUP_WIDTH, Constants_Popup.POPUP_HEIGHT, Constants_Popup.defaultBackgroundColor
         );
-
     }
 
 
