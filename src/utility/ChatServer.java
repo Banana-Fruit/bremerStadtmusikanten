@@ -2,6 +2,8 @@ package utility;
 
 
 import resources.constants.Constants_ExceptionMessages;
+import resources.constants.Constants_Multiplayer;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -30,19 +32,14 @@ public class ChatServer
     {
         try
         {
-            serverSocket = new ServerSocket(port, 50, InetAddress.getByName("0.0.0.0"));
-            System.out.println("Started chat server on port " + port);
-
-
+            serverSocket = new ServerSocket(port, Constants_Multiplayer.BACKLOG, InetAddress.getByName(Constants_Multiplayer.LISTEN_FOR_ADDRESS));
             while (running)
             {
-                System.out.println("Waiting for new Client...");
                 Socket connectionToClient = serverSocket.accept();
                 ClientHandler client = new ClientHandler(this, connectionToClient);
                 clients.add(client);
                 executorService.submit(client);
-                broadcastMessage(client.getName() + " connected.");
-                System.out.println("Accepted new client");
+                broadcastMessage(client.getName() + Constants_Multiplayer.CONNECTED);
             }
         } catch (IOException e)
         {
@@ -93,7 +90,7 @@ public class ChatServer
     public void removeClient (ClientHandler client)
     {
         clients.remove(client);
-        broadcastMessage(client.getName() + " disconnected.");
+        broadcastMessage(client.getName() + Constants_Multiplayer.DISCONNECTED);
     }
 
 

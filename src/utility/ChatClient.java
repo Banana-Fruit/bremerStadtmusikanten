@@ -1,10 +1,13 @@
 package utility;
 
+
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
+import resources.constants.Constants_Multiplayer;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -76,6 +79,8 @@ public class ChatClient
         });
 
         VBox chatBox = new VBox(chatArea, inputField);
+        chatBox.setLayoutX(Constants_Multiplayer.LAYOUT_X_CHAT);
+        chatBox.setLayoutY(Constants_Multiplayer.LAYOUT_Y_CHAT);
         return chatBox;
     }
 
