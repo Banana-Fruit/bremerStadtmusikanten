@@ -31,9 +31,22 @@ import java.util.Optional;
  */
 public class MainMenu extends Showable
 {
+    /**
+     * The single instance of the MainMenu class.
+     * Volatile keyword ensures visibility across threads.
+     */
     private static volatile MainMenu instance;
+
+    /**
+     * The ChatServer instance for handling in-game chat functionality.
+     */
     private static ChatServer chatServer;
+
+    /**
+     * The address of the chat server.
+     */
     private static String serverAddress;
+
 
 
     private MainMenu (Scene scene)

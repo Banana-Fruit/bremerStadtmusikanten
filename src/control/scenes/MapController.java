@@ -193,7 +193,7 @@ public class MapController
      */
     public boolean isNear ()
     {
-        double distanceThreshold = Constants_Map.DISTANCE_THRESHOLD; // Define an appropriate threshold value
+        double distanceThreshold = Constants_Map.DISTANCE_THRESHOLD;
         PlayerController playerController = PlayerController.getInstance();
         Coordinate currentPlayerPosition = playerController.getCurrentPlayerPosition();
         
@@ -201,7 +201,12 @@ public class MapController
         {
             Coordinate unitPosition = entry.getKey();
             
-            double distance = Math.sqrt(Math.pow(unitPosition.getPositionX() - currentPlayerPosition.getPositionX(), Constants_Map.DISTANCE_TO_UNIT_POW) + Math.pow(unitPosition.getPositionY() - currentPlayerPosition.getPositionY(), Constants_Map.DISTANCE_TO_UNIT_POW));
+            double distance = Math.sqrt(Math.pow(
+                    unitPosition.getPositionX() - currentPlayerPosition.getPositionX(),
+                    Constants_Map.DISTANCE_TO_UNIT_POW) +
+                    Math.pow(unitPosition.getPositionY() -
+                                    currentPlayerPosition.getPositionY(),
+                    Constants_Map.DISTANCE_TO_UNIT_POW));
             if (distance < distanceThreshold)
             {
                 return true;
@@ -233,7 +238,11 @@ public class MapController
             {
                 CombatController.startCombat(Constants_Resources.COMBAT_NAME);
             }
-        }, Constants_Popup.NO, Constants_Popup.YES, Constants_Popup.TEXT_TO_BUTTONS_SPACING, Constants_Popup.POPUP_WIDTH, Constants_Popup.POPUP_HEIGHT, Constants_Popup.defaultBackgroundColor);
+        }, Constants_Popup.NO, Constants_Popup.YES,
+                Constants_Popup.TEXT_TO_BUTTONS_SPACING,
+                Constants_Popup.POPUP_WIDTH,
+                Constants_Popup.POPUP_HEIGHT,
+                Constants_Popup.defaultBackgroundColor);
     }
 
 
@@ -272,16 +281,28 @@ public class MapController
     {
         HashMap<Coordinate, String> rewardLocations = new HashMap<>();
         
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_1_POSITION_X, Constants_Map.REWARD_1_POSITION_Y), "wood");
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_2_POSITION_X, Constants_Map.REWARD_2_POSITION_Y), "beer");
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_3_POSITION_X, Constants_Map.REWARD_3_POSITION_Y), "brick");
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_4_POSITION_X, Constants_Map.REWARD_4_POSITION_Y), "essence");
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_5_POSITION_X, Constants_Map.REWARD_5_POSITION_Y), "gold");
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_1_POSITION_X, Constants_Map.REWARD_1_POSITION_Y), Constants_Map.WOOD);
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_2_POSITION_X, Constants_Map.REWARD_2_POSITION_Y), Constants_Map.BEER);
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_3_POSITION_X, Constants_Map.REWARD_3_POSITION_Y), Constants_Map.BRICK);
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_4_POSITION_X, Constants_Map.REWARD_4_POSITION_Y), Constants_Map.ESSENCE);
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_5_POSITION_X, Constants_Map.REWARD_5_POSITION_Y), Constants_Map.GOLD);
         
         return rewardLocations;
     }
-    
-    
+
+
+    /**
+     * Sets the position of a reward on the game map.
+     * @author Jonas Helfer
+     * @param tileCoordinate The coordinate of the tile where the reward should be placed.
+     * @param rewardType The type of reward to be placed.
+     * @precondition The PanelController, Map, and Constants_Map classes are properly initialized.
+     *               The tileCoordinate is a valid coordinate within the game map.
+     *               The rewardType is a valid string representing one of the possible reward types.
+     *               The Constants_Map.REWARD_IMAGE_PATH points to a valid image resource.
+     * @postcondition new ImageView representing the reward is created and added to the game map at the specified position.
+     * The rewardViews HashMap is updated with the new reward.
+     */
     private void setRewardPosition (Coordinate tileCoordinate, String rewardType)
     {
         Coordinate coordinate = new Coordinate(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), (int) tileCoordinate.getPositionX(), (int) tileCoordinate.getPositionY()));
@@ -366,23 +387,23 @@ public class MapController
         Inventory inventory = Inventory.getInstanceOfInventory();
         switch (rewardType)
         {
-            case "gold":
+            case Constants_Map.GOLD:
                 inventory.setInventoryGold(inventory.getInventoryGold() + Constants_Map.REWARD_GOLD_AMOUNT);
                 break;
-            case "beer":
+            case Constants_Map.BEER:
                 inventory.setInventoryBeer(inventory.getInventoryBeer() + Constants_Map.REWARD_BEER_AMOUNT);
                 break;
-            case "brick":
+            case Constants_Map.BRICK:
                 inventory.setInventoryBrick(inventory.getInventoryBrick() + Constants_Map.REWARD_BRICK_AMOUNT);
                 break;
-            case "essence":
+            case Constants_Map.ESSENCE:
                 inventory.setInventoryEssence(inventory.getInventoryEssence() + Constants_Map.REWARD_ESSENCE_AMOUNT);
                 break;
-            case "wood":
+            case Constants_Map.WOOD:
                 inventory.setInventoryWood(inventory.getInventoryWood() + Constants_Map.REWARD_WOOD_AMOUNT);
                 break;
             default:
-                throw new IllegalArgumentException("Unknown reward type: " + rewardType);
+                throw new IllegalArgumentException(Constants_Map.UNKNOWN_REWARD + rewardType);
         }
     }
     

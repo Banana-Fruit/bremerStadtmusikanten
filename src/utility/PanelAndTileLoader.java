@@ -122,6 +122,14 @@ public class PanelAndTileLoader
     
     
     //---------------------JONAS_MAP---------------------
+    /**
+     * Reads a tile file and converts it into a 2D integer array representing the map.
+     * @author Jonas Helfer
+     * @param loaderFilePath The path to the tile file.
+     * @param maxRows The maximum number of rows in the map.
+     * @param maxColumns The maximum number of columns in the map.
+     * @return A 2D integer array representing the map.
+     */
     public static int[][] getCharacterArrayUsingTileFile_JonasMap (String loaderFilePath, int maxRows, int maxColumns)
     {
         int[][] integerArray = new int[maxRows][maxColumns];
@@ -157,8 +165,17 @@ public class PanelAndTileLoader
         }
         return integerArray;
     }
-    
-    
+
+
+    /**
+     * Creates a 2D array of Tile objects based on the provided integer array and image map.
+     * @author Jonas Helfer
+     * @param integerImageHashMap A map of integer keys to Image objects.
+     * @param intArray The 2D integer array representing the map.
+     * @param maxRows The maximum number of rows in the map.
+     * @param maxColumns The maximum number of columns in the map.
+     * @return A 2D array of Tile objects.
+     */
     public static Tile[][] getTileArray_JonasMap (HashMap<Integer, Image> integerImageHashMap, int[][] intArray, int maxRows, int maxColumns)
     {
         Tile[][] tileArray = new Tile[maxRows][maxColumns];
@@ -192,8 +209,14 @@ public class PanelAndTileLoader
         }
         return tileArray;
     }
-    
-    
+
+
+    /**
+     * Creates a map of integer keys to Image objects based on image files in a specified folder.
+     * @author Jonas Helfer
+     * @param imageFolderPath The path to the folder containing the image files.
+     * @return A HashMap mapping integer keys to Image objects.
+     */
     public static HashMap<Integer, Image> getMapWithIntegersAndImages_JonasMap (String imageFolderPath)
     {
         HashMap<Integer, Image> currentMapOfCharsWithImages = new HashMap<>();
@@ -227,8 +250,14 @@ public class PanelAndTileLoader
         }
         return currentMapOfCharsWithImages;
     }
-    
-    
+
+
+    /**
+     * Reads the Occupancy file and creates a map of tile IDs to their occupancy status.
+     * @author Jonas Helfer
+     * @return A Map of Integer keys (tile IDs) to Boolean values (occupancy status).
+     * @throws IOException If there's an error reading the file.
+     */
     public static Map<Integer, Boolean> readOccupancyData_JonasMap () throws IOException
     {
         Map<Integer, Boolean> occupancyData = new HashMap<>();
