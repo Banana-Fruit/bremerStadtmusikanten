@@ -12,6 +12,8 @@ import java.util.*;
 
 /**
  * The combat controller handles everything related to the combat.
+ *
+ * @author Michael Markov
  */
 public class CombatController
 {

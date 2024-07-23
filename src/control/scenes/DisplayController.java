@@ -10,6 +10,8 @@ import resources.constants.scenes.Constants_Building;
 
 /**
  * The GUI processes are handled by the display controller.
+ *
+ * @author Michael Markov
  */
 public class DisplayController
 {
