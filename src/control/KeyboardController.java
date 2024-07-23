@@ -60,7 +60,7 @@ public class KeyboardController implements Runnable
                 Thread.sleep(Constants_Game.THREAD_SLEEP_DEFAULT_TIME);
             } catch (InterruptedException e)
             {
-                e.printStackTrace();
+                System.out.println(Constants_ExceptionMessages.KEYBOARD_CONTROLLER_THREAD_WAS_INTERRUPTED);
             }
             
             // Add event listeners for key presses and releases

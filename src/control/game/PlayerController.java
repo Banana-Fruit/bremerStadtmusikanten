@@ -136,11 +136,9 @@ public class PlayerController implements Runnable
                 }
             } catch (InterruptedException e)
             {
+                System.out.println(Constants_ExceptionMessages.PLAYER_CONTROLLER_THREAD_WAS_INTERRUPTED);
                 Thread.currentThread().interrupt();
                 break;
-            } catch (Exception e)
-            {
-                e.printStackTrace();
             }
         }
     }
