@@ -25,19 +25,27 @@ public class PanelView
      */
     public static void addTilesToPane (Panel panel, Pane pane)
     {
+        // Runs through all rows until the limit is reached
         for (int row = Constants_Panel.MIN_TILE_INDEX; row < panel.getTileArray().length; row++)
         {
+            // Runs through all columns until the limit is reached
             for (int column = Constants_Panel.MIN_TILE_INDEX; column < panel.getTileArray()[Constants_Panel.MIN_TILE_INDEX].length; column++)
             {
+                // When no image is at current position, skip the iteration
                 if (panel.getTileArray()[row][column].getBackgroundImage() == null) continue;
+                
+                // Creates new instance of OutputImageView for the current iteration
                 OutputImageView currentOutputImageView = new OutputImageView(
                         panel.getTileArray()[row][column].getBackgroundImage(),
-                        ValueConversion.getDiagonalSizeFromSquareLength(panel.getTileSize()));
+                        ValueConversion.getDiagonalSizeFromSquareLength(panel.getTileSize())
+                );
                 
+                // Determines the position for the current image
                 Coordinate imageCoordinate = PanelController.getInstance().getCoordinateFromPanelTile(panel, row, column);
                 currentOutputImageView.setX(imageCoordinate.getPositionX());
                 currentOutputImageView.setY(imageCoordinate.getPositionY());
                 
+                // Adds the image to the pane
                 pane.getChildren().add(currentOutputImageView);
             }
         }

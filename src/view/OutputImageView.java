@@ -29,6 +29,8 @@ public class OutputImageView extends ImageView
     
     /**
      * Initializer for OutputImageView instances.
+     *
+     * @author Michael Markov
      */
     private void init ()
     {

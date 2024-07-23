@@ -20,6 +20,7 @@ public class ValueConversion
      */
     public static double getDiagonalSizeFromSquareLength (double squareLength)
     {
+        // Takes the root of the square of squareLength multiplied by two
         return Math.sqrt(Math.pow(squareLength, Constants_DefaultValues.SQUARE_EXPONENT) * Constants_DefaultValues.TWO);
     }
 }

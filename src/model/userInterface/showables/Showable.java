@@ -36,8 +36,14 @@ public class Showable
     }
     
     
+    /**
+     * Initializer for Showables.
+     *
+     * @author Michael Markov
+     */
     private void init ()
     {
+        // Sets background to black and pane to root
         this.scene.fillProperty().set(Color.BLACK);
         this.scene.setRoot(pane);
         setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
@@ -54,6 +60,7 @@ public class Showable
      * Sets background to an image. The image will be aligned to screen size, and centered.
      *
      * @param path
+     * @author Michael Markov
      */
     public void setBackground (String path)
     {

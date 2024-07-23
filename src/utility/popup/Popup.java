@@ -32,13 +32,14 @@ public interface Popup
      * @param width
      * @param height
      * @param backgroundColor
+     * @author Michael Markov
      */
     static void createPopupWithAction (Pane currentPane, String message, Runnable onOption1, Runnable onOption2,
                                        String option1Name, String option2Name, int textToButtonsSpacing,
                                        int width, int height, Color backgroundColor)
     {
         StackPane popupRoot = new StackPane();
-        popupRoot.setPrefSize(width, height);
+        popupRoot.setPrefSize(width, height); // Sets size
         
         // Create Yes and No buttons
         TransparentButton option1Button = new TransparentButton(option1Name, () ->
@@ -46,7 +47,6 @@ public interface Popup
             onOption1.run();
             removePopup(currentPane, popupRoot);
         }, Constants_Popup.ITEM_WIDTH, Constants_Popup.ITEM_HEIGHT, Constants_Popup.LINEAR_GRADIENT_OPACITY, Constants_Popup.LINEAR_GRADIENT_OPACITYW);
-        
         TransparentButton option2Button = new TransparentButton(option2Name, () ->
         {
             onOption2.run();
@@ -62,20 +62,20 @@ public interface Popup
         popupRoot.setBackground(background);
         
         Text textMessage = new Text(message);
-        textMessage.setFill(Color.WHITE);
+        textMessage.setFill(Color.WHITE); // Set text color to white
         
         // Center the textMessage and hbox
         VBox vbox = new VBox(textToButtonsSpacing, textMessage, hbox);
         vbox.setAlignment(Pos.CENTER);
         StackPane.setAlignment(vbox, Pos.CENTER);
         
-        popupRoot.getChildren().add(vbox);
+        popupRoot.getChildren().add(vbox); // Add buttons and text to popupRoot
         
         // Center the popup in its parent Pane
         popupRoot.layoutXProperty().bind(currentPane.widthProperty().subtract(popupRoot.widthProperty()).divide(Constants_Popup.CENTER_POPUP_VAR));
         popupRoot.layoutYProperty().bind(currentPane.heightProperty().subtract(popupRoot.heightProperty()).divide(Constants_Popup.CENTER_POPUP_VAR));
         
-        addPopup(currentPane, popupRoot);
+        addPopup(currentPane, popupRoot); // Add popupRoot to pane
     }
     
     
@@ -84,6 +84,7 @@ public interface Popup
      *
      * @param currentPane
      * @param popup
+     * @author Michael Markov
      */
     private static void addPopup (Pane currentPane, StackPane popup)
     {
@@ -95,6 +96,7 @@ public interface Popup
      *
      * @param currentPane
      * @param popup
+     * @author Michael Markov
      */
     private static void removePopup (Pane currentPane, StackPane popup)
     {

@@ -60,12 +60,12 @@ public class Map extends Showable
     
     public void setCurrentMapName (String mapName)
     {
-        this.currentMapName = mapName; // Neu hinzugefügt
+        this.currentMapName = mapName;
     }
     
     
     public String getCurrentMapName ()
     {
-        return currentMapName; // Neu hinzugefügt
+        return currentMapName;
     }
 }

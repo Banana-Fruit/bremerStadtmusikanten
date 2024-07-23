@@ -10,7 +10,9 @@ import java.util.List;
 
 
 /**
- * An image with a hitbox that moves on the map
+ * The player has an inventory, skills, artifacts and more related things to the player.
+ *
+ * @author Michael Markov
  */
 public class Player
 {

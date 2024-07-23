@@ -59,14 +59,18 @@ public class Combat extends Showable
     
     public void addTileButtons ()
     {
-        for (int row = Constants_Combat.MIN_ROW; row < Constants_Combat.MAX_ROWS; row++)
+        for (int row = Constants_Combat.MIN_ROW; row < Constants_Combat.MAX_ROWS; row++) // Runs through all rows till max rows
         {
-            for (int column = Constants_Combat.MIN_COLUMN; column < Constants_Combat.MAX_COLUMNS; column++)
+            for (int column = Constants_Combat.MIN_COLUMN; column < Constants_Combat.MAX_COLUMNS; column++) // Runs through all columns till max columns
             {
+                // Each button is placed above the tiles of the panel aligned by size and position
                 Coordinate buttonCoordinate = PanelController.getInstance().getCoordinateFromPanelTile(panel, row, column);
+                // The buttons are transparent until pressed
                 TransparentButton transparentButton = new TransparentButton(Constants_Combat.BUTTON_TEXT,
                         Constants_Combat.TILE_SIZE, Constants_Combat.TILE_SIZE, Constants_Combat.OPACITY_PRESSED,
                         Constants_Combat.OPACITY_RELEASED, buttonCoordinate.getPositionX(), buttonCoordinate.getPositionY());
+                
+                // Adding button
                 getPane().getChildren().add(transparentButton);
             }
         }

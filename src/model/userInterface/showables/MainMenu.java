@@ -66,8 +66,8 @@ public class MainMenu extends Showable
     
     private void init ()
     {
-        setBackground(Constants_MainMenu.PATH_BACKGROUND_IMAGE);
-        addButtons();
+        setBackground(Constants_MainMenu.PATH_BACKGROUND_IMAGE); // Sets background image
+        addButtons(); // Adds buttons with functions to the main menu
     }
     
     
@@ -89,7 +89,7 @@ public class MainMenu extends Showable
      * @param itemWidth
      * @param itemHeight
      * @return
-     * @author Michael Markov
+     * @author Michael Markov, Jonas Helfer
      */
     public VBox createMenuInVBox (int itemWidth, int itemHeight)
     {
@@ -126,8 +126,9 @@ public class MainMenu extends Showable
         
         return box;
     }
-
-    private void openMultiplayerConnectionMenu()
+    
+    
+    private void openMultiplayerConnectionMenu ()
     {
         SceneController.getInstance().switchShowable(Combat.getInstance());
         String serverAddress;
@@ -135,36 +136,35 @@ public class MainMenu extends Showable
         alert.setTitle("Netzwerkmodus");
         alert.setHeaderText("Möchten Sie als Server oder Client starten?");
         alert.setContentText("Wählen Sie den Modus:");
-
+        
         ButtonType buttonTypeServer = new ButtonType("Server");
         ButtonType buttonTypeClient = new ButtonType("Client");
-
+        
         alert.getButtonTypes().setAll(buttonTypeServer, buttonTypeClient);
-
+        
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonTypeServer)
         {
-
+            
             Combat.getInstance().getPane().getChildren().add(ChatClient.createChatArea());
             ChatServer.initialize();
             chatServer = ChatServer.getInstance();
             new Thread(() -> chatServer.start(13579)).start();
             serverAddress = "192.168.0.90";
-
         } else
         {
             TextInputDialog dialog = new TextInputDialog("localhost");
             dialog.setTitle("Server Adresse");
             dialog.setHeaderText("Geben Sie die Server-Adresse ein");
             dialog.setContentText("Adresse:");
-
+            
             Optional<String> address = dialog.showAndWait();
             serverAddress = address.orElseThrow();
         }
         chatClient = new ChatClient(13579, serverAddress);
     }
-
-
+    
+    
     /**
      * Method that runs if the correlating button is pressed.
      *
