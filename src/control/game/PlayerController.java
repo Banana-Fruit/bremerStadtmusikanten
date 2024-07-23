@@ -67,6 +67,12 @@ public class PlayerController implements Runnable
     }
     
     
+    /**
+     * Adds player image to the map.
+     *
+     * @param playerPosition
+     * @author Michael Markov
+     */
     public void addPlayer (Coordinate playerPosition)
     {
         Map.getInstance().getPane().getChildren().add(playerView);
@@ -74,13 +80,22 @@ public class PlayerController implements Runnable
     }
     
     
+    /**
+     * Updates player position (moves the player).
+     *
+     * @author Michael Markov
+     */
     public void updatePlayer ()
     {
-        Map.getInstance().getPane().getChildren().remove(playerView);
-        addPlayer(currentPlayerPosition);
+        playerView.setCoordinates(currentPlayerPosition);
     }
     
     
+    /**
+     * Runnable that checks whether movement of the player is possible, and if so, moves the player.
+     *
+     * @author Michael Markov
+     */
     @Override
     public void run ()
     {
@@ -129,6 +144,12 @@ public class PlayerController implements Runnable
     }
     
     
+    /**
+     * Method gets a list of pressed keys, and runs methods that the keys are mapped to.
+     *
+     * @param pressedKeys
+     * @author Michael Markov
+     */
     public void handleKeyPresses (Set<KeyCode> pressedKeys)
     {
         if (Game.getInstance().getCurrentShowable() == Map.getInstance().getShowable())
@@ -138,8 +159,10 @@ public class PlayerController implements Runnable
                 return; // Ignore key presses if a dialog is open
             }
             
+            // If more than one movement key is pressed, it will be considered an atempted diagonal movement
             boolean isDiagonal = pressedKeys.size() > Constants_DefaultValues.ONE;
             
+            // Run methods base on the pressed keys
             if (pressedKeys.contains(Constants_Keymapping.moveUP)) moveUP(isDiagonal);
             if (pressedKeys.contains(Constants_Keymapping.moveLEFT)) moveLEFT(isDiagonal);
             if (pressedKeys.contains(Constants_Keymapping.moveDOWN)) moveDOWN(isDiagonal);
@@ -157,8 +180,11 @@ public class PlayerController implements Runnable
      */
     private void moveUP (boolean isDiagonal)
     {
+        // Speed multiplier increases/decreases the movement speed
         double deltaY = Constants_Map.PLAYER_SPEED * Constants_Map.SPEED_MULTIPLIER;
+        // If movement is diagonal, then the speed of the movement will be adjusted
         if (isDiagonal) deltaY = deltaY * Constants_Map.ADJUST_DIAGONAL_MOVEMENT;
+        // New player position will be updated
         this.newPlayerPosition.setPositionY(this.currentPlayerPosition.getPositionY() - deltaY);
     }
     
@@ -172,8 +198,11 @@ public class PlayerController implements Runnable
      */
     private void moveDOWN (boolean isDiagonal)
     {
+        // Speed multiplier increases/decreases the movement speed
         double deltaY = Constants_Map.PLAYER_SPEED * Constants_Map.SPEED_MULTIPLIER;
+        // If movement is diagonal, then the speed of the movement will be adjusted
         if (isDiagonal) deltaY = deltaY * Constants_Map.ADJUST_DIAGONAL_MOVEMENT;
+        // New player position will be updated
         this.newPlayerPosition.setPositionY(this.currentPlayerPosition.getPositionY() + deltaY);
     }
     
@@ -187,8 +216,11 @@ public class PlayerController implements Runnable
      */
     private void moveRIGHT (boolean isDiagonal)
     {
+        // Speed multiplier increases/decreases the movement speed
         double deltaX = Constants_Map.PLAYER_SPEED * Constants_Map.SPEED_MULTIPLIER;
+        // If movement is diagonal, then the speed of the movement will be adjusted
         if (isDiagonal) deltaX = deltaX * Constants_Map.ADJUST_DIAGONAL_MOVEMENT;
+        // New player position will be updated
         this.newPlayerPosition.setPositionX(this.currentPlayerPosition.getPositionX() + deltaX);
     }
     
@@ -202,14 +234,18 @@ public class PlayerController implements Runnable
      */
     private void moveLEFT (boolean isDiagonal)
     {
+        // Speed multiplier increases/decreases the movement speed
         double deltaX = Constants_Map.PLAYER_SPEED * Constants_Map.SPEED_MULTIPLIER;
+        // If movement is diagonal, then the speed of the movement will be adjusted
         if (isDiagonal) deltaX = deltaX * Constants_Map.ADJUST_DIAGONAL_MOVEMENT;
+        // New player position will be updated
         this.newPlayerPosition.setPositionX(this.currentPlayerPosition.getPositionX() - deltaX);
     }
     
     
     /**
      * Used to set the player position to a specific coordinate using the instance of Coordinate.
+     * Sets the value of the current and new player position to a new value.
      *
      * @param playerPosition
      * @author Michael Markov
@@ -258,6 +294,7 @@ public class PlayerController implements Runnable
      * Getter for player view. Retrieves an instance of OutputImageView.
      *
      * @return
+     * @author Michael Markov
      */
     public OutputImageView getPlayerView ()
     {

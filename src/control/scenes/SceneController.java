@@ -28,14 +28,16 @@ import resources.constants.scenes.Constants_Showable;
 
 
 /**
- * This controller is responsible for scene switching
+ * This controller is responsible for scene switching and other scene related functions.
+ *
+ * @author Michael Markov
  */
 public class SceneController
 {
     private static SceneController instance = null;
     private final Stage stage;
     private boolean dialogShown = false;
-    private Showable previousShowable = null;
+    private Showable previousShowable = null; // Showable to be tracked
     
     
     private SceneController (Stage stage)
@@ -121,29 +123,52 @@ public class SceneController
     }
     
     
+    /**
+     * Creates a base pane with the menu bar.
+     *
+     * @return
+     * @author Michael Markov
+     */
     public Pane getBasePane ()
     {
         Pane pane = new Pane();
+        
         // creates a Menu bar with two points (game and settings) and add two menuItems to the point game
         pane.getChildren().add(GameMenuBar.createMenuBar());
+        
         return pane;
     }
     
     
+    /**
+     * Switches the showable (scene) to another one.
+     *
+     * @param showable
+     * @author Michael Markov
+     */
     public void switchShowable (Showable showable)
     {
-        this.previousShowable = Game.getInstance().getCurrentShowable();
-        Game.getInstance().setCurrentShowable(showable);
+        this.previousShowable = Game.getInstance().getCurrentShowable(); // Tracks previous showable in case there is a back button
+        Game.getInstance().setCurrentShowable(showable); // Switches showable
+        
+        // Makes sure scene properties are aligned among all scenes
         this.stage.setFullScreen(true);
-        this.stage.setFullScreenExitHint("");
+        this.stage.setFullScreenExitHint(Constants_Showable.HIDE_EXIT_HINT_STRING);
         this.stage.setScene(showable.getScene());
     }
     
     
+    /**
+     * The previous showable is always tracked. Meaning you can always return back to the previous option.
+     *
+     * @author Michael Markov
+     */
     public void switchBackShowable ()
     {
-        Showable previousShowable = Game.getInstance().getCurrentShowable();
-        Game.getInstance().setCurrentShowable(this.previousShowable);
+        Showable previousShowable = Game.getInstance().getCurrentShowable(); // Tracks previous showable in case there is a back button
+        Game.getInstance().setCurrentShowable(this.previousShowable); // Switches showable
+        
+        // Makes sure scene properties are aligned among all scenes
         this.stage.setFullScreen(true);
         this.stage.setFullScreenExitHint(Constants_Showable.HIDE_EXIT_HINT_STRING);
         this.stage.setScene(Game.getInstance().getCurrentShowable().getScene());

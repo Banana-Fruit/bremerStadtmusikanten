@@ -1,6 +1,7 @@
 package control.scenes;
 
 
+import com.sun.jdi.event.MonitorWaitedEvent;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
@@ -62,7 +63,9 @@ public class PanelController
     {
         try
         {
+            // Create panel from loader file name
             Panel panel = initializePanel_JonasMap(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
+            // Add each tile to the pane with the right position
             PanelView.addTilesToPane(panel, pane);
             return panel;
         } catch (Exception e)
@@ -89,7 +92,9 @@ public class PanelController
     {
         try
         {
+            // Create panel from loader file name
             Panel panel = initializePanel(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
+            // Add each tile to the pane with the right position
             PanelView.addTilesToPane(panel, pane);
             return panel;
         } catch (Exception e)
@@ -160,6 +165,7 @@ public class PanelController
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(pathToLoaderFile)))
         {
             String line;
+            // Wait for the line with the biome name and use that line as the biome name
             for (int i = Constants_DefaultValues.START_FOR_LOOP; (line = bufferedReader.readLine()) != null; i++)
             {
                 if (i != Constants_Panel.BIOME_IDENTIFIER_LINE) continue;
@@ -171,21 +177,6 @@ public class PanelController
             throw new RuntimeException(e);
         }
         return biomeName;
-    }
-    
-    
-    /**
-     * Checks whether a specific tile in the panel is occupied.
-     *
-     * @param panel
-     * @param tileRow
-     * @param tileColumn
-     * @return
-     * @author Michael Markov
-     */
-    public boolean isTileOccupied (Panel panel, int tileRow, int tileColumn)
-    {
-        return panel.getTileAt(tileRow, tileColumn).getOccupied();
     }
     
     
@@ -233,28 +224,55 @@ public class PanelController
     }
     
     
+    /**
+     * Checks whether there is an obstacle in the way to block the movement in that direction.
+     *
+     * @param panel
+     * @param currentPlayerPosition
+     * @param newPlayerPosition
+     * @return
+     * @author Michael Markov, Jonas Helfer
+     */
     public boolean isVerticalMoveBlocked (Panel panel, Coordinate currentPlayerPosition, Coordinate newPlayerPosition)
     {
         double yMovement = newPlayerPosition.getPositionY() - currentPlayerPosition.getPositionY();
-        if (yMovement == Constants_DefaultValues.ZERO) return false;
+        if (yMovement == Constants_DefaultValues.ZERO) return false; // Checks whether the current and the new position are equal
         
         double newY = newPlayerPosition.getPositionY();
         Coordinate newVerticalPosition = new Coordinate(currentPlayerPosition.getPositionX(), newY);
-        return isCoordinateOccupied(panel, newVerticalPosition);
+        return isCoordinateOccupied(panel, newVerticalPosition); // Checks whether the new position on the vertical side is occupied
     }
     
     
+    /**
+     * Checks whether there is an obstacle in the way to block the movement in that direction.
+     *
+     * @param panel
+     * @param currentPlayerPosition
+     * @param newPlayerPosition
+     * @return
+     * @author Michael Markov, Jonas Helfer
+     */
     public boolean isHorizontalMoveBlocked (Panel panel, Coordinate currentPlayerPosition, Coordinate newPlayerPosition)
     {
         double xMovement = newPlayerPosition.getPositionX() - currentPlayerPosition.getPositionX();
-        if (xMovement == Constants_DefaultValues.ZERO) return false;
+        if (xMovement == Constants_DefaultValues.ZERO) return false; // Checks whether the current and the new position are equal
         
         double newX = newPlayerPosition.getPositionX();
         Coordinate newHorizontalPosition = new Coordinate(newX, currentPlayerPosition.getPositionY());
-        return isCoordinateOccupied(panel, newHorizontalPosition);
+        return isCoordinateOccupied(panel, newHorizontalPosition); // Checks whether the new position on the horizontal side is occupied
     }
     
     
+    /**
+     * Checks whether there the current coordinate has an obstacle.
+     *
+     * @param panel
+     * @param x
+     * @param y
+     * @return
+     * @author Jonas Helfer
+     */
     private boolean isObstacle (Panel panel, int x, int y)
     {
         // Erhalte die Indizes der Kachel, die sich an den angegebenen Koordinaten befindet
@@ -276,12 +294,13 @@ public class PanelController
      */
     public Coordinate getTileIndicesFromCoordinates (Panel panel, Coordinate coordinate)
     {
-        Coordinate nullPosition = getNullPositionOfPanelInRelationToScreenSize(panel);
+        Coordinate nullPosition = getNullPositionOfPanelInRelationToScreenSize(panel); // Gets the null position
         Coordinate currentCoordinate = new Coordinate(coordinate.getPositionX() - nullPosition.getPositionX(),
-                coordinate.getPositionY() - nullPosition.getPositionY());
+                coordinate.getPositionY() - nullPosition.getPositionY()); // Adds removes null position values from coordinates
+        // Divide by tile size and cut off decimal points
         currentCoordinate.setPositionX((int) (currentCoordinate.getPositionX() / panel.getTileSize()));
         currentCoordinate.setPositionY((int) (currentCoordinate.getPositionY() / panel.getTileSize()));
-        //System.out.println(currentCoordinate.getPositionX() + " " + currentCoordinate.getPositionY());
+        
         return currentCoordinate;
     }
     
@@ -296,9 +315,11 @@ public class PanelController
      */
     public Coordinate getCoordinateFromPanelTile (Panel panel, int rowIndex, int columnIndex)
     {
-        Coordinate nullPosition = getNullPositionOfPanelInRelationToScreenSize(panel);
+        Coordinate nullPosition = getNullPositionOfPanelInRelationToScreenSize(panel); // Get null position
+        // Add indices multiplied by the panel size to the null position
         double tileX = nullPosition.getPositionX() + (columnIndex * panel.getTileSize());
         double tileY = nullPosition.getPositionY() + (rowIndex * panel.getTileSize());
+        
         return new Coordinate(tileX, tileY);
     }
     
@@ -313,13 +334,14 @@ public class PanelController
      */
     private Coordinate getNullPositionOfPanelInRelationToScreenSize (Panel panel)
     {
+        // The null position is retrieved by dividing the screen size by two and subtracting the panel size multiplied by the tile size
         double x = ((Screen.getPrimary().getBounds().getWidth() / Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -
                 ((double) panel.getMaxColumns() * panel.getTileSize() /
                         Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF));
         double y = ((Screen.getPrimary().getBounds().getHeight() / Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -
                 ((double) panel.getMaxRows() * panel.getTileSize() /
                         Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF));
-        //System.out.println(x + " " + y);
+        
         return new Coordinate(x, y);
     }
     

@@ -26,6 +26,8 @@ import java.util.Map.Entry;
 /**
  * Responsible for player movement and interaction solely on the map. A map controller contains one map instance and is
  * a Singleton. It is responsible to do pane switches, if the player leaves a specific part of the map.
+ *
+ * @author Michael Markov
  */
 public class MapController
 {
@@ -60,6 +62,7 @@ public class MapController
      */
     public void setNewMap (String loaderFileName)
     {
+        // Change panel
         Map.getInstance().setPanel(PanelController.getInstance().getAndShowPanel(Map.getInstance().getPane(), Constants_Resources.MAP_LOADER_FILES_FOLDER_JONAS_MAP, loaderFileName, Constants_Map.TILE_SIZE, Constants_Map.MAX_ROWS, Constants_Map.MAX_COLUMNS));
     }
     
@@ -165,8 +168,14 @@ public class MapController
     }
     
     
+    /**
+     * Shows dialog for an action. Either to confirm a choice, or to ask the player something.
+     *
+     * @author Michael Markov
+     */
     private void showDialog ()
     {
+        // Popup appears asking for combat start
         Popup.createPopupWithAction(Game.getInstance().getCurrentShowable().getPane(), Constants_Map.HEADER_JOIN_FIGHT, new Runnable()
         {
             @Override

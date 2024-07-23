@@ -23,6 +23,8 @@ import java.io.IOException;
 
 /**
  * The unit controller is responsible for the unit interactions during the combat.
+ *
+ * @author Michael Markov
  */
 public class UnitController
 {

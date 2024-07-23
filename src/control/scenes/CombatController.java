@@ -19,8 +19,8 @@ public class CombatController
      */
     public static void startCombat (String loaderFileName)
     {
-        setNewArena(loaderFileName);
-        SceneController.getInstance().switchShowable(Combat.getInstance().getShowable());
+        setNewArena(loaderFileName); // Changes arena
+        SceneController.getInstance().switchShowable(Combat.getInstance().getShowable()); // Switches scene to arena
     }
     
     
@@ -32,6 +32,7 @@ public class CombatController
      */
     private static void setNewArena (String loaderFileName)
     {
+        // Arena consists of panel and buttons
         Combat.getInstance().setPanel(
                 PanelController.getInstance().getAndShowPanelUsingChars(Combat.getInstance().getPane(),
                         Constants_Resources.СOMBAT_LOADER_FILES_FOLDER, loaderFileName, Constants_Combat.TILE_SIZE,
