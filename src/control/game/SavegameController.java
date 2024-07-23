@@ -14,15 +14,32 @@ import java.io.IOException;
 
 public class SavegameController
 {
+    // Singleton instance of SavegameController
     private static SavegameController instance = null;
+
+    // Directory path for saving game files
     private final String saveGameDirectory = Constants_Savegame.SAVEGAME_DIRECTORY;
-    
-    
+
+
+    /**
+     * Private constructor for SavegameController.
+     * @author Jonas Helfer
+     * @precondition None
+     * @postcondition A new SavegameController instance is created
+     */
     private SavegameController ()
     {
     }
-    
-    
+
+
+    /**
+     * Saves the game state to a file in JSON format.
+     * @author Jonas Helfer
+     * @param savegame The Savegame object containing the game state
+     * @param fileName The name of the file to save the game state
+     * @precondition savegame is not null and fileName is a valid file name
+     * @postcondition The game state is saved to a file in the specified directory
+     */
     public void saveToFile (Savegame savegame, String fileName)
     {
         JSONObject json = new JSONObject();
@@ -41,8 +58,16 @@ public class SavegameController
             e.printStackTrace();
         }
     }
-    
-    
+
+
+    /**
+     * Loads a game state from a file.
+     * @author Jonas Helfer
+     * @param fileName The name of the file to load the game state from
+     * @return A Savegame object containing the loaded game state, or null if loading fails
+     * @precondition fileName is a valid file name and the file exists
+     * @postcondition The game state is loaded from the file and returned as a Savegame object
+     */
     public Savegame loadFromFile (String fileName)
     {
         try (FileReader reader = new FileReader(saveGameDirectory + fileName))
@@ -62,29 +87,15 @@ public class SavegameController
             return null;
         }
     }
-    
-    
-    //Todo: main löschen, war nur zum Ausprobieren da
-    public static void main (String[] args)
-    {
-        SavegameController savegameController = SavegameController.getInstance();
-        
-        Savegame savegame = new Savegame(Constants_Savegame.SAVE_GOLD, Constants_Savegame.SAVE_COAL,
-                Constants_Savegame.SAVE_STONE, Constants_Savegame.SAVE_PLAYER_NAME);
-        savegameController.saveToFile(savegame, Constants_Savegame.SAVE_FILE);
-        
-        Savegame loadedSavegame = savegameController.loadFromFile(Constants_Savegame.SAVE_FILE);
-        if (loadedSavegame != null)
-        {
-            System.out.println(Constants_Savegame.LOAD_GAME);
-            System.out.println(Constants_Savegame.OUTPUT_GOLD + loadedSavegame.getGold());
-            System.out.println(Constants_Savegame.OUTPUT_COAL + loadedSavegame.getCoal());
-            System.out.println(Constants_Savegame.OUTPUT_STONE + loadedSavegame.getStone());
-            System.out.println(Constants_Savegame.OUTPUT_NAME + loadedSavegame.getPlayerName());
-        }
-    }
-    
-    
+
+
+    /**
+     * Returns the singleton instance of SavegameController.
+     * @author Jonas Helfer
+     * @return The singleton instance of SavegameController
+     * @precondition None
+     * @postcondition The singleton instance of SavegameController is returned
+     */
     public static SavegameController getInstance ()
     {
         if (instance == null)
