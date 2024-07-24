@@ -26,7 +26,7 @@ public class PanelAndTileLoader
      * @param loaderFilePath Path to the Loader file.
      * @param maxRows Maximum amount of rows.
      * @param maxColumns Maximum amount of columns.
-     * @return
+     * @return Three-dimensional array of characters from the loader file.
      * @author Michael Markov
      */
     public static char[][] getCharacterArrayUsingTileFile_Chars (String loaderFilePath, int maxRows, int maxColumns)
@@ -59,8 +59,8 @@ public class PanelAndTileLoader
      * Returns map of images and correlating chars from the path of the image folder. The images should have a letter as
      * the first character, which then correlates all images to the first letter of their name.
      *
-     * @param imageFolderPath
-     * @return
+     * @param imageFolderPath Path of the image folder.
+     * @return Hashmap of Images with correlating character values.
      * @author Michael Markov
      */
     public static HashMap<Character, Image> getMapWithCharsAndImages_Chars (String imageFolderPath)
@@ -99,11 +99,11 @@ public class PanelAndTileLoader
      * Returns tile array from char array and hashmap of images with the correlating character. The method also caps all
      * images to a certain amount of rows and columns.
      *
-     * @param characterImageHashMap
-     * @param charArray
-     * @param maxRows
-     * @param maxColumns
-     * @return
+     * @param characterImageHashMap Images with correlating character value.
+     * @param charArray three-dimensional character array.
+     * @param maxRows Maximum amount of rows.
+     * @param maxColumns Maximum amount of columns.
+     * @return Three-dimensional Tile Array with images.
      * @author Michael Markov
      */
     public static Tile[][] getTileArray_Chars (HashMap<Character, Image> characterImageHashMap, char[][] charArray, int maxRows, int maxColumns)

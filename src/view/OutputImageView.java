@@ -54,7 +54,7 @@ public class OutputImageView extends ImageView
     /**
      * Setter for coordinates of the image that is shown.
      *
-     * @param coordinate
+     * @param coordinate Coordinate to be set for the ImageView
      */
     public void setCoordinates (Coordinate coordinate)
     {

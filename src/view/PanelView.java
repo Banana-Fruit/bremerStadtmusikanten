@@ -19,8 +19,8 @@ public class PanelView
     /**
      * Adds tiles to given pane.
      *
-     * @param panel
-     * @param pane
+     * @param panel Panel to be shown.
+     * @param pane Pane to show the panel on.
      * @author Michael Marov
      */
     public static void addTilesToPane (Panel panel, Pane pane)

@@ -14,8 +14,8 @@ public class ValueConversion
     /**
      * Determines diagonal size from square length.
      *
-     * @param squareLength
-     * @return
+     * @param squareLength Length of The square.
+     * @return Diagonal Size of the square.
      * @author Michael Markov
      */
     public static double getDiagonalSizeFromSquareLength (double squareLength)
