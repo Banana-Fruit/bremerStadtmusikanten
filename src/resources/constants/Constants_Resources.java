@@ -5,7 +5,7 @@ public interface Constants_Resources
 {
     // Locations
     String MAP_LOADER_FILES_FOLDER = "src/resources/assets/map/background/loaderFiles/";
-    String MAP_LOADER_FILES_FOLDER_JONAS_MAP = "src/resources/assets/";
+    String MAP_LOADER_FILES_FOLDER_JONAS_MAP = "src/resources/assets/map/loaderFiles/";
     String СOMBAT_LOADER_FILES_FOLDER = "src/resources/assets/combat/loaderFiles/";
     String COMBAT_BACKGROUND_PATH = "resources/assets/combat/grass.png";
     

@@ -9,7 +9,7 @@ public interface Constants_Map
 {
     // File Management
     String PLAYER_VIEW_STANDARD = "resources/assets/map/player/esel.png";
-    String UNIT_VIEW_STANDARD = "resources/assets/map/player/unit.png";
+    String UNIT_VIEW_STANDARD = "resources/assets/map/unit.png";
     
     
     int TILE_SIZE = 19;
