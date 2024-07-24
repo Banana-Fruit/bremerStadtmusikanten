@@ -2,26 +2,20 @@ package model.userInterface.showables;
 
 
 import control.GameController;
+import control.MultiplayerController;
 import control.scenes.SceneController;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
 import model.userInterface.Game;
 import model.userInterface.TransparentButton;
 import resources.constants.Constants_ExceptionMessages;
-import resources.constants.Constants_Multiplayer;
 import resources.constants.Constants_Popup;
 import resources.constants.scenes.Constants_MainMenu;
 import resources.constants.scenes.Constants_Showable;
-import utility.ChatClient;
 import utility.ChatServer;
 import utility.popup.Popup;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Optional;
 
 
 /**
@@ -36,17 +30,6 @@ public class MainMenu extends Showable
      * Volatile keyword ensures visibility across threads.
      */
     private static volatile MainMenu instance;
-
-    /**
-     * The ChatServer instance for handling in-game chat functionality.
-     */
-    private static ChatServer chatServer;
-
-    /**
-     * The address of the chat server.
-     */
-    private static String serverAddress;
-
 
 
     private MainMenu (Scene scene)
@@ -155,44 +138,7 @@ public class MainMenu extends Showable
      */
     private void openMultiplayerConnectionMenu()
     {
-        try
-        {
-            serverAddress = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e)
-        {
-            throw new RuntimeException(e);
-        }
-        SceneController.getInstance().switchShowable(Combat.getInstance());
-        Combat.getInstance().getPane().getChildren().add(ChatClient.createChatArea());
-        Popup.createPopupWithAction(Game.getInstance().getCurrentShowable().getPane(), Constants_Multiplayer.POPUP_TITLE_MULT_IPLAYER_CONNECTION,
-                new Runnable()
-				{
-                    @Override
-                    public void run()
-					{
-                        ChatServer.initialize();
-                        chatServer = ChatServer.getInstance();
-                        new Thread(() -> chatServer.start(Constants_Multiplayer.PORT)).start();
-                        ChatClient chatClient = new ChatClient(Constants_Multiplayer.PORT, serverAddress);
-                    }
-                }, new Runnable()
-				{
-                    @Override
-                    public void run()
-					{
-                        TextInputDialog dialog = new TextInputDialog();
-                        dialog.setTitle(Constants_Multiplayer.HOST_ADDRESS);
-                        dialog.setHeaderText(Constants_Multiplayer.ENTER_HOST_ADDRESS);
-                        dialog.setContentText(Constants_Multiplayer.ADDRESS);
-                        dialog.setGraphic(null);
-
-                        Optional<String> address = dialog.showAndWait();
-                        serverAddress = address.orElseThrow();
-                        ChatClient chatClient = new ChatClient(Constants_Multiplayer.PORT, serverAddress);
-                    }
-                }, Constants_Multiplayer.HOST, Constants_Multiplayer.GUEST, Constants_Popup.TEXT_TO_BUTTONS_SPACING,
-                Constants_Popup.POPUP_WIDTH, Constants_Popup.POPUP_HEIGHT, Constants_Popup.defaultBackgroundColor
-        );
+        MultiplayerController.getInstance().openConnectionMenu();
     }
     
     

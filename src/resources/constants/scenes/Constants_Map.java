@@ -58,7 +58,7 @@ public interface Constants_Map
 
 
 
-    String REWARD_IMAGE_PATH = "resources/assets/jonas/184_bag_path.png";
+    String REWARD_IMAGE_PATH = "resources/assets/map/grasslands/184_bag_path.png";
 
     double REWARD_COLLECTION_RADIUS = 16;
     int REWARD_GOLD_AMOUNT = 5;
@@ -76,6 +76,6 @@ public interface Constants_Map
     int REWARD_4_POSITION_Y = 5;
     int REWARD_5_POSITION_X = 2;
     int REWARD_5_POSITION_Y = 24;
-    String ARROW_LEFT = "resources/assets/jonas/186_arrow_left.png";
+    String ARROW_LEFT = "resources/assets/map/grasslands/186_arrow_left.png";
     String UNKNOWN_REWARD = "Unknown reward type: ";
 }

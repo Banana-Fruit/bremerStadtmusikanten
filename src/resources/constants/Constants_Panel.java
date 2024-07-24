@@ -19,7 +19,7 @@ public interface Constants_Panel
 
     String FILE_PANEL = "src/resources/assets/jonas";
     String INVALID_FILE_PATH = "The folder path is invalid or contains no files: ";
-    String FILE_PATH_GRASS = "resources/assets/jonas/019_grass.png";
+    String FILE_PATH_GRASS = "resources/assets/map/grasslands/019_grass.png";
     String FILE_PATH_TILE_DATA = "/resources/assets/TileData";
 
 }

@@ -73,6 +73,7 @@ public class GameController
         BuildingController.initialize();
         DisplayController.initialize();
         UnitController.initialize();
+        MultiplayerController.initialize();
         
         // Initialise base models
         Combat.initialize(new Scene(SceneController.getInstance().getBasePane()));
