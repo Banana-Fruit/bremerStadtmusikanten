@@ -22,16 +22,16 @@ public interface Popup
      * Base functionality of the popup. Highly customizable allowing for different messages, colour options and size
      * options.
      *
-     * @param currentPane
-     * @param message
-     * @param onOption1
-     * @param onOption2
-     * @param option1Name
-     * @param option2Name
-     * @param textToButtonsSpacing
-     * @param width
-     * @param height
-     * @param backgroundColor
+     * @param currentPane Current pane to which the popup will be added to.
+     * @param message Top message that will request an answer from the user.
+     * @param onOption1 Runnable that will be executed on the left option (apart from closing the popup).
+     * @param onOption2 Runnable that will be executed on the right option (apart from closing the popup).
+     * @param option1Name Answer of the left option.
+     * @param option2Name Answer of the right option.
+     * @param textToButtonsSpacing Spacing between the text and buttons in pixel size.
+     * @param width Width of the Popup.
+     * @param height Height of the Popup.
+     * @param backgroundColor Color of the Popup.
      * @author Michael Markov
      */
     static void createPopupWithAction (Pane currentPane, String message, Runnable onOption1, Runnable onOption2,
@@ -82,8 +82,8 @@ public interface Popup
     /**
      * Adds popup to the current pane.
      *
-     * @param currentPane
-     * @param popup
+     * @param currentPane Pane to add the Popup to.
+     * @param popup Popup to be added.
      * @author Michael Markov
      */
     private static void addPopup (Pane currentPane, StackPane popup)
@@ -94,8 +94,8 @@ public interface Popup
     /**
      * Removes popup from the current pane.
      *
-     * @param currentPane
-     * @param popup
+     * @param currentPane Pane to remove the Popup from.
+     * @param popup Popup to be removed.
      * @author Michael Markov
      */
     private static void removePopup (Pane currentPane, StackPane popup)

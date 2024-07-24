@@ -23,9 +23,9 @@ public class PanelAndTileLoader
      * Returns a character array based on the path of a character map file. Limits the amount of readings to
      * maxRows/maxColumns, or when a reading is null.
      *
-     * @param loaderFilePath
-     * @param maxRows
-     * @param maxColumns
+     * @param loaderFilePath Path to the Loader file.
+     * @param maxRows Maximum amount of rows.
+     * @param maxColumns Maximum amount of columns.
      * @return
      * @author Michael Markov
      */

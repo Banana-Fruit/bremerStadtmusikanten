@@ -29,7 +29,7 @@ public interface GameMenuBar
     /**
      * Creates a standard menu bar with all necessary tabs.
      *
-     * @return
+     * @return MenuBar with all the Tabs and Items.
      * @author Michael Markov
      */
     static MenuBar createMenuBar ()
@@ -45,7 +45,7 @@ public interface GameMenuBar
     /**
      * The multiplayer tab contains items that are related to the multiplayer functionalities.
      *
-     * @return
+     * @return Tab with the Multiplayer Item.
      * @author Michael Markov
      */
     static Menu getMultiplayerTab ()
@@ -75,7 +75,7 @@ public interface GameMenuBar
     /**
      * The game tab contains items that are related to the game functionalities.
      *
-     * @return
+     * @return Tab with the Game related Items.
      * @author Michael Markov
      */
     static Menu getGameTab ()
@@ -149,7 +149,7 @@ public interface GameMenuBar
     /**
      * The main menu tab contains items that are related to the main menu functionalities.
      *
-     * @return
+     * @return Tab with the MainMenu Item.
      * @author Michael Markov
      */
     static Menu getMainMenuTab ()
