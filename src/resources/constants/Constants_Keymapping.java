@@ -14,12 +14,6 @@ public interface Constants_Keymapping
     KeyCode moveLEFT = KeyCode.A;
     KeyCode moveRIGHT = KeyCode.D;
     
-    // GUI
-    KeyCode EXIT = KeyCode.ESCAPE;
-    KeyCode INTERACT = KeyCode.E;
-    KeyCode MAP = KeyCode.M;
-    KeyCode INVENTORY = KeyCode.I;
-    
     // Lists
     List<KeyCode> PLAYER_KEYS = List.of(moveUP, moveDOWN, moveLEFT, moveRIGHT);
 }

@@ -63,7 +63,7 @@ public class MapController
     public void setNewMap (String loaderFileName)
     {
         // Change panel
-        Map.getInstance().setPanel(PanelController.getInstance().getAndShowPanel(Map.getInstance().getPane(), Constants_Resources.MAP_LOADER_FILES_FOLDER_JONAS_MAP, loaderFileName, Constants_Map.TILE_SIZE, Constants_Map.MAX_ROWS, Constants_Map.MAX_COLUMNS));
+        Map.getInstance().setPanel(PanelController.getInstance().getAndShowPanelUsingStrings(Map.getInstance().getPane(), Constants_Resources.MAP_LOADER_FILES_FOLDER, loaderFileName, Constants_Map.TILE_SIZE, Constants_Map.MAX_ROWS, Constants_Map.MAX_COLUMNS));
     }
 
 

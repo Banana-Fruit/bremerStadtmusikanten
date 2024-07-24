@@ -1,7 +1,6 @@
 package control.scenes;
 
 
-import com.sun.jdi.event.MonitorWaitedEvent;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
@@ -59,12 +58,12 @@ public class PanelController
      * @return
      * @author Michael Markov
      */
-    public Panel getAndShowPanel (Pane pane, String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
+    public Panel getAndShowPanelUsingStrings (Pane pane, String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
         try
         {
             // Create panel from loader file name
-            Panel panel = initializePanel_JonasMap(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
+            Panel panel = initializePanelStrings(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
             // Add each tile to the pane with the right position
             PanelView.addTilesToPane(panel, pane);
             return panel;
@@ -93,7 +92,7 @@ public class PanelController
         try
         {
             // Create panel from loader file name
-            Panel panel = initializePanel(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
+            Panel panel = initializePanelChars(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
             // Add each tile to the pane with the right position
             PanelView.addTilesToPane(panel, pane);
             return panel;
@@ -107,7 +106,7 @@ public class PanelController
     
     
     /**
-     * Returns a panel based on the given parameters. The panel is derived from a char loading file.
+     * Returns a panel by using Chars based on the given parameters. The panel is derived from a char loading file.
      *
      * @param pathToLoaderFileFolder
      * @param loaderFileName
@@ -117,7 +116,7 @@ public class PanelController
      * @return
      * @author Michael Markov
      */
-    private Panel initializePanel (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
+    private Panel initializePanelChars (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
         // Create array of characters
         char[][] charArray = PanelAndTileLoader.getCharacterArrayUsingTileFile(pathToLoaderFileFolder + loaderFileName, maxRows, maxColumns);
@@ -137,7 +136,7 @@ public class PanelController
 
 
     /**
-     * Initializes a Panel object for Jonas' map using specified parameters and resources.
+     * Initializes a Panel by using Strings for a map using specified parameters and resources.
      * @author Jonas Helfer
      * @param pathToLoaderFileFolder The path to the folder containing the loader file.
      * @param loaderFileName The name of the loader file.
@@ -153,7 +152,7 @@ public class PanelController
      *                The Panel contains a tile array based on the loader file and resource images.
      * @return A new Panel object initialized with the specified parameters and resources.
      */
-    private Panel initializePanel_JonasMap (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
+    private Panel initializePanelStrings (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
         // Create array of characters
         int[][] intArray = PanelAndTileLoader.getCharacterArrayUsingTileFile_JonasMap(pathToLoaderFileFolder + loaderFileName, maxRows, maxColumns);
