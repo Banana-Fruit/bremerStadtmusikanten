@@ -65,8 +65,15 @@ public class MapController
         // Change panel
         Map.getInstance().setPanel(PanelController.getInstance().getAndShowPanel(Map.getInstance().getPane(), Constants_Resources.MAP_LOADER_FILES_FOLDER_JONAS_MAP, loaderFileName, Constants_Map.TILE_SIZE, Constants_Map.MAX_ROWS, Constants_Map.MAX_COLUMNS));
     }
-    
-    
+
+
+    /**
+     * Checks if the player has reached a position to start a mission or return to the city.
+     * This method handles the transition between different maps based on the player's position.
+     * @author Jonas Helfer
+     * @precondition The player's position is up-to-date and the current map is properly set
+     * @postcondition The game switches to the appropriate map and sets up the necessary elements for the new map
+     */
     public void checkMissionStart ()
     {
         Coordinate current = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance().getPanel(), PlayerController.getInstance().getCurrentPlayerPosition());
@@ -86,8 +93,18 @@ public class MapController
             Platform.runLater(() -> BuildingController.getInstance().addButtons());
         }
     }
-    
-    
+
+
+    /**
+     * Switches the game to a new map and repositions the player.
+     * This method handles the transition between maps, including updating the UI and player position.
+     * @author Jonas Helfer
+     * @param newMap The name of the new map to switch to
+     * @param tileX The x-coordinate of the tile where the player should spawn on the new map
+     * @param tileY The y-coordinate of the tile where the player should spawn on the new map
+     * @precondition newMap is a valid map name, and tileX and tileY are valid coordinates on the new map
+     * @postcondition The game switches to the new map, and the player is positioned at the specified coordinates
+     */
     private void switchToMission (String newMap, int tileX, int tileY)
     {
         Map.getInstance().setCurrentMapName(newMap);
@@ -103,9 +120,15 @@ public class MapController
             playerController.setPlayerPosition(new Coordinate(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), tileX, tileY)));
         });
     }
-    
-    
-    //TODO: Implement Combat start logic
+
+
+    /**
+     * Checks if the player is in proximity to start a combat.
+     * TODO: Implement Combat start logic
+     * @author Jonas Helfer
+     * @precondition The player's position and unit positions are up-to-date
+     * @postcondition If the player is near a unit, combat is initiated
+     */
     private void checkCombatStart ()
     {
         PlayerController playerController = PlayerController.getInstance();
@@ -123,15 +146,28 @@ public class MapController
             }
         }
     }
-    
-    
+
+
+    /**
+     * Initiates combat with a unit at the specified coordinate.
+     * @author Jonas Helfer
+     * @param coordinate The coordinate of the unit to engage in combat
+     * @precondition A unit exists at the specified coordinate
+     * @postcondition The unit is removed from the map and combat is started
+     */
     private void startCombat (Coordinate coordinate)
     {
         UnitController.getInstance().removeUnit(coordinate);
         CombatController.startCombat(Constants_Resources.COMBAT_NAME);
     }
-    
-    
+
+
+    /**
+     * Checks if the player is near any units and shows a dialog if so.
+     * @author Jonas Helfer
+     * @precondition The player's position and unit positions are up-to-date
+     * @postcondition A dialog is shown if the player is near a unit and hasn't been shown before
+     */
     public void checkProximityToUnits ()
     {
         if (isNear())
@@ -146,11 +182,18 @@ public class MapController
             dialogShown = false;
         }
     }
-    
-    
+
+
+    /**
+     * Checks if the player is within a certain distance of any unit.
+     * @author Jonas Helfer
+     * @return true if the player is near a unit, false otherwise
+     * @precondition The player's position and unit positions are up-to-date
+     * @postcondition The proximity of the player to units is determined
+     */
     public boolean isNear ()
     {
-        double distanceThreshold = Constants_Map.DISTANCE_THRESHOLD; // Define an appropriate threshold value
+        double distanceThreshold = Constants_Map.DISTANCE_THRESHOLD;
         PlayerController playerController = PlayerController.getInstance();
         Coordinate currentPlayerPosition = playerController.getCurrentPlayerPosition();
         
@@ -158,7 +201,12 @@ public class MapController
         {
             Coordinate unitPosition = entry.getKey();
             
-            double distance = Math.sqrt(Math.pow(unitPosition.getPositionX() - currentPlayerPosition.getPositionX(), Constants_Map.DISTANCE_TO_UNIT_POW) + Math.pow(unitPosition.getPositionY() - currentPlayerPosition.getPositionY(), Constants_Map.DISTANCE_TO_UNIT_POW));
+            double distance = Math.sqrt(Math.pow(
+                    unitPosition.getPositionX() - currentPlayerPosition.getPositionX(),
+                    Constants_Map.DISTANCE_TO_UNIT_POW) +
+                    Math.pow(unitPosition.getPositionY() -
+                                    currentPlayerPosition.getPositionY(),
+                    Constants_Map.DISTANCE_TO_UNIT_POW));
             if (distance < distanceThreshold)
             {
                 return true;
@@ -190,10 +238,24 @@ public class MapController
             {
                 CombatController.startCombat(Constants_Resources.COMBAT_NAME);
             }
-        }, Constants_Popup.NO, Constants_Popup.YES, Constants_Popup.TEXT_TO_BUTTONS_SPACING, Constants_Popup.POPUP_WIDTH, Constants_Popup.POPUP_HEIGHT, Constants_Popup.defaultBackgroundColor);
+        }, Constants_Popup.NO, Constants_Popup.YES,
+                Constants_Popup.TEXT_TO_BUTTONS_SPACING,
+                Constants_Popup.POPUP_WIDTH,
+                Constants_Popup.POPUP_HEIGHT,
+                Constants_Popup.defaultBackgroundColor);
     }
-    
-    
+
+
+    /**
+     * Adds rewards for Mission 1 to the game map.
+     * This method is called to set up the rewards for the first mission.
+     * @author Jonas Helfer
+     * @precondition The game map is initialized and ready to accept rewards.
+     *               The Constants_Map class contains all necessary constants for reward positions.
+     *               The PanelController, Map, and Inventory classes are properly initialized.
+     * @postcondition Rewards for Mission 1 are added to the game map at predefined locations.
+     *                The rewardViews HashMap is updated with new reward ImageViews and their types.
+     */
     public void addRewardsMission1 ()
     {
         Platform.runLater(() ->
@@ -206,22 +268,41 @@ public class MapController
             }
         });
     }
-    
-    
+
+
+    /**
+     * the reward locations and types for Mission 1.
+     * @author Jonas Helfer
+     * @precondition The Constants_Map class contains all necessary constants for reward positions.
+     * @postcondition A HashMap is created and populated with predefined reward locations and types.
+     * @return A HashMap containing Coordinate objects as keys and reward types as String values.
+     */
     private HashMap<Coordinate, String> getRewardLocationsForMission1 ()
     {
         HashMap<Coordinate, String> rewardLocations = new HashMap<>();
         
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_1_POSITION_X, Constants_Map.REWARD_1_POSITION_Y), "wood");
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_2_POSITION_X, Constants_Map.REWARD_2_POSITION_Y), "beer");
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_3_POSITION_X, Constants_Map.REWARD_3_POSITION_Y), "brick");
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_4_POSITION_X, Constants_Map.REWARD_4_POSITION_Y), "essence");
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_5_POSITION_X, Constants_Map.REWARD_5_POSITION_Y), "gold");
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_1_POSITION_X, Constants_Map.REWARD_1_POSITION_Y), Constants_Map.WOOD);
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_2_POSITION_X, Constants_Map.REWARD_2_POSITION_Y), Constants_Map.BEER);
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_3_POSITION_X, Constants_Map.REWARD_3_POSITION_Y), Constants_Map.BRICK);
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_4_POSITION_X, Constants_Map.REWARD_4_POSITION_Y), Constants_Map.ESSENCE);
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_5_POSITION_X, Constants_Map.REWARD_5_POSITION_Y), Constants_Map.GOLD);
         
         return rewardLocations;
     }
-    
-    
+
+
+    /**
+     * Sets the position of a reward on the game map.
+     * @author Jonas Helfer
+     * @param tileCoordinate The coordinate of the tile where the reward should be placed.
+     * @param rewardType The type of reward to be placed.
+     * @precondition The PanelController, Map, and Constants_Map classes are properly initialized.
+     *               The tileCoordinate is a valid coordinate within the game map.
+     *               The rewardType is a valid string representing one of the possible reward types.
+     *               The Constants_Map.REWARD_IMAGE_PATH points to a valid image resource.
+     * @postcondition new ImageView representing the reward is created and added to the game map at the specified position.
+     * The rewardViews HashMap is updated with the new reward.
+     */
     private void setRewardPosition (Coordinate tileCoordinate, String rewardType)
     {
         Coordinate coordinate = new Coordinate(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), (int) tileCoordinate.getPositionX(), (int) tileCoordinate.getPositionY()));
@@ -234,9 +315,17 @@ public class MapController
         Map.getInstance().getPane().getChildren().add(rewardView);
         rewardViews.put(rewardView, rewardType);
     }
-    
-    
-    // Ensure this method exists to collect rewards when the player moves over them
+
+
+    /**
+     * Checks and collects rewards when the player moves over them.
+     * This method iterates through all rewards on the map and collects them if the player is in range.
+     * @author Jonas Helfer
+     * @precondition The reward is properly initialized and contains all current rewards.
+     *               The PlayerController, DisplayController, and related.
+     * @postcondition Rewards that the player has moved over are collected, removed from the map,
+     *                an's inventory is updated accordingly.
+     */
     public void checkRewardCollection ()
     {
         Iterator<HashMap.Entry<ImageView, String>> iterator = rewardViews.entrySet().iterator();
@@ -254,8 +343,17 @@ public class MapController
             }
         }
     }
-    
-    
+
+
+    /**
+     * Determines if the player is within the collection radius of a reward.
+     * @author Jonas Helfer
+     * @param rewardView The ImageView representing the reward to check.
+     * @precondition The PlayerController is properly initialized and can provide the current player position.
+     *               The rewardView parameter is not null and represents a valid reward on the map.
+     * @postcondition The method returns true if the player is within the collection radius of the reward, false otherwise.
+     * @return boolean True if the player is on the reward, false otherwise.
+     */
     private boolean isPlayerOnReward (ImageView rewardView)
     {
         Coordinate playerPosition = PlayerController.getInstance().getCurrentPlayerPosition();
@@ -266,8 +364,20 @@ public class MapController
         
         return Math.abs(playerX - rewardX) < Constants_Map.REWARD_COLLECTION_RADIUS && Math.abs(playerY - rewardY) < Constants_Map.REWARD_COLLECTION_RADIUS;
     }
-    
-    
+
+
+    /**
+     * Collects a reward, removing it from the map and updating the player's inventory.
+     * @author Jonas Helfer
+     * @param rewardView The ImageView of the reward to be collected.
+     * @param rewardType The type of the reward being collected.
+     * @precondition The Map and Inventory instances are properly initialized.
+     *               The rewardView is a valid ImageView present on the map.
+     *               The rewardType is a valid string representing one of the possible reward types.
+     * @postcondition The reward is removed from the map.
+     *                The player's inventory is updated based on the collected reward type.
+     * @throws IllegalArgumentException if an unknown reward type is encountered.
+     */
     private void collectReward (ImageView rewardView, String rewardType)
     {
         Pane mapPane = Map.getInstance().getPane();
@@ -277,23 +387,23 @@ public class MapController
         Inventory inventory = Inventory.getInstanceOfInventory();
         switch (rewardType)
         {
-            case "gold":
+            case Constants_Map.GOLD:
                 inventory.setInventoryGold(inventory.getInventoryGold() + Constants_Map.REWARD_GOLD_AMOUNT);
                 break;
-            case "beer":
+            case Constants_Map.BEER:
                 inventory.setInventoryBeer(inventory.getInventoryBeer() + Constants_Map.REWARD_BEER_AMOUNT);
                 break;
-            case "brick":
+            case Constants_Map.BRICK:
                 inventory.setInventoryBrick(inventory.getInventoryBrick() + Constants_Map.REWARD_BRICK_AMOUNT);
                 break;
-            case "essence":
+            case Constants_Map.ESSENCE:
                 inventory.setInventoryEssence(inventory.getInventoryEssence() + Constants_Map.REWARD_ESSENCE_AMOUNT);
                 break;
-            case "wood":
+            case Constants_Map.WOOD:
                 inventory.setInventoryWood(inventory.getInventoryWood() + Constants_Map.REWARD_WOOD_AMOUNT);
                 break;
             default:
-                throw new IllegalArgumentException("Unknown reward type: " + rewardType);
+                throw new IllegalArgumentException(Constants_Map.UNKNOWN_REWARD + rewardType);
         }
     }
     

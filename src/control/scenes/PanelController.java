@@ -134,8 +134,25 @@ public class PanelController
                 tileSize, maxRows, maxColumns
         );
     }
-    
-    
+
+
+    /**
+     * Initializes a Panel object for Jonas' map using specified parameters and resources.
+     * @author Jonas Helfer
+     * @param pathToLoaderFileFolder The path to the folder containing the loader file.
+     * @param loaderFileName The name of the loader file.
+     * @param tileSize The size of each tile in pixels.
+     * @param maxRows The maximum number of rows in the panel.
+     * @param maxColumns The maximum number of columns in the panel.
+     * @precondition The PanelAndTileLoader class is properly initialized and functional.
+     *               The Constants_Panel class is properly defined with the FILE_PANEL constant.
+     *               The specified path and loader file exist and are accessible.
+     *               The maxRows and maxColumns are integers.
+     *               The tileSize is a positive integer.
+     * @postcondition A new Panel object is created and initialized with the specified parameters.
+     *                The Panel contains a tile array based on the loader file and resource images.
+     * @return A new Panel object initialized with the specified parameters and resources.
+     */
     private Panel initializePanel_JonasMap (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
         // Create array of characters
@@ -178,19 +195,23 @@ public class PanelController
         }
         return biomeName;
     }
-    
-    
+
+
     /**
-     * Accepts coordinates, and checks whether the tile at that coordinate is occupied.
-     *
-     * @param panel
-     * @param coordinate
-     * @return
-     * @throws Exception
-     * @author Michael Markov
+     * Determines whether a given coordinate on the panel is occupied or out of bounds.
+     * @author Micheal Markov, Jonas Helfer
+     * @param panel The Panel object representing the game map.
+     * @param coordinate The Coordinate object to check for occupation.
+     * @precondition The Panel object is properly initialized with valid dimensions and tile.
+     *               The Constants_Panel class is properly defined with MIN_TILE_INDEX and OBSTACLE_TILE_DEFAULT_VALUE constants.
+     *               The getCoordinateFromPanelTile and isObstacle methods are properly implemented and accessible.
+     * @postcondition The method returns true if the coordinate is out of bounds or occupied by an obstacle,
+     *                false otherwise.
+     * @return boolean True if the coordinate is occupied or out of bounds, false otherwise.
      */
     public boolean isCoordinateOccupied (Panel panel, Coordinate coordinate)
     {
+        // Get the minimum and maximum coordinates of the panel
         Coordinate minimumCoordinate = getCoordinateFromPanelTile(panel, Constants_Panel.MIN_TILE_INDEX, Constants_Panel.MIN_TILE_INDEX);
         Coordinate maximumCoordinate = getCoordinateFromPanelTile(panel, panel.getMaxRows(), panel.getMaxColumns());
         
@@ -202,25 +223,23 @@ public class PanelController
         {
             return true;
         }
-        
-        // Check whether tile with correlating coordinates is occupied
-        
-        // Überprüfe die obere linke Ecke
+
+        // Check if the tile at the given coordinate is occupied by an obstacle
         int x = (int) coordinate.getPositionX();
         int y = (int) coordinate.getPositionY();
         int tileSize = panel.getTileSize();
+        // Check all four corners of the tile
         if (isObstacle(panel, x, y) ||
-                // Überprüfe die obere rechte Ecke
                 isObstacle(panel, x + tileSize - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE, y) ||
-                // Überprüfe die untere linke Ecke
                 isObstacle(panel, x, y + tileSize - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE) ||
-                // Überprüfe die untere rechte Ecke
                 isObstacle(panel, x + tileSize - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE, y + tileSize
                         - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE))
         {
-            return true; // Der Spieler läuft über ein Hindernis
+            // The player is running over an obstacle
+            return true;
         }
-        return false; // Not occupied if method reached end
+        // Not occupied if method reached end
+        return false;
     }
     
     
@@ -262,27 +281,32 @@ public class PanelController
         Coordinate newHorizontalPosition = new Coordinate(newX, currentPlayerPosition.getPositionY());
         return isCoordinateOccupied(panel, newHorizontalPosition); // Checks whether the new position on the horizontal side is occupied
     }
-    
-    
+
+
     /**
-     * Checks whether there the current coordinate has an obstacle.
-     *
-     * @param panel
-     * @param x
-     * @param y
-     * @return
+     * Determines whether a specific position on the panel is occupied by an obstacle.
      * @author Jonas Helfer
+     * @param panel The Panel object representing the game map.
+     * @param x The x-coordinate to check for an obstacle.
+     * @param y The y-coordinate to check for an obstacle.
+     * @precondition The Panel object is properly initialized with valid dimensions and tiles.
+     *               The getTileIndicesFromCoordinates method is properly implemented and accessible.
+     *               The x and y coordinates are within the bounds of the panel.
+     * @postcondition The method returns true if the specified position contains an obstacle,
+     *                false otherwise.
+     * @return boolean True if the position is occupied by an obstacle, false otherwise.
      */
-    private boolean isObstacle (Panel panel, int x, int y)
-    {
-        // Erhalte die Indizes der Kachel, die sich an den angegebenen Koordinaten befindet
+    private boolean isObstacle(Panel panel, int x, int y) {
+        // Get the tile indices corresponding to the given coordinates
         Coordinate tileIndices = getTileIndicesFromCoordinates(panel, new Coordinate(x, y));
-        
-        // Überprüfe, ob die Kachel besetzt ist
+
+        // Check if the tile at the calculated indices is occupied
         return panel.getTileAt((int) tileIndices.getPositionY(), (int) tileIndices.getPositionX()).getOccupied();
     }
-    
-    
+
+
+
+
     /**
      * Following method can be utilised to return pile indices from the stage location. The indices will be returned as
      * an instance of Coordinate.

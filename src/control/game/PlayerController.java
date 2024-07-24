@@ -89,12 +89,14 @@ public class PlayerController implements Runnable
     {
         playerView.setCoordinates(currentPlayerPosition);
     }
-    
-    
+
+
     /**
-     * Runnable that checks whether movement of the player is possible, and if so, moves the player.
-     *
-     * @author Michael Markov
+     * Continuously updates the player's position and checks for game events.
+     * This method runs in a separate thread to handle player movement and trigger various game checks.
+     * @author Michael Markov, Jonas Helfer
+     * @precondition The thread has been properly initialized and started
+     * @postcondition Player position is updated, and relevant game checks are performed
      */
     @Override
     public void run ()
@@ -134,11 +136,9 @@ public class PlayerController implements Runnable
                 }
             } catch (InterruptedException e)
             {
+                System.out.println(Constants_ExceptionMessages.PLAYER_CONTROLLER_THREAD_WAS_INTERRUPTED);
                 Thread.currentThread().interrupt();
                 break;
-            } catch (Exception e)
-            {
-                e.printStackTrace();
             }
         }
     }

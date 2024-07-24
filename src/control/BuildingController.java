@@ -184,8 +184,24 @@ public class BuildingController
         Map.getInstance().getPane().getChildren().add(createBuildingButton(Constants_City.CITY_LABEL_PUB, () -> showPriceOfBuilding(Pub.getInstanceOfPub()), Constants_Building.BUTTON_WIDTH_PUB, Constants_Building.BUTTON_HEIGHT_PUB, Pub.getInstanceOfPub().getPositionUpperLeft()));
         Map.getInstance().getPane().getChildren().add(createBuildingButton(Constants_City.CITY_LABEL_TRAININGS_AREA, () -> showPriceOfBuilding(TrainingArea.getInstanceOfTrainingarea()), Constants_Building.BUTTON_WIDTH_TRAINING_AREA, Constants_Building.BUTTON_HEIGHT_TRAINING_AREA, TrainingArea.getInstanceOfTrainingarea().getPositionUpperLeft()));
     }
-    
-    
+
+
+    /**
+     * Creates a TransparentButton for a building at a specified coordinate on the map.
+     * @author Jonas Helfer
+     * @param name The name of the building, which will be used as the button text.
+     * @param action The Runnable to be executed when the button is clicked.
+     * @param itemWidth The width of the button.
+     * @param itemHeight The height of the button.
+     * @param coordinate The coordinate where the building (and thus the button) should be placed.
+     * @precondition The PanelController and Map instances are properly initialized and accessible.
+     *               The Constants_DefaultValues and Constants_Building classes are properly defined.
+     *               The TransparentButton class is implemented and available.
+     *               The coordinate is within the bounds of the game map.
+     * @postcondition A new TransparentButton is created with the specified properties and positioned on the map.
+     *                The button's action is set to execute the provided Runnable when clicked.
+     * @return TransparentButton A new TransparentButton instance for the building.
+     */
     public TransparentButton createBuildingButton (String name, Runnable action, int itemWidth, int itemHeight, Coordinate coordinate)
     {
         Coordinate buildingCoordinate = PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(),
@@ -362,8 +378,20 @@ public class BuildingController
         
         showWayToMissionOne(mission1);
     }
-    
-    
+
+
+    /**
+     * Sets up a button to show the way to Mission One when clicked.
+     * This method adds an arrow pointing to the mission's location on the map.
+     * @author Jule Degener, Jonas Helfer
+     * @param button The Button to which the action will be attached.
+     * @precondition The Constants_Map class is properly defined with ARROW_LEFT and PLAYER_SIZE constants.
+     *               The Map, PanelController,Controller instances are properly initialized and accessible.
+     *               The OutputImageView class is implemented and available.
+     * @postcondition When the button is clicked, an arrow image is added to the map pane,
+     *                pointing towards the location of Mission One.
+     *                The player's position is updated after adding the arrow.
+     */
     private static void showWayToMissionOne (Button button)
     {
         button.setOnAction(new EventHandler<ActionEvent>()
@@ -373,9 +401,7 @@ public class BuildingController
             {
                 OutputImageView arrowView = new OutputImageView(new Image(Constants_Map.ARROW_LEFT), Constants_Map.PLAYER_SIZE);
                 Map.getInstance().getPane().getChildren().add(arrowView);
-                
-                
-                // Koordinaten für den Pfeil setzen
+
                 arrowView.setCoordinates(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), 25, 25));
                 
                 PlayerController.getInstance().updatePlayer();

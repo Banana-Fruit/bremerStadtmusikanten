@@ -32,6 +32,15 @@ public interface Constants_Map
     String CONSOLE_PRINT_SWITCHING_MAP = "Switching to map: ";
     String HEADER_JOIN_FIGHT = "Kampf betreten?";
 
+    //Rewards
+    String WOOD = "wood";
+    String BEER = "beer";
+    String BRICK = "brick";
+    String ESSENCE = "essence";
+    String GOLD = "gold";
+
+
+
     //Positioncheck
 
     double PLAYER_AT_LEFT_BORDER = 0.0;
@@ -68,4 +77,5 @@ public interface Constants_Map
     int REWARD_5_POSITION_X = 2;
     int REWARD_5_POSITION_Y = 24;
     String ARROW_LEFT = "resources/assets/jonas/186_arrow_left.png";
+    String UNKNOWN_REWARD = "Unknown reward type: ";
 }
