@@ -106,6 +106,10 @@ public class MainMenu extends Showable
                 {
                     loadGame();
                 }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
+                new TransparentButton(Constants_MainMenu.MENU_SETTINGS, () ->
+                {
+                    settings();
+                }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
                 new TransparentButton(Constants_MainMenu.MENU_MULTIPLAYER, () ->
                 {
                     openMultiplayerConnectionMenu();
@@ -125,6 +129,12 @@ public class MainMenu extends Showable
                 box.heightProperty()).divide(Constants_Showable.CENTER_VAR));
         
         return box;
+    }
+    
+    
+    private void settings ()
+    {
+        SceneController.getInstance().switchShowable(Settings.getInstance());
     }
     
     

@@ -7,11 +7,8 @@ import control.scenes.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.player.Player;
-import model.userInterface.showables.Combat;
-import model.userInterface.showables.LoadGame;
-import model.userInterface.showables.MainMenu;
+import model.userInterface.showables.*;
 import model.userInterface.Game;
-import model.userInterface.showables.Map;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.scenes.Constants_MainMenu;
 import resources.constants.scenes.Constants_Map;
@@ -83,6 +80,7 @@ public class GameController
         LoadGame.initialize(new Scene(SceneController.getInstance().getBasePane(),
                 Constants_MainMenu.SCENE_WIDTH, Constants_MainMenu.SCENE_HEIGHT));
         Map.initialize(new Scene(SceneController.getInstance().getBasePane()));
+        Settings.initialize(new Scene(SceneController.getInstance().getBasePane()));
         
         // Switch scene to main menu
         SceneController.getInstance().switchShowable(MainMenu.getInstance());
