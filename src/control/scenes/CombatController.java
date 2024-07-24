@@ -14,7 +14,7 @@ public class CombatController
     /**
      * Method switches to combat scene by loading a new arena.
      *
-     * @param loaderFileName
+     * @param loaderFileName Name of the LoaderFile that will determine the arena.
      * @author Michael Markov
      */
     public static void startCombat (String loaderFileName)
@@ -27,7 +27,7 @@ public class CombatController
     /**
      * Sets a new arena for the map with the loader file name. Uses the folder resources/assets/combat/loaderFiles/
      *
-     * @param loaderFileName
+     * @param loaderFileName Name of the LoaderFile that will determine the arena.
      * @author Michael Markov
      */
     private static void setNewArena (String loaderFileName)

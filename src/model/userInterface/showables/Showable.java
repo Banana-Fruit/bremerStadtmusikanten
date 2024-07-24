@@ -37,7 +37,7 @@ public class Showable
     
     
     /**
-     * Initializer for Showables.
+     * Initializer for the Showables.
      *
      * @author Michael Markov
      */
@@ -59,7 +59,7 @@ public class Showable
     /**
      * Sets background to an image. The image will be aligned to screen size, and centered.
      *
-     * @param path
+     * @param path Path to the Background Image
      * @author Michael Markov
      */
     public void setBackground (String path)

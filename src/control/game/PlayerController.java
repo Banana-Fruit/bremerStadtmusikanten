@@ -70,7 +70,7 @@ public class PlayerController implements Runnable
     /**
      * Adds player image to the map.
      *
-     * @param playerPosition
+     * @param playerPosition Gives the playerPosition where the player has to be added.
      * @author Michael Markov
      */
     public void addPlayer (Coordinate playerPosition)
@@ -94,9 +94,10 @@ public class PlayerController implements Runnable
     /**
      * Continuously updates the player's position and checks for game events.
      * This method runs in a separate thread to handle player movement and trigger various game checks.
+     *
      * @author Michael Markov, Jonas Helfer
-     * @precondition The thread has been properly initialized and started
-     * @postcondition Player position is updated, and relevant game checks are performed
+     * @precondition The thread has been properly initialized and started.
+     * @postcondition Player position is updated, and relevant game checks are performed.
      */
     @Override
     public void run ()
@@ -147,7 +148,7 @@ public class PlayerController implements Runnable
     /**
      * Method gets a list of pressed keys, and runs methods that the keys are mapped to.
      *
-     * @param pressedKeys
+     * @param pressedKeys The set of key presses recorded at the time.
      * @author Michael Markov
      */
     public void handleKeyPresses (Set<KeyCode> pressedKeys)
@@ -175,7 +176,7 @@ public class PlayerController implements Runnable
      * Method moves the character up. If isDiagonal is true, then the movement speed will be adjusted towards the
      * diagonal movement.
      *
-     * @param isDiagonal
+     * @param isDiagonal Clarifies whether the currently requested movement is diagonal.
      * @author Michael Markov
      */
     private void moveUP (boolean isDiagonal)
@@ -193,7 +194,7 @@ public class PlayerController implements Runnable
      * Method moves the character down. If isDiagonal is true, then the movement speed will be adjusted towards the
      * diagonal movement.
      *
-     * @param isDiagonal
+     * @param isDiagonal Clarifies whether the currently requested movement is diagonal.
      * @author Michael Markov
      */
     private void moveDOWN (boolean isDiagonal)
@@ -211,7 +212,7 @@ public class PlayerController implements Runnable
      * Method moves the character right. If isDiagonal is true, then the movement speed will be adjusted towards the
      * diagonal movement.
      *
-     * @param isDiagonal
+     * @param isDiagonal Clarifies whether the currently requested movement is diagonal.
      * @author Michael Markov
      */
     private void moveRIGHT (boolean isDiagonal)
@@ -229,7 +230,7 @@ public class PlayerController implements Runnable
      * Method moves the character left. If isDiagonal is true, then the movement speed will be adjusted towards the
      * diagonal movement.
      *
-     * @param isDiagonal
+     * @param isDiagonal Clarifies whether the currently requested movement is diagonal.
      * @author Michael Markov
      */
     private void moveLEFT (boolean isDiagonal)
@@ -247,7 +248,7 @@ public class PlayerController implements Runnable
      * Used to set the player position to a specific coordinate using the instance of Coordinate.
      * Sets the value of the current and new player position to a new value.
      *
-     * @param playerPosition
+     * @param playerPosition The position the player has to have.
      * @author Michael Markov
      */
     public void setPlayerPosition (Coordinate playerPosition)
@@ -279,9 +280,9 @@ public class PlayerController implements Runnable
     
     
     /**
-     * Getter for the current player position. Retrieves an instance of COordinate.
+     * Getter for the current player position. Retrieves an instance of Coordinate.
      *
-     * @return
+     * @return The coordinates with the current player position
      * @author Michael Markov
      */
     public Coordinate getCurrentPlayerPosition ()
@@ -293,7 +294,7 @@ public class PlayerController implements Runnable
     /**
      * Getter for player view. Retrieves an instance of OutputImageView.
      *
-     * @return
+     * @return The playerView.
      * @author Michael Markov
      */
     public OutputImageView getPlayerView ()

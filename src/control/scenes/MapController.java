@@ -57,7 +57,7 @@ public class MapController
      * Loads a new map onto an existing map scene by loading a new panel from the loader file. The loader file should be
      * loacted in resources/assets/.
      *
-     * @param loaderFileName
+     * @param loaderFileName Name of the LoaderFile that will determine the map.
      * @author Michael Markov
      */
     public void setNewMap (String loaderFileName)

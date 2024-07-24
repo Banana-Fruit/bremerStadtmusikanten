@@ -52,8 +52,8 @@ public class Coordinate
     /**
      * Compares given coordinates with local coordinates and returns a boolean. If equal, the returned value is true.
      *
-     * @param coordinate
-     * @return
+     * @param coordinate Coordinate that the instance will be compared to.
+     * @return Boolean of whether the given coordinate is equal to the instance's coordinates.
      * @author Michael Markov
      */
     public boolean isEqual (Coordinate coordinate)

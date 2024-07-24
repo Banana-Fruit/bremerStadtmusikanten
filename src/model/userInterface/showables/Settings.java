@@ -47,6 +47,9 @@ public class Settings extends Showable
     }
     
     
+    /**
+     * Initializer for the Settings Showable, that gives the Showable its buttons and background.
+     */
     private void init()
     {
         setBackground(new Background(new BackgroundFill(Color.GREY, CornerRadii.EMPTY, null)));

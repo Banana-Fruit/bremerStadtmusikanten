@@ -31,7 +31,7 @@ public class Panel
     
     
     /**
-     * Initialiser for panel
+     * Initializer for the panel.
      *
      * @author Michael Markov
      */
@@ -65,11 +65,11 @@ public class Panel
     
     
     /**
-     * Returns tile at a specific index
+     * Returns Tile at a specific index.
      *
-     * @param row
-     * @param column
-     * @return
+     * @param row Row that the tile is located at.
+     * @param column Column that the tile is located at.
+     * @return Tile, specific to the row and column.
      */
     public Tile getTileAt (int row, int column)
     {

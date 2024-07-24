@@ -49,13 +49,13 @@ public class PanelController
     /**
      * Adds a panel to the pane, based on the given parameters, and returns it.
      *
-     * @param pane
-     * @param pathToLoaderFileFolder
-     * @param loaderFileName
-     * @param tileSize
-     * @param maxRows
-     * @param maxColumns
-     * @return
+     * @param pane Pane to which the panel will be added.
+     * @param pathToLoaderFileFolder Path to where the Loader File is located.
+     * @param loaderFileName Name of the Loader File that will load the panel.
+     * @param tileSize Size of each Tile.
+     * @param maxRows Amount of maximum rows.
+     * @param maxColumns Amount of maximum columns.
+     * @return Panel to be returned.
      * @author Michael Markov
      */
     public Panel getAndShowPanelUsingStrings (Pane pane, String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
@@ -79,13 +79,13 @@ public class PanelController
     /**
      * Returns a panel based on the given parameters and adds it directly to the pane.
      *
-     * @param pane
-     * @param pathToLoaderFileFolder
-     * @param loaderFileName
-     * @param tileSize
-     * @param maxRows
-     * @param maxColumns
-     * @return
+     * @param pane Pane to which the panel will be added.
+     * @param pathToLoaderFileFolder Path to where the Loader File is located.
+     * @param loaderFileName Name of the Loader File that will load the panel.
+     * @param tileSize Size of each Tile.
+     * @param maxRows Amount of maximum rows.
+     * @param maxColumns Amount of maximum columns.
+     * @return Panel to be returned.
      */
     public Panel getAndShowPanelUsingChars (Pane pane, String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
@@ -108,28 +108,28 @@ public class PanelController
     /**
      * Returns a panel by using Chars based on the given parameters. The panel is derived from a char loading file.
      *
-     * @param pathToLoaderFileFolder
-     * @param loaderFileName
-     * @param tileSize
-     * @param maxRows
-     * @param maxColumns
-     * @return
+     * @param pathToLoaderFileFolder Pane to which the panel will be added.
+     * @param loaderFileName Name of the Loader File that will load the panel.
+     * @param tileSize Size of each Tile.
+     * @param maxRows Amount of maximum rows.
+     * @param maxColumns Amount of maximum columns.
+     * @return Panel to be returned.
      * @author Michael Markov
      */
     private Panel initializePanelChars (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
         // Create array of characters
-        char[][] charArray = PanelAndTileLoader.getCharacterArrayUsingTileFile(pathToLoaderFileFolder + loaderFileName, maxRows, maxColumns);
+        char[][] charArray = PanelAndTileLoader.getCharacterArrayUsingTileFile_Chars(pathToLoaderFileFolder + loaderFileName, maxRows, maxColumns);
         
         // Create path to resource folder with biome
         String pathToResourceFolder = pathToLoaderFileFolder.replace(Constants_Resources.LOADER_FILES_FOLDER, Constants_Panel.EMPTY_STRING)
                 + getBiomeName(pathToLoaderFileFolder + loaderFileName);
         
         // Put characters in correlation to images
-        HashMap<Character, Image> mapOfCharactersWithCorrelatingImages = PanelAndTileLoader.getMapWithCharsAndImages(pathToResourceFolder);
+        HashMap<Character, Image> mapOfCharactersWithCorrelatingImages = PanelAndTileLoader.getMapWithCharsAndImages_Chars(pathToResourceFolder);
         
         return new Panel(
-                PanelAndTileLoader.getTileArray(mapOfCharactersWithCorrelatingImages, charArray, maxRows, maxColumns),
+                PanelAndTileLoader.getTileArray_Chars(mapOfCharactersWithCorrelatingImages, charArray, maxRows, maxColumns),
                 tileSize, maxRows, maxColumns
         );
     }
@@ -155,13 +155,13 @@ public class PanelController
     private Panel initializePanelStrings (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
         // Create array of characters
-        int[][] intArray = PanelAndTileLoader.getCharacterArrayUsingTileFile_JonasMap(pathToLoaderFileFolder + loaderFileName, maxRows, maxColumns);
+        int[][] intArray = PanelAndTileLoader.getCharacterArrayUsingTileFile_Strings(pathToLoaderFileFolder + loaderFileName, maxRows, maxColumns);
         // Create path to resource folder with biome
         String pathToResourceFolder = Constants_Panel.FILE_PANEL;
         // Put characters in correlation to images
-        HashMap<Integer, Image> mapOfCharactersWithCorrelatingImages = PanelAndTileLoader.getMapWithIntegersAndImages_JonasMap(pathToResourceFolder);
+        HashMap<Integer, Image> mapOfCharactersWithCorrelatingImages = PanelAndTileLoader.getMapWithIntegersAndImages_Strings(pathToResourceFolder);
         return new Panel(
-                PanelAndTileLoader.getTileArray_JonasMap(mapOfCharactersWithCorrelatingImages, intArray, maxRows, maxColumns),
+                PanelAndTileLoader.getTileArray_Strings(mapOfCharactersWithCorrelatingImages, intArray, maxRows, maxColumns),
                 tileSize, maxRows, maxColumns
         );
     }
@@ -171,8 +171,8 @@ public class PanelController
      * The biome name is located on the first line of the loading file. This name will be used to access the tile
      * images. All the method needs, is the path to the loader file.
      *
-     * @param pathToLoaderFile
-     * @return
+     * @param pathToLoaderFile Path to the loader file.
+     * @return String with the biome name.
      * @author Michael Markov
      */
     private String getBiomeName (String pathToLoaderFile)
@@ -228,27 +228,23 @@ public class PanelController
         int y = (int) coordinate.getPositionY();
         int tileSize = panel.getTileSize();
         // Check all four corners of the tile
-        if (isObstacle(panel, x, y) ||
+        // The player is running over an obstacle
+        return isObstacle(panel, x, y) ||
                 isObstacle(panel, x + tileSize - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE, y) ||
                 isObstacle(panel, x, y + tileSize - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE) ||
                 isObstacle(panel, x + tileSize - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE, y + tileSize
-                        - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE))
-        {
-            // The player is running over an obstacle
-            return true;
-        }
+                        - Constants_Panel.OBSTACLE_TILE_DEFAULT_VALUE);
         // Not occupied if method reached end
-        return false;
     }
     
     
     /**
      * Checks whether there is an obstacle in the way to block the movement in that direction.
      *
-     * @param panel
-     * @param currentPlayerPosition
-     * @param newPlayerPosition
-     * @return
+     * @param panel Panel on which the vertical movement has to be checked.
+     * @param currentPlayerPosition The current position the player is at.
+     * @param newPlayerPosition The new position the player wants to be at.
+     * @return Boolean that answers to whether the vertical movement is blocked by an object.
      * @author Michael Markov, Jonas Helfer
      */
     public boolean isVerticalMoveBlocked (Panel panel, Coordinate currentPlayerPosition, Coordinate newPlayerPosition)
@@ -265,10 +261,10 @@ public class PanelController
     /**
      * Checks whether there is an obstacle in the way to block the movement in that direction.
      *
-     * @param panel
-     * @param currentPlayerPosition
-     * @param newPlayerPosition
-     * @return
+     * @param panel Panel on which the vertical movement has to be checked.
+     * @param currentPlayerPosition The current position the player is at.
+     * @param newPlayerPosition The new position the player wants to be at.
+     * @return Boolean that answers to whether the horizontal movement is blocked by an object.
      * @author Michael Markov, Jonas Helfer
      */
     public boolean isHorizontalMoveBlocked (Panel panel, Coordinate currentPlayerPosition, Coordinate newPlayerPosition)
@@ -310,9 +306,9 @@ public class PanelController
      * Following method can be utilised to return pile indices from the stage location. The indices will be returned as
      * an instance of Coordinate.
      *
-     * @param panel
-     * @param coordinate
-     * @return
+     * @param panel Panel from which the tile indices have to be determined.
+     * @param coordinate Coordinate at which the tile lies.
+     * @return Indices of the panel.
      * @author Michael Markov
      */
     public Coordinate getTileIndicesFromCoordinates (Panel panel, Coordinate coordinate)
@@ -331,9 +327,10 @@ public class PanelController
     /**
      * Returns an instance of Coordinates with the coordinates of the Tile at the parameter indices.
      *
-     * @param rowIndex
-     * @param columnIndex
-     * @return
+     * @param panel Panel from which the tile coordinates have to be determined.
+     * @param rowIndex Index of the row from which the vertical coordinate can be determined.
+     * @param columnIndex Index of the columns from which the horizontal coordinate can be determined.
+     * @return Coordinates at which the Tile lies.
      * @author Michael Markov
      */
     public Coordinate getCoordinateFromPanelTile (Panel panel, int rowIndex, int columnIndex)
@@ -351,8 +348,8 @@ public class PanelController
      * Returns the coordinates of the upper left corner of the upper left tile which can also be caled the
      * "NullPosition". The postion is returned via an instance of Coordinate.
      *
-     * @param panel
-     * @return
+     * @param panel Panel from which the null position has to be determined.
+     * @return Coordinates of the null position.
      * @author Michael Markov
      */
     private Coordinate getNullPositionOfPanelInRelationToScreenSize (Panel panel)

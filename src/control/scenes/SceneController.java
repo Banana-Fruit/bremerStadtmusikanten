@@ -126,7 +126,7 @@ public class SceneController
     /**
      * Creates a base pane with the menu bar.
      *
-     * @return
+     * @return Base Pane only with the MenuBar.
      * @author Michael Markov
      */
     public Pane getBasePane ()
@@ -143,7 +143,7 @@ public class SceneController
     /**
      * Switches the showable (scene) to another one.
      *
-     * @param showable
+     * @param showable Showable to be switched to.
      * @author Michael Markov
      */
     public void switchShowable (Showable showable)

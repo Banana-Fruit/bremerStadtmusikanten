@@ -57,6 +57,9 @@ public class Combat extends Showable
     }
     
     
+    /**
+     * Layers transparent buttons over the Panel.
+     */
     public void addTileButtons ()
     {
         for (int row = Constants_Combat.MIN_ROW; row < Constants_Combat.MAX_ROWS; row++) // Runs through all rows till max rows

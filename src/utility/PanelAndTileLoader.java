@@ -29,7 +29,7 @@ public class PanelAndTileLoader
      * @return
      * @author Michael Markov
      */
-    public static char[][] getCharacterArrayUsingTileFile (String loaderFilePath, int maxRows, int maxColumns)
+    public static char[][] getCharacterArrayUsingTileFile_Chars (String loaderFilePath, int maxRows, int maxColumns)
     {
         char[][] characterArray = new char[maxRows][maxColumns];
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(loaderFilePath)))
@@ -63,7 +63,7 @@ public class PanelAndTileLoader
      * @return
      * @author Michael Markov
      */
-    public static HashMap<Character, Image> getMapWithCharsAndImages (String imageFolderPath)
+    public static HashMap<Character, Image> getMapWithCharsAndImages_Chars (String imageFolderPath)
     {
         HashMap<Character, Image> currentMapOfCharsWithImages = new HashMap<>();
         
@@ -106,7 +106,7 @@ public class PanelAndTileLoader
      * @return
      * @author Michael Markov
      */
-    public static Tile[][] getTileArray (HashMap<Character, Image> characterImageHashMap, char[][] charArray, int maxRows, int maxColumns)
+    public static Tile[][] getTileArray_Chars (HashMap<Character, Image> characterImageHashMap, char[][] charArray, int maxRows, int maxColumns)
     {
         Tile[][] tileArray = new Tile[maxRows][maxColumns];
         for (int row = Constants_Panel.MIN_TILE_INDEX; row < maxRows; row++)
@@ -121,7 +121,6 @@ public class PanelAndTileLoader
     }
     
     
-    //---------------------JONAS_MAP---------------------
     /**
      * Reads a tile file and converts it into a 2D integer array representing the map.
      * @author Jonas Helfer
@@ -130,7 +129,7 @@ public class PanelAndTileLoader
      * @param maxColumns The maximum number of columns in the map.
      * @return A 2D integer array representing the map.
      */
-    public static int[][] getCharacterArrayUsingTileFile_JonasMap (String loaderFilePath, int maxRows, int maxColumns)
+    public static int[][] getCharacterArrayUsingTileFile_Strings (String loaderFilePath, int maxRows, int maxColumns)
     {
         int[][] integerArray = new int[maxRows][maxColumns];
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(loaderFilePath)))
@@ -176,13 +175,13 @@ public class PanelAndTileLoader
      * @param maxColumns The maximum number of columns in the map.
      * @return A 2D array of Tile objects.
      */
-    public static Tile[][] getTileArray_JonasMap (HashMap<Integer, Image> integerImageHashMap, int[][] intArray, int maxRows, int maxColumns)
+    public static Tile[][] getTileArray_Strings (HashMap<Integer, Image> integerImageHashMap, int[][] intArray, int maxRows, int maxColumns)
     {
         Tile[][] tileArray = new Tile[maxRows][maxColumns];
         Map<Integer, Boolean> occupancyData = null;
         try
         {
-            occupancyData = readOccupancyData_JonasMap();
+            occupancyData = readOccupancyData_Strings();
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -217,7 +216,7 @@ public class PanelAndTileLoader
      * @param imageFolderPath The path to the folder containing the image files.
      * @return A HashMap mapping integer keys to Image objects.
      */
-    public static HashMap<Integer, Image> getMapWithIntegersAndImages_JonasMap (String imageFolderPath)
+    public static HashMap<Integer, Image> getMapWithIntegersAndImages_Strings (String imageFolderPath)
     {
         HashMap<Integer, Image> currentMapOfCharsWithImages = new HashMap<>();
         File folder = new File(imageFolderPath);
@@ -258,7 +257,7 @@ public class PanelAndTileLoader
      * @return A Map of Integer keys (tile IDs) to Boolean values (occupancy status).
      * @throws IOException If there's an error reading the file.
      */
-    public static Map<Integer, Boolean> readOccupancyData_JonasMap () throws IOException
+    public static Map<Integer, Boolean> readOccupancyData_Strings () throws IOException
     {
         Map<Integer, Boolean> occupancyData = new HashMap<>();
         InputStream is = PanelAndTileLoader.class.getResourceAsStream(Constants_Panel.FILE_PATH_TILE_DATA);

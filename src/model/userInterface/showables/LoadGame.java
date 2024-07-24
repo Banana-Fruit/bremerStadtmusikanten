@@ -14,8 +14,8 @@ import resources.constants.scenes.Constants_Showable;
 
 /**
  * LoadGame class contains the scene of the class.
- * <p>
- * author Michael Markov
+ *
+ * @author Michael Markov
  */
 public class LoadGame extends Showable
 {
@@ -79,11 +79,11 @@ public class LoadGame extends Showable
     /**
      * Creates formatted gridpane to contain the buttons.
      *
-     * @param width
-     * @param height
-     * @param translateY
-     * @param gap
-     * @return
+     * @param width Width of the GridPane.
+     * @param height Height of the GridPane.
+     * @param translateY TranslateY value of the GridPane.
+     * @param gap Gap size between the elements of the GridPane.
+     * @return GridPane created from the parameters.
      * @author Michael Markov, Jonas Helfer
      */
     private GridPane createGridPane (int width, int height, int translateY, int gap)
@@ -110,7 +110,7 @@ public class LoadGame extends Showable
     /**
      * Creates buttons with functions and adds them to the gridPane.
      *
-     * @param gridPane
+     * @param gridPane GridPane that will receive the MenuItems.
      * @author Jonas Helfer
      */
     private void createMenuItems (GridPane gridPane)
@@ -124,8 +124,8 @@ public class LoadGame extends Showable
     /**
      * Creates buttons with functions.
      *
-     * @param numberOfGames
-     * @return
+     * @param numberOfGames Number of games that determine the amount of transparent buttons in the array.
+     * @return TransparentButton Array based on the number of games.
      * @author Michael Markov, Jonas Helfer
      */
     private TransparentButton[] createGameLoadsItems (int numberOfGames)
@@ -151,8 +151,8 @@ public class LoadGame extends Showable
     /**
      * Adds items to a gridPane.
      *
-     * @param saveGameItems
-     * @param gridPane
+     * @param saveGameItems Transparent button array with the save game items.
+     * @param gridPane GridPane that the buttons have to be added to.
      * @author Michael Markov, Jonas Helfer
      */
     private void addItemsToGridpane (TransparentButton[] saveGameItems, GridPane gridPane)

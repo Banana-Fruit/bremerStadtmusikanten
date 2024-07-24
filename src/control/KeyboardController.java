@@ -103,7 +103,7 @@ public class KeyboardController implements Runnable
     /**
      * Method to route player related key presses to the player controller.
      *
-     * @param pressedKeys
+     * @param pressedKeys Pressed keys that will be routed to the player controller.
      * @author Michael Markov
      */
     public void routeToPlayerController (Set<KeyCode> pressedKeys)
