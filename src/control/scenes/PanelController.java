@@ -58,12 +58,12 @@ public class PanelController
      * @return Panel to be returned.
      * @author Michael Markov
      */
-    public Panel getAndShowPanelUsingStrings (Pane pane, String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
+    public Panel getAndShowPanelUsingIntegers (Pane pane, String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
         try
         {
             // Create panel from loader file name
-            Panel panel = initializePanelStrings(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
+            Panel panel = initializePanelIntegers(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
             // Add each tile to the pane with the right position
             PanelView.addTilesToPane(panel, pane);
             return panel;
@@ -152,7 +152,7 @@ public class PanelController
      *                The Panel contains a tile array based on the loader file and resource images.
      * @return A new Panel object initialized with the specified parameters and resources.
      */
-    private Panel initializePanelStrings (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
+    private Panel initializePanelIntegers (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
     {
         // Create array of characters
         int[][] intArray = PanelAndTileLoader.getCharacterArrayUsingTileFile_Strings(pathToLoaderFileFolder + loaderFileName, maxRows, maxColumns);

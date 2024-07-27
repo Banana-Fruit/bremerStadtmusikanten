@@ -113,19 +113,19 @@ public class PlayerController implements Runnable
                     Coordinate targetPosition = new Coordinate(this.newPlayerPosition.getPositionX(), this.newPlayerPosition.getPositionY());
                     
                     // Check if vertical movement is possible
-                    if (!PanelController.getInstance().isVerticalMoveBlocked(Map.getInstance().getPanel(), this.currentPlayerPosition, targetPosition))
+                    if (PanelController.getInstance().isVerticalMoveBlocked(Map.getInstance().getPanel(), this.currentPlayerPosition, targetPosition))
                     {
-                        this.currentPlayerPosition.setPositionY(targetPosition.getPositionY());
+                        newPlayerPosition.setPositionY(currentPlayerPosition.getPositionY());
                     }
                     
                     // Check if horizontal movement is possible
-                    if (!PanelController.getInstance().isHorizontalMoveBlocked(Map.getInstance().getPanel(), this.currentPlayerPosition, targetPosition))
+                    if (PanelController.getInstance().isHorizontalMoveBlocked(Map.getInstance().getPanel(), this.currentPlayerPosition, targetPosition))
                     {
-                        this.currentPlayerPosition.setPositionX(targetPosition.getPositionX());
+                        newPlayerPosition.setPositionX(currentPlayerPosition.getPositionX());
                     }
                     
                     // Update player position
-                    setPlayerPosition(new Coordinate(this.currentPlayerPosition.getPositionX(), this.currentPlayerPosition.getPositionY()));
+                    setPlayerPosition(newPlayerPosition);
                     
                     // Check for mission start and proximity to units
                     Platform.runLater(() ->
