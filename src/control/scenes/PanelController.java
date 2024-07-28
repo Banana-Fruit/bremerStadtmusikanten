@@ -101,9 +101,12 @@ public class PanelController
         HashMap<Integer, Image> mapOfCharactersWithCorrelatingImages = PanelAndTileLoader.getMapWithIntegersAndImages(
                 pathToTileResourceFolder);
         
-        // Replace integers in array through tiles with images (create tileArray) and return panel
+        // Get occupancy data (integer values in correlation to boolean values)
+        HashMap<Integer, Boolean> occupancyData = PanelAndTileLoader.readOccupancyData(pathToTileData);
+        
+        // Replace integers in array through tiles with images (create tileArray), add occupancy data and return panel
         return new Panel(
-                PanelAndTileLoader.getTileArray(mapOfCharactersWithCorrelatingImages, pathToTileData, intArray,
+                PanelAndTileLoader.getTileArray(mapOfCharactersWithCorrelatingImages, occupancyData, intArray,
                         maxRows, maxColumns), tileSize, maxRows, maxColumns);
     }
 
