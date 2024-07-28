@@ -20,6 +20,7 @@ public class Combat extends Showable
 {
     private static volatile Combat instance;
     private Panel panel;
+    private TransparentButton[][] transparentButtons;
     
     
     private Combat (Scene scene)
@@ -72,6 +73,8 @@ public class Combat extends Showable
                 TransparentButton transparentButton = new TransparentButton(Constants_Combat.BUTTON_TEXT,
                         Constants_Combat.TILE_SIZE, Constants_Combat.TILE_SIZE, Constants_Combat.OPACITY_PRESSED,
                         Constants_Combat.OPACITY_RELEASED, buttonCoordinate.getPositionX(), buttonCoordinate.getPositionY());
+                
+                transparentButtons[row][column] = transparentButton;
                 
                 // Adding button
                 getPane().getChildren().add(transparentButton);
