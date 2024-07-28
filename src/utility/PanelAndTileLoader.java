@@ -20,8 +20,9 @@ import java.util.Map;
 public class PanelAndTileLoader
 {
     /**
-     * Reads a tile file and converts it into a 2D integer array representing the map. The required formatting of the
-     * picture name is
+     * Reads a tile file and converts it into a 2D integer array representing the map.
+     * The pictures should contain an individual number at the beginning of the file name.
+     * If a non-number char appears, the numbers afterward will be ignored.
      *
      * @param loaderFilePath The path to the tile file.
      * @param maxRows        The maximum number of rows in the map.
@@ -101,6 +102,9 @@ public class PanelAndTileLoader
     
     /**
      * Creates a map of integer keys to Image objects based on image files in a specified folder.
+     * The pictures should contain an individual number at the beginning of the file name.
+     * If a non-number char appears, the numbers afterward will be ignored.
+     * The image type has to be a .png format.
      *
      * @param pathToTileResources The path to the folder containing the image files.
      * @return A HashMap mapping integer keys to Image objects.
@@ -146,6 +150,8 @@ public class PanelAndTileLoader
     
     /**
      * Reads the Occupancy file and creates a map of tile IDs to their occupancy status.
+     * The pictures should contain an individual number at the beginning of the file name.
+     * If a non-number char appears, the numbers afterward will be ignored.
      *
      * @return A Map of Integer keys (tile IDs) to Boolean values (occupancy status).
      * @throws IOException If there's an error reading the file.
