@@ -82,15 +82,10 @@ public class PanelAndTileLoader
             {
                 int intValue = intArray[row][column];
                 if (intValue == Constants_Panel.IGNORE_LOADER_FILE_VALUE) continue;
-                if (integerImageHashMap.containsKey(intValue))
+                if (integerImageHashMap.containsKey(intValue) && occupancyData.containsKey(intValue))
                 {
-                    // Add to current row and column the tile with the image that has the integer value assigned in the map
-                    tileArray[row][column] = new Tile(integerImageHashMap.get(intValue));
-                }
-                if (occupancyData != null && occupancyData.containsKey(intValue))
-                {
-                    // Set tile of the current row and column to the occupancy data of the current row and column
-                    tileArray[row][column].setOccupied(occupancyData.get(intValue));
+                    // Add to current row and column the tile with the image/boolean that has the integer value assigned in the maps
+                    tileArray[row][column] = new Tile(integerImageHashMap.get(intValue), occupancyData.get(intValue));
                 }
             }
         }

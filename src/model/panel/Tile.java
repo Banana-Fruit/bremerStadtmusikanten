@@ -22,6 +22,13 @@ public class Tile
     }
     
     
+    public Tile (Image image, boolean isOccupied)
+    {
+        this.image = image;
+        this.isOccupied = isOccupied;
+    }
+    
+    
     public void setOccupied (boolean occupied)
     {
         isOccupied = occupied;
