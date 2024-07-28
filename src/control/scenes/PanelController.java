@@ -9,13 +9,9 @@ import model.panel.Panel;
 import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Panel;
-import resources.constants.Constants_Resources;
 import utility.PanelAndTileLoader;
 import view.PanelView;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 
 
@@ -48,22 +44,24 @@ public class PanelController
     
     /**
      * Adds a panel to the pane, based on the given parameters, and returns it.
+     * This method returns a panel with occupancy data.
      *
      * @param pane Pane to which the panel will be added.
-     * @param pathToLoaderFileFolder Path to where the Loader File is located.
-     * @param loaderFileName Name of the Loader File that will load the panel.
+     * @param pathToLoaderFile Path to where the Loader File is located.
+     * @param pathToTileResourceFolder Path to folder with tile images.
      * @param tileSize Size of each Tile.
      * @param maxRows Amount of maximum rows.
      * @param maxColumns Amount of maximum columns.
      * @return Panel to be returned.
      * @author Michael Markov
      */
-    public Panel getAndShowPanelUsingIntegers (Pane pane, String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
+    public Panel getAndShowPanel (Pane pane, String pathToLoaderFile, String pathToTileResourceFolder, String pathToTileData,
+                                  int tileSize, int maxRows, int maxColumns)
     {
         try
         {
             // Create panel from loader file name
-            Panel panel = initializePanelIntegers(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
+            Panel panel = initializePanel(pathToLoaderFile, pathToTileResourceFolder, pathToTileData, tileSize, maxRows, maxColumns);
             // Add each tile to the pane with the right position
             PanelView.addTilesToPane(panel, pane);
             return panel;
@@ -76,70 +74,11 @@ public class PanelController
     }
     
     
-    /**
-     * Returns a panel based on the given parameters and adds it directly to the pane.
-     *
-     * @param pane Pane to which the panel will be added.
-     * @param pathToLoaderFileFolder Path to where the Loader File is located.
-     * @param loaderFileName Name of the Loader File that will load the panel.
-     * @param tileSize Size of each Tile.
-     * @param maxRows Amount of maximum rows.
-     * @param maxColumns Amount of maximum columns.
-     * @return Panel to be returned.
-     */
-    public Panel getAndShowPanelUsingChars (Pane pane, String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
-    {
-        try
-        {
-            // Create panel from loader file name
-            Panel panel = initializePanelChars(pathToLoaderFileFolder, loaderFileName, tileSize, maxRows, maxColumns);
-            // Add each tile to the pane with the right position
-            PanelView.addTilesToPane(panel, pane);
-            return panel;
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-            // Consider throwing a custom exception or handling it appropriately
-            return null;
-        }
-    }
-    
-    
-    /**
-     * Returns a panel by using Chars based on the given parameters. The panel is derived from a char loading file.
-     *
-     * @param pathToLoaderFileFolder Pane to which the panel will be added.
-     * @param loaderFileName Name of the Loader File that will load the panel.
-     * @param tileSize Size of each Tile.
-     * @param maxRows Amount of maximum rows.
-     * @param maxColumns Amount of maximum columns.
-     * @return Panel to be returned.
-     * @author Michael Markov
-     */
-    private Panel initializePanelChars (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
-    {
-        // Create array of characters
-        char[][] charArray = PanelAndTileLoader.getCharacterArrayUsingTileFile_Chars(pathToLoaderFileFolder + loaderFileName, maxRows, maxColumns);
-        
-        // Create path to resource folder with biome
-        String pathToResourceFolder = pathToLoaderFileFolder.replace(Constants_Resources.LOADER_FILES_FOLDER, Constants_Panel.EMPTY_STRING)
-                + getBiomeName(pathToLoaderFileFolder + loaderFileName);
-        
-        // Put characters in correlation to images
-        HashMap<Character, Image> mapOfCharactersWithCorrelatingImages = PanelAndTileLoader.getMapWithCharsAndImages_Chars(pathToResourceFolder);
-        
-        return new Panel(
-                PanelAndTileLoader.getTileArray_Chars(mapOfCharactersWithCorrelatingImages, charArray, maxRows, maxColumns),
-                tileSize, maxRows, maxColumns
-        );
-    }
-
-
     /**
      * Initializes a Panel by using Strings for a map using specified parameters and resources.
      * @author Jonas Helfer
-     * @param pathToLoaderFileFolder The path to the folder containing the loader file.
-     * @param loaderFileName The name of the loader file.
+     * @param pathToLoaderFile The path to the loader file.
+     * @param pathToTileResourceFolder The path to the resource folder.
      * @param tileSize The size of each tile in pixels.
      * @param maxRows The maximum number of rows in the panel.
      * @param maxColumns The maximum number of columns in the panel.
@@ -152,47 +91,20 @@ public class PanelController
      *                The Panel contains a tile array based on the loader file and resource images.
      * @return A new Panel object initialized with the specified parameters and resources.
      */
-    private Panel initializePanelIntegers (String pathToLoaderFileFolder, String loaderFileName, int tileSize, int maxRows, int maxColumns)
+    private Panel initializePanel (String pathToLoaderFile, String pathToTileResourceFolder, String pathToTileData,
+                                   int tileSize, int maxRows, int maxColumns)
     {
         // Create array of characters
-        int[][] intArray = PanelAndTileLoader.getCharacterArrayUsingTileFile_Strings(pathToLoaderFileFolder + loaderFileName, maxRows, maxColumns);
-        // Create path to resource folder with biome
-        String pathToResourceFolder = Constants_Panel.FILE_PANEL;
-        // Put characters in correlation to images
-        HashMap<Integer, Image> mapOfCharactersWithCorrelatingImages = PanelAndTileLoader.getMapWithIntegersAndImages_Strings(pathToResourceFolder);
+        int[][] intArray = PanelAndTileLoader.getIntegerArrayUsingLoaderFile(pathToLoaderFile, maxRows, maxColumns);
+        
+        // Put Integers in correlation to images
+        HashMap<Integer, Image> mapOfCharactersWithCorrelatingImages = PanelAndTileLoader.getMapWithIntegersAndImages(
+                pathToTileResourceFolder);
+        
+        // Replace integers in array through tiles with images (create tileArray) and return panel
         return new Panel(
-                PanelAndTileLoader.getTileArray_Strings(mapOfCharactersWithCorrelatingImages, intArray, maxRows, maxColumns),
-                tileSize, maxRows, maxColumns
-        );
-    }
-    
-    
-    /**
-     * The biome name is located on the first line of the loading file. This name will be used to access the tile
-     * images. All the method needs, is the path to the loader file.
-     *
-     * @param pathToLoaderFile Path to the loader file.
-     * @return String with the biome name.
-     * @author Michael Markov
-     */
-    private String getBiomeName (String pathToLoaderFile)
-    {
-        String biomeName = new String();
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(pathToLoaderFile)))
-        {
-            String line;
-            // Wait for the line with the biome name and use that line as the biome name
-            for (int i = Constants_DefaultValues.START_FOR_LOOP; (line = bufferedReader.readLine()) != null; i++)
-            {
-                if (i != Constants_Panel.BIOME_IDENTIFIER_LINE) continue;
-                biomeName = line;
-                break;
-            }
-        } catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        }
-        return biomeName;
+                PanelAndTileLoader.getTileArray(mapOfCharactersWithCorrelatingImages, pathToTileData, intArray,
+                        maxRows, maxColumns), tileSize, maxRows, maxColumns);
     }
 
 

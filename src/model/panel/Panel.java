@@ -70,6 +70,7 @@ public class Panel
      * @param row Row that the tile is located at.
      * @param column Column that the tile is located at.
      * @return Tile, specific to the row and column.
+     * @author Michael Markov
      */
     public Tile getTileAt (int row, int column)
     {

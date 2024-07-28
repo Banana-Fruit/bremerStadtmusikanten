@@ -77,7 +77,7 @@ public class UnitController
                 double positionX = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_POSITION_X]);
                 double positionY = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_POSITION_Y]);
                 
-                OutputImageView unitView = new OutputImageView(new Image(Constants_Map.UNIT_VIEW_STANDARD), Constants_Map.UNIT_SIZE);
+                OutputImageView unitView = new OutputImageView(new Image(Constants_Resources.UNIT_VIEW_STANDARD), Constants_Map.UNIT_SIZE);
                 units.add(new Unit(Name, health, shield, mana, meeleDamage, rangedDamage, ammo, dodge,
                         magicResistance, movementPoints, initiative, magicDamage, myAttack, positionX, positionY, unitView));
             }

@@ -26,17 +26,17 @@ public class PanelView
     public static void addTilesToPane (Panel panel, Pane pane)
     {
         // Runs through all rows until the limit is reached
-        for (int row = Constants_Panel.MIN_TILE_INDEX; row < panel.getTileArray().length; row++)
+        for (int row = Constants_Panel.MIN_TILE_INDEX; row <= panel.getMaxRows(); row++)
         {
             // Runs through all columns until the limit is reached
-            for (int column = Constants_Panel.MIN_TILE_INDEX; column < panel.getTileArray()[Constants_Panel.MIN_TILE_INDEX].length; column++)
+            for (int column = Constants_Panel.MIN_TILE_INDEX; column <= panel.getMaxColumns(); column++)
             {
                 // When no image is at current position, skip the iteration
-                if (panel.getTileArray()[row][column].getBackgroundImage() == null) continue;
+                if (panel.getTileArray()[row][column].getImage() == null) continue;
                 
                 // Creates new instance of OutputImageView for the current iteration
                 OutputImageView currentOutputImageView = new OutputImageView(
-                        panel.getTileArray()[row][column].getBackgroundImage(),
+                        panel.getTileArray()[row][column].getImage(),
                         ValueConversion.getDiagonalSizeFromSquareLength(panel.getTileSize())
                 );
                 

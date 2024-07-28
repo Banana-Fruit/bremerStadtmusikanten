@@ -13,10 +13,7 @@ import model.player.Inventory;
 import model.player.Player;
 import model.userInterface.showables.Map;
 import model.userInterface.Game;
-import resources.constants.Constants_DefaultValues;
-import resources.constants.Constants_ExceptionMessages;
-import resources.constants.Constants_Game;
-import resources.constants.Constants_Keymapping;
+import resources.constants.*;
 import resources.constants.scenes.Constants_Map;
 import view.OutputImageView;
 
@@ -39,7 +36,7 @@ public class PlayerController implements Runnable
     
     private PlayerController ()
     {
-        this.playerView = new OutputImageView(new Image(Constants_Map.PLAYER_VIEW_STANDARD), Constants_Map.PLAYER_SIZE);
+        this.playerView = new OutputImageView(new Image(Constants_Resources.PLAYER_VIEW_STANDARD), Constants_Map.PLAYER_SIZE);
         this.currentPlayerPosition = new Coordinate(0, 0); // Initial position
         this.newPlayerPosition = new Coordinate(0, 0); // Initial position
     }

@@ -10,6 +10,7 @@ import model.player.Player;
 import model.userInterface.showables.*;
 import model.userInterface.Game;
 import resources.constants.Constants_ExceptionMessages;
+import resources.constants.Constants_Resources;
 import resources.constants.scenes.Constants_MainMenu;
 import resources.constants.scenes.Constants_Map;
 
@@ -74,6 +75,7 @@ public class GameController
         DisplayController.initialize();
         UnitController.initialize();
         MultiplayerController.initialize();
+        CombatController.initialize();
         
         // Initialise base models
         Combat.initialize(new Scene(SceneController.getInstance().getBasePane()));
@@ -99,7 +101,7 @@ public class GameController
     {
         SceneController.getInstance().switchShowable(Map.getInstance()); // Switch to map
         Map.getInstance().setCurrentMapName(Constants_Map.MAP_NAME_CITY);
-        MapController.getInstance().setNewMap(Constants_Map.MAP_NAME_CITY); // Set starting map
+        MapController.getInstance().setNewMap(Constants_Map.MAP_NAME_CITY, Constants_Resources.BIOME_NAME_GRASSLANDS); // Set starting map
         Player.initialize();
         
         BuildingController.getInstance().addButtons();

@@ -5,6 +5,7 @@ import control.BuildingController;
 import control.game.PlayerController;
 import control.game.UnitController;
 import javafx.application.Platform;
+import javafx.scene.control.TableColumn;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import model.Coordinate;
@@ -60,10 +61,16 @@ public class MapController
      * @param loaderFileName Name of the LoaderFile that will determine the map.
      * @author Michael Markov
      */
-    public void setNewMap (String loaderFileName)
+    public void setNewMap (String loaderFileName, String biomeName)
     {
+        String pathToLoaderFile = Constants_Resources.PATH_TO_LOADER_FILES_MAP + loaderFileName;
+        String pathToTileResources = Constants_Resources.PATH_TO_MAP + biomeName;
+        String pathToTileData = pathToTileResources + Constants_Resources.TILE_DATA_NAME;
+        
         // Change panel
-        Map.getInstance().setPanel(PanelController.getInstance().getAndShowPanelUsingIntegers(Map.getInstance().getPane(), Constants_Resources.MAP_LOADER_FILES_FOLDER, loaderFileName, Constants_Map.TILE_SIZE, Constants_Map.MAX_ROWS, Constants_Map.MAX_COLUMNS));
+        Map.getInstance().setPanel(
+                PanelController.getInstance().getAndShowPanel(Map.getInstance().getPane(), pathToLoaderFile,
+                        pathToTileResources, pathToTileData, Constants_Map.TILE_SIZE, Constants_Map.MAX_ROWS, Constants_Map.MAX_COLUMNS));
     }
 
 
@@ -115,7 +122,7 @@ public class MapController
             PlayerController playerController = PlayerController.getInstance();
             Map.getInstance().getPane().getChildren().remove(playerController.getPlayerView());
             SceneController.getInstance().switchShowable(Map.getInstance());
-            setNewMap(newMap);
+            setNewMap(newMap, Constants_Resources.BIOME_NAME_GRASSLANDS);
             Map.getInstance().getPane().getChildren().add(playerController.getPlayerView());
             playerController.setPlayerPosition(new Coordinate(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), tileX, tileY)));
         });
@@ -158,7 +165,7 @@ public class MapController
     private void startCombat (Coordinate coordinate)
     {
         UnitController.getInstance().removeUnit(coordinate);
-        CombatController.startCombat(Constants_Resources.COMBAT_NAME);
+        CombatController.getInstance().startCombat(Constants_Resources.LOADER_FILE_NAME_COMBAT, Constants_Resources.BIOME_NAME_GRASSLANDS);
     }
 
 
@@ -236,7 +243,7 @@ public class MapController
             @Override
             public void run ()
             {
-                CombatController.startCombat(Constants_Resources.COMBAT_NAME);
+                CombatController.getInstance().startCombat(Constants_Resources.LOADER_FILE_NAME_COMBAT, Constants_Resources.BIOME_NAME_GRASSLANDS);
             }
         }, Constants_Popup.NO, Constants_Popup.YES,
                 Constants_Popup.TEXT_TO_BUTTONS_SPACING,

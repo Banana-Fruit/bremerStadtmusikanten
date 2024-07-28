@@ -12,13 +12,13 @@ import resources.constants.Constants_Panel;
  */
 public class Tile
 {
-    private final Image backgroundImage;
+    private final Image image;
     private boolean isOccupied = Constants_Panel.DEFAULT_isOCCUPIED;
     
     
-    public Tile (Image backgroundImage)
+    public Tile (Image image)
     {
-        this.backgroundImage = backgroundImage;
+        this.image = image;
     }
     
     
@@ -28,9 +28,9 @@ public class Tile
     }
     
     
-    public Image getBackgroundImage ()
+    public Image getImage ()
     {
-        return backgroundImage;
+        return image;
     }
     
     

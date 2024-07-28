@@ -31,7 +31,7 @@ public class Combat extends Showable
     
     private void init ()
     {
-        setBackground(Constants_Resources.COMBAT_BACKGROUND_PATH);
+        setBackground(Constants_Resources.GRASSLANDS_COMBAT_BACKGROUND_PATH);
     }
     
     

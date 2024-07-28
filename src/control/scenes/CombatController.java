@@ -2,8 +2,11 @@ package control.scenes;
 
 
 import model.userInterface.showables.Combat;
+import model.userInterface.showables.Map;
 import resources.constants.Constants_Combat;
+import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Resources;
+import resources.constants.scenes.Constants_Map;
 
 
 /**
@@ -11,15 +14,45 @@ import resources.constants.Constants_Resources;
  */
 public class CombatController
 {
+    private static volatile CombatController instance = null;
+    
+    
+    private CombatController ()
+    {
+    }
+    
+    
+    public static synchronized void initialize ()
+    {
+        if (instance == null)
+        {
+            instance = new CombatController();
+        } else
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
+        }
+    }
+    
+    
+    public static CombatController getInstance ()
+    {
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+        }
+        return instance;
+    }
+    
+    
     /**
      * Method switches to combat scene by loading a new arena.
      *
      * @param loaderFileName Name of the LoaderFile that will determine the arena.
      * @author Michael Markov
      */
-    public static void startCombat (String loaderFileName)
+    public void startCombat (String loaderFileName, String biomeName)
     {
-        setNewArena(loaderFileName); // Changes arena
+        setNewArena(loaderFileName, biomeName); // Changes arena
         SceneController.getInstance().switchShowable(Combat.getInstance().getShowable()); // Switches scene to arena
     }
     
@@ -28,17 +61,22 @@ public class CombatController
      * Sets a new arena for the map with the loader file name. Uses the folder resources/assets/combat/loaderFiles/
      *
      * @param loaderFileName Name of the LoaderFile that will determine the arena.
+     * @param biomeName      Name of the biome.
      * @author Michael Markov
      */
-    private static void setNewArena (String loaderFileName)
+    public void setNewArena (String loaderFileName, String biomeName)
     {
-        // Arena consists of panel and buttons
+        String pathToLoaderFile = Constants_Resources.PATH_TO_LOADER_FILES_COMBAT + loaderFileName;
+        String pathToTileResources = Constants_Resources.PATH_TO_COMBAT + biomeName;
+        String pathToTileData = pathToTileResources + Constants_Resources.TILE_DATA_NAME;
+        
+        // Change panel
         Combat.getInstance().setPanel(
-                PanelController.getInstance().getAndShowPanelUsingChars(Combat.getInstance().getPane(),
-                        Constants_Resources.СOMBAT_LOADER_FILES_FOLDER, loaderFileName, Constants_Combat.TILE_SIZE,
-                        Constants_Combat.MAX_ROWS, Constants_Combat.MAX_COLUMNS
-                )
-        );
+                PanelController.getInstance().getAndShowPanel(Combat.getInstance().getPane(), pathToLoaderFile,
+                        pathToTileResources, pathToTileData, Constants_Combat.TILE_SIZE, Constants_Combat.MAX_ROWS,
+                        Constants_Combat.MAX_COLUMNS));
+        
+        // Add buttons
         Combat.getInstance().addTileButtons();
     }
 }
