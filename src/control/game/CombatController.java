@@ -282,7 +282,7 @@ public class CombatController
 	/*public static void TestCombat()
 	{
 		UnitController UC = UnitController.getInstance();
-		CombatController CC = CombatController.getInstance();
+		ArenaController CC = ArenaController.getInstance();
 		CC.Combat(UC.unitCreator());
 	}*/
 }

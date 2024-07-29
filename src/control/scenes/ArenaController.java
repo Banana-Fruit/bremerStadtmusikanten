@@ -10,12 +10,12 @@ import resources.constants.Constants_Resources;
 /**
  * The combat controller is responsible for handling the combat arena.
  */
-public class CombatController
+public class ArenaController
 {
-    private static volatile CombatController instance = null;
+    private static volatile ArenaController instance = null;
     
     
-    private CombatController ()
+    private ArenaController ()
     {
     }
     
@@ -24,7 +24,7 @@ public class CombatController
     {
         if (instance == null)
         {
-            instance = new CombatController();
+            instance = new ArenaController();
         } else
         {
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
@@ -32,7 +32,7 @@ public class CombatController
     }
     
     
-    public static CombatController getInstance ()
+    public static ArenaController getInstance ()
     {
         if (instance == null)
         {

@@ -164,7 +164,7 @@ public class MapController
     private void startCombat (Coordinate coordinate)
     {
         UnitController.getInstance().removeUnit(coordinate);
-        CombatController.getInstance().startCombat(Constants_Resources.LOADER_FILE_NAME_COMBAT, Constants_Resources.BIOME_NAME_GRASSLANDS);
+        ArenaController.getInstance().startCombat(Constants_Resources.LOADER_FILE_NAME_COMBAT, Constants_Resources.BIOME_NAME_GRASSLANDS);
     }
 
 
@@ -242,7 +242,7 @@ public class MapController
             @Override
             public void run ()
             {
-                CombatController.getInstance().startCombat(Constants_Resources.LOADER_FILE_NAME_COMBAT, Constants_Resources.BIOME_NAME_GRASSLANDS);
+                ArenaController.getInstance().startCombat(Constants_Resources.LOADER_FILE_NAME_COMBAT, Constants_Resources.BIOME_NAME_GRASSLANDS);
             }
         }, Constants_Popup.NO, Constants_Popup.YES,
                 Constants_Popup.TEXT_TO_BUTTONS_SPACING,
