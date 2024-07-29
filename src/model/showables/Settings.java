@@ -11,7 +11,7 @@ import resources.constants.Constants_ExceptionMessages;
 import resources.constants.scenes.Constants_Settings;
 
 
-public class Settings extends Showable
+public class Settings extends model.showables.Showable
 {
     private static volatile Settings instance;
     
