@@ -13,7 +13,7 @@ import resources.constants.scenes.Constants_Settings;
 import resources.constants.scenes.Constants_Showable;
 
 
-public class Settings extends model.showables.Showable
+public class Settings extends Showable
 {
     private static volatile Settings instance;
     
