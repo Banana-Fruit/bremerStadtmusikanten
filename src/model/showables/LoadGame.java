@@ -5,7 +5,7 @@ import control.scenes.SceneController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
-import model.userInterface.TransparentButton;
+import utility.TransparentButton;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.scenes.Constants_LoadGame;
 import resources.constants.scenes.Constants_MainMenu;

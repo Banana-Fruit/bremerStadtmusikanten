@@ -3,8 +3,8 @@ package control;
 
 import control.scenes.SceneController;
 import javafx.scene.control.TextInputDialog;
-import model.userInterface.Game;
-import model.userInterface.showables.Combat;
+import model.Game;
+import model.showables.Combat;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Multiplayer;
 import resources.constants.Constants_Popup;

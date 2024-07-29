@@ -6,11 +6,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import model.userInterface.TransparentButton;
+import utility.TransparentButton;
 import resources.constants.Constants_ExceptionMessages;
-import resources.constants.Constants_Popup;
 import resources.constants.scenes.Constants_Settings;
-import resources.constants.scenes.Constants_Showable;
 
 
 public class Settings extends Showable

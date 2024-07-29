@@ -2,7 +2,7 @@ package utility;
 
 
 import javafx.scene.image.Image;
-import model.panel.Tile;
+import utility.panel.Tile;
 import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_Panel;
 import resources.constants.Constants_Resources;

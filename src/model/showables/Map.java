@@ -2,7 +2,7 @@ package model.userInterface.showables;
 
 
 import javafx.scene.Scene;
-import model.panel.Panel;
+import utility.panel.Panel;
 import resources.constants.Constants_ExceptionMessages;
 
 
