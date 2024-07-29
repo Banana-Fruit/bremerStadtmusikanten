@@ -5,7 +5,6 @@ import control.BuildingController;
 import control.game.PlayerController;
 import control.game.UnitController;
 import javafx.application.Platform;
-import javafx.scene.control.TableColumn;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import model.Coordinate;

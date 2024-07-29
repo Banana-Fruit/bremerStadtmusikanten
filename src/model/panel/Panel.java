@@ -78,15 +78,27 @@ public class Panel
     }
     
     
-    public int getMaxRows ()
+    public int getMaxArrayRows ()
     {
         return maxRows - Constants_DefaultValues.LENGTH_TO_SIZE_SUBTRACTOR;
     }
     
     
-    public int getMaxColumns ()
+    public int getMaxArrayColumns ()
     {
         return maxColumns - Constants_DefaultValues.LENGTH_TO_SIZE_SUBTRACTOR;
+    }
+    
+    
+    public int getMaxColumns ()
+    {
+        return maxColumns;
+    }
+    
+    
+    public int getMaxRows ()
+    {
+        return maxRows;
     }
     
     

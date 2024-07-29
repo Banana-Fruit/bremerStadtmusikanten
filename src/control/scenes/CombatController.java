@@ -2,11 +2,9 @@ package control.scenes;
 
 
 import model.userInterface.showables.Combat;
-import model.userInterface.showables.Map;
 import resources.constants.Constants_Combat;
 import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Resources;
-import resources.constants.scenes.Constants_Map;
 
 
 /**

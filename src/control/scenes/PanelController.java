@@ -127,7 +127,7 @@ public class PanelController
     {
         // Get the minimum and maximum coordinates of the panel
         Coordinate minimumCoordinate = getCoordinateFromPanelTile(panel, Constants_Panel.MIN_TILE_INDEX, Constants_Panel.MIN_TILE_INDEX);
-        Coordinate maximumCoordinate = getCoordinateFromPanelTile(panel, panel.getMaxRows(), panel.getMaxColumns());
+        Coordinate maximumCoordinate = getCoordinateFromPanelTile(panel, panel.getMaxArrayRows(), panel.getMaxArrayColumns());
         
         // Checks whether indices out of bounds
         if (coordinate.getPositionX() < minimumCoordinate.getPositionX() ||
@@ -271,10 +271,10 @@ public class PanelController
     {
         // The null position is retrieved by dividing the screen size by two and subtracting the panel size multiplied by the tile size
         double x = ((Screen.getPrimary().getBounds().getWidth() / Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -
-                ((double) panel.getMaxColumns() * panel.getTileSize() /
+                ((double) panel.getMaxArrayColumns() * panel.getTileSize() /
                         Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF));
         double y = ((Screen.getPrimary().getBounds().getHeight() / Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -
-                ((double) panel.getMaxRows() * panel.getTileSize() /
+                ((double) panel.getMaxArrayRows() * panel.getTileSize() /
                         Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF));
         
         return new Coordinate(x, y);
