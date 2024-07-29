@@ -19,7 +19,7 @@ import model.Coordinate;
 import model.Unit;
 import model.buildings.*;
 import model.player.*;
-import utility.TransparentButton;
+import model.userInterface.TransparentButton;
 import model.userInterface.showables.Map;
 import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_ExceptionMessages;
