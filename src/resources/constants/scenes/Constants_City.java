@@ -22,6 +22,8 @@ public interface Constants_City
     int GRIDPANE_ROW_THIRTEEN = 13;
     int GRIDPANE_ROW_SEVENTEEN = 17;
     int FONT_NAME_BUILDING = 20;
+    int ROW_INDEX= 25;
+    int COLUMN_INDEX = 25;
 
 
     String INFO_SHIELD = "Shield: ";

@@ -53,7 +53,7 @@ public class SceneController
 
 
     /**
-     * Method to build a default scene for the inside of a building. Click on the respective buildig to open
+     * Method to build a default scene for the inside of a building. Click on the respective building to open
      * the corresponding scene.
      *
      * @author Jule Degener
@@ -81,8 +81,16 @@ public class SceneController
         SceneController.instance.stage.setFullScreen(true);
         SceneController.instance.stage.show();
     }
-    
-    
+
+
+    /**
+     * Method to assign an event to the button. The event is to close the scene inside from a building.
+     *
+     * @author Jule Degener
+     * @param button Button to be assigned to the event.
+     * @precondition An instance of SceneController and MapController must exist.
+     * @postcondition Scene inside from a building can be closed.
+     */
     private static void closeBuildingInside (Button button)
     {
         button.setOnAction(new EventHandler<ActionEvent>()
@@ -94,8 +102,17 @@ public class SceneController
             }
         });
     }
-    
-    
+
+
+    /**
+     * Method to choose the right scene inside from a building to the clicked building.
+     *
+     * @author Jule Degener
+     * @param building Building that is to be displayed.
+     * @param gridpane GridPane on which the elements of the scene is built.
+     * @precondition none
+     * @postcondition The scene inside from the clicked building is shown.
+     */
     private static void chooseTheRightBuildingInside (Building building, GridPane gridpane)
     {
         if (building == BaseCamp.getInstanceOfBasecamp())
@@ -157,7 +174,8 @@ public class SceneController
      */
     public void switchShowable (Showable showable)
     {
-        this.previousShowable = Game.getInstance().getCurrentShowable(); // Tracks previous showable in case there is a back button
+        // Tracks previous showable in case there is a back button
+        this.previousShowable = Game.getInstance().getCurrentShowable();
         Game.getInstance().setCurrentShowable(showable); // Switches showable
         
         // Makes sure scene properties are aligned among all scenes
@@ -174,7 +192,8 @@ public class SceneController
      */
     public void switchBackShowable ()
     {
-        Showable previousShowable = Game.getInstance().getCurrentShowable(); // Tracks previous showable in case there is a back button
+        // Tracks previous showable in case there is a back button
+        Showable previousShowable = Game.getInstance().getCurrentShowable();
         Game.getInstance().setCurrentShowable(this.previousShowable); // Switches showable
         
         // Makes sure scene properties are aligned among all scenes
@@ -189,8 +208,15 @@ public class SceneController
         return dialogShown;
     }
 
-    
-    // Method to retrieve the Singleton instance without parameters
+
+    /**
+     * Getter-method to get the instance of the SceneController
+     *
+     * @author Michael Markov, Jule Degener
+     * @return Instance of the SceneController
+     * @precondition none
+     * @postcondition One instance of SceneController exist in the program.
+     */
     public static SceneController getInstance ()
     {
         if (instance == null)

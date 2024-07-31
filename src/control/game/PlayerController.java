@@ -277,7 +277,7 @@ public class PlayerController implements Runnable
      * @precondition An instance of player must exist.
      * @postcondition One instance of a unit was added to the team.
      */
-    public static void addUnitToTheTeam (Unit unit)
+    public void addUnitToTheTeam (Unit unit)
     {
         ArrayList<Unit> team = Player.getInstance().getTeamMembers();
         int i;

@@ -115,8 +115,16 @@ public class KeyboardController implements Runnable
         }
         if (!playerRelatedKeys.isEmpty()) PlayerController.getInstance().handleKeyPresses(playerRelatedKeys);
     }
-    
-    
+
+
+    /**
+     * Getter-method to get the instance of the KeyboardController
+     *
+     * @author Michael Markov, Jule Degener
+     * @return Instance of the KeyboardController
+     * @precondition none
+     * @postcondition One instance of KeyboardController exist in the program.
+     */
     public static KeyboardController getInstance ()
     {
         if (instance == null)
