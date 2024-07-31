@@ -20,24 +20,34 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-
 /**
- * The unit controller is responsible for the unit interactions during the combat.
+ * The UnitController class handles the creation and management of units and their positions.
+ * It is implemented as a singleton to ensure only one instance manages the unit state.
  *
- * @author Michael Markov
+ * @author Jonas Stamminger
  */
+
 public class UnitController
 {
     private static volatile UnitController instance = null;
     private final HashMap<Coordinate, Unit> unitPositions;
-    
-    
+
+
+    /**
+     * @author Jonas Stamminger
+     * Private constructor to prevent instantiation.
+     */
     private UnitController ()
     {
         unitPositions = new HashMap<>();
     }
-    
-    
+
+    /**
+     * Initializes the UnitController instance.
+     *
+     * @author Jonas Stamminger
+     * @throws IllegalStateException if the instance is already initialized.
+     */
     public static synchronized void initialize ()
     {
         if (instance == null)
@@ -49,16 +59,23 @@ public class UnitController
         }
     }
 
-
+    /**
+     * Creates units by reading unit data from a CSV file.
+     *
+     * @author Jonas Stamminger, Jonas Helfer
+     * @return A list of created units.
+     */
 
     public ArrayList<Unit> createUnit ()
     {
+        //Reading the CSV file
         ArrayList<Unit> units = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(
                 new FileReader(Constants_Player_Units.FILE_READ_UNITS)))
         {
-            
+
             String line;
+            //Creation of Units
             while ((line = br.readLine()) != null)
             {
                 String[] values = line.split(Constants_DefaultValues.SPLIT);
@@ -77,8 +94,8 @@ public class UnitController
                 int myAttack = Integer.parseInt(values[Constants_IndexPropertyUnit.INDEX_MY_ATTACK]);
                 double positionX = Integer.parseInt(values[Constants_IndexPropertyUnit.INDEX_POSITION_X]);
                 double positionY = Integer.parseInt(values[Constants_IndexPropertyUnit.INDEX_POSITION_Y]);
-                
                 OutputImageView unitView = new OutputImageView(new Image(Constants_Resources.UNIT_VIEW_STANDARD), Constants_Map.UNIT_SIZE);
+                //Collecting the unts into arraylist
                 units.add(new Unit(Name, health, shield, mana, meeleDamage, rangedDamage, ammo, dodge,
                         magicResistance, movementPoints, initiative, magicDamage, myAttack, positionX, positionY, unitView));
             }
@@ -91,23 +108,30 @@ public class UnitController
         }
         return units;
     }
-    
-    
+
+    /**
+     * Creates a list of attacks by reading attack data from a CSV file.
+     *
+     * @author Jonas Stamminger
+     * @return A list of created attacks.
+     */
     public List<Attack> AttackCreator ()
-    {//WIP
+    {//Reading CSV file
         List<Attack> attacks = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(
                 new FileReader(Constants_Combat.ATTACK_LIST)))
         {
             
             String line;
+            //Creating an attack
             while ((line = br.readLine()) != null)
             {
                 String[] values = line.split(Constants_DefaultValues.SPLIT);
                 int attackRange = Integer.valueOf(values[Constants_IndexPropertyEnemy.INDEX_ATTACK_RANGE]);
                 boolean isMagic = Boolean.valueOf(values[Constants_IndexPropertyEnemy.INDEX_IS_MAGIC]);
                 boolean isRanged = Boolean.valueOf(values[Constants_IndexPropertyEnemy.INDEX_IS_RANGED]);
-                
+
+                //Collecting them into a list
                 attacks.add(new Attack(attackRange, isMagic, isRanged));
             }
         } catch (FileNotFoundException e)
@@ -119,23 +143,31 @@ public class UnitController
         }
         return attacks;
     }
-    
-    
+
+    /**
+     * @author Jonas Helfer
+     * Adds units to the mission 1 by placing them at predefined positions.
+     */
     public void addUnitsMission1 ()
     {
         Platform.runLater(() ->
         {
             List<Unit> units = createUnit(); // Erstelle Einheiten aus der CSV-Datei
-            List<Coordinate> positions = getUnitPositionsForMission1(); // Bekomme vordefinierte oder zufällige Positionen
-            
+            List<Coordinate> positions = getUnitPositionsForMission1(); // Bekommen vordefinierte oder zufällige Positionen
+
             for (int i = 0; i < units.size() && i < positions.size(); i++)
             {
                 setUnitPosition(units.get(i), (int) positions.get(i).getPositionX(), (int) positions.get(i).getPositionY());
             }
         });
     }
-    
-    
+
+    /**
+     * Gets the predefined unit positions for mission 1.
+     *
+     * @author Jonas Helfer
+     * @return A list of coordinates for unit positions.
+     */
     private List<Coordinate> getUnitPositionsForMission1 ()
     {
         List<Coordinate> positions = new ArrayList<>();
@@ -148,8 +180,17 @@ public class UnitController
         
         return positions;
     }
-    
-    
+
+
+    /**
+     * Sets the position of a unit on the map.
+     *
+     * @author Jonas Helfer
+     * @param unit The unit to be positioned.
+     * @param tileX The x-coordinate of the tile.
+     * @param tileY The y-coordinate of the tile.
+     */
+
     private void setUnitPosition (Unit unit, int tileX, int tileY)
     {
         Coordinate coordinate = new Coordinate(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), tileX, tileY));
@@ -157,8 +198,13 @@ public class UnitController
         unit.getUnitView().setCoordinates(coordinate);
         unitPositions.put(coordinate, unit);
     }
-    
-    
+
+    /**
+     * Removes a unit from the specified coordinate on the map.
+     *
+     * @author Jonas Helfer
+     * @param coordinate The coordinate of the unit to be removed.
+     */
     public void removeUnit (Coordinate coordinate)
     {
         Platform.runLater(() ->
