@@ -11,7 +11,7 @@ import java.util.List;
 public class FractionDog
 {
     UnitController unitController = UnitController.getInstance();
-    List<model.Unit> units = unitController.unitCreator();
+    List<model.Unit> units = unitController.createUnit();
     private static FractionDog instanceOfFractionDog = new FractionDog();
     private Unit hunter = units.get(Constants_Combat.HUNTER);
     private Unit bulldog = units.get(Constants_Combat.MASTIFF);

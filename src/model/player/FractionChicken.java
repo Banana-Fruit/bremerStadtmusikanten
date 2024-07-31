@@ -11,7 +11,7 @@ import java.util.List;
 public class FractionChicken
 {
     UnitController unitController = UnitController.getInstance();
-    List<model.Unit> units = unitController.unitCreator();
+    List<model.Unit> units = unitController.createUnit();
     private static FractionChicken instanceOfFractionChicken = new FractionChicken();
     private Unit chef = units.get(Constants_Combat.CHEF);
     private Unit turkey = units.get(Constants_Combat.TURKEY);

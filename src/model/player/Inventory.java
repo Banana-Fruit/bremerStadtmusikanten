@@ -33,42 +33,15 @@ public class Inventory
     {
         ;
     }
-
-
-    /*
-    public static void showInventoryInConsole ()
-    {
-        System.out.printf(Constants_Building.RESOURCES_INVENTORY + Constants_Building.CURRENT_NUMBER_OF_RESOURCES,
-                instanceOfInventory.getInventoryGold(), instanceOfInventory.getInventoryBrick(),
-                instanceOfInventory.getInventoryWood(), instanceOfInventory.getInventoryBeer(),
-                instanceOfInventory.getInventoryEssence());
-    }
-
-
-    public static Label showInventoryInGUI ()
-    {
-        Label label = new Label(String.format(Constants_Building.RESOURCES_INVENTORY + Constants_Building.CURRENT_NUMBER_OF_RESOURCES,
-                instanceOfInventory.getInventoryGold(), instanceOfInventory.getInventoryBrick(),
-                instanceOfInventory.getInventoryWood(), instanceOfInventory.getInventoryBeer(),
-                instanceOfInventory.getInventoryEssence()));
-        label.setTextFill(Color.WHITE);
-        label.setFont(new Font(Constants_Building.FONT, Constants_Building.FONT_SIZE));
-
-        return label;
-    }
-
-     */
     
     
-    public static Inventory getReward (int gold, int brick, int wood, int beer, int essence)
+    public static void getReward (int gold, int brick, int wood, int beer, int essence)
     {
         instanceOfInventory.setInventoryGold(instanceOfInventory.getInventoryGold() + gold);
         instanceOfInventory.setInventoryBrick(instanceOfInventory.getInventoryBeer() + brick);
         instanceOfInventory.setInventoryWood(instanceOfInventory.getInventoryBeer() + wood);
         instanceOfInventory.setInventoryBeer(instanceOfInventory.getInventoryBeer() + beer);
         instanceOfInventory.setInventoryEssence(instanceOfInventory.getInventoryEssence() + essence);
-        
-        return instanceOfInventory;
     }
     
     

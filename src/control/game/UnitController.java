@@ -50,7 +50,7 @@ public class UnitController
     }
     
     
-    public ArrayList<Unit> unitCreator ()
+    public ArrayList<Unit> createUnit ()
     {
         ArrayList<Unit> units = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(
@@ -134,7 +134,7 @@ public class UnitController
     {
         Platform.runLater(() ->
         {
-            List<Unit> units = unitCreator(); // Erstelle Einheiten aus der CSV-Datei
+            List<Unit> units = createUnit(); // Erstelle Einheiten aus der CSV-Datei
             List<Coordinate> positions = getUnitPositionsForMission1(); // Bekomme vordefinierte oder zufällige Positionen
             
             for (int i = 0; i < units.size() && i < positions.size(); i++)

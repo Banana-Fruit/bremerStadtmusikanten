@@ -11,7 +11,7 @@ import java.util.List;
 public class FractionDonkey
 {
     UnitController unitController = UnitController.getInstance();
-    List<model.Unit> units = unitController.unitCreator();
+    List<model.Unit> units = unitController.createUnit();
     private static FractionDonkey instanceOfFractiondonkey = new FractionDonkey();
     private Unit rats = units.get(Constants_Combat.RAT);
     private Unit beetle = units.get(Constants_Combat.BEETLE);

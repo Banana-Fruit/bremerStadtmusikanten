@@ -14,6 +14,7 @@ import model.player.Player;
 import model.userInterface.showables.Map;
 import model.userInterface.Game;
 import resources.constants.*;
+import resources.constants.scenes.Constants_Building;
 import resources.constants.scenes.Constants_Map;
 import view.OutputImageView;
 
@@ -259,8 +260,25 @@ public class PlayerController implements Runnable
     public static void addUnitToTheTeam (Unit unit)
     {
         ArrayList<Unit> team = Player.getInstance().getTeamMembers();
-        team.add(unit);
+        int i;
+        for (i = Constants_Player_Units.ZERO; i < team.size(); i++)
+        {
+            if (team.get(i) == null)
+            {
+                team.add(unit);
+            } else
+            {
+                if (!(team.get(Constants_Player_Units.LAST_INDEX_NUMBER_OF_TEAM) == null))
+                {
+                    System.out.println(Constants_Building.TEAM_FULL);
+                } else
+                {
+                    i++;
+                }
+            }
+        }
     }
+
     
     
     /**

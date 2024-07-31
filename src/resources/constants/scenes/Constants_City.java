@@ -12,6 +12,7 @@ public interface Constants_City
     int GRIDPANE_COLUMN_THREE = 3;
     int GRIDPANE_COLUMN_FOUR = 4;
     int GRIDPANE_COLUMN_FIVE = 5;
+    int GRIDPANE_COLUMN_SIX = 6;
     int GRIDPANE_ROW_ONE = 1;
     int GRIDPANE_ROW_TWO = 2;
     int GRIDPANE_ROW_THREE = 3;
@@ -21,8 +22,6 @@ public interface Constants_City
     int GRIDPANE_ROW_THIRTEEN = 13;
     int GRIDPANE_ROW_SEVENTEEN = 17;
     int FONT_NAME_BUILDING = 20;
-    int HEADQUARTER_SYMBOL_POSITION_X = 330;
-    int HEADQUARTER_SYMBOL_POSITION_Y = 530;
 
 
     String INFO_SHIELD = "Shield: ";
@@ -53,6 +52,8 @@ public interface Constants_City
     String TRAINING_AREA_BUTTON_CAT_DEFENSE = "Fraction Cat Defense";
     String TRAINING_AREA_BUTTON_CHICKEN_ATTACK = "Fraction Chicken Attack";
     String TRAINING_AREA_BUTTON_CHICKEN_DEFENSE = "Fraction Chicken Defense";
+    String TRAINING_AREA_BUTTON_DONKEY_ATTACK = "Fraction Donkey Attack";
+    String TRAINING_AREA_BUTTON_DONKEY_DEFENSE = "Fraction Donkey Defense";
     String PUB_BUTTON = "recruit a mercenary";
     String PUB_LABEL = "To recruit a mercenary spend one beer.";
     String FRACTION_DOG_BUTTON_GOLDEN_RETRIEVER = "recruit golden Retriever";
@@ -70,6 +71,13 @@ public interface Constants_City
     String FRACTION_CHICKEN_BUTTON_CHEF = "recruit chef";
     String FRACTION_CHICKEN_BUTTON_TURKEY = "recruit turkey";
     String FRACTION_CHICKEN_BUTTON_CHICKEN_WITH_HAT = "recruit chicken with hat";
+    String FORGE_HOT_MILK_WITH_HONEY = "Hot Milk with Honey";
+    String FORGE_CHICKEN_SOUP = "Chicken Soup";
+    String FORGE_POWDER_KEG = "PowderKeg";
+    String FORGE_POCKED_KNIFE = "PocketKnife";
+    String FORGE_ARTIFACT_1_UPDATE = "update first artifact";
+    String FORGE_ARTIFACT_2_UPDATE = "update second artifact";
+    String FORGE_DELETE_ARTIFACTS = "Delete Choice of Artifacts to pick new ones.";
     String CITY_LABEL_BASECAMP = "BC";
     String CITY_LABEL_FORGE = "FO";
     String CITY_LABEL_FRACTION_CAMP_DOG = "F1";
@@ -80,6 +88,4 @@ public interface Constants_City
     String CITY_LABEL_MARKETPLACE = "MP";
     String CITY_LABEL_PUB = "PU";
     String CITY_LABEL_TRAININGS_AREA = "TA";
-    String HEADQUARTER_SYMBOL_MISSION1 = "<- This way to mission one";
-    String HEADQUARTER_SYMBOL_BUTTON_BACKGROUND = "-fx-background-color:transparent";
 }

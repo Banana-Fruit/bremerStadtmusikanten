@@ -17,7 +17,7 @@ import java.util.List;
 public class Player
 {
     private static Player instance = null;
-    private ArrayList<Artifact> listOfArtifacts; // TODO: Holds artefacts
+    private ArrayList<Artifact> listOfArtifacts;
     private ArrayList<Unit> teamMember = new ArrayList<>();
     private int magicSkill = Constants_Player_Units.MAGIC_SKILL_OF_PLAYER;
     

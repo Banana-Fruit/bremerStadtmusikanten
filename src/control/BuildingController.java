@@ -23,6 +23,7 @@ import model.userInterface.TransparentButton;
 import model.userInterface.showables.Map;
 import resources.constants.Constants_DefaultValues;
 import resources.constants.Constants_ExceptionMessages;
+import resources.constants.Constants_Player_Units;
 import resources.constants.scenes.Constants_Building;
 import resources.constants.scenes.Constants_City;
 import resources.constants.scenes.Constants_Map;
@@ -337,7 +338,7 @@ public class BuildingController
         });
     }
     
-    //---------------------------------GUI Forge ----------------------------------------
+    //---------------------------------GUI MagicAmplifier ----------------------------------------
     
     
     public static void getInsideMagicAmplifier (GridPane gridpane)
@@ -357,7 +358,7 @@ public class BuildingController
             @Override
             public void handle (ActionEvent actionEvent)
             {
-                MagicAmplifier.pushMagicSkillOfPlayer();
+                MagicAmplifier.getInstanceOfMagicamplifier().pushMagicSkillOfPlayer();
             }
         });
     }
@@ -415,6 +416,8 @@ public class BuildingController
     
     public static void getInsideTrainingsArea (GridPane gridPane)
     {
+        Button DonkeyAttackTraining = new Button(Constants_City.TRAINING_AREA_BUTTON_DONKEY_ATTACK);
+        Button DonkeyDefenseTraining = new Button(Constants_City.TRAINING_AREA_BUTTON_DONKEY_DEFENSE);
         Button DogsAttackTraining = new Button(Constants_City.TRAINING_AREA_BUTTON_DOG_ATTACK);
         Button DogsDefenseTraining = new Button(Constants_City.TRAINING_AREA_BUTTON_DOG_DEFENSE);
         Button CatsAttackTraining = new Button(Constants_City.TRAINING_AREA_BUTTON_CAT_ATTACK);
@@ -428,6 +431,8 @@ public class BuildingController
         gridPane.add(CatsDefenseTraining, Constants_City.GRIDPANE_ROW_TWO, Constants_City.GRIDPANE_COLUMN_FOUR);
         gridPane.add(ChickenAttackTraining, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_FIVE);
         gridPane.add(ChickenDefenseTraining, Constants_City.GRIDPANE_ROW_TWO, Constants_City.GRIDPANE_COLUMN_FIVE);
+        gridPane.add(DonkeyAttackTraining, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_SIX);
+        gridPane.add(DonkeyDefenseTraining, Constants_City.GRIDPANE_ROW_TWO, Constants_City.GRIDPANE_COLUMN_SIX);
         
         trainDogAttack(DogsAttackTraining);
         trainDogDefense(DogsDefenseTraining);
@@ -435,6 +440,8 @@ public class BuildingController
         trainCatDefense(CatsDefenseTraining);
         trainChickenAttack(ChickenAttackTraining);
         trainChickenDefense(ChickenDefenseTraining);
+        trainDonkeyAttack(DonkeyAttackTraining);
+        trainDonkeyDefense(DonkeyDefenseTraining);
     }
     
     
@@ -445,7 +452,7 @@ public class BuildingController
             @Override
             public void handle (ActionEvent actionEvent)
             {
-                TrainingArea.trainFractionDogAttack();
+                TrainingArea.getInstanceOfTrainingarea().trainFractionDogAttack();
             }
         });
     }
@@ -458,7 +465,7 @@ public class BuildingController
             @Override
             public void handle (ActionEvent actionEvent)
             {
-                TrainingArea.trainFractionDogDefense();
+                TrainingArea.getInstanceOfTrainingarea().trainFractionDogDefense();
             }
         });
     }
@@ -471,7 +478,7 @@ public class BuildingController
             @Override
             public void handle (ActionEvent actionEvent)
             {
-                TrainingArea.trainFractionCatAttack();
+                TrainingArea.getInstanceOfTrainingarea().trainFractionCatAttack();
             }
         });
     }
@@ -484,7 +491,7 @@ public class BuildingController
             @Override
             public void handle (ActionEvent actionEvent)
             {
-                TrainingArea.trainFractionCatDefense();
+                TrainingArea.getInstanceOfTrainingarea().trainFractionCatDefense();
             }
         });
     }
@@ -497,7 +504,7 @@ public class BuildingController
             @Override
             public void handle (ActionEvent actionEvent)
             {
-                TrainingArea.trainFractionChickenAttack();
+                TrainingArea.getInstanceOfTrainingarea().trainFractionChickenAttack();
             }
         });
     }
@@ -510,7 +517,33 @@ public class BuildingController
             @Override
             public void handle (ActionEvent actionEvent)
             {
-                TrainingArea.trainFractionChickenDefense();
+                TrainingArea.getInstanceOfTrainingarea().trainFractionChickenDefense();
+            }
+        });
+    }
+
+
+    private static void trainDonkeyAttack (Button button)
+    {
+        button.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle (ActionEvent actionEvent)
+            {
+                TrainingArea.getInstanceOfTrainingarea().trainFractionDonkeyAttack();
+            }
+        });
+    }
+
+
+    private static void trainDonkeyDefense (Button button)
+    {
+        button.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle (ActionEvent actionEvent)
+            {
+                TrainingArea.getInstanceOfTrainingarea().trainFractionDonkeyDefense();
             }
         });
     }
@@ -538,10 +571,66 @@ public class BuildingController
             @Override
             public void handle (ActionEvent actionEvent)
             {
-                Pub.recruitAMercenary();
+                Pub.getInstanceOfPub().recruitAMercenary();
             }
         });
     }
+
+
+    //-----------------------------GUI Forge---------------------------------
+
+    public static void getInsideForge (GridPane gridPane)
+    {
+        Button chooseHotMilkWithHoney = new Button(Constants_City.FORGE_HOT_MILK_WITH_HONEY);
+        Button chooseChickenSoup = new Button(Constants_City.FORGE_CHICKEN_SOUP);
+        Button choosePowderKeg = new Button(Constants_City.FORGE_POWDER_KEG);
+        Button choosePocketKnife = new Button(Constants_City.FORGE_POCKED_KNIFE);
+        Button updateFirstArtifact = new Button(Constants_City.FORGE_ARTIFACT_1_UPDATE);
+        Button updateSecondArtifact = new Button(Constants_City.FORGE_ARTIFACT_2_UPDATE);
+        Button deleteArtifacts = new Button(Constants_City.FORGE_DELETE_ARTIFACTS);
+
+        gridPane.add(chooseHotMilkWithHoney, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_ONE);
+        gridPane.add(chooseChickenSoup, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridPane.add(choosePowderKeg, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridPane.add(choosePocketKnife, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_FOUR);
+        gridPane.add(updateFirstArtifact, Constants_City.GRIDPANE_ROW_TWO, Constants_City.GRIDPANE_COLUMN_ONE);
+        gridPane.add(updateSecondArtifact, Constants_City.GRIDPANE_ROW_TWO, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridPane.add(deleteArtifacts, Constants_City.GRIDPANE_ROW_TWO, Constants_City.GRIDPANE_COLUMN_THREE);
+
+        chooseHotMilkWithHoney.setOnAction(event -> Forge.forgeHotMilkWithHoney());
+        chooseChickenSoup.setOnAction(event -> Forge.forgeChickenSoup());
+        choosePocketKnife.setOnAction(event -> Forge.forgePocketKnife());
+        choosePowderKeg.setOnAction(event -> Forge.forgePowderKeg());
+        updateFirstArtifact.setOnAction(event ->
+                {Forge.upgradeArtifact(Player.getInstance().getListOfArtifacts().getFirst());
+                    updateFirstArtifact.setDisable(true); updateSecondArtifact.setDisable(true);});
+        updateSecondArtifact.setOnAction(event ->
+                {Forge.upgradeArtifact(Player.getInstance().getListOfArtifacts()
+                        .get(Constants_Player_Units.PLAYER_SECOND_ARTIFACT_INDEX));
+                    updateFirstArtifact.setDisable(true); updateSecondArtifact.setDisable(true);});
+        deleteArtifacts.setOnAction(event -> Forge.deleteListOfArtifacts());
+    }
+
+    //-----------------------Marketplace-------------------------------------------
+
+    public static void getInsideMarketplace (GridPane gridPane)
+    {
+        Button buyBeer = new Button();
+        Button buyWood = new Button();
+        Button buyBrick = new Button();
+        Button buyEssence = new Button();
+
+        gridPane.add(buyBeer, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_ONE);
+        gridPane.add(buyWood, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_TWO);
+        gridPane.add(buyBrick, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_THREE);
+        gridPane.add(buyEssence, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_FOUR);
+
+        buyBeer.setOnAction(event -> Marketplace.getInstanceOfMarketplace().buyBeerFromGold());
+        buyWood.setOnAction(event -> Marketplace.getInstanceOfMarketplace().buyWoodFromGold());
+        buyBrick.setOnAction(event -> Marketplace.getInstanceOfMarketplace().buyBrickFromGold());
+        buyEssence.setOnAction(event -> Marketplace.getInstanceOfMarketplace().buyEssenceFromGold());
+    }
+
     
     //---------------------- GUI FractionCamps --------------------------------
     

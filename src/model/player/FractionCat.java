@@ -11,7 +11,7 @@ import java.util.List;
 public class FractionCat
 {
     UnitController unitController = UnitController.getInstance();
-    List<Unit> units = unitController.unitCreator();
+    List<Unit> units = unitController.createUnit();
     private static FractionCat instanceOfFractionCat = new FractionCat();
     private Unit housekeeper = units.get(Constants_Combat.HOUSEKEEPER);
     private Unit jaguar = units.get(Constants_Combat.JAGUAR);

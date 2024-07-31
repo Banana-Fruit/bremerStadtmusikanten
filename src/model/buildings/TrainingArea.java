@@ -33,7 +33,7 @@ public class TrainingArea extends Building
     }
     
     
-    public static void trainFractionDonkeyAttack ()
+    public void trainFractionDonkeyAttack ()
     {
         Unit rats = FractionDonkey.getInstanceOfFractiondonkey().getRats();
         Unit beetles = FractionDonkey.getInstanceOfFractiondonkey().getBeetle();
@@ -45,7 +45,7 @@ public class TrainingArea extends Building
     }
     
     
-    public static void trainFractionDonkeyDefense ()
+    public void trainFractionDonkeyDefense ()
     {
         Unit rats = FractionDonkey.getInstanceOfFractiondonkey().getRats();
         Unit beetles = FractionDonkey.getInstanceOfFractiondonkey().getBeetle();
@@ -57,7 +57,7 @@ public class TrainingArea extends Building
     }
     
     
-    public static void trainFractionDogAttack ()
+    public void trainFractionDogAttack ()
     {
         Unit goldenRetriever = FractionDog.getInstanceOfFractionDog().getGoldenRetriever();
         Unit germanShepherd = FractionDog.getInstanceOfFractionDog().getGermanShepherd();
@@ -73,7 +73,7 @@ public class TrainingArea extends Building
     }
     
     
-    public static void trainFractionDogDefense ()
+    public void trainFractionDogDefense ()
     {
         Unit goldenRetriever = FractionDog.getInstanceOfFractionDog().getGoldenRetriever();
         Unit germanShepherd = FractionDog.getInstanceOfFractionDog().getGermanShepherd();
@@ -89,7 +89,7 @@ public class TrainingArea extends Building
     }
     
     
-    public static void trainFractionCatAttack ()
+    public void trainFractionCatAttack ()
     {
         Unit cat = FractionCat.getInstanceOfFractionCat().getCat();
         Unit tiger = FractionCat.getInstanceOfFractionCat().getTiger();
@@ -105,7 +105,7 @@ public class TrainingArea extends Building
     }
     
     
-    public static void trainFractionCatDefense ()
+    public void trainFractionCatDefense ()
     {
         Unit cat = FractionCat.getInstanceOfFractionCat().getCat();
         Unit tiger = FractionCat.getInstanceOfFractionCat().getTiger();
@@ -121,7 +121,7 @@ public class TrainingArea extends Building
     }
     
     
-    public static void trainFractionChickenAttack ()
+    public void trainFractionChickenAttack ()
     {
         Unit chick = FractionChicken.getInstanceOfFractionChicken().getChick();
         Unit fightingChicken = FractionChicken.getInstanceOfFractionChicken().getFightingChicken();
@@ -137,7 +137,7 @@ public class TrainingArea extends Building
     }
     
     
-    public static void trainFractionChickenDefense ()
+    public void trainFractionChickenDefense ()
     {
         Unit chick = FractionChicken.getInstanceOfFractionChicken().getChick();
         Unit fightingChicken = FractionChicken.getInstanceOfFractionChicken().getFightingChicken();

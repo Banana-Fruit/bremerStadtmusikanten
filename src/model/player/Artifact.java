@@ -17,15 +17,6 @@ public class Artifact
         this.bonusRangeCombat = bonusRangeCombat;
     }
 
-
-
-    /*
-    public Artifact upgradeArtifact (Artifact artifact)
-    {
-
-    }
-
-     */
     
     
     // getter methods

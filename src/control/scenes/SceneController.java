@@ -119,6 +119,12 @@ public class SceneController
         } else if (building == FractionCampChicken.getInstanceOfFractionChickenCamp())
         {
             BuildingController.getInsideFractionCampChicken(gridpane);
+        } else if (building == Forge.getInstanceOfForge())
+        {
+            BuildingController.getInsideForge(gridpane);
+        } else if (building == Marketplace.getInstanceOfMarketplace())
+        {
+            BuildingController.getInsideMarketplace(gridpane);
         }
     }
     
