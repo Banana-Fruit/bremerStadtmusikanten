@@ -82,20 +82,26 @@ public class MapController
      */
     public void checkMissionStart ()
     {
-        Coordinate current = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance().getPanel(), PlayerController.getInstance().getCurrentPlayerPosition());
+        Coordinate current = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance().getPanel(),
+                PlayerController.getInstance().getCurrentPlayerPosition());
         
         
         // Uebergang zu Mission 1
-        if (current.getPositionX() == Constants_Map.PLAYER_AT_LEFT_BORDER && Map.getInstance().getCurrentMapName().equals(Constants_Map.MAP_NAME_CITY))
+        if (current.getPositionX() == Constants_Map.PLAYER_AT_LEFT_BORDER && Map.getInstance().getCurrentMapName()
+                .equals(Constants_Map.MAP_NAME_CITY))
         {
-            switchToMission(Constants_Map.MAP_NAME_MISSION_1, Constants_Map.PLAYER_SPAWN_MISSION_1_POSITION_X, Constants_Map.PLAYER_SPAWN_MISSION_1_POSITION_Y);
+            switchToMission(Constants_Map.MAP_NAME_MISSION_1, Constants_Map.PLAYER_SPAWN_MISSION_1_POSITION_X,
+                    Constants_Map.PLAYER_SPAWN_MISSION_1_POSITION_Y);
             UnitController.getInstance().addUnitsMission1();
             addRewardsMission1();
         }
         // Return to City from Mission 1
-        else if (current.getPositionX() > Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_X && current.getPositionY() < Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_Y && Map.getInstance().getCurrentMapName().equals(Constants_Map.MAP_NAME_MISSION_1))
+        else if (current.getPositionX() > Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_X && current.getPositionY()
+                < Constants_Map.PLAYER_FINISH_MISSION_1_POSITION_Y && Map.getInstance().getCurrentMapName()
+                .equals(Constants_Map.MAP_NAME_MISSION_1))
         {
-            switchToMission(Constants_Map.MAP_NAME_CITY, Constants_Map.PLAYER_SPAWN_CITY_POSITION_X, Constants_Map.PLAYER_SPAWN_CITY_POSITION_Y);
+            switchToMission(Constants_Map.MAP_NAME_CITY, Constants_Map.PLAYER_SPAWN_CITY_POSITION_X,
+                    Constants_Map.PLAYER_SPAWN_CITY_POSITION_Y);
             Platform.runLater(() -> BuildingController.getInstance().addButtons());
         }
     }
@@ -123,7 +129,8 @@ public class MapController
             SceneController.getInstance().switchShowable(Map.getInstance());
             setNewMap(newMap, Constants_Resources.BIOME_NAME_GRASSLANDS);
             Map.getInstance().getPane().getChildren().add(playerController.getPlayerView());
-            playerController.setPlayerPosition(new Coordinate(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), tileX, tileY)));
+            playerController.setPlayerPosition(new Coordinate(PanelController.getInstance()
+                    .getCoordinateFromPanelTile(Map.getInstance().getPanel(), tileX, tileY)));
         });
     }
 
@@ -138,14 +145,17 @@ public class MapController
     private void checkCombatStart ()
     {
         PlayerController playerController = PlayerController.getInstance();
-        Coordinate current = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance().getPanel(), playerController.getCurrentPlayerPosition());
+        Coordinate current = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance().getPanel(),
+                playerController.getCurrentPlayerPosition());
         
         for (Entry<Coordinate, Unit> entry : UnitController.getInstance().getUnitPositions().entrySet())
         {
-            Coordinate unitPosition = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance().getPanel(), entry.getKey());
+            Coordinate unitPosition = PanelController.getInstance().getTileIndicesFromCoordinates(Map.getInstance()
+                    .getPanel(), entry.getKey());
             
             // Check proximity
-            if (Math.abs(current.getPositionX() - unitPosition.getPositionX()) <= Constants_Map.PROXIMITY && Math.abs(current.getPositionY() - unitPosition.getPositionY()) <= Constants_Map.PROXIMITY)
+            if (Math.abs(current.getPositionX() - unitPosition.getPositionX()) <= Constants_Map.PROXIMITY &&
+                    Math.abs(current.getPositionY() - unitPosition.getPositionY()) <= Constants_Map.PROXIMITY)
             {
                 startCombat(entry.getKey());
                 return; // Assuming only one combat can start per move
@@ -164,7 +174,8 @@ public class MapController
     private void startCombat (Coordinate coordinate)
     {
         UnitController.getInstance().removeUnit(coordinate);
-        ArenaController.getInstance().startCombat(Constants_Resources.LOADER_FILE_NAME_COMBAT, Constants_Resources.BIOME_NAME_GRASSLANDS);
+        ArenaController.getInstance().startCombat(Constants_Resources.LOADER_FILE_NAME_COMBAT,
+                Constants_Resources.BIOME_NAME_GRASSLANDS);
     }
 
 
@@ -230,7 +241,8 @@ public class MapController
     private void showDialog ()
     {
         // Popup appears asking for combat start
-        Popup.createPopupWithAction(Game.getInstance().getCurrentShowable().getPane(), Constants_Map.HEADER_JOIN_FIGHT, new Runnable()
+        Popup.createPopupWithAction(Game.getInstance().getCurrentShowable().getPane(), Constants_Map.HEADER_JOIN_FIGHT
+                , new Runnable()
         {
             @Override
             public void run ()
@@ -242,7 +254,8 @@ public class MapController
             @Override
             public void run ()
             {
-                ArenaController.getInstance().startCombat(Constants_Resources.LOADER_FILE_NAME_COMBAT, Constants_Resources.BIOME_NAME_GRASSLANDS);
+                ArenaController.getInstance().startCombat(Constants_Resources.LOADER_FILE_NAME_COMBAT,
+                        Constants_Resources.BIOME_NAME_GRASSLANDS);
             }
         }, Constants_Popup.NO, Constants_Popup.YES,
                 Constants_Popup.TEXT_TO_BUTTONS_SPACING,
@@ -266,7 +279,8 @@ public class MapController
     {
         Platform.runLater(() ->
         {
-            HashMap<Coordinate, String> rewards = getRewardLocationsForMission1(); // Get predefined reward locations and types
+            // Get predefined reward locations and types
+            HashMap<Coordinate, String> rewards = getRewardLocationsForMission1();
             
             for (HashMap.Entry<Coordinate, String> entry : rewards.entrySet())
             {
@@ -287,11 +301,16 @@ public class MapController
     {
         HashMap<Coordinate, String> rewardLocations = new HashMap<>();
         
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_1_POSITION_X, Constants_Map.REWARD_1_POSITION_Y), Constants_Map.WOOD);
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_2_POSITION_X, Constants_Map.REWARD_2_POSITION_Y), Constants_Map.BEER);
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_3_POSITION_X, Constants_Map.REWARD_3_POSITION_Y), Constants_Map.BRICK);
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_4_POSITION_X, Constants_Map.REWARD_4_POSITION_Y), Constants_Map.ESSENCE);
-        rewardLocations.put(new Coordinate(Constants_Map.REWARD_5_POSITION_X, Constants_Map.REWARD_5_POSITION_Y), Constants_Map.GOLD);
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_1_POSITION_X, Constants_Map.REWARD_1_POSITION_Y),
+                Constants_Map.WOOD);
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_2_POSITION_X, Constants_Map.REWARD_2_POSITION_Y),
+                Constants_Map.BEER);
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_3_POSITION_X, Constants_Map.REWARD_3_POSITION_Y),
+                Constants_Map.BRICK);
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_4_POSITION_X, Constants_Map.REWARD_4_POSITION_Y),
+                Constants_Map.ESSENCE);
+        rewardLocations.put(new Coordinate(Constants_Map.REWARD_5_POSITION_X, Constants_Map.REWARD_5_POSITION_Y),
+                Constants_Map.GOLD);
         
         return rewardLocations;
     }
@@ -306,12 +325,15 @@ public class MapController
      *               The tileCoordinate is a valid coordinate within the game map.
      *               The rewardType is a valid string representing one of the possible reward types.
      *               The Constants_Map.REWARD_IMAGE_PATH points to a valid image resource.
-     * @postcondition new ImageView representing the reward is created and added to the game map at the specified position.
+     * @postcondition new ImageView representing the reward is created and added to the game map at the specified
+     * position.
      * The rewardViews HashMap is updated with the new reward.
      */
     private void setRewardPosition (Coordinate tileCoordinate, String rewardType)
     {
-        Coordinate coordinate = new Coordinate(PanelController.getInstance().getCoordinateFromPanelTile(Map.getInstance().getPanel(), (int) tileCoordinate.getPositionX(), (int) tileCoordinate.getPositionY()));
+        Coordinate coordinate = new Coordinate(PanelController.getInstance()
+                .getCoordinateFromPanelTile(Map.getInstance().getPanel(),
+                        (int) tileCoordinate.getPositionX(), (int) tileCoordinate.getPositionY()));
         ImageView rewardView = new ImageView(Constants_Map.REWARD_IMAGE_PATH);
         rewardView.setFitWidth(Constants_Map.TILE_SIZE);
         rewardView.setFitHeight(Constants_Map.TILE_SIZE);
@@ -357,7 +379,8 @@ public class MapController
      * @param rewardView The ImageView representing the reward to check.
      * @precondition The PlayerController is properly initialized and can provide the current player position.
      *               The rewardView parameter is not null and represents a valid reward on the map.
-     * @postcondition The method returns true if the player is within the collection radius of the reward, false otherwise.
+     * @postcondition The method returns true if the player is within the collection radius of the reward,
+     * false otherwise.
      * @return boolean True if the player is on the reward, false otherwise.
      */
     private boolean isPlayerOnReward (ImageView rewardView)
@@ -368,7 +391,8 @@ public class MapController
         double rewardX = rewardView.getLayoutX();
         double rewardY = rewardView.getLayoutY();
         
-        return Math.abs(playerX - rewardX) < Constants_Map.REWARD_COLLECTION_RADIUS && Math.abs(playerY - rewardY) < Constants_Map.REWARD_COLLECTION_RADIUS;
+        return Math.abs(playerX - rewardX) < Constants_Map.REWARD_COLLECTION_RADIUS && Math.abs(playerY - rewardY)
+                < Constants_Map.REWARD_COLLECTION_RADIUS;
     }
 
 
@@ -414,7 +438,15 @@ public class MapController
     }
     
     
-    // Method to retrieve the Singleton instance without parameters
+
+    /**
+     * Getter-method to get the instance of the MapController
+     *
+     * @author Michael Markov, Jule Degener
+     * @return Instance of the MapController
+     * @precondition none
+     * @postcondition One instance of MapController exist in the program.
+     */
     public static MapController getInstance ()
     {
         if (instance == null)

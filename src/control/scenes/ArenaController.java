@@ -13,8 +13,15 @@ import resources.constants.Constants_Resources;
 public class ArenaController
 {
     private static volatile ArenaController instance = null;
-    
-    
+
+
+    /**
+     * Default controller
+     *
+     * @author Jule Degener
+     * @precondition none
+     * @postcondition An instance of ArenaController is created with none parameters.
+     */
     private ArenaController ()
     {
     }

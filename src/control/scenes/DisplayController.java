@@ -22,15 +22,28 @@ public class DisplayController
     private static Label numberOfWood;
     private static Label numberOfBeer;
     private static Label numberOfEssence;
-    
-    
-    // default constructor
+
+
+    /**
+     * Default controller
+     *
+     * @author Jule Degener
+     * @precondition none
+     * @postcondition An instance of DisplayController is created with none parameters.
+     */
     private DisplayController ()
     {
         ;
     }
-    
-    
+
+
+    /**
+     * Method to create one instance of DisplayController.
+     *
+     * @author Jule Degener
+     * @precondition none
+     * @postcondition Only one instance of DisplayController exist in the program.
+     */
     public static synchronized void initialize ()
     {
         if (instance == null)
@@ -41,8 +54,16 @@ public class DisplayController
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
-    
-    
+
+
+    /**
+     * Method to show the current inventory in the GUI.
+     *
+     * @author Jule Degener
+     * @return GridPane with all information about the current inventory.
+     * @precondition An instance of inventory must exist.
+     * @postcondition The current inventory is shown in the GUI.
+     */
     public static GridPane createInventory ()
     {
         GridPane gridpane = new GridPane();
@@ -89,8 +110,16 @@ public class DisplayController
         
         return gridpane;
     }
-    
-    
+
+
+    /**
+     * Method to update the Label of the Inventory.
+     *
+     * @author Jule Degener
+     * @precondition An instance of inventory must exist.
+     * @postcondition Labels that show the number of the resources of the inventory have the current number of
+     * resources.
+     */
     public void updateInventory ()
     {
         // Update the labels with current inventory values
@@ -100,8 +129,16 @@ public class DisplayController
         numberOfBeer.setText(Integer.toString(Inventory.getInstanceOfInventory().getInventoryBeer()));
         numberOfEssence.setText(Integer.toString(Inventory.getInstanceOfInventory().getInventoryEssence()));
     }
-    
-    
+
+
+    /**
+     * Getter-method to get the instance of the DisplayController
+     *
+     * @author Michael Markov, Jule Degener
+     * @return Instance of the DisplayController
+     * @precondition none
+     * @postcondition One instance of DisplayController exist in the program.
+     */
     public static DisplayController getInstance ()
     {
         if (instance == null)

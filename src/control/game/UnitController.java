@@ -48,8 +48,9 @@ public class UnitController
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
-    
-    
+
+
+
     public ArrayList<Unit> createUnit ()
     {
         ArrayList<Unit> units = new ArrayList<>();
@@ -62,20 +63,20 @@ public class UnitController
             {
                 String[] values = line.split(Constants_DefaultValues.SPLIT);
                 String Name = values[Constants_IndexPropertyUnit.INDEX_NAME];
-                int health = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_HEALTH]);
-                int shield = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_SHIELD]);
-                int mana = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_MANA]);
-                int meeleDamage = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_MEELE_DAMAGE]);
-                int rangedDamage = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_RANGE_DAMAGE]);
-                int ammo = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_AMMO]);
-                int dodge = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_DODGE]);
-                int magicResistance = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_MAGIC_RESISTENCE]);
-                int movementPoints = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_MOVEMENT_POINTS]);
-                int initiative = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_INITIATIVE]);
-                int magicDamage = Integer.valueOf(values[Constants_IndexPropertyUnit.MAGIC_DAMAGE]);
-                int myAttack = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_MY_ATTACK]);
-                double positionX = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_POSITION_X]);
-                double positionY = Integer.valueOf(values[Constants_IndexPropertyUnit.INDEX_POSITION_Y]);
+                int health = Integer.parseInt(values[Constants_IndexPropertyUnit.INDEX_HEALTH]);
+                int shield = Integer.parseInt(values[Constants_IndexPropertyUnit.INDEX_SHIELD]);
+                int mana = Integer.parseInt(values[Constants_IndexPropertyUnit.INDEX_MANA]);
+                int meeleDamage = Integer.parseInt(values[Constants_IndexPropertyUnit.INDEX_MEELE_DAMAGE]);
+                int rangedDamage = Integer.parseInt(values[Constants_IndexPropertyUnit.INDEX_RANGE_DAMAGE]);
+                int ammo = Integer.parseInt(values[Constants_IndexPropertyUnit.INDEX_AMMO]);
+                int dodge = Integer.parseInt(values[Constants_IndexPropertyUnit.INDEX_DODGE]);
+                int magicResistance = Integer.parseInt(values[Constants_IndexPropertyUnit.INDEX_MAGIC_RESISTENCE]);
+                int movementPoints = Integer.parseInt(values[Constants_IndexPropertyUnit.INDEX_MOVEMENT_POINTS]);
+                int initiative = Integer.parseInt(values[Constants_IndexPropertyUnit.INDEX_INITIATIVE]);
+                int magicDamage = Integer.parseInt(values[Constants_IndexPropertyUnit.MAGIC_DAMAGE]);
+                int myAttack = Integer.parseInt(values[Constants_IndexPropertyUnit.INDEX_MY_ATTACK]);
+                double positionX = Integer.parseInt(values[Constants_IndexPropertyUnit.INDEX_POSITION_X]);
+                double positionY = Integer.parseInt(values[Constants_IndexPropertyUnit.INDEX_POSITION_Y]);
                 
                 OutputImageView unitView = new OutputImageView(new Image(Constants_Resources.UNIT_VIEW_STANDARD), Constants_Map.UNIT_SIZE);
                 units.add(new Unit(Name, health, shield, mana, meeleDamage, rangedDamage, ammo, dodge,
@@ -117,16 +118,6 @@ public class UnitController
             throw new RuntimeException(e);
         }
         return attacks;
-    }
-    
-    
-    public static UnitController getInstance ()
-    {
-        if (instance == null)
-        {
-            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
-        }
-        return instance;
     }
     
     
@@ -181,5 +172,23 @@ public class UnitController
     public HashMap<Coordinate, Unit> getUnitPositions ()
     {
         return unitPositions;
+    }
+
+
+    /**
+     * Getter-method to get the instance of the UnitController
+     *
+     * @author Michael Markov, Jule Degener
+     * @return Instance of the UnitController
+     * @precondition none
+     * @postcondition One instance of UnitController exist in the program.
+     */
+    public static UnitController getInstance ()
+    {
+        if (instance == null)
+        {
+            throw new IllegalStateException(Constants_ExceptionMessages.SINGLETON_NOT_INITIALIZED);
+        }
+        return instance;
     }
 }

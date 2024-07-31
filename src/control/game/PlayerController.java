@@ -37,9 +37,11 @@ public class PlayerController implements Runnable
     
     private PlayerController ()
     {
-        this.playerView = new OutputImageView(new Image(Constants_Resources.PLAYER_VIEW_STANDARD), Constants_Map.PLAYER_SIZE);
-        this.currentPlayerPosition = new Coordinate(0, 0); // Initial position
-        this.newPlayerPosition = new Coordinate(0, 0); // Initial position
+        this.playerView = new OutputImageView(new Image(Constants_Resources.PLAYER_VIEW_STANDARD),
+                Constants_Map.PLAYER_SIZE);
+        // Initial position
+        this.currentPlayerPosition = new Coordinate(Constants_DefaultValues.ZERO, Constants_DefaultValues.ZERO);
+        this.newPlayerPosition = new Coordinate(Constants_DefaultValues.ZERO, Constants_DefaultValues.ZERO);
     }
     
     
@@ -53,8 +55,15 @@ public class PlayerController implements Runnable
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
-    
-    
+
+
+    /**
+     * This method set the start budget of resources in the inventory.
+     *
+     * @author Jule Degener, Jonas Helfer
+     * @precondition none
+     * @postcondition Player has ten of each resource
+     */
     public void setPlayerInventory ()
     {
         Inventory.getInstanceOfInventory().setInventoryGold(Constants_DefaultValues.DEFAULT_INVENTORY_VALUE);
@@ -108,16 +117,19 @@ public class PlayerController implements Runnable
                 
                 if (!this.currentPlayerPosition.isEqual(this.newPlayerPosition))
                 {
-                    Coordinate targetPosition = new Coordinate(this.newPlayerPosition.getPositionX(), this.newPlayerPosition.getPositionY());
+                    Coordinate targetPosition = new Coordinate(this.newPlayerPosition.getPositionX(),
+                            this.newPlayerPosition.getPositionY());
                     
                     // Check if vertical movement is possible
-                    if (PanelController.getInstance().isVerticalMoveBlocked(Map.getInstance().getPanel(), this.currentPlayerPosition, targetPosition))
+                    if (PanelController.getInstance().isVerticalMoveBlocked(Map.getInstance().getPanel(),
+                            this.currentPlayerPosition, targetPosition))
                     {
                         newPlayerPosition.setPositionY(currentPlayerPosition.getPositionY());
                     }
                     
                     // Check if horizontal movement is possible
-                    if (PanelController.getInstance().isHorizontalMoveBlocked(Map.getInstance().getPanel(), this.currentPlayerPosition, targetPosition))
+                    if (PanelController.getInstance().isHorizontalMoveBlocked(Map.getInstance().getPanel(),
+                            this.currentPlayerPosition, targetPosition))
                     {
                         newPlayerPosition.setPositionX(currentPlayerPosition.getPositionX());
                     }
@@ -255,8 +267,16 @@ public class PlayerController implements Runnable
         this.newPlayerPosition = new Coordinate(playerPosition);
         playerView.setCoordinates(playerPosition);
     }
-    
-    
+
+
+    /**
+     * This method add a Unit to the team from the player.
+     *
+     * @author Jule Degener
+     * @param unit The unit to be added to the team.
+     * @precondition An instance of player must exist.
+     * @postcondition One instance of a unit was added to the team.
+     */
     public static void addUnitToTheTeam (Unit unit)
     {
         ArrayList<Unit> team = Player.getInstance().getTeamMembers();
@@ -283,6 +303,10 @@ public class PlayerController implements Runnable
     
     /**
      * Method to retrieve the Singleton instance.
+     *
+     * @author Michael Markov
+     * @precondition none
+     * @postcondition none
      */
     public static PlayerController getInstance ()
     {

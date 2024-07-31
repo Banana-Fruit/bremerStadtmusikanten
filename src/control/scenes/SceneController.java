@@ -4,25 +4,19 @@ package control.scenes;
 import control.BuildingController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import model.buildings.*;
 import model.userInterface.Game;
-import model.userInterface.TransparentButton;
 import model.userInterface.showables.Map;
 import model.userInterface.showables.Showable;
 import utility.GameMenuBar;
 import resources.constants.Constants_ExceptionMessages;
-import resources.constants.scenes.Constants_MainMenu;
 import resources.constants.scenes.Constants_City;
 import resources.constants.scenes.Constants_Showable;
 
@@ -56,8 +50,17 @@ public class SceneController
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
-    
-    
+
+
+    /**
+     * Method to build a default scene for the inside of a building. Click on the respective buildig to open
+     * the corresponding scene.
+     *
+     * @author Jule Degener
+     * @param building Building that wants to be visited.
+     * @precondition none
+     * @postcondition The corresponding scene of the inside of the building is shown.
+     */
     public static void buildSceneBuildingInside (Building building)
     {
         GridPane gridpane = new GridPane();
@@ -69,7 +72,7 @@ public class SceneController
         gridpane.setVgap(Constants_City.GRIDPANE_VGAP_INSIDE);
         gridpane.add(goBack, Constants_City.GRIDPANE_ROW_SEVEN, Constants_City.GRIDPANE_COLUMN_ONE);
         gridpane.add(nameOfBuilding, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_ONE);
-        closeBuildingInside(goBack, SceneController.instance.stage);
+        closeBuildingInside(goBack);
         
         chooseTheRightBuildingInside(building, gridpane);
         
@@ -80,7 +83,7 @@ public class SceneController
     }
     
     
-    private static void closeBuildingInside (Button button, Stage stage)
+    private static void closeBuildingInside (Button button)
     {
         button.setOnAction(new EventHandler<ActionEvent>()
         {

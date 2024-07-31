@@ -117,7 +117,8 @@ public class PanelController
      * @param panel The Panel object representing the game map.
      * @param coordinate The Coordinate object to check for occupation.
      * @precondition The Panel object is properly initialized with valid dimensions and tile.
-     *               The Constants_Panel class is properly defined with MIN_TILE_INDEX and OBSTACLE_TILE_DEFAULT_VALUE constants.
+     *               The Constants_Panel class is properly defined with MIN_TILE_INDEX and
+     *               OBSTACLE_TILE_DEFAULT_VALUE constants.
      *               The getCoordinateFromPanelTile and isObstacle methods are properly implemented and accessible.
      * @postcondition The method returns true if the coordinate is out of bounds or occupied by an obstacle,
      *                false otherwise.
@@ -126,8 +127,10 @@ public class PanelController
     public boolean isCoordinateOccupied (Panel panel, Coordinate coordinate)
     {
         // Get the minimum and maximum coordinates of the panel
-        Coordinate minimumCoordinate = getCoordinateFromPanelTile(panel, Constants_Panel.MIN_TILE_INDEX, Constants_Panel.MIN_TILE_INDEX);
-        Coordinate maximumCoordinate = getCoordinateFromPanelTile(panel, panel.getMaxArrayRows(), panel.getMaxArrayColumns());
+        Coordinate minimumCoordinate = getCoordinateFromPanelTile(panel, Constants_Panel.MIN_TILE_INDEX,
+                Constants_Panel.MIN_TILE_INDEX);
+        Coordinate maximumCoordinate = getCoordinateFromPanelTile(panel, panel.getMaxArrayRows(),
+                panel.getMaxArrayColumns());
         
         // Checks whether indices out of bounds
         if (coordinate.getPositionX() < minimumCoordinate.getPositionX() ||
@@ -165,11 +168,13 @@ public class PanelController
     public boolean isVerticalMoveBlocked (Panel panel, Coordinate currentPlayerPosition, Coordinate newPlayerPosition)
     {
         double yMovement = newPlayerPosition.getPositionY() - currentPlayerPosition.getPositionY();
-        if (yMovement == Constants_DefaultValues.ZERO) return false; // Checks whether the current and the new position are equal
+        // Checks whether the current and the new position are equal
+        if (yMovement == Constants_DefaultValues.ZERO) return false;
         
         double newY = newPlayerPosition.getPositionY();
         Coordinate newVerticalPosition = new Coordinate(currentPlayerPosition.getPositionX(), newY);
-        return isCoordinateOccupied(panel, newVerticalPosition); // Checks whether the new position on the vertical side is occupied
+        // Checks whether the new position on the vertical side is occupied
+        return isCoordinateOccupied(panel, newVerticalPosition);
     }
     
     
@@ -185,11 +190,13 @@ public class PanelController
     public boolean isHorizontalMoveBlocked (Panel panel, Coordinate currentPlayerPosition, Coordinate newPlayerPosition)
     {
         double xMovement = newPlayerPosition.getPositionX() - currentPlayerPosition.getPositionX();
-        if (xMovement == Constants_DefaultValues.ZERO) return false; // Checks whether the current and the new position are equal
+        // Checks whether the current and the new position are equal
+        if (xMovement == Constants_DefaultValues.ZERO) return false;
         
         double newX = newPlayerPosition.getPositionX();
         Coordinate newHorizontalPosition = new Coordinate(newX, currentPlayerPosition.getPositionY());
-        return isCoordinateOccupied(panel, newHorizontalPosition); // Checks whether the new position on the horizontal side is occupied
+        // Checks whether the new position on the horizontal side is occupied
+        return isCoordinateOccupied(panel, newHorizontalPosition);
     }
 
 
@@ -229,8 +236,9 @@ public class PanelController
     public Coordinate getTileIndicesFromCoordinates (Panel panel, Coordinate coordinate)
     {
         Coordinate nullPosition = getNullPositionOfPanelInRelationToScreenSize(panel); // Gets the null position
+        // Adds removes null position values from coordinates
         Coordinate currentCoordinate = new Coordinate(coordinate.getPositionX() - nullPosition.getPositionX(),
-                coordinate.getPositionY() - nullPosition.getPositionY()); // Adds removes null position values from coordinates
+                coordinate.getPositionY() - nullPosition.getPositionY());
         // Divide by tile size and cut off decimal points
         currentCoordinate.setPositionX((int) (currentCoordinate.getPositionX() / panel.getTileSize()));
         currentCoordinate.setPositionY((int) (currentCoordinate.getPositionY() / panel.getTileSize()));
@@ -269,7 +277,8 @@ public class PanelController
      */
     private Coordinate getNullPositionOfPanelInRelationToScreenSize (Panel panel)
     {
-        // The null position is retrieved by dividing the screen size by two and subtracting the panel size multiplied by the tile size
+        // The null position is retrieved by dividing the screen size by two and subtracting the panel
+        // size multiplied by the tile size
         double x = ((Screen.getPrimary().getBounds().getWidth() / Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF) -
                 ((double) panel.getMaxArrayColumns() * panel.getTileSize() /
                         Constants_Panel.DIVIDE_BY_VALUE_TO_GET_HALF));
@@ -279,8 +288,16 @@ public class PanelController
         
         return new Coordinate(x, y);
     }
-    
-    
+
+
+    /**
+     * Getter-method to get the instance of the PanelController
+     *
+     * @author Michael Markov, Jule Degener
+     * @return Instance of the PanelController
+     * @precondition none
+     * @postcondition One instance of PanelController exist in the program.
+     */
     public static PanelController getInstance ()
     {
         if (instance == null)
