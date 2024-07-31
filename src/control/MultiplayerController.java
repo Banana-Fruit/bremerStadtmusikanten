@@ -58,7 +58,8 @@ public class MultiplayerController
         }
         SceneController.getInstance().switchShowable(Combat.getInstance());
         Combat.getInstance().getPane().getChildren().add(ChatClient.createChatArea());
-        Popup.createPopupWithAction(Game.getInstance().getCurrentShowable().getPane(), Constants_Multiplayer.POPUP_TITLE_MULT_IPLAYER_CONNECTION,
+        Popup.createPopupWithAction(Game.getInstance().getCurrentShowable().getPane(),
+                Constants_Multiplayer.POPUP_TITLE_MULT_IPLAYER_CONNECTION,
                 new Runnable()
                 {
                     @Override

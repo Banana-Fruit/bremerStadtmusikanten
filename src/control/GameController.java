@@ -101,7 +101,8 @@ public class GameController
     {
         SceneController.getInstance().switchShowable(Map.getInstance()); // Switch to map
         Map.getInstance().setCurrentMapName(Constants_Map.MAP_NAME_CITY);
-        MapController.getInstance().setNewMap(Constants_Map.MAP_NAME_CITY, Constants_Resources.BIOME_NAME_GRASSLANDS); // Set starting map
+        // Set starting map
+        MapController.getInstance().setNewMap(Constants_Map.MAP_NAME_CITY, Constants_Resources.BIOME_NAME_GRASSLANDS);
         Player.initialize();
         
         BuildingController.getInstance().addButtons();
