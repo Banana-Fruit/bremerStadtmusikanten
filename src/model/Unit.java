@@ -7,14 +7,16 @@ import view.OutputImageView;
 public class Unit
 {
     private String name;
-    private int health, shield, mana, meele, ranged, ammo, dodge, magicresist, RangeOfMotion, initiative, magicDamage, myAttack;
+    private int health, shield, mana, meele, ranged, ammo, dodge, magicresist, RangeOfMotion, initiative, magicDamage,
+            myAttack;
     private double positionX, positionY;
     
     OutputImageView unitView;
     
     
-    public Unit (String name, int health, int shield, int mana, int meele, int ranged, int ammo, int dodge, int magicresist,
-                 int RangeOfMotion, int initiative, int magicDamage, int myAttack, double positionX, double positionY, OutputImageView unitView)
+    public Unit (String name, int health, int shield, int mana, int meele, int ranged, int ammo, int dodge,
+                 int magicresist, int RangeOfMotion, int initiative, int magicDamage, int myAttack, double positionX,
+                 double positionY, OutputImageView unitView)
     {
         this.name = name;
         this.health = health;

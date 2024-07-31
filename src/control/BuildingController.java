@@ -175,7 +175,7 @@ public class BuildingController
      * @precondition An instance of inventory exist.
      * @postcondition Status of the blocking of a building is known.
      */
-    public static boolean checkIfBuildingIsUnlock (Building building)
+    public boolean checkIfBuildingIsUnlock (Building building)
     {
         Inventory inventory = Inventory.getInstanceOfInventory();
         
@@ -207,9 +207,9 @@ public class BuildingController
                 () -> showPriceOfBuilding(Forge.getInstanceOfForge()), Constants_Building.BUTTON_WIDTH_FORGE,
                 Constants_Building.BUTTON_HEIGHT_FORGE, Forge.getInstanceOfForge().getPositionUpperLeft()));
         Map.getInstance().getPane().getChildren().add(createBuildingButton(Constants_City.CITY_LABEL_FRACTION_CAMP_DOG,
-                () -> showPriceOfBuilding(FractionCampDog.getInstanceOfFractionDogcamp()),
+                () -> showPriceOfBuilding(FractionCampDog.getInstanceOfFractionDogCamp()),
                 Constants_Building.BUTTON_WIDTH_FRACTIONCAMP_DOG, Constants_Building.BUTTON_HEIGHT_FRACTIONCAMP_DOG,
-                FractionCampDog.getInstanceOfFractionDogcamp().getPositionUpperLeft()));
+                FractionCampDog.getInstanceOfFractionDogCamp().getPositionUpperLeft()));
         Map.getInstance().getPane().getChildren().add(createBuildingButton(Constants_City.CITY_LABEL_FRACTION_CAMP_CAT,
                 () -> showPriceOfBuilding(FractionCampCat.getInstanceOfFractionCatCamp()),
                 Constants_Building.BUTTON_WIDTH_FRACTIONCAMP_CAT, Constants_Building.BUTTON_HEIGHT_FRACTIONCAMP_CAT,

@@ -16,24 +16,12 @@ public class Tile
     private boolean isOccupied = Constants_Panel.DEFAULT_isOCCUPIED;
     
     
-    public Tile (Image image)
-    {
-        this.image = image;
-    }
-    
-    
     public Tile (Image image, boolean isOccupied)
     {
         this.image = image;
         this.isOccupied = isOccupied;
     }
-    
-    
-    public void setOccupied (boolean occupied)
-    {
-        isOccupied = occupied;
-    }
-    
+
     
     public Image getImage ()
     {

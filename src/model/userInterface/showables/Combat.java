@@ -67,7 +67,8 @@ public class Combat extends Showable
         
         for (int row = Constants_Combat.MIN_ROW; row < panel.getMaxRows(); row++) // Runs through all rows till max rows
         {
-            for (int column = Constants_Combat.MIN_COLUMN; column < panel.getMaxColumns(); column++) // Runs through all columns till max columns
+            // Runs through all columns till max columns
+            for (int column = Constants_Combat.MIN_COLUMN; column < panel.getMaxColumns(); column++)
             {
                 // Each button is placed above the tiles of the panel aligned by size and position
                 Coordinate buttonCoordinate = PanelController.getInstance().getCoordinateFromPanelTile(panel, row, column);

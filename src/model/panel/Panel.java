@@ -50,7 +50,8 @@ public class Panel
     {
         for (int row = Constants_Panel.MIN_TILE_INDEX; row < maxRows; row++) // Runs through all rows till maxRows
         {
-            for (int column = Constants_Panel.MIN_TILE_INDEX; column < maxColumns; column++) // Runs through all columns till maxColumns
+            // Runs through all columns till maxColumns
+            for (int column = Constants_Panel.MIN_TILE_INDEX; column < maxColumns; column++)
             {
                 if (row < originArray.length && column < originArray[row].length)
                 {

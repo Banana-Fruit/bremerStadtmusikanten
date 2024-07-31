@@ -130,7 +130,7 @@ public class SceneController
         } else if (building == Pub.getInstanceOfPub())
         {
             BuildingController.getInsidePub(gridpane);
-        } else if (building == FractionCampDog.getInstanceOfFractionDogcamp())
+        } else if (building == FractionCampDog.getInstanceOfFractionDogCamp())
         {
             BuildingController.getInsideFractionCampDog(gridpane);
         } else if (building == FractionCampCat.getInstanceOfFractionCatCamp())

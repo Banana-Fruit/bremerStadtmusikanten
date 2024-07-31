@@ -107,6 +107,8 @@ public interface Constants_Building
     public static final int BONUS_TWO = 2;
     public static final int BONUS_FACTOR_TWO = 2;
     public static final int MAX_NUMBER_ARTIFACTS = 2;
+    public static final int DEFAULT_LEVEL_ARTIFACT = 1;
+    public static final int UPGRADE_LEVEL_ARTIFACT = 1;
 
     int BUTTON_WIDTH_BASECAMP = Constants_Map.TILE_SIZE * 3;
     int BUTTON_HEIGHT_BASECAMP = Constants_Map.TILE_SIZE * 3;

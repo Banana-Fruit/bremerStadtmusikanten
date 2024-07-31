@@ -42,26 +42,58 @@ public class Player
         }
         return instance;
     }
-    
-    
+
+
+    /**
+     * Getter-method to access of the attribute teamMember.
+     *
+     * @author Jule Degener
+     * @return The attribute teamMember is returned.
+     * @precondition none
+     * @postcondition Access of the attribute teamMember.
+     */
     public ArrayList<Unit> getTeamMembers ()
     {
         return teamMember;
     }
-    
-    
+
+
+    /**
+     * Getter-method to access of the attribute listOfArtifacts.
+     *
+     * @author Jule Degener
+     * @return The attribute listOfArtifacts is returned.
+     * @precondition none
+     * @postcondition Access of the attribute listOfArtifacts.
+     */
     public ArrayList<Artifact> getListOfArtifacts ()
     {
         return listOfArtifacts;
     }
-    
-    
+
+
+    /**
+     * Getter-method to access of the attribute magicSkill.
+     *
+     * @author Jule Degener
+     * @return The attribute magicSkill is returned.
+     * @precondition none
+     * @postcondition Access of the attribute magicSkill.
+     */
     public int getMagicSkill ()
     {
         return magicSkill;
     }
-    
-    
+
+
+    /**
+     * Setter-method to set the value of the attribute magicSkill.
+     *
+     * @author Jule Degener
+     * @param magicSkill new Integer value of the attribute magicSkill.
+     * @precondition none
+     * @postcondition Parameter bonusHealth is the current value of the attribute magicSkill.
+     */
     public void setMagicSkill (int magicSkill)
     {
         this.magicSkill = magicSkill;
