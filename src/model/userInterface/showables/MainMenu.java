@@ -2,6 +2,7 @@ package model.userInterface.showables;
 
 
 import control.GameController;
+import control.MultiplayerController;
 import control.scenes.SceneController;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -13,21 +14,31 @@ import resources.constants.Constants_ExceptionMessages;
 import resources.constants.Constants_Popup;
 import resources.constants.scenes.Constants_MainMenu;
 import resources.constants.scenes.Constants_Showable;
+import utility.ChatServer;
 import utility.popup.Popup;
 
 
+/**
+ * MainMenu class contains the scene of the MainMenu.
+ *
+ * @author Michael Markov
+ */
 public class MainMenu extends Showable
 {
+    /**
+     * The single instance of the MainMenu class.
+     * Volatile keyword ensures visibility across threads.
+     */
     private static volatile MainMenu instance;
-    
-    
+
+
     private MainMenu (Scene scene)
     {
         super(scene);
         init();
     }
-    
-    
+
+
     public static synchronized void initialize (Scene scene)
     {
         if (instance == null)
@@ -38,8 +49,8 @@ public class MainMenu extends Showable
             throw new IllegalStateException(Constants_ExceptionMessages.ALREADY_INITIALIZED);
         }
     }
-    
-    
+
+
     public static MainMenu getInstance ()
     {
         if (instance == null)
@@ -48,70 +59,133 @@ public class MainMenu extends Showable
         }
         return instance;
     }
-    
-    
+
+
     private void init ()
     {
-        setBackground(Constants_MainMenu.PATH_BACKGROUND_IMAGE);
-        addButtons();
+        setBackground(Constants_MainMenu.PATH_BACKGROUND_IMAGE); // Sets background image
+        addButtons(); // Adds buttons with functions to the main menu
     }
-    
+
+
+    /**
+     * Method adds buttons (VBOX) to pane.
+     *
+     * @author Michael Markov
+     */
     public void addButtons ()
     {
         // creates a Menu with six menuItems
         getPane().getChildren().add(createMenuInVBox(Constants_MainMenu.VBOX_ITEM_WIDTH, Constants_MainMenu.VBOX_ITEM_HEIGHT));
     }
-    
-    
-    public VBox createMenuInVBox(int itemWidth, int itemHeight) {
+
+
+    /**
+     * Creates a VBox containing the main menu buttons.
+     * @author Michael Markov, Jonas Helfer
+     * @param itemWidth The width of each menu button
+     * @param itemHeight The height of each menu button
+     * @return VBox containing the main menu buttons
+     * @precondition The Constants classes are properly initialized with all necessary values
+     * @postcondition A VBox with centered, styled menu buttons is created and returned
+     */
+    public VBox createMenuInVBox (int itemWidth, int itemHeight)
+    {
         VBox box = new VBox(Constants_MainMenu.VBOX_V,
-                new TransparentButton(Constants_MainMenu.MENU_NEW_GAME, () -> {
+                new TransparentButton(Constants_MainMenu.MENU_NEW_GAME, () ->
+                {
                     newGame();
                 }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
-                new TransparentButton(Constants_MainMenu.MENU_CONTINUE_GAME, () -> {
+                new TransparentButton(Constants_MainMenu.MENU_CONTINUE_GAME, () ->
+                {
                     continueGame();
                 }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
-                new TransparentButton(Constants_MainMenu.MENU_LOAD_GAME, () -> {
+                new TransparentButton(Constants_MainMenu.MENU_LOAD_GAME, () ->
+                {
                     loadGame();
                 }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
-                new TransparentButton(Constants_MainMenu.MENU_MULTIPLAYER, () -> {
-                    // TODO: Multiplayer
+                new TransparentButton(Constants_MainMenu.MENU_SETTINGS, () ->
+                {
+                    settings();
                 }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
-                new TransparentButton(Constants_MainMenu.MENU_CLOSE_GAME, () -> {
+                new TransparentButton(Constants_MainMenu.MENU_MULTIPLAYER, () ->
+                {
+                    openMultiplayerConnectionMenu();
+                }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W),
+                new TransparentButton(Constants_MainMenu.MENU_CLOSE_GAME, () ->
+                {
                     closeGame();
                 }, itemWidth, itemHeight, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W));
-        
+
         // Set alignment for VBox
         box.setAlignment(Pos.CENTER);
-        
+
         // Center the StackPane itself
         box.layoutXProperty().bind(getScene().widthProperty().subtract(
                 box.widthProperty()).divide(Constants_Showable.CENTER_VAR));
         box.layoutYProperty().bind(getScene().heightProperty().subtract(
                 box.heightProperty()).divide(Constants_Showable.CENTER_VAR));
-        
+
         return box;
+    }
+
+    /**
+     * Opens the multiplayer connection menu and sets up the chat interface.
+     * This method initializes either a server or client based on user selection.
+     * @author Jonas Helfer
+     * @precondition The game is in a state where multiplayer can be initiated
+     * @postcondition The chat area is added to the combat scene and a server or client connection is established
+     */
+    private void openMultiplayerConnectionMenu()
+    {
+        MultiplayerController.getInstance().openConnectionMenu();
     }
     
     
+    private void settings()
+    {
+        SceneController.getInstance().switchShowable(Settings.getInstance());
+    }
+    
+
+    /**
+     * Method that runs if the correlating button is pressed.
+     *
+     * @author Michael Markov
+     */
     private void continueGame ()
     {
         SceneController.getInstance().switchShowable(Map.getInstance());
     }
     
     
+    /**
+     * Method that runs if the correlating button is pressed.
+     *
+     * @author Michael Markov
+     */
     private static void newGame ()
     {
         GameController.getInstance().newGame();
     }
     
     
+    /**
+     * Method that runs if the correlating button is pressed.
+     *
+     * @author Michael Markov
+     */
     private void loadGame ()
     {
         SceneController.getInstance().switchShowable(LoadGame.getInstance());
     }
     
     
+    /**
+     * Method that runs if the correlating button is pressed.
+     *
+     * @author Michael Markov
+     */
     private void closeGame ()
     {
         Popup.createPopupWithAction(Game.getInstance().getCurrentShowable().getPane(), Constants_Popup.MESSAGE_CLOSE_GAME,

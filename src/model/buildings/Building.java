@@ -3,6 +3,7 @@ package model.buildings;
 
 import model.Coordinate;
 
+
 public abstract class Building
 {
     // attributes
@@ -14,9 +15,8 @@ public abstract class Building
     public int numberOfEssence;
     public boolean isUnlocked;
     public Coordinate positionUpperLeft;
-
-
-
+    
+    
     // constructor
     public Building (String name, int numberOfGold, int numberOfBrick, int numberOfWood, int numberOfBeer,
                      int numberOfEssence, boolean isUnlocked, Coordinate positionUpperLeft)
@@ -30,69 +30,69 @@ public abstract class Building
         this.isUnlocked = isUnlocked;
         this.positionUpperLeft = positionUpperLeft;
     }
-
-
+    
+    
     // default constructor
     public Building ()
     {
         ;
     }
-
-
+    
+    
     public abstract void unlockBuilding ();
-
+    
+    
     public void setUnlocked (boolean unlocked)
     {
         isUnlocked = unlocked;
     }
-
+    
+    
     // getter methods
     public String getName ()
     {
         return name;
     }
-
-
+    
+    
     public int getNumberOfGold ()
     {
         return numberOfGold;
     }
-
-
+    
+    
     public int getNumberOfBrick ()
     {
         return numberOfBrick;
     }
-
-
+    
+    
     public int getNumberOfWood ()
     {
         return numberOfWood;
     }
-
-
+    
+    
     public int getNumberOfBeer ()
     {
-         return numberOfBeer;
+        return numberOfBeer;
     }
-
-
+    
+    
     public int getNumberOfEssence ()
     {
         return numberOfEssence;
     }
-
-
+    
+    
     public boolean getIsUnlocked ()
     {
         return isUnlocked;
     }
-
-
+    
+    
     public Coordinate getPositionUpperLeft ()
     {
         return positionUpperLeft;
     }
-
-
 }

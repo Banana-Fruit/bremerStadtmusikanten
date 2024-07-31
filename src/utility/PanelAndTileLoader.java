@@ -9,217 +9,194 @@ import resources.constants.Constants_Resources;
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.Map;
 
 
+/**
+ * Responsible for loading panels consisting of tiles from a loader file.
+ *
+ * @author Michael Markov
+ */
 public class PanelAndTileLoader
 {
     /**
-     * Returns a character array based on the path of a character map file. Limits the amount of readings to
-     * maxRows/maxColumns, or when a reading is null.
+     * Reads a tile file and converts it into a 2D integer array representing the map.
+     * The pictures should contain an individual number at the beginning of the file name.
+     * If a non-number char appears, the numbers afterward will be ignored.
      *
-     * @param loaderFilePath
-     * @param maxRows
-     * @param maxColumns
-     * @return
+     * @param loaderFilePath The path to the tile file.
+     * @param maxRows        The maximum number of rows in the map.
+     * @param maxColumns     The maximum number of columns in the map.
+     * @return A 2D integer array representing the map.
+     * @author Jonas Helfer, Michael Markov
      */
-    public static char[][] getCharacterArrayUsingTileFile (String loaderFilePath, int maxRows, int maxColumns)
+    public static int[][] getIntegerArrayUsingLoaderFile (String loaderFilePath, int maxRows, int maxColumns)
     {
-        char[][] characterArray = new char[maxRows][maxColumns];
+        int[][] integerArray = new int[maxRows][maxColumns];
+        
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(loaderFilePath)))
         {
             String line;
-            int row = Constants_Panel.MIN_TILE_INDEX;
-            for (int lineIndex = Constants_Panel.FILE_READER_STARTING_LINE;
-                 row < maxRows && (line = bufferedReader.readLine()) != null; lineIndex++)
+            for (int row = Constants_Panel.MIN_TILE_INDEX; row < maxRows && (line = bufferedReader.readLine()) != null; row++)
             {
-                if (lineIndex == Constants_Panel.BIOME_IDENTIFIER_LINE) continue;
-                char[] characters = line.toCharArray();
-                for (int column = Constants_Panel.MIN_TILE_INDEX; column < maxColumns && column < characters.length; column++)
+                // Splits the line into String arrays separated by the splitter character
+                String[] parts = line.split(Character.toString(Constants_Panel.SPLITTER_CHARACTER));
+                
+                for (int column = Constants_Panel.MIN_TILE_INDEX; column < maxColumns && column < parts.length; column++)
                 {
-                    characterArray[row][column] = characters[column];
-                }
-                row++;
-            }
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return characterArray;
-    }
-
-
-    
-    
-    public static HashMap<Character, Image> getMapWithCharsAndImages (String imageFolderPath)
-    {
-        HashMap<Character, Image> currentMapOfCharsWithImages = new HashMap<>();
-        
-        // Create a File object from the image folder path
-        File folder = new File(imageFolderPath);
-        String[] arrayOfFileNames = folder.list();
-        
-        // Check if the folder is valid and contains files
-        if (arrayOfFileNames == null)
-            System.out.println(Constants_Panel.INVALID_FILE_PATH + imageFolderPath); // TODO: Custom exception
-        
-        for (String currentFileName : arrayOfFileNames)
-        {
-            if (!currentFileName.endsWith(Constants_Resources.PNG_SUFFIX)) continue; // Only .png files are tracked
-            
-            // Use the first letter of the file name as the character value
-            char keyChar = currentFileName.charAt(Constants_Panel.IMAGE_CHAR_POSITION);
-            
-            // Construct the full path of the image file
-            File imageFile = new File(folder, currentFileName);
-            String imagePath = imageFile.toURI().toString();
-            
-            // Load the image
-            Image image = new Image(imagePath);
-            currentMapOfCharsWithImages.put(keyChar, image);
-        }
-        
-        return currentMapOfCharsWithImages;
-    }
-    
-    
-    public static Tile[][] getTileArray (HashMap<Character, Image> characterImageHashMap, char[][] charArray, int maxRows, int maxColumns)
-    {
-        Tile[][] tileArray = new Tile[maxRows][maxColumns];
-        for (int row = Constants_Panel.MIN_TILE_INDEX; row < maxRows; row++)
-        {
-            for (int column = Constants_Panel.MIN_TILE_INDEX; column < maxColumns; column++)
-            {
-                if (charArray[row][column] == Constants_Panel.IGNORE_LOADER_FILE_VALUE) continue;
-                tileArray[row][column] = new Tile(characterImageHashMap.get(charArray[row][column]));
-            }
-        }
-        return tileArray;
-    }
-
-    //---------------------JONAS_MAP---------------------
-    public static int[][] getCharacterArrayUsingTileFile_JonasMap(String loaderFilePath, int maxRows, int maxColumns)
-    {
-        int[][] integerArray = new int[maxRows][maxColumns];
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(loaderFilePath)))
-        {
-            int row = Constants_Panel.MIN_TILE_INDEX;
-            for (int lineIndex = Constants_Panel.FILE_READER_STARTING_LINE; row < maxRows; lineIndex++)
-            {
-                if (lineIndex == Constants_Panel.BIOME_IDENTIFIER_LINE) continue;
-                char[] characters = bufferedReader.readLine().toCharArray();
-                int column = Constants_Panel.MIN_TILE_INDEX;
-                StringBuilder numberBuilder = new StringBuilder();
-                for (char currentChar : characters)
-                {
-                    if (Character.isDigit(currentChar))
+                    if (parts[column] != null && !parts[column].isEmpty() && !parts[column].equals(Constants_Panel.EMPTY_STRING))
                     {
-                        numberBuilder.append(currentChar);
-                    } else if (currentChar == ' ' && numberBuilder.length() > Constants_DefaultValues.ZERO)
-                    {
-                        integerArray[row][column++] = Integer.parseInt(numberBuilder.toString());
-                        numberBuilder.setLength(Constants_DefaultValues.ZERO);
+                        // Parses each string into an integer and adds it to the right position in the integer array
+                        integerArray[row][column] = Integer.parseInt(parts[column].trim());
                     }
                 }
-                if (numberBuilder.length() > Constants_DefaultValues.ZERO)
-                {
-                    integerArray[row][column] = Integer.parseInt(numberBuilder.toString());
-                }
-                row++;
             }
         } catch (IOException e)
         {
             e.printStackTrace();
         }
+        
         return integerArray;
     }
-
-
-    public static Tile[][] getTileArray_JonasMap(HashMap<Integer, Image> integerImageHashMap, int[][] intArray, int maxRows, int maxColumns)
+    
+    
+    /**
+     * Creates a 2D array of Tile objects based on the provided integer array and image map.
+     *
+     * @param integerImageHashMap A map of integer keys to Image objects.
+     * @param intArray            The 2D integer array representing the map.
+     * @param maxRows             The maximum number of rows in the map.
+     * @param maxColumns          The maximum number of columns in the map.
+     * @return A 2D array of Tile objects.
+     * @author Jonas Helfer
+     */
+    public static Tile[][] getTileArray (HashMap<Integer, Image> integerImageHashMap, HashMap<Integer, Boolean> occupancyData,
+                                         int[][] intArray, int maxRows, int maxColumns)
     {
         Tile[][] tileArray = new Tile[maxRows][maxColumns];
-        Map<Integer, Boolean> occupancyData = null;
-        try
-        {
-            occupancyData = readOccupancyData_JonasMap();
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-            return tileArray;
-        }
+        
+        // Loop through all possible rows
         for (int row = Constants_DefaultValues.START_FOR_LOOP; row < maxRows; row++)
         {
+            // Loop through all possible columns
             for (int column = Constants_DefaultValues.START_FOR_LOOP; column < maxColumns; column++)
             {
                 int intValue = intArray[row][column];
                 if (intValue == Constants_Panel.IGNORE_LOADER_FILE_VALUE) continue;
-                if (integerImageHashMap.containsKey(intValue))
+                if (integerImageHashMap.containsKey(intValue) && occupancyData.containsKey(intValue))
                 {
-                    tileArray[row][column] = new Tile(integerImageHashMap.get(intValue));
-                } else
-                {
-                    tileArray[row][column] = new Tile(new Image(Constants_Panel.FILE_PATH_GRASS));
-                }
-                if (occupancyData != null && occupancyData.containsKey(intValue))
-                {
-                    tileArray[row][column].setOccupied(occupancyData.get(intValue));
+                    // Add to current row and column the tile with the image/boolean that has the integer value assigned in the maps
+                    tileArray[row][column] = new Tile(integerImageHashMap.get(intValue), occupancyData.get(intValue));
                 }
             }
         }
+        
         return tileArray;
     }
-
-
-    public static HashMap<Integer, Image> getMapWithIntegersAndImages_JonasMap(String imageFolderPath)
+    
+    
+    /**
+     * Creates a map of integer keys to Image objects based on image files in a specified folder.
+     * The pictures should contain an individual number at the beginning of the file name.
+     * If a non-number char appears, the numbers afterward will be ignored.
+     * The image type has to be a .png format.
+     *
+     * @param pathToTileResources The path to the folder containing the image files.
+     * @return A HashMap mapping integer keys to Image objects.
+     * @author Jonas Helfer, Michael Markov
+     */
+    public static HashMap<Integer, Image> getMapWithIntegersAndImages (String pathToTileResources)
     {
         HashMap<Integer, Image> currentMapOfCharsWithImages = new HashMap<>();
-        File folder = new File(imageFolderPath);
-        String[] arrayOfFileNames = folder.list();
+        File folder = new File(pathToTileResources);
+        String[] arrayOfFileNames = folder.list(); // Get array of names of contents of the folder
+        
+        // If empty return error code
         if (arrayOfFileNames == null)
         {
-            System.out.println(Constants_Panel.INVALID_FILE_PATH + imageFolderPath);
+            System.out.println(Constants_Panel.INVALID_FILE_PATH + pathToTileResources);
             return currentMapOfCharsWithImages;
         }
+        
+        // Run through contents of folder
         for (String currentFileName : arrayOfFileNames)
         {
-            if (!currentFileName.endsWith(Constants_Resources.PNG_SUFFIX)) continue;
+            if (!currentFileName.endsWith(Constants_Resources.PNG_SUFFIX)) continue; // If not a picture skip the name
+            
             StringBuilder numericPartBuilder = new StringBuilder();
-            for (char c : currentFileName.toCharArray())
+            for (char c : currentFileName.toCharArray()) // Turns the String of the current file name into char array to iterate through
             {
                 if (Character.isDigit(c))
                 {
-                    numericPartBuilder.append(c);
-                } else {
-                    break;
+                    numericPartBuilder.append(c); // Add if digit
+                } else
+                {
+                    break; // If non-digit character detected, stop adding numbers
                 }
             }
-            if (numericPartBuilder.length() == 0) continue;
+            if (numericPartBuilder.isEmpty()) continue; // If is empty, the program will not bother executing the followed lines
+            
+            // Get key Integer by parsing String into Integer
             int keyInt = Integer.parseInt(numericPartBuilder.toString());
+            
+            // Get full image path
             File imageFile = new File(folder, currentFileName);
             String imagePath = imageFile.toURI().toString();
             Image image = new Image(imagePath);
+            
+            // Add entry
             currentMapOfCharsWithImages.put(keyInt, image);
         }
+        
         return currentMapOfCharsWithImages;
     }
-
-
-    public static Map<Integer, Boolean> readOccupancyData_JonasMap() throws IOException
+    
+    
+    /**
+     * Reads the Occupancy file and creates a map of tile IDs to their occupancy status.
+     * The pictures should contain an individual number at the beginning of the file name.
+     * If a non-number char appears, the numbers afterward will be ignored.
+     *
+     * @return A Map of Integer keys (tile IDs) to Boolean values (occupancy status).
+     * @throws IOException If there's an error reading the file.
+     * @author Jonas Helfer, Michael Markov
+     */
+    public static HashMap<Integer, Boolean> readOccupancyData (String pathToTileData)
     {
-        Map<Integer, Boolean> occupancyData = new HashMap<>();
-        InputStream is = PanelAndTileLoader.class.getResourceAsStream(Constants_Panel.FILE_PATH_TILE_DATA);
-        BufferedReader br = new BufferedReader(new InputStreamReader(is));
-        String line;
-        while ((line = br.readLine()) != null)
+        HashMap<Integer, Boolean> occupancyData = new HashMap<>();
+        
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(pathToTileData)))
         {
-            int tileId = Integer.parseInt(line.trim().substring(Constants_DefaultValues.ZERO, Constants_DefaultValues.THREE));
-            if ((line = br.readLine()) != null)
+            String line;
+            while ((line = bufferedReader.readLine()) != null) // As long as the read line is not empty
             {
-                boolean isOccupied = Boolean.parseBoolean(line.trim());
-                occupancyData.put(tileId, isOccupied);
+                StringBuilder numericPartBuilder = new StringBuilder();
+                for (char c : line.toCharArray()) // Turns the String of the current file name into char array to iterate through
+                {
+                    if (Character.isDigit(c))
+                    {
+                        numericPartBuilder.append(c); // Add if digit
+                    } else
+                    {
+                        break; // If non-digit character detected, stop adding numbers
+                    }
+                }
+                if (numericPartBuilder.length() == Constants_Panel.STARTING_POINT) continue; // If no numbers detected skip current file
+                int tileId = Integer.parseInt(numericPartBuilder.toString()); // Parse digits to Integer
+                
+                if ((line = bufferedReader.readLine()) != null) // Next line after file name is supposed to be a Boolean value
+                {
+                    boolean isOccupied = Boolean.parseBoolean(line.trim()); // Remove whitespaces and parse to Boolean
+                    occupancyData.put(tileId, isOccupied); // Add entry to Map
+                }
             }
+        } catch (FileNotFoundException e)
+        {
+            throw new RuntimeException(e);
+        } catch (IOException e)
+        {
+            throw new RuntimeException(e);
         }
-        br.close();
+        
         return occupancyData;
     }
 }

@@ -106,7 +106,7 @@ public interface Constants_Building
     public static final int BONUS_ZERO = 0;
     public static final int BONUS_TWO = 2;
     public static final int BONUS_FACTOR_TWO = 2;
-    public static final int BONUS_FACTOR_ZERO = 0;
+    public static final int MAX_NUMBER_ARTIFACTS = 2;
 
     int BUTTON_WIDTH_BASECAMP = Constants_Map.TILE_SIZE * 3;
     int BUTTON_HEIGHT_BASECAMP = Constants_Map.TILE_SIZE * 3;
@@ -128,12 +128,9 @@ public interface Constants_Building
     int BUTTON_HEIGHT_PUB = Constants_Map.TILE_SIZE * 4;
     int BUTTON_WIDTH_TRAINING_AREA = Constants_Map.TILE_SIZE * 7;
     int BUTTON_HEIGHT_TRAINING_AREA = Constants_Map.TILE_SIZE * 4;
-
-
-
-
-    //only for the test in the console
-    public static final int INVENTORY_STANDARD = 10;
+    double GRIDPANE_LAYOUT_POSITION_X = 30;
+    double GRIDPANE_LAYOUT_POSITION_Y = 30;
+    int PRICE_MERCENARY = 1;
 
 
     //___________________________________ String_________________________________________________
@@ -183,7 +180,6 @@ public interface Constants_Building
     String EXCHANGE_BRICK_FOR = "For %d bricks you get %d %s.";
     String EXCHANGE_GOLD_FOR = "For %d golds you get %d %s.";
     String EXCHANGE_ESSENCE_FOR = "For %d golds you get %d %s.";
-
-    double GRIDPANE_LAYOUT_POSITION_X = 30;
-    double GRIDPANE_LAYOUT_POSITION_Y = 30;
+    String ERROR_PRICE_MERCENARY = "Get a beer to recruit a mercenary.";
+    String ERROR_NUMBER_OF_ARTIFACTS = "There are already two artifacts.";
 }

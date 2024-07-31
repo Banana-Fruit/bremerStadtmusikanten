@@ -1,8 +1,6 @@
 package model.userInterface.showables;
 
 
-import javafx.beans.property.Property;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -10,6 +8,12 @@ import javafx.scene.paint.Color;
 import resources.constants.scenes.Constants_Showable;
 
 
+/**
+ * Base for anything that can be shown on the screen. Provides methods to set a background, as well as getters for the
+ * Scene and Pane.
+ *
+ * @author Michael Markov
+ */
 public class Showable
 {
     private final Pane pane;
@@ -32,14 +36,14 @@ public class Showable
     }
     
     
-    public void addChildToPane (Node child)
-    {
-        getPane().getChildren().add(child);
-    }
-    
-    
+    /**
+     * Initializer for the Showables.
+     *
+     * @author Michael Markov
+     */
     private void init ()
     {
+        // Sets background to black and pane to root
         this.scene.fillProperty().set(Color.BLACK);
         this.scene.setRoot(pane);
         setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
@@ -52,6 +56,12 @@ public class Showable
     }
     
     
+    /**
+     * Sets background to an image. The image will be aligned to screen size, and centered.
+     *
+     * @param path Path to the Background Image
+     * @author Michael Markov
+     */
     public void setBackground (String path)
     {
         pane.setBackground(new Background(new BackgroundImage(

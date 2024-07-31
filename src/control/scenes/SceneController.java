@@ -4,38 +4,34 @@ package control.scenes;
 import control.BuildingController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import model.buildings.*;
 import model.userInterface.Game;
-import model.userInterface.TransparentButton;
 import model.userInterface.showables.Map;
 import model.userInterface.showables.Showable;
 import utility.GameMenuBar;
 import resources.constants.Constants_ExceptionMessages;
-import resources.constants.scenes.Constants_MainMenu;
 import resources.constants.scenes.Constants_City;
 import resources.constants.scenes.Constants_Showable;
 
 
 /**
- * This controller is responsible for scene switching
+ * This controller is responsible for scene switching and other scene related functions.
+ *
+ * @author Michael Markov
  */
 public class SceneController
 {
     private static SceneController instance = null;
     private final Stage stage;
     private boolean dialogShown = false;
-    private Showable previousShowable = null;
+    private Showable previousShowable = null; // Showable to be tracked
     
     
     private SceneController (Stage stage)
@@ -55,7 +51,16 @@ public class SceneController
         }
     }
 
-    
+
+    /**
+     * Method to build a default scene for the inside of a building. Click on the respective buildig to open
+     * the corresponding scene.
+     *
+     * @author Jule Degener
+     * @param building Building that wants to be visited.
+     * @precondition none
+     * @postcondition The corresponding scene of the inside of the building is shown.
+     */
     public static void buildSceneBuildingInside (Building building)
     {
         GridPane gridpane = new GridPane();
@@ -67,171 +72,124 @@ public class SceneController
         gridpane.setVgap(Constants_City.GRIDPANE_VGAP_INSIDE);
         gridpane.add(goBack, Constants_City.GRIDPANE_ROW_SEVEN, Constants_City.GRIDPANE_COLUMN_ONE);
         gridpane.add(nameOfBuilding, Constants_City.GRIDPANE_ROW_ONE, Constants_City.GRIDPANE_COLUMN_ONE);
-        closeBuildingInside(goBack, SceneController.instance.stage);
-
+        closeBuildingInside(goBack);
+        
         chooseTheRightBuildingInside(building, gridpane);
-
+        
         Scene scene = new Scene(gridpane);
         SceneController.instance.stage.setScene(scene);
         SceneController.instance.stage.setFullScreen(true);
         SceneController.instance.stage.show();
     }
-
-
-    private static void closeBuildingInside (Button button, Stage stage)
+    
+    
+    private static void closeBuildingInside (Button button)
     {
         button.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
-            public void handle(ActionEvent actionEvent)
+            public void handle (ActionEvent actionEvent)
             {
                 SceneController.getInstance().switchShowable(Map.getInstance());
             }
         });
     }
-
-
+    
+    
     private static void chooseTheRightBuildingInside (Building building, GridPane gridpane)
     {
         if (building == BaseCamp.getInstanceOfBasecamp())
         {
             BuildingController.getInsideBaseCamp(gridpane);
-        }
-        else if (building == MagicAmplifier.getInstanceOfMagicamplifier())
+        } else if (building == MagicAmplifier.getInstanceOfMagicamplifier())
         {
             BuildingController.getInsideMagicAmplifier(gridpane);
-        }
-        else if (building == Headquarter.getInstanceOfHeadquarter())
+        } else if (building == Headquarter.getInstanceOfHeadquarter())
         {
             BuildingController.getInsideHeadquarter(gridpane);
-        }
-        else if (building == TrainingArea.getInstanceOfTrainingarea())
+        } else if (building == TrainingArea.getInstanceOfTrainingarea())
         {
             BuildingController.getInsideTrainingsArea(gridpane);
-        }
-        else if (building == Pub.getInstanceOfPub())
+        } else if (building == Pub.getInstanceOfPub())
         {
             BuildingController.getInsidePub(gridpane);
-        }
-        else if (building == FractionCampDog.getInstanceOfFractionDogcamp())
+        } else if (building == FractionCampDog.getInstanceOfFractionDogcamp())
         {
             BuildingController.getInsideFractionCampDog(gridpane);
-        }
-        else if (building == FractionCampCat.getInstanceOfFractionCatCamp())
+        } else if (building == FractionCampCat.getInstanceOfFractionCatCamp())
         {
             BuildingController.getInsideFractionCampCat(gridpane);
-        }
-        else if (building == FractionCampChicken.getInstanceOfFractionChickenCamp())
+        } else if (building == FractionCampChicken.getInstanceOfFractionChickenCamp())
         {
             BuildingController.getInsideFractionCampChicken(gridpane);
+        } else if (building == Forge.getInstanceOfForge())
+        {
+            BuildingController.getInsideForge(gridpane);
+        } else if (building == Marketplace.getInstanceOfMarketplace())
+        {
+            BuildingController.getInsideMarketplace(gridpane);
         }
     }
     
     
+    /**
+     * Creates a base pane with the menu bar.
+     *
+     * @return Base Pane only with the MenuBar.
+     * @author Michael Markov
+     */
     public Pane getBasePane ()
     {
         Pane pane = new Pane();
+        
         // creates a Menu bar with two points (game and settings) and add two menuItems to the point game
         pane.getChildren().add(GameMenuBar.createMenuBar());
+        
         return pane;
     }
-
     
     
-    public void switchShowable(Showable showable)
+    /**
+     * Switches the showable (scene) to another one.
+     *
+     * @param showable Showable to be switched to.
+     * @author Michael Markov
+     */
+    public void switchShowable (Showable showable)
     {
-        this.previousShowable = Game.getInstance().getCurrentShowable();
-        Game.getInstance().setCurrentShowable(showable);
+        this.previousShowable = Game.getInstance().getCurrentShowable(); // Tracks previous showable in case there is a back button
+        Game.getInstance().setCurrentShowable(showable); // Switches showable
+        
+        // Makes sure scene properties are aligned among all scenes
         this.stage.setFullScreen(true);
-        this.stage.setFullScreenExitHint("");
+        this.stage.setFullScreenExitHint(Constants_Showable.HIDE_EXIT_HINT_STRING);
         this.stage.setScene(showable.getScene());
     }
     
     
-    public void switchBackShowable()
+    /**
+     * The previous showable is always tracked. Meaning you can always return back to the previous option.
+     *
+     * @author Michael Markov
+     */
+    public void switchBackShowable ()
     {
-        Showable previousShowable = Game.getInstance().getCurrentShowable();
-        Game.getInstance().setCurrentShowable(this.previousShowable);
+        Showable previousShowable = Game.getInstance().getCurrentShowable(); // Tracks previous showable in case there is a back button
+        Game.getInstance().setCurrentShowable(this.previousShowable); // Switches showable
+        
+        // Makes sure scene properties are aligned among all scenes
         this.stage.setFullScreen(true);
         this.stage.setFullScreenExitHint(Constants_Showable.HIDE_EXIT_HINT_STRING);
         this.stage.setScene(Game.getInstance().getCurrentShowable().getScene());
     }
     
     
-    public boolean isDialogShown()
+    public boolean isDialogShown ()
     {
         return dialogShown;
     }
 
-    public void createYesOrNoButton(String header, Runnable action)
-    {
-        if (dialogShown)
-        {
-            return;
-        }
-
-        Stage dialogStage = new Stage();
-        VBox dialogVbox = new VBox();
-        HBox buttonBox = new HBox();
-        dialogVbox.setSpacing(Constants_MainMenu.VBOX_SPACE_BETWEEN_CHOICE_AND_TEXT);
-
-        Scene dialogScene = new Scene(dialogVbox, Constants_MainMenu.DIALOG_SCENE_WIDTH,
-                Constants_MainMenu.DIALOG_SCENE_HEIGHT);
-        setDialogWindow(dialogStage, dialogVbox, header);
-
-        Text message = new Text(header);
-        message.setFill(Color.WHITE);
-
-        TransparentButton yesButton = new TransparentButton(Constants_MainMenu.YES_BUTTON, () -> {
-            action.run();
-            dialogStage.close();
-            dialogShown = false;
-        },
-                Constants_MainMenu.RC_WIDTH, Constants_MainMenu.RC_HEIGHT, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W);
-
-        TransparentButton noButton = new TransparentButton(Constants_MainMenu.NO_BUTTON, () -> {
-            dialogStage.close();
-            dialogShown = false;
-        },
-                Constants_MainMenu.RC_WIDTH, Constants_MainMenu.RC_HEIGHT, Constants_MainMenu.LINEAR_GRADIENT_OPACITY, Constants_MainMenu.LINEAR_GRADIENT_OPACITY_W);
-
-        arrangeTwoButtonsHorizontal(buttonBox, yesButton, noButton, Constants_MainMenu.SPACE_BETWEEN_YES_NO_BOXES);
-        dialogVbox.getChildren().addAll(message, buttonBox);
-
-        Background background = new Background(new BackgroundFill(Color.rgb(Constants_MainMenu.RGB_SCHWARZ, Constants_MainMenu.RGB_SCHWARZ, Constants_MainMenu.RGB_SCHWARZ, Constants_MainMenu.LINEAR_GRADIENT_OPACITY), CornerRadii.EMPTY, Insets.EMPTY));
-        dialogVbox.setBackground(background);
-
-        showSceneOnStage(dialogScene, dialogStage);
-        dialogShown = true;
-    }
-
-
-    private static void setDialogWindow(Stage dialogStage, VBox dialogVbox, String header)
-    {
-        dialogStage.initStyle(StageStyle.TRANSPARENT);
-        dialogStage.setTitle(header);
-        //set position of the vbox
-        dialogVbox.setAlignment(Pos.CENTER);
-    }
-
-
-    private static void arrangeTwoButtonsHorizontal(HBox buttonBox, TransparentButton button1, TransparentButton button2, int space)
-    {
-        //Position of the HBox
-        buttonBox.setAlignment(Pos.CENTER);
-        buttonBox.setSpacing(space);
-        //add the MenuItems
-        buttonBox.getChildren().addAll(button1, button2);
-    }
-
-    private static void showSceneOnStage(Scene dialogScene, Stage dialogStage)
-    {
-        dialogScene.setFill(Color.TRANSPARENT);
-        dialogStage.setScene(dialogScene);
-        dialogStage.show();
-    }
-
-
+    
     // Method to retrieve the Singleton instance without parameters
     public static SceneController getInstance ()
     {

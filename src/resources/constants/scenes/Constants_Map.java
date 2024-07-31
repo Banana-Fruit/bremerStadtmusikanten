@@ -7,11 +7,6 @@ import utility.ValueConversion;
 
 public interface Constants_Map
 {
-    // File Management
-    String PLAYER_VIEW_STANDARD = "resources/assets/map/player/esel.png";
-    String UNIT_VIEW_STANDARD = "resources/assets/map/player/unit.png";
-    
-    
     int TILE_SIZE = 19;
     int MAX_ROWS = 50;
     int MAX_COLUMNS = 50;
@@ -32,6 +27,15 @@ public interface Constants_Map
     String CONSOLE_PRINT_SWITCHING_MAP = "Switching to map: ";
     String HEADER_JOIN_FIGHT = "Kampf betreten?";
 
+    //Rewards
+    String WOOD = "wood";
+    String BEER = "beer";
+    String BRICK = "brick";
+    String ESSENCE = "essence";
+    String GOLD = "gold";
+
+
+
     //Positioncheck
 
     double PLAYER_AT_LEFT_BORDER = 0.0;
@@ -49,7 +53,7 @@ public interface Constants_Map
 
 
 
-    String REWARD_IMAGE_PATH = "resources/assets/jonas/184_bag_path.png";
+    String REWARD_IMAGE_PATH = "resources/assets/map/grasslands/184_bag_path.png";
 
     double REWARD_COLLECTION_RADIUS = 16;
     int REWARD_GOLD_AMOUNT = 5;
@@ -67,5 +71,6 @@ public interface Constants_Map
     int REWARD_4_POSITION_Y = 5;
     int REWARD_5_POSITION_X = 2;
     int REWARD_5_POSITION_Y = 24;
-    String ARROW_LEFT = "resources/assets/jonas/186_arrow_left.png";
+    String ARROW_LEFT = "resources/assets/map/grasslands/186_arrow_left.png";
+    String UNKNOWN_REWARD = "Unknown reward type: ";
 }

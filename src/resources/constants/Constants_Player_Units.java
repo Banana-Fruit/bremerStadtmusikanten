@@ -11,6 +11,7 @@ public interface Constants_Player_Units
     int ZERO = 0;
     int LAST_INDEX_NUMBER_OF_TEAM = 6;
     int TRAINING_BONUS = 2;
+    int PLAYER_SECOND_ARTIFACT_INDEX = 1;
 
 
     //Strings

@@ -10,6 +10,8 @@ import resources.constants.Constants_Game;
 /**
  * Creates a game, that contains all scenery in its mapOfShowables attribute. Each Showable has an integer key that can
  * be accessed from the Constants. Upon instantiation, a MainMenu will be created and stored inside the list.
+ *
+ * @author Michael Markov
  */
 public class Game
 {
@@ -65,11 +67,5 @@ public class Game
     public String getGameTitle ()
     {
         return gameTitle;
-    }
-    
-    
-    public Stage getStage ()
-    {
-        return stage;
     }
 }

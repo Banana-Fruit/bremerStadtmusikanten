@@ -9,23 +9,43 @@ import resources.constants.Constants_Panel;
 import utility.ValueConversion;
 
 
+/**
+ * PanelView handles the output to the user of the panel.
+ *
+ * @author Michael Markov
+ */
 public class PanelView
 {
+    /**
+     * Adds tiles to given pane.
+     *
+     * @param panel Panel to be shown.
+     * @param pane Pane to show the panel on.
+     * @author Michael Marov
+     */
     public static void addTilesToPane (Panel panel, Pane pane)
     {
-        for (int row = Constants_Panel.MIN_TILE_INDEX; row < panel.getTileArray().length; row++)
+        // Runs through all rows until the limit is reached
+        for (int row = Constants_Panel.MIN_TILE_INDEX; row <= panel.getMaxArrayRows(); row++)
         {
-            for (int column = Constants_Panel.MIN_TILE_INDEX; column < panel.getTileArray()[Constants_Panel.MIN_TILE_INDEX].length; column++)
+            // Runs through all columns until the limit is reached
+            for (int column = Constants_Panel.MIN_TILE_INDEX; column <= panel.getMaxArrayColumns(); column++)
             {
-                if(panel.getTileArray()[row][column].getBackgroundImage() == null) continue;
-                OutputImageView currentOutputImageView = new OutputImageView(
-                        panel.getTileArray()[row][column].getBackgroundImage(),
-                        ValueConversion.getDiagonalSizeFromSquareLength(panel.getTileSize()));
+                // When no image is at current position, skip the iteration
+                if (panel.getTileArray()[row][column].getImage() == null) continue;
                 
+                // Creates new instance of OutputImageView for the current iteration
+                OutputImageView currentOutputImageView = new OutputImageView(
+                        panel.getTileArray()[row][column].getImage(),
+                        ValueConversion.getDiagonalSizeFromSquareLength(panel.getTileSize())
+                );
+                
+                // Determines the position for the current image
                 Coordinate imageCoordinate = PanelController.getInstance().getCoordinateFromPanelTile(panel, row, column);
                 currentOutputImageView.setX(imageCoordinate.getPositionX());
                 currentOutputImageView.setY(imageCoordinate.getPositionY());
                 
+                // Adds the image to the pane
                 pane.getChildren().add(currentOutputImageView);
             }
         }

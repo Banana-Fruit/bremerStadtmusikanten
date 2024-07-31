@@ -10,12 +10,14 @@ import java.util.List;
 
 
 /**
- * An image with a hitbox that moves on the map
+ * The player has an inventory, skills, artifacts and more related things to the player.
+ *
+ * @author Michael Markov
  */
 public class Player
 {
     private static Player instance = null;
-    private ArrayList<Artifact> listOfArtifacts; // TODO: Holds artefacts
+    private ArrayList<Artifact> listOfArtifacts;
     private ArrayList<Unit> teamMember = new ArrayList<>();
     private int magicSkill = Constants_Player_Units.MAGIC_SKILL_OF_PLAYER;
     
@@ -40,26 +42,26 @@ public class Player
         }
         return instance;
     }
-
-
-    public ArrayList<Unit> getTeamMembers()
+    
+    
+    public ArrayList<Unit> getTeamMembers ()
     {
         return teamMember;
     }
-
-
+    
+    
     public ArrayList<Artifact> getListOfArtifacts ()
     {
         return listOfArtifacts;
     }
-
-
+    
+    
     public int getMagicSkill ()
     {
         return magicSkill;
     }
-
-
+    
+    
     public void setMagicSkill (int magicSkill)
     {
         this.magicSkill = magicSkill;

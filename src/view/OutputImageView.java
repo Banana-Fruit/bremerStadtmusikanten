@@ -7,6 +7,11 @@ import model.Coordinate;
 import resources.constants.Constants_DefaultValues;
 
 
+/**
+ * ImageView class with added methods.
+ *
+ * @author Michael Markov
+ */
 public class OutputImageView extends ImageView
 {
     private double diagonalSize;
@@ -22,6 +27,11 @@ public class OutputImageView extends ImageView
     }
     
     
+    /**
+     * Initializer for OutputImageView instances.
+     *
+     * @author Michael Markov
+     */
     private void init ()
     {
         // Compute the current diagonal size of the image
@@ -41,15 +51,14 @@ public class OutputImageView extends ImageView
     }
     
     
+    /**
+     * Setter for coordinates of the image that is shown.
+     *
+     * @param coordinate Coordinate to be set for the ImageView
+     */
     public void setCoordinates (Coordinate coordinate)
     {
         this.setX(coordinate.getPositionX());
         this.setY(coordinate.getPositionY());
-    }
-    
-    
-    public Coordinate getCoordinates ()
-    {
-        return new Coordinate(this.getX(), this.getY());
     }
 }

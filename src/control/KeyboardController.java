@@ -18,6 +18,8 @@ import java.util.Set;
 
 /**
  * The KeyboardController listens to key presses, and routes them to other controllers.
+ *
+ * @author Michael Markov
  */
 public class KeyboardController implements Runnable
 {
@@ -25,7 +27,9 @@ public class KeyboardController implements Runnable
     private final Set<KeyCode> pressedKeys = new HashSet<>();
     
     
-    private KeyboardController () {}
+    private KeyboardController ()
+    {
+    }
     
     
     public static synchronized void initialize ()
@@ -40,6 +44,11 @@ public class KeyboardController implements Runnable
     }
     
     
+    /**
+     * This runnable is responsible for tracing key actions and routing certain actions to other controllers.
+     *
+     * @author Michael Markov
+     */
     @Override
     public void run ()
     {
@@ -51,7 +60,7 @@ public class KeyboardController implements Runnable
                 Thread.sleep(Constants_Game.THREAD_SLEEP_DEFAULT_TIME);
             } catch (InterruptedException e)
             {
-                e.printStackTrace();
+                System.out.println(Constants_ExceptionMessages.KEYBOARD_CONTROLLER_THREAD_WAS_INTERRUPTED);
             }
             
             // Add event listeners for key presses and releases
@@ -81,7 +90,7 @@ public class KeyboardController implements Runnable
                 @Override
                 public void run ()
                 {
-                    if(!pressedKeys.isEmpty())
+                    if (!pressedKeys.isEmpty())
                     {
                         routeToPlayerController(pressedKeys);
                     }
@@ -91,6 +100,12 @@ public class KeyboardController implements Runnable
     }
     
     
+    /**
+     * Method to route player related key presses to the player controller.
+     *
+     * @param pressedKeys Pressed keys that will be routed to the player controller.
+     * @author Michael Markov
+     */
     public void routeToPlayerController (Set<KeyCode> pressedKeys)
     {
         Set<KeyCode> playerRelatedKeys = new HashSet<>();
@@ -100,8 +115,8 @@ public class KeyboardController implements Runnable
         }
         if (!playerRelatedKeys.isEmpty()) PlayerController.getInstance().handleKeyPresses(playerRelatedKeys);
     }
-
-
+    
+    
     public static KeyboardController getInstance ()
     {
         if (instance == null)

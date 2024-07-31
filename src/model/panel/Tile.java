@@ -7,16 +7,25 @@ import resources.constants.Constants_Panel;
 
 /**
  * Tiles contain images, position information, and whether it is occupied (i.e. player can not move on it).
+ *
+ * @author Michael Markov
  */
 public class Tile
 {
-    private final Image backgroundImage;
+    private final Image image;
     private boolean isOccupied = Constants_Panel.DEFAULT_isOCCUPIED;
     
     
-    public Tile (Image backgroundImage)
+    public Tile (Image image)
     {
-        this.backgroundImage = backgroundImage;
+        this.image = image;
+    }
+    
+    
+    public Tile (Image image, boolean isOccupied)
+    {
+        this.image = image;
+        this.isOccupied = isOccupied;
     }
     
     
@@ -26,9 +35,9 @@ public class Tile
     }
     
     
-    public Image getBackgroundImage ()
+    public Image getImage ()
     {
-        return backgroundImage;
+        return image;
     }
     
     

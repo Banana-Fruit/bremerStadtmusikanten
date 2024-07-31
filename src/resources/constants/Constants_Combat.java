@@ -2,9 +2,9 @@ package resources.constants;
 
 public interface Constants_Combat
 {
-    int MAX_ROWS = 10;
-    int MAX_COLUMNS = 20;
-    int TILE_SIZE = 100;
+    int MAX_ROWS = 12;
+    int MAX_COLUMNS = 12;
+    int TILE_SIZE = 65;
     
     
     int RAT = 0;

@@ -4,23 +4,21 @@ package resources.constants;
 public interface Constants_Resources
 {
     // Locations
-    String MAP_LOADER_FILES_FOLDER = "src/resources/assets/map/background/loaderFiles/";
-    String MAP_LOADER_FILES_FOLDER_JONAS_MAP = "src/resources/assets/";
-    String СOMBAT_LOADER_FILES_FOLDER = "src/resources/assets/combat/loaderFiles/";
-    String COMBAT_BACKGROUND_PATH = "resources/assets/combat/grass.png";
+    // Map
+    String PATH_TO_LOADER_FILES_MAP = "src/resources/assets/map/loaderFiles/";
+    String PATH_TO_MAP = "src/resources/assets/map/";
+    String PLAYER_VIEW_STANDARD = "resources/assets/map/player/esel.png";
+    String UNIT_VIEW_STANDARD = "resources/assets/map/unit.png";
+    // Combat
+    String PATH_TO_LOADER_FILES_COMBAT = "src/resources/assets/combat/loaderFiles/";
+    String PATH_TO_COMBAT = "src/resources/assets/combat/";
+    String GRASSLANDS_COMBAT_BACKGROUND_PATH = "resources/assets/combat/grass.png/";
     
-    // Folder names
-    String LOADER_FILES_FOLDER = "loaderFiles/";
+    // Names
+    String TILE_DATA_NAME = "TileData/";
+    String BIOME_NAME_GRASSLANDS = "grasslands/";
+    String LOADER_FILE_NAME_COMBAT = "main.dat/";
     
     // Suffices
     String PNG_SUFFIX = ".png";
-    String LOADER_FILE_SUFFIX = ".dat";
-    
-    String[][] MAP_LOADER_ARRAY = new String[][]
-            {
-            {"", "1", ""},
-            {"Mission_1", "City", "Mission_2"},
-            {"", "4", ""}
-    };
-    String COMBAT_NAME = "main.dat";
 }
