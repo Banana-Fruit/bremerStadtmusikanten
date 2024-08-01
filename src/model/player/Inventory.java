@@ -42,45 +42,6 @@ public class Inventory
     }
 
 
-    /**
-     * Method to reward the player with resources.
-     *
-     * @author Jule Degener
-     * @param gold Resource gold
-     * @param brick Resource brick
-     * @param wood Resource wood
-     * @param beer Resource beer
-     * @param essence Resource essence
-     * @precondition none
-     * @postcondition Reward is added to the current inventory.
-     */
-    public static void getReward (int gold, int brick, int wood, int beer, int essence)
-    {
-        instanceOfInventory.setInventoryGold(instanceOfInventory.getInventoryGold() + gold);
-        instanceOfInventory.setInventoryBrick(instanceOfInventory.getInventoryBeer() + brick);
-        instanceOfInventory.setInventoryWood(instanceOfInventory.getInventoryBeer() + wood);
-        instanceOfInventory.setInventoryBeer(instanceOfInventory.getInventoryBeer() + beer);
-        instanceOfInventory.setInventoryEssence(instanceOfInventory.getInventoryEssence() + essence);
-    }
-
-
-    /**
-     * Method to pay the price of a building with resources of the inventory.
-     *
-     * @author Jule Degener
-     * @param building Building for which payment is made.
-     * @precondition none
-     * @postcondition Price of the building is subtracted from the inventory.
-     */
-    public static void payWithTheInventoryForABuilding (Building building)
-    {
-        instanceOfInventory.setInventoryGold(instanceOfInventory.getInventoryGold() - building.numberOfGold);
-        instanceOfInventory.setInventoryBrick(instanceOfInventory.getInventoryBeer() - building.numberOfBrick);
-        instanceOfInventory.setInventoryWood(instanceOfInventory.getInventoryBeer() - building.numberOfWood);
-        instanceOfInventory.setInventoryBeer(instanceOfInventory.getInventoryBeer() - building.numberOfBeer);
-        instanceOfInventory.setInventoryEssence(instanceOfInventory.getInventoryEssence() - building.numberOfEssence);
-    }
-
 
     /**
      * Getter-method to access of the instance of Inventory.

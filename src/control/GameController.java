@@ -1,6 +1,7 @@
 package control;
 
 
+import control.game.InventoryController;
 import control.game.PlayerController;
 import control.game.UnitController;
 import control.scenes.*;
@@ -76,6 +77,7 @@ public class GameController
         UnitController.initialize();
         MultiplayerController.initialize();
         ArenaController.initialize();
+        InventoryController.initialize();
         
         // Initialise base models
         Combat.initialize(new Scene(SceneController.getInstance().getBasePane()));

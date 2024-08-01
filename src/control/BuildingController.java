@@ -1,6 +1,7 @@
 package control;
 
 
+import control.game.InventoryController;
 import control.game.PlayerController;
 import control.scenes.DisplayController;
 import control.scenes.PanelController;
@@ -186,7 +187,7 @@ public class BuildingController
                 (inventory.getInventoryEssence() >= building.numberOfEssence))
         {
             System.out.println(Constants_Building.BUILDING_UNLOCKED);
-            Inventory.payWithTheInventoryForABuilding(building);
+            InventoryController.payWithTheInventoryForABuilding(building);
             DisplayController.getInstance().updateInventory();
             building.setUnlocked(true);
             return true;
